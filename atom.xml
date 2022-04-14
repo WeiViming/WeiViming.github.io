@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[云中雨雾]]></title>
-  <link href="https://WeiViming.github.io/atom.xml" rel="self"/>
-  <link href="https://WeiViming.github.io/"/>
-  <updated>2022-04-14T11:57:53+08:00</updated>
-  <id>https://WeiViming.github.io/</id>
+  <link href="https://weiviming.github.io/atom.xml" rel="self"/>
+  <link href="https://weiviming.github.io/"/>
+  <updated>2022-04-14T19:59:44+08:00</updated>
+  <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
     
@@ -14,9 +14,9 @@
   
   <entry>
     <title type="html"><![CDATA[BLAZE: 快速隐私保护机器学习]]></title>
-    <link href="https://WeiViming.github.io/16477900515975.html"/>
+    <link href="https://weiviming.github.io/16477900515975.html"/>
     <updated>2022-03-20T23:27:31+08:00</updated>
-    <id>https://WeiViming.github.io/16477900515975.html</id>
+    <id>https://weiviming.github.io/16477900515975.html</id>
     <content type="html"><![CDATA[
 <blockquote>
 <p>今天给大家带来的是Arpita Patra等人发表于NDSS'20上的文章《BLAZE: Blazing Fast Privacy-preserving Machine Learning》, 论文链接: <a href="https://arxiv.org/pdf/2005.09042.pdf">https://arxiv.org/pdf/2005.09042.pdf</a>.</p>
@@ -172,9 +172,9 @@ u&amp;=v.
   
   <entry>
     <title type="html"><![CDATA[安全计算协议的不同安全性区别]]></title>
-    <link href="https://WeiViming.github.io/16460999786637.html"/>
+    <link href="https://weiviming.github.io/16460999786637.html"/>
     <updated>2022-03-01T09:59:38+08:00</updated>
-    <id>https://WeiViming.github.io/16460999786637.html</id>
+    <id>https://weiviming.github.io/16460999786637.html</id>
     <content type="html"><![CDATA[
 <p>在安全多方计算协议的安全性定义中经常可看到三种安全性来刻画隐私保证：完美安全性（Perfect security）、统计安全性（Statistical security）和计算安全性（Computational security）。它们都用于描述现实世界中的协议执行逼近于理想世界中的可信第三方的程度，是对敌手能力的约束。</p>
 <ul>
@@ -197,9 +197,9 @@ u&amp;=v.
   
   <entry>
     <title type="html"><![CDATA[Cheetah: 精简快速安全两方深度神经网络推理]]></title>
-    <link href="https://WeiViming.github.io/16460285618722.html"/>
+    <link href="https://weiviming.github.io/16460285618722.html"/>
     <updated>2022-02-28T14:09:21+08:00</updated>
-    <id>https://WeiViming.github.io/16460285618722.html</id>
+    <id>https://weiviming.github.io/16460285618722.html</id>
     <content type="html"><![CDATA[
 <blockquote>
 <p>今天给大家带来的是来自于<em>USENIX Security'22</em>的一篇文章《Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference》, 作者是来自阿里安全双子座实验室的洪澄博士团队, 文章链接如下: <a href="https://eprint.iacr.org/2022/207">https://eprint.iacr.org/2022/207</a>.</p>
@@ -425,9 +425,9 @@ u&amp;=v.
   
   <entry>
     <title type="html"><![CDATA[SWIFT: 超快速鲁棒隐私保护机器学习]]></title>
-    <link href="https://WeiViming.github.io/16449265418549.html"/>
+    <link href="https://weiviming.github.io/16449265418549.html"/>
     <updated>2022-02-15T20:02:21+08:00</updated>
-    <id>https://WeiViming.github.io/16449265418549.html</id>
+    <id>https://weiviming.github.io/16449265418549.html</id>
     <content type="html"><![CDATA[
 <blockquote>
 <p>2022年元旦初更<em>USENIX Security'21</em>上的一篇文章SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning, 原文链接如下: <a href="https://arxiv.org/abs/2005.10296">https://arxiv.org/abs/2005.10296</a>.</p>
@@ -698,9 +698,9 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
   
   <entry>
     <title type="html"><![CDATA[隐私保护机器学习资料]]></title>
-    <link href="https://WeiViming.github.io/16434684624710.html"/>
+    <link href="https://weiviming.github.io/16434684624710.html"/>
     <updated>2022-01-29T23:01:02+08:00</updated>
-    <id>https://WeiViming.github.io/16434684624710.html</id>
+    <id>https://weiviming.github.io/16434684624710.html</id>
     <content type="html"><![CDATA[
 <h1><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h1>
 <p>This is a current list of resources related to the research and development of privacy-preserving machine learning.</p>
@@ -892,9 +892,9 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
   
   <entry>
     <title type="html"><![CDATA[安全与密码会议排名]]></title>
-    <link href="https://WeiViming.github.io/16425853998520.html"/>
+    <link href="https://weiviming.github.io/16425853998520.html"/>
     <updated>2022-01-19T17:43:19+08:00</updated>
-    <id>https://WeiViming.github.io/16425853998520.html</id>
+    <id>https://weiviming.github.io/16425853998520.html</id>
     <content type="html"><![CDATA[
 <p>根据<a href="https://people.engr.tamu.edu/guofei/sec_conf_stat.htm">Guofei Gu</a>的Computer Security Conference Ranking为主排名, 列出了部分会议的中国计算机协会(CCF)2019年版会议分级和中国密码协会(CACR)2018年版会议分级, 其中CCF分级以网络与信息安全为基准.</p>
 <table>
@@ -1301,9 +1301,9 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
   
   <entry>
     <title type="html"><![CDATA[隐私计算技术路线]]></title>
-    <link href="https://WeiViming.github.io/16414786119962.html"/>
+    <link href="https://weiviming.github.io/16414786119962.html"/>
     <updated>2022-01-06T22:16:51+08:00</updated>
-    <id>https://WeiViming.github.io/16414786119962.html</id>
+    <id>https://weiviming.github.io/16414786119962.html</id>
     <content type="html"><![CDATA[
 <p>根据“大数据联合国全球工作组”(Bigdata UN Global Working Group)的定义, 隐私计算(Privacy-Preserving Computation)是一类技术方案, 在处理和分析计算数据的过程中能保持数据不透明、不泄漏、无法被计算方以及其他非授权方获取. 隐私计算是指在保护数据本身不对外泄漏的前提下实现数据分析计算的技术集合.</p>
 <h2><a id="%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>数据安全法律法规</h2>
@@ -1851,9 +1851,9 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
   
   <entry>
     <title type="html"><![CDATA[Falcom Pastebin Link]]></title>
-    <link href="https://WeiViming.github.io/16410231259573.html"/>
+    <link href="https://weiviming.github.io/16410231259573.html"/>
     <updated>2022-01-01T15:45:25+08:00</updated>
-    <id>https://WeiViming.github.io/16410231259573.html</id>
+    <id>https://weiviming.github.io/16410231259573.html</id>
     <content type="html"><![CDATA[
 <p>Pastebin Link: <a href="https://pastebin.com/G2mswYCt">Click here</a></p>
 <pre class="line-numbers"><code class="language-plain_text">This is the Falcom Pastebin!
@@ -2984,9 +2984,9 @@ Akatsuki no Kiseki assets (Ribose)
   
   <entry>
     <title type="html"><![CDATA[Typora/MWeb中简化数学公式输入]]></title>
-    <link href="https://WeiViming.github.io/16408570070047.html"/>
+    <link href="https://weiviming.github.io/16408570070047.html"/>
     <updated>2021-12-30T17:36:47+08:00</updated>
-    <id>https://WeiViming.github.io/16408570070047.html</id>
+    <id>https://weiviming.github.io/16408570070047.html</id>
     <content type="html"><![CDATA[
 <h2><a id="%E5%9C%BA%E6%99%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>场景</h2>
 <p>通过Typora/MWeb做笔记非常舒适, 特别是理工科, 数学公式多, LaTeX写起来有点费劲. 但尽管如此, 某些情况下某些符号特别多时, 打起来相当麻烦, 但LaTeX却可以通过定义来实现简化, Markdown可以吗? 答案是肯定的.</p>
@@ -3025,9 +3025,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[隐私保护深度学习技术综述]]></title>
-    <link href="https://WeiViming.github.io/16399887107456.html"/>
+    <link href="https://weiviming.github.io/16399887107456.html"/>
     <updated>2021-12-20T16:25:10+08:00</updated>
-    <id>https://WeiViming.github.io/16399887107456.html</id>
+    <id>https://weiviming.github.io/16399887107456.html</id>
     <content type="html"><![CDATA[
 <blockquote>
 <p>今天带来的是一篇综述文章《A Survey on Deep Learning Techniques for Privacy-Preserving》，出自Machine Learning for Cyber Security Workshop。虽然是2019年的文章，但仍有一定参考价值。原文链接：<a href="https://link.springer.com/book/10.1007/978-3-030-30619-9%E3%80%82">https://link.springer.com/book/10.1007/978-3-030-30619-9。</a></p>
@@ -3318,9 +3318,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[图说MPC协议]]></title>
-    <link href="https://WeiViming.github.io/16377612600578.html"/>
+    <link href="https://weiviming.github.io/16377612600578.html"/>
     <updated>2021-11-24T21:41:00+08:00</updated>
-    <id>https://WeiViming.github.io/16377612600578.html</id>
+    <id>https://weiviming.github.io/16377612600578.html</id>
     <content type="html"><![CDATA[
 <p>安全计算的概念源于1982年Yao提出的百万富翁两方安全计算问题, 并在1986年给出了一个两方基于混淆电路构造的解决方案。随后, 由Goldreich等人推广到了安全多方计算(MPC/SMPC)。随后的几十年里, 多方计算技术发展迅速, 并逐渐成为隐私计算的核心技术。</p>
 <p>通常安全计算协议有两种构造方式：
@@ -3336,9 +3336,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[几个Makefile模板]]></title>
-    <link href="https://WeiViming.github.io/16373049349337.html"/>
+    <link href="https://weiviming.github.io/16373049349337.html"/>
     <updated>2021-11-19T14:55:34+08:00</updated>
-    <id>https://WeiViming.github.io/16373049349337.html</id>
+    <id>https://weiviming.github.io/16373049349337.html</id>
     <content type="html"><![CDATA[
 <h2><a id="%E6%A8%A1%E6%9D%BF1" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板1</h2>
 <pre class="line-numbers"><code class="language-makefile">#
@@ -3692,9 +3692,9 @@ uninstall:
   
   <entry>
     <title type="html"><![CDATA[Beamer的若干技巧]]></title>
-    <link href="https://WeiViming.github.io/16372025188365.html"/>
+    <link href="https://weiviming.github.io/16372025188365.html"/>
     <updated>2021-11-18T10:28:38+08:00</updated>
-    <id>https://WeiViming.github.io/16372025188365.html</id>
+    <id>https://weiviming.github.io/16372025188365.html</id>
     <content type="html"><![CDATA[
 <h2><a id="%E6%89%93%E5%BC%80%E8%87%AA%E5%8A%A8%E5%85%A8%E5%B1%8F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>打开自动全屏</h2>
 <p>仅限Acrobat Reader有效.</p>
@@ -3790,9 +3790,9 @@ uninstall:
   
   <entry>
     <title type="html"><![CDATA[终端快捷键笔记]]></title>
-    <link href="https://WeiViming.github.io/16369755197628.html"/>
+    <link href="https://weiviming.github.io/16369755197628.html"/>
     <updated>2021-11-15T19:25:19+08:00</updated>
-    <id>https://WeiViming.github.io/16369755197628.html</id>
+    <id>https://weiviming.github.io/16369755197628.html</id>
     <content type="html"><![CDATA[
 <table>
 <thead>
@@ -3866,9 +3866,9 @@ uninstall:
   
   <entry>
     <title type="html"><![CDATA[Typora文字两侧插入图片]]></title>
-    <link href="https://WeiViming.github.io/16353904758136.html"/>
+    <link href="https://weiviming.github.io/16353904758136.html"/>
     <updated>2021-10-28T11:07:55+08:00</updated>
-    <id>https://WeiViming.github.io/16353904758136.html</id>
+    <id>https://weiviming.github.io/16353904758136.html</id>
     <content type="html"><![CDATA[
 <p>通常使用Typora插入图片时, 如果使用Markdown语法, 则默认图片居中, 文字位于图片下方.</p>
 <p>实际上可以通过HTML语法将图片插入文字两侧. 具体语法如下:</p>
@@ -3887,9 +3887,9 @@ uninstall:
   
   <entry>
     <title type="html"><![CDATA[imagemagick图片处理]]></title>
-    <link href="https://WeiViming.github.io/16348897867509.html"/>
+    <link href="https://weiviming.github.io/16348897867509.html"/>
     <updated>2021-10-22T16:03:06+08:00</updated>
-    <id>https://WeiViming.github.io/16348897867509.html</id>
+    <id>https://weiviming.github.io/16348897867509.html</id>
     <content type="html"><![CDATA[
 <p>imagemagick图片处理包支持Windows/Mac/Linux全平台, 安装简单, <a href="https://www.imagemagick.org/script/index.php">官网在此</a>. 本文记录几例使用方法.</p>
 <h2><a id="%E5%AE%89%E8%A3%85" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装</h2>
@@ -3927,9 +3927,9 @@ convert -append image1.png image2.png output.png
   
   <entry>
     <title type="html"><![CDATA[Fantastic Four: 具有恶意安全的诚实大多数四方安全计算]]></title>
-    <link href="https://WeiViming.github.io/16337773581295.html"/>
+    <link href="https://weiviming.github.io/16337773581295.html"/>
     <updated>2021-10-09T19:02:38+08:00</updated>
-    <id>https://WeiViming.github.io/16337773581295.html</id>
+    <id>https://weiviming.github.io/16337773581295.html</id>
     <content type="html"><![CDATA[
 <blockquote>
 <p>今天给大家带来的是发表于<em>USENIX Security'21</em>的一篇文章<a href="https://www.usenix.org/system/files/sec21-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security</a>, 报告的slide见<a href="https://www.usenix.org/system/files/sec21_slides_dalskov.pdf">这里</a>.</p>
@@ -4098,9 +4098,9 @@ b_i^1, &amp; b_i^0=0 \\
   
   <entry>
     <title type="html"><![CDATA[Windows下不关机重启WSL的方案]]></title>
-    <link href="https://WeiViming.github.io/16307992850154.html"/>
+    <link href="https://weiviming.github.io/16307992850154.html"/>
     <updated>2021-09-05T07:48:05+08:00</updated>
-    <id>https://WeiViming.github.io/16307992850154.html</id>
+    <id>https://weiviming.github.io/16307992850154.html</id>
     <content type="html"><![CDATA[
 <p>在进行C++编程的时候, 偶尔运行程序时socket会锁死, 解决方法如下:</p>
 <h2><a id="%E6%9D%80%E6%AD%BB%E7%9B%B8%E5%85%B3%E8%BF%9B%E7%A8%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>杀死相关进程</h2>
@@ -4120,9 +4120,9 @@ net start lxssManager
   
   <entry>
     <title type="html"><![CDATA[Eigen3使用教程]]></title>
-    <link href="https://WeiViming.github.io/16292930037213.html"/>
+    <link href="https://weiviming.github.io/16292930037213.html"/>
     <updated>2021-08-18T21:23:23+08:00</updated>
-    <id>https://WeiViming.github.io/16292930037213.html</id>
+    <id>https://weiviming.github.io/16292930037213.html</id>
     <content type="html"><![CDATA[
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵定义</h2>
 <pre class="line-numbers"><code class="language-c++">#include &lt;Eigen/Dense&gt;
@@ -4341,9 +4341,9 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
   
   <entry>
     <title type="html"><![CDATA[不经意传输及其优化方案]]></title>
-    <link href="https://WeiViming.github.io/16237676401097.html"/>
+    <link href="https://weiviming.github.io/16237676401097.html"/>
     <updated>2021-06-15T22:34:00+08:00</updated>
-    <id>https://WeiViming.github.io/16237676401097.html</id>
+    <id>https://weiviming.github.io/16237676401097.html</id>
     <content type="html"><![CDATA[
 <blockquote>
 <p>本文整理了美国俄勒冈州立大学电子工程和计算机科学学院副教授Mike Rosulek关于安全多方计算与混淆电路的演讲主题的主要内容, 文中图片均来源于Mike Rosulek的演讲报告幻灯片. 整理如有错误之处, 恳请批评指正, 谢谢!</p>
@@ -4352,16 +4352,16 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
 <p>一个标准的OT协议是一个确定性的功能函数, 输入信息都是由参与方给定的. 一个随机OT(Random OT, ROT)协议是一个随机化的功能函数, \(m_0,m_1,c\)都是协议均匀随机生成而非参与方给定的. Beaver去随机化定理<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>告诉我们, ROT可以很容易地转化为标准OT.  如果我们需要大量的标准OT, 可以通过离线/在线阶段来生成. 首先在离线预计算阶段中生成大量的ROT, 然后在在线阶段中使用Beaver去随机化技巧将ROT转化为确定性的标准OT. 下面我们将介绍Beaver在线阶段的转换方法.</p>
 <h2><a id="beaver%E5%8E%BB%E9%9A%8F%E6%9C%BA%E5%8C%96%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beaver去随机化方案</h2>
 <p>如下图所示, 设预计算阶段的ROT协议使发送方Alice获得两个随机信息\(m_0^r, m_1^r\), 接收方Bob获得\(c^r, m_{c^{r}}^r\), 这里的上标\(r\)与图中的美元符号含义相同, 设在线阶段Alice的需要发送的信息为\(m_0,m_1\), Bob的选择比特为\(c\). Beaver去随机化的主要思想是Alice使用ROT的两个随机信息\(m_0^r, m_1^r\)作为一次一密(OTP)来加密需要他发送的信息\(m_0,m_1\), 并将盲化结果\((x_0,x_1)\)发给Bob. 如果\(c=c^r\), Alice发送的两个信息是\(x_0=m_0^r\oplus m_0, x_1=m_1^r\oplus m_1\), Bob本地计算\(x_c\oplus m_{c^r}^r=x_c\oplus m_c^r=m_c\)即可得到选择比特\(c\)对应的秘密\(m_c\), 但无法获得\(m_{1-c}\). 但如果\(c\neq c^r\), 按照上述步骤我们会发现Bob将无法获得正确的信息, 除非Alice交换\(m_0^r, m_1^r\)来加密\(m_0,m_1\).</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210613125640.png" alt="Beaver Derandomization 1" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/yLE5q8pvsBaG3SU.png" alt="Beaver Derandomization 1" /></p>
 <p>于是很自然地解决办法是, 我们可以让Bob告诉Alice是否有\(c=c^r\), 为此, Bob向Alice发送\(d=c\oplus c^r\), 然后Alice计算\(x_0=m_d^r\oplus m_0,x_1=m_{1\oplus d}^r\oplus m_1\), 并发送\(x_0,x_1\)给Bob, Bob计算\(x_c\oplus m_{c^r}^r=x_c\oplus m_{c\oplus d}^r=m_c\). 正确性容易验证, 若\(d=0\), 说明\(c=c^r\), Alice使用\(m_0^r\)来加密\(m_0\), \(m_1^r\)来加密\(m_1\); 若\(d=1\), 说明\(c\neq c^r\), Alice使用\(m_0^r\)来加密\(m_1\), \(m_1^r\)来加密\(m_0\). 容易看出, Bob这样做是安全的, 因为Alice从\(d\)中无法获知\(c^r\)的具体信息.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210613125443.png" alt="Beaver Derandomization 2" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/hmJYZ3FUMTGNXWC.png" alt="Beaver Derandomization 2" /></p>
 <p>离线阶段的ROT的开销仍然是昂贵的, 但在线阶段由于只有简单的XOR运算, 因此非常快速. 需要特别注意的一点是, 一个ROT实例只能生成一个标准OT实例, 这是因为在线阶段中我们将ROT的输出作为一次一密的密钥来加密参与方所发送的消息, 因此一个ROT只能使用一次.</p>
 <h2><a id="ot%E6%89%A9%E5%B1%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>OT扩展</h2>
 <p>我们先从公钥加密(PKE)说起, 由于公钥加密的开销比对称加密(SKE)的开销大, 因此我们通常通过同时使用PKE和SKE的混合加密来最小化PKE的开销: 首先使用昂贵的PKE加密短密钥\(s\), 然后使用使用\(s\)通过廉价的SKE来加密长信息\(M\). 于是, 通过\(\lambda\)比特的PKE和廉价的SKE, 我们实现了\(N\)比特的PKE, 其中\(\lambda\)代表计算安全参数. 那么, 有没有类似于混合加密的方法, 仅通过\(\lambda\)次OT实例和廉价的SKE来得到大量的OT实例呢? 这就是OT扩展的出发点.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210613165636.png" alt="Analogy" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/VZmk3Ab1nYUaFyQ.png" alt="Analogy" /></p>
 <p>Beaver在1996年提出了OT扩展(OT extension)<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>.  Beaver注意到Yao协议需要的OT数量正比于函数的输入的长度, 我们可以使用混淆电路来构造这样一个OT扩展协议: Alice和Bob分别输入长度为\(\lambda\)比特的\(s_A\)和\(s_B\), 使用\(s_A\oplus s_B\)作为伪随机种子: (1) 生成\(2n\)个随机串, 组成\(n\)对随机消息\((m_{1,0},m_{1,1}),\cdots,(m_{n,0},m_{n,1})\); (2) 选取一个\(n\)比特串\(r\); 最终Alice得到所有随机消息对\(\{m_{i,b}\}_{i,b}\), Bob得到\(r\)以及\(r\)的第\(i\)比特\(r_i\)所对应的消息\(\{m_{i,r_i}\}_i\), 其中\(i\in\{1,\cdots,n\}\), 这里的\(n\gg \lambda\).</p>
 <p>通过这种方式生成的ROT实例数为\(n\), 而实际使用的ROT实例数仅为\(\lambda\), 通常将这部分实际使用的OT实例称为Base OT. 虽然Beaver的OT扩展协议并不实用, 因为需要使用Yao协议对包含大量PRG的布尔电路求值, 但它告诉我们OT扩展的想法是切实可行的.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210613165510.png" alt="Beaver OT extension" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/cBx24Z3QutXjTgV.png" alt="Beaver OT extension" /></p>
 <h2><a id="iknp%E5%8D%8F%E8%AE%AE%E5%8D%8A%E8%AF%9A%E5%AE%9E%E5%AE%89%E5%85%A8%E7%9A%84-ot%E6%89%A9%E5%B1%95%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>IKNP协议: 半诚实安全的OT扩展协议</h2>
 <p>2003年的美密会Yuval Ishai, Joe Kilian, Kobbi Nissim, Erez Petrank共同发表了“Extending Oblivious Transfers Efficiently”, 即著名的IKNP协议<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>, 其原理主要是基于矩阵变换, IKNP协议标志着OT扩展逐渐走向实用.</p>
 <h3><a id="%E5%8D%8F%E8%AE%AE%E6%8F%8F%E8%BF%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>协议描述</h3>
@@ -4371,35 +4371,35 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
 <p>其中\(r_i\)是\(R\)的第\(i\)行. 上式也可以统一写成如下形式:</p>
 \[q_i=t_i\oplus r_i\wedge s, \tag{1}
 \]
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210614092942.png" alt="IKNP 1" /></p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210614135123.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/G4zIcSUHkdR12Q7.png" alt="IKNP 1" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/bQFMHJf95lz2Bc3.png" alt="" /></p>
 <p>我们可以将上述过程抽象成下图的形式: 对于每个\(i\), Bob得到\(t_i\), Alice可以计算\(q_i\)和\(q_i\oplus s\). 根据(1)式的关系, 我们可以将Alice所计算的的\(q_i\)和\(q_i\oplus s\), 根据\( r_i\)的不同, 表示成下图中\(t_i\)与\(s\)关系的形式, 这可以看成是OT扩展中Alice作为发送者所拥有的秘密信息,  而从Bob的视角来看, 他所拥有的\(t_i\)刚好是Alice秘密信息中的其中一个!</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210616073505.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/xub5YZzVDp7heHL.png" alt="" /></p>
 <p>但是, 对于Alice表格的每一行来说, 由于重用\(s\), 导致了关联性.  为此, Alice和Bob可以采用一个随机预言机\(H\)来破坏这种关联性即可. IKNP协议的文章中指出, 实际上不需要更强的RO模型假设, 只需要假设\(H\)是一个关联健壮哈希函数(Correlation Robust Hash Function, CRHF)即可. 给定\(t_1,\cdots,t_n\)和秘密\(s\), \(H(t_1\oplus s),\cdots,H(t_n\oplus s)\)是独立(伪)随机的, 通常称该性质为关联健壮性(Correlation Robustness), 而满足这种性质的哈希函数称为关联健壮哈希函数. 以上便是完整的IKNP协议的全过程.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210614132339.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/LfZsUSBMEjYPArd.png" alt="" /></p>
 <p>如果从更高的视角来看IKNP协议, 可以想象一下我们有一个\(n\times \lambda\)维的高瘦矩阵, 其中\(n\gg \lambda\). 我们通过对矩阵的每列进行\(\lambda\)次Base OT实例, 每次传输一个\(n\)比特长的串,通过逐行计算\(H\)来扩展随机OT实例. 很容易通过Beaver Derandomization Theorem将该随机OT扩展转换为标准OT扩展, 这里不做过多说明.</p>
 <h3><a id="%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>协议的安全性</h3>
 <p>安全性方面, IKNP协议是半诚实安全的. 具体而言, Alice可以是恶意的, 但Bob只能是半诚实的, 下面将介绍如果Bob是恶意的, IKNP协议会存在的问题.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210614153337.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/XcDBf8UYn16GhT5.png" alt="" /></p>
 <p>如上图所示, 假设Bob在生成选择比特矩阵时, 在第二行的图示位置篡改了其中一比特. Alice和Bob在第二行有一比特不一致, 当且仅当Alice在Base OT中输入的\(s\)的第二个比特\(s_2=1\). 若Alice对该行进行Hash运算并在其他大型协议中使用这些结果而被Bob检测到, 则Bob将能得到\(s\)的一比特信息! Bob通过使用类似地方法, 在每列的不同位置篡改一个比特, 便可以获得Alice在该OT扩展协议中唯一的秘密信息\(s\), 进而攻破整个OT扩展协议. 因此, IKNP协议仅是半诚实安全的.</p>
 <h2><a id="kos%E5%8D%8F%E8%AE%AE%E6%81%B6%E6%84%8F%E5%AE%89%E5%85%A8%E7%9A%84-iknp%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>KOS协议: 恶意安全的IKNP协议</h2>
 <p>回顾IKNP协议的等式\(q_i=t_i\oplus R_i\wedge s\)和恶意敌手Bob的整个攻击过程, 这是由于\(R\)的第\(i\)行\(R_i\)所有元素不一致造成的. 若\(R_i\)的汉明重量(Hamming Weight)很低, 那么Bob可以通过观察\(H(q_i)\)来猜测(或检查)\(s\)的某些比特. 那么, 如何保证Bob在协议中使用的\(R_i\in\{0^n,1^n\}\)呢? Keller, Orsini, Scholl发表于2015年美密会的一致性检查(Consistency check)技术<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>可以做到这一点.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210614211350.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/wH2WV8PlMBYhsqg.png" alt="" /></p>
 <p>如下图所示, 由于IKNP等式\(q_i=t_i\oplus R_i\wedge s\)对矩阵的所有行\(i\)都成立且所有行的\(s\)都相同, 因此这些行数集合组成的子集\(C\)所对应的式子求异或之和后该等式仍然是成立的, 即有以下等式</p>
 \[(\bigoplus_{i\in C} q_i)=(\bigoplus_{i\in C} t_i)\oplus(\bigoplus_{i\in C} R_i)\wedge s, \tag{2} 
 \]
 <p>为此, Alice可以发起挑战, 选取随机行数组成的集合\(C\)发给Bob. Bob计算\(t^*=\bigoplus_{i\in C}t_i, R^*=\bigoplus_{i\in C}R_i\), 并发送\(t^*,R^*\)给Alice作为应答. 由于Alice有\(s\)和\(q_i\), 因此她可以计算\(q^*=\bigoplus_{i\in C}q_i\), 并验证等式(2)是否成立. KOS协议的一致性检查的主要思想在于如果\(R_i\in\{0^n,1^n\}\), 那么对于行的任意组合来说其异或和的结果必然也属于\(\{0^n,1^n\}\)这个集合; 如果存在某个\(R_i\)不属于这个集合, 那么Bob将有1/2的概率通过一致性检查从而作弊成功, 此外, Bob也可以通过猜测\(s\)使其发送的信息\(t^*,R^*\)通过一致性检查, 为此只需将一致性检查重复\(\lambda=128\)次, 如果Bob能通过所有的一致性检查, 则Alice可以认为Bob输入的\(R_i\)确实是属于\(\{0^n,1^n\}\)这个集合的. 但是, 该一致性检查技术的每次检查会泄露矩阵\(R\)的一比特信息, 为此Bob只需添加\(\lambda=128\)个额外的随机行到\(R\)中来盲化应答.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210614214604.png" alt="KOS Protocol" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/qKyuORGCoISzdbs.png" alt="KOS Protocol" /></p>
 <p>KOS协议针对半诚实安全的IKNP协议进行了改进, 通过引入一致性检查, 实现了恶意安全的IKNP协议. KOS协议也是目前已知最快的恶意安全的IKNP型OT扩展协议, 其通信开销几乎和半诚实安全的通信开销相同.</p>
 <h2><a id="1-out-of-n-ot%E6%89%A9%E5%B1%95%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>1-out-of-\(N\) OT扩展协议</h2>
 <p>以上所介绍的OT协议都是随机2选1的OT扩展协议, 即1-out-of-2 OT extension. 下面我们考虑通过Kolesnikov和Kumaresan发表在2013年美密会的方案<sup class="footnote-ref"><a href="#fn6" id="fnref6">6</a></sup>, 从编码的角度可以将IKNP协议推广到随机1-out-of-\(N\) OT扩展协议.</p>
 <h3><a id="%E4%BB%8E%E7%BC%96%E7%A0%81%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8Biknp%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>从编码的角度看IKNP协议</h3>
 <p>在IKNP协议中, Bob有一个选择比特串\(r\), 将其扩充为一个矩阵并进行秘密共享. KK13中指出, IKNP协议将Bob选择比特扩充为矩阵的步骤, 将0映射为\(0^\lambda\), 1映射为\(1^\lambda\), 这是一种简单的重复码(repetition code), 如果将其视为一种纠错码, 或许我们可以采用不同的纠错码进行推广.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210615151455.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/L5H2tf94EnsDUVa.png" alt="" /></p>
 <p>首先, 我们从编码的角度来看IKNP协议, Bob拥有选择比特串\(r\), 设\(C:\{0,1\}^1\to\{0,1\}^\lambda\)是用于编码Bob的选择比特\(r_i\)的重复码, 然后对该码字矩阵进行秘密分享. 设Bob的秘密分享矩阵为\(T,T'\), 则矩阵的元素可分别表示为\(t_i,t_i\oplus C(r_i)\). 这样, IKNP等式(1)可以推广为如下形式</p>
 \[t_i=q_i\oplus C(r_i)\wedge s. \tag{3}
 \]
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210615154333.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/d2SbUki5ayjFHwn.png" alt="" /></p>
 <p>在双方执行完Base OT后, 对于矩阵的第\(i\)行, Bob已知\(t_i\), Alice已知\(q_i\oplus C(0)\wedge s\)和 \(q_i\oplus C(1)\wedge s.\)</p>
 <p>从Bob的视角, 利用等式(3), 可重写Alice的两个值为</p>
 \[{\color{red}t_i\oplus C(r_i)\wedge s}\oplus C(0)\wedge s, \qquad{\color{red}t_i\oplus C(r_i)\wedge s}\oplus C(1)\wedge s.
@@ -4415,7 +4415,7 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
 \[H(t_i), \qquad H(t_i\oplus C(1)\wedge s).
 \]
 <p>而Bob的值则变为\(H(t_i)\).</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210615170555.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/CguR7xZfXeoUEhG.png" alt="" /></p>
 <h3><a id="iknp%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%8E%A8%E5%B9%BF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>IKNP协议的推广</h3>
 <p>下面我们考虑选取其他编码方案, 为了方便说明, 我们考虑一个简单编码方案: \(C:\{0,1\}^3\to \{0,1\}^k\), 即此时\(r_i\in\{0,1\}^3\), 总共8种取值. 对于矩阵的第\(i\)行, Alice可以计算8个值:</p>
 \[q_i\oplus C(000)\wedge s, q_i\oplus C(001)\wedge s,\cdots,q_i\oplus C(111)\wedge s. 
@@ -4424,15 +4424,15 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
 \[H(t_i\oplus C(r_i\oplus 000)\wedge s),H(t_i\oplus C(r_i\oplus 001)\wedge s ),\cdots,H(t_i\oplus C(r_i\oplus 111)\wedge s).
 \]
 <p>Bob根据\(r_i\)的值通过Base OT可以得到\( H(q_i\oplus C(r_i)\wedge s)\). 对于已知的\(t\)和码字\(c\), Bob只知道其他值形式为\(t\oplus c\wedge s\). 在RO模型中, 若所有非零码字\(c_i\)的汉明重量都满足大于或等于\(\lambda\), 则\(H(t_1\oplus c_1\wedge s),\cdots,H(t_n\oplus c_n\wedge s)\)是伪随机的, 这样其他值在Bob的视角看来都是随机的, 因此可以保证方案的安全性.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210615195018.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/poPIgDKirq5VjF6.png" alt="" /></p>
 <p>KK13的文章中的一个重要结论是: 一个最小码距为\(\lambda\)的编码\(C:\{0,1\}^\ell\to \{0,1\}^k\), 通过\(k\)次Base OT, 可以给出一个(随机)1-out-of-\(2^\ell\)的OT扩展协议, 这里的最小码距与安全性相关, 通常取为计算安全参数\(\lambda\). 他们指出, 通过使用最小码距为128的Walsh-Hadamard码\(C:\{0,1\}^8\to\{0,1\}^{256}\),  可以给出一个随机1-out-of-256 OT扩展协议, 这是一个半诚实安全的协议.</p>
 <p>此外, Orru, Orsini和Scholl于2016年的工作中<sup class="footnote-ref"><a href="#fn7" id="fnref7">7</a></sup>指出, 通过使用最小码距为171的BCH码\(C:\{0,1\}^{76}\to \{0,1\}^{512}\), 可以给出一个随机1-out-of-\(2^{76}\) OT扩展协议, 他们同时给出了半诚实安全和恶意安全下的版本.</p>
 <p>同年的CCS会议上, Kolesnikov, Kumaresan, Rosulek和Trieu的工作<sup class="footnote-ref"><a href="#fn8" id="fnref8">8</a></sup>中指出, 在半诚实模型下, 我们不需要编码\(C\)的线性性质, 由于协议过程不需要译码, 因此也不需要\(C\)的纠错性质, 而只要\(C\)能以压倒性概率保证汉明重量大于等于计算安全参数即可, 因此可以使用任意输入长度的伪随机函数\(C:\{0,1\}^{\color{red} *}\to \{0,1\}^{\sim480}\)来取代编码\(C\), 这样, 我们可以构造一个半诚实安全的随机\(\infty\)-out-of-1 OT扩展协议, 这里的伪随机函数\(C\)也被称为伪随机编码(Pseudo-Random Code, PRC).</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210615213335.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/l216sGHEeqfAmCw.png" alt="" /></p>
 <h3><a id="%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>性能比较</h3>
 <p>以下是1-out-of-2和1-out-of-\(N\) OT扩展协议在不同安全模型下的对比. 结论: OT是廉价的!</p>
 <p>相关代码参见Github: <a href="https://github.com/osu-crypto/libOTe">osu-crypto/libOTe: A fast, portable, and easy to use Oblivious Transfer Library (github.com)</a>.</p>
-<p><img src="https://gitee.com/vimingwei/pic-go/raw/master/images/20210615220628.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/14/uORHp31oYUmiSyC.png" alt="" /></p>
 <h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
 <section class="footnotes">
 <ol>
