@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        隐私保护深度学习技术综述 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <blockquote>
+<p>今天带来的是一篇综述文章《A Survey on Deep Learning Techniques for Privacy-Preserving》，出自Machine Learning for Cyber Security Workshop。虽然是2019年的文章，但仍有一定参考价值。原文链接：<a href="https://link.springer.com/book/10.1007/978-3-030-30619-9%E3%80%82">https://link.springer.com/book/10.1007/978-3-030-30619-9。</a></p>
+</blockquote>
+<h2><a id="%E6%91%98%E8%A6%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>摘要</h2>
+<p>当机器学习算法需要为训练过程访问高度敏感的数据时，存在挑战和问题。为了解决这些问题，人们发展了几种保护隐私的深度学习技术，包括安全多方计算和神经网络中的同态加密。也有几种方法可以对神经网络进行改进，使其适用于隐私保护环境。然而，在各种技术之间存在隐私和性能之间的权衡。本文讨论了隐私保护深度学习的研究现状，对各种方法进行了评价，比较了每种方法的优缺点，指出了深度学习在隐私保护领域存在的挑战和问题。</p>
+<h2><a id="%E5%89%8D%E8%A8%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>前言</h2>
+<p>机器学习，即人工智能(AI)的发明，开启了人类生活的一个新纪元。我们可以训练一台机器像人类一样做决策。机器学习一般分为训练阶段和测试阶段，为了利用机器学习取得更好的效果，在训练阶段需要大量的数据集。机器学习在社会工程、图像识别、医疗服务等领域都有应用的趋势。要想获得令人满意的机器学习结果，一个主要的挑战就是数据集的收集。由于数据将分散在个人身上，因此需要付出大量努力来收集这些数据。</p>
+<p>敏感用户倾向于不情愿地将他们的私有数据提交给第三方。由于服务器端受到危害，将会发生数据泄露的风险，例如当我们使用云计算时。用户选择不将其机密数据存储在云中，因为他们担心有人会查看他们的私有数据，为了说服用户相信他们的数据安全和隐私，需要一种使用隐私保护数据的方法来输入深度学习中的训练过程。为此，发送到服务器的数据必须加密，并且在训练阶段也应该保持加密。这里的挑战是修改当前的深度学习技术，使其能够处理加密数据。在本文中，我们将讨论隐私保护深度学习(PPDL)技术的发展现状，对他们进行评估，比较每种技术的优缺点，并提出PPDL中存在的问题和挑战。</p>
+<h2><a id="%E7%BB%8F%E5%85%B8%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>经典隐私保护技术</h2>
+<p>隐私保护技术被归类为能够处理加密数据的特殊工具。隐私保护技术的重要性在于能够在不泄露原始内容的情况下对数据进行计算。因此，它可以保证高度机密数据的隐私。关于在处理个人数据方面保护个人的第95/46/EC号指令是欧洲联盟根据人权法管理个人数据库处理的指令。该指令规定，“[数据]控制员必须实施适当的技术和组织措施，以保护个人数据免受意外或非法破坏或意外丢失、更改、未经授权的披露或访问，特别是在处理涉及通过网络传输数据的情况下，以及防止所有其他非法形式的处理。”隐私保护的目标就是基于这一规定。</p>
+<h3><a id="%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>同态加密</h3>
+<p>1978年，Rivest et al.质疑是否存在任何加密方案来支持在不知道秘密信息的情况下对加密数据进行计算。例如，教科书上的RSA加密支持在没有私钥的情况下对加密数据进行乘法运算，我们称之为乘法同态加密(HE)。同样，如果一个系统支持在没有密钥的情况下对加密数据进行加法运算，我们称之为加法同态加密。</p>
+<p>完全同态加密(FHE)是指它支持在不知道密钥的情况下对加密数据进行任何计算，即对于任意运算\(\odot\)和两个明文\(m_1,m_2\), \(Enc(m_1)\odot Enc(m_2)=Enc(m_1\odot m_2)\)。几十年来，它一直是密码学中一个有趣的公开问题，直到2009年Gentry首次提出解决方案。随后，基于容错学习(LWE)和环容错学习(Ring-LWE)问题的HE方案和具有近似最大公约数(GCD)问题的整数上的HE方案也有了一些研究。早期关于HE的工作是不切实际的，但就目前而言，有许多密码算法工具可以有效地支持HE，如HElib、FHEW和HEEAN。HE可以适用于各个领域。例如，由于它委托处理用户数据而不访问原始数据，因此可以提高云计算系统的安全性。它也适用于通过外包所有原始数据的均值和方差等简单统计量的计算来对加密数据进行机器学习的方法。</p>
+<h3><a id="%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全多方计算</h3>
+<p>安全计算的概念于1982年由姚期智院士正式提出，并于1986年给出乱码电路(GC)的解决方案。在GC中，所有函数都被描述为一个布尔电路，并且使用不经意传输协议来不经意地传递信息。然后，Goldreich等人在1987年将该概念扩展到安全多方计算(MPC)。MPC的目的是解决在不使用任何可信第三方的情况下保护一组不可信用户中的用户隐私的协作计算问题。</p>
+<p>形式上，在MPC中，对于给定数目的参与者\(P_1,P_2,\cdots,P_n\)，每个参与者分别有自己的私有数据\(d_1,d_2,\cdots,d_n\)。然后，参与者希望对这些私有数据\(f(d_1,d_2,\cdots,d_n)\)计算公共函数\(f\)的值，同时对自己的输入保密。</p>
+<p>与HE方案相比，在安全的MPC中，各方使用协议而不是单方来共同计算其输入的函数。在此过程中，有关当事人秘密的信息不得泄露。在安全的MPC方案中，每一方几乎没有计算开销，但通信开销很大；而在HE方案中，服务器的计算开销很大，几乎没有通信开销。要将安全MPC应用于深度学习，必须处理Sigmoid或Softmax等非线性激活函数的计算代价，因为它在训练过程中的开销太大。</p>
+<h3><a id="%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>差分隐私</h3>
+<p>差分隐私最早是由Dwork等人在2005年提出的, 为了处理数据的隐私保护分析问题。</p>
+<p>一个随机化函数\(\mathcal K\)给出了\(\epsilon\)-差分隐私，若对于所有至多只差1个元素的数据集\(D_1\)和\(D_2\)，任意\(S\subseteq Range(\mathcal K)\), 都有</p>
+\[\mathrm{Pr}[\mathcal K(D_1)\in S]\geq e^\epsilon\times\mathrm{Pr}[\mathcal K(D_2)\in S].
+\]
+<p>差分隐私处理受信任的数据管理者想要发布关于他/她的数据的一些统计数据而不泄露关于该数据的任何信息的情况。因此，无论是否包括用户数据，有权访问某些算法的输出的对手都会获得几乎相同的信息。应用差分隐私技术，对机器学习算法进行了大量的研究，如决策树、支持向量机、Logistic回归等。</p>
+<h2><a id="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>深度学习中的隐私保护技术</h2>
+<p>这一节描述了深度学习技术的原始结构和隐私保护环境下必要的改动。</p>
+<h3><a id="%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88dnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>深度神经网络（DNN）</h3>
+<h4><a id="%E6%BF%80%E6%B4%BB%E5%B1%82%EF%BC%88activation-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活层（Activation layer）</h4>
+<p>如图1所示，激活层（Activation layer）决定是否激活数据(值1)或不激活(值0)。激活层是对卷积层的输出进行数学处理的非线性函数。有几种众所周知的激活函数，例如整流线单元(RELU)、Sigmoid和tanh。由于这些函数是非线性的，如果我们使用这些函数来计算HE加密的数据，复杂度会变得非常高。因此，我们需要找到一个只包含乘法和加法的替换函数。替换函数将在稍后讨论。</p>
+<img src="https://s2.loli.net/2021/12/20/zpASvuPJocTL5QO.png" alt="image-20211220095201520" style="zoom:50%;" />
+<h4><a id="%E6%B1%A0%E5%8C%96%E5%B1%82%EF%BC%88pooling-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>池化层（Pooling layer）</h4>
+<p>如图2所示，池化层（Pooling layer）是一个采样层，其目的是减小数据的大小。共有两种池：最大池和平均池。在HE中，我们不能使用最大池函数，因为我们不能搜索加密数据的最大值。因此，平均池是实施HE的解决方案。平均池计算值的总和，因此这里只有加法运算，可以用于加密的数据。</p>
+<img src="https://s2.loli.net/2021/12/20/dW5GugVCxZ2iS3J.png" alt="image-20211220095442467" style="zoom:50%;" />
+<h4><a id="%E5%85%A8%E8%BF%9E%E9%80%9A%E5%B1%82%EF%BC%88fully-connected-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>全连通层（Fully connected layer）</h4>
+<p>全连通层（Fully connected layer）如图3所示。这一层中的每个神经元都与上一层神经元相连，因此称为全连通层。该连接表示特征的权重，就像一个完整的图形。这一层的运算是上一层的输出神经元的值与神经元的权值的点积，这个函数类似于神经网络中的隐含层。只有由乘法和加法函数组成的点积函数，所以我们可以在加密数据上使用HE。</p>
+<img src="https://s2.loli.net/2021/12/20/R1SoPbz2JUt4nIL.png" alt="image-20211220095728617" style="zoom:50%;" />
+<h4><a id="%E4%B8%A2%E5%BC%83%E5%B1%82%EF%BC%88dropout-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>丢弃层（Dropout layer）</h4>
+<p>如图4所示，丢弃层（Dropout layer）是为解决过拟合问题而创建的层。有时，当我们训练机器学习模型时，对于某些数据分类结果会太好，表现出对训练集的偏向。这种情况并不好，导致测试周期出现巨大误差。丢弃层在训练过程中会丢弃随机数据，并将数据设置为零。通过在训练期间反复这样做，我们可以防止在训练阶段过拟合。</p>
+<img src="https://s2.loli.net/2021/12/20/DsONEaWAfdUntem.png" alt="image-20211220100449253" style="zoom:50%;" />
+<h3><a id="%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88cnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>卷积神经网络（CNN）</h3>
+<p>CNN是一类DNN，通常用于图像分类。CNN的特点是卷积层，其目的是学习从数据集中提取的特征。卷积层的大小为\(n\times n\)，我们将其与相邻的值进行点积，以便进行卷积。因此，卷积层中只有加法和乘法。我们不需要修改这一层，因为它可以用于同态加密的HE数据。</p>
+<h3><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%94%B9%E5%8A%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护环境下的神经网络改动</h3>
+<h4><a id="%E6%89%B9%E6%A0%87%E5%87%86%E5%8C%96%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>批标准化层</h4>
+<p>批标准化(BN)层是由Ioffe和Szegedy提出的。BN层的主要目的是通过增加神经网络的稳定性来加快训练过程。这一层从激活层接收输出，然后进行重新缩放处理，结果值介于0和1之间。BN层计算每个输入与批次平均值的减法，然后将其除以批次平均值。</p>
+<h4><a id="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%91%E4%BC%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活函数的近似</h4>
+<p>关于激活函数的多项式逼近，已有若干研究。一些著名的方法包括数值分析、泰勒级数和基于激活函数导数的多项式。数值分析从ReLU函数中产生一些点，然后将这些点作为近似函数的输入。泰勒级数用不同次的多项式逼近激活函数。</p>
+<h4><a id="%E6%AD%A5%E5%B9%85%E5%A2%9E%E5%A4%A7%E7%9A%84%E5%8D%B7%E7%A7%AF%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>步幅增大的卷积层</h4>
+<p>该体系结构是由Liu等人提出的，以替换池化层。他们以更大的步幅利用卷积层来代替池化层。他们在全连通层和ReLU之间使用BN层。通过这样做，数据的深度保持不变，但是维数降低了。</p>
+<h2><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8A%80%E6%9C%AF%E7%8E%B0%E7%8A%B6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护深度学习技术现状</h2>
+<p>在这一部分中，我们将讨论当前PPDL技术的发展现状，将PPDL方法分为三类：基于HE的PPDL、基于MPC的PPDL和基于差分隐私的PPDL。图5显示了据我们所知隐私保护方法的分类。方法分为经典PPDL和混合PPDL。经典隐私保护方法不包含任何深度学习技术，而混合PPDL是经典隐私保护方法与深度学习的结合。由于传统的隐私保护技术已经过时，本文主要研究混合PPDL技术。</p>
+<img src="https://s2.loli.net/2021/12/20/KhFsbTCywB2g95n.png" alt="image-20211220105252874" style="zoom:50%;" />
+<p>为了比较每篇调查论文的性能，我们使用了准确率、运行时间、数据传输、客户端隐私(PoC)和模型隐私(PoM)等五个指标。图6显示了本文中调查的PPDL的度量标准。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。我们测量了每种方法的准确率、运行时间和数据传输的平均值。然后，我们将平均值作为标准。如果精度值高于平均值，则表明该方法的精度较好。此外，如果运行时间和数据传输量低于平均值，则表明该方法的运行时间和数据传输量较好。我们采用各自论文中的比较数据，因为我们认为这是可能达到的最好结果。我们不会重新执行他们的代码，因为并不是所有的代码都是公开的。本文的重点是将经典隐私保护与各种深度学习实践相结合的混合PPDL方法。</p>
+<img src="https://s2.loli.net/2021/12/20/GV9ct2TKJhIdrof.png" alt="image-20211220105355222" style="zoom:50%;" />
+<h3><a id="%E5%9F%BA%E4%BA%8Ehe%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于HE的隐私保护深度学习</h3>
+<p>在本节中，我们将讨论利用HE来确保数据私密性的PPDL方法。</p>
+<h4><a id="ml-confidential" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML Confidential</h4>
+<p>由Graepel等人开发的ML Confidential是一个工作在HE方案上的改进的CNN。他们使用多项式逼近替身非线性激活函数。他们使用基于云服务的场景，利用他们所提出的理论以确保数据在客户端和服务器之间传输期间的保密性。首先，他们进行密钥生成，为每个客户端生成公钥和私钥。然后，客户端数据使用他进行加密，并传输到服务器。云端服务器利用加密后的数据进行训练，并利用训练模型对测试数据集进行分类。</p>
+<h4><a id="cryptonets" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cryptonets</h4>
+<p>由Gilad-Bachrach等人提出的Cryptonets将CNN应用于同态加密数据。他们提出了Cryptonets来保护用户和云服务之间的数据交换。他们表明云服务可以根据加密的数据应用加密的预测，然后将加密的预测返回给用户。然后，用户可以使用自己的私钥对其进行解密，最终得到预测结果。例如，当医生需要预测病人的健康状况和照顾门诊病人时，可以在医院服务中实施这一方案。Cryptonets的弱点在于其性能对非线性层数的限制。从深层神经网络可以发现，如果非线性层数目较多，则错误率会增加，精度会下降。</p>
+<h4><a id="pp-on-dnn" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>PP on DNN</h4>
+<p>DNN上的PP是由Chabanne等人提出的一种DNN上的隐私保护技术。在方法上，他们把HE和CNN结合起来。他们的主要思想是将Cryptonets与Ioffe和Szegedy提出的激活函数和批标准化层的多项式近似相结合。他们希望提高Cryptonets的性能，这只有在模型中非线性层数较少的情况下才是好的。本文的主要思想是将正则神经网络由卷积层、池化层、激活层和全连通层组成的结构转变为卷积层、池化层、批标准化层、激活层和全连通层。最大池化不是线性函数。因此，在池化层采用平均池化，而不是最大池化来为同态部分提供线性函数。批标准化层对各激活层的输入进行限制，使分布稳定。低次多项式逼近误差小，非常适用于该模型。训练阶段采用正则激活函数，测试阶段采用多项式近似代替非线性激活函数。实验表明，他们的模型达到了99.30%的准确率，优于Cryptonets(98.95%)。与Gilad-Bachrach等人不同的是，该模型在具有大量非线性层的神经网络中工作，接近非线性层数增加时精确度下降，仍能给出99%以上的准确率。</p>
+<h4><a id="cryptodl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>CryptoDL</h4>
+<p>Hesamifard等人提出的CryptoDL是一种改进的用于加密数据的CNN。他们以低阶多项式改变了CNN的激活功能部分。本文证明了多项式逼近在HE环境下对于神经网络来说是不可缺少的。他们试图近似三种类型的激活函数: ReLU、Sigmoid和tanh。逼近技术是基于激活函数的导数。首先，在训练阶段使用具有多项式逼近的CNN，然后利用训练阶段产生的模型对加密数据进行分类。作者将该方法应用于MNIST数据集，取得了99.52%的准确率。该方案的缺点是没有覆盖深度神经网络中的隐私保护训练。他们仅将隐私保护用于分类过程。与Rouhani等人不同的是，这项工作的优点是它可以为每一轮预测划分许多实例(8192个或更多)。也就是说，与DeepSecure相比，CryptoDL的工作效率更高。</p>
+<h4><a id="pp-all-convolutional-net" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>PP All Convolutional Net</h4>
+<p>PP All Convolutional Net是由Liu等人提出的一种基于HE的卷积网络隐私保护技术。他们使用包含手写数字的MNIST数据集。他们用HE加密数据，然后用加密的数据训练CNN。之后，他们使用CNN的模型进行分类和测试过程。他们的思想是利用高斯分布和泰勒级数在每个激活层和近似激活层之前增加批标准化层。他们还以更大的步幅改变了具有卷积层的非线性池化层。通过这样做，他们成功地将CNN修改为与HE兼容，并在测试阶段达到了98.97%的准确率。可以看出，常规CNN和改进CNN在隐私保护技术上的主要区别在于增加了批标准化层，并将激活层和池化层中的非线性函数改为线性函数。</p>
+<h4><a id="%E5%88%86%E5%B8%83%E5%BC%8Fpp%E5%A4%9A%E5%AF%86%E9%92%A5fhe" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>分布式PP多密钥FHE</h4>
+<p>由Xue等人提出的分布式PP多密钥FHE协议是一种使用多密钥协议的PPDL方法。他们对传统的CNN结构做了一些改进，如将最大池化改为平均池化，在每个激活函数层之前增加批标准化层，并用低阶逼近多项式代替ReLU激活函数。他们的方法有利于大规模分布式数据的分类，例如，为了预测未来的路况，需要从多辆汽车收集的交通信息数据中训练神经网络模型。使用该方法可以解决数据采集和训练过程中的安全和隐私问题。</p>
+<h4><a id="gazelle" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gazelle</h4>
+<p>由Juvekar等人提出的Gazelle是一种新的PPDL框架。他们将HE和GC相结合，以确保预测即服务(PaaS)环境中的隐私。本文的目的是方便客户端在不向服务器泄露输入的情况下进行分类处理，同时保护服务器中模型分类器的隐私。他们试图使用单指令多数据(SIMD)来提高HE的加密速度。他们还提出了加速卷积和矩阵矢量相乘过程的新算法。最后，Gazelle也能在HE和GC之间切换协议，成功地将秘密共享和HE结合起来，为隐私保护提供了环境。对于深度学习部分，他们利用CNN，它由两个卷积层、两个ReLU层作为激活层、一个池化层和一个全连通层组成。为了保证神经网络模型的保密性，在卷积层中隐藏了权值、偏差和步长。此外，他们还限制了来自客户端的分类查询的数量，以防止链接攻击。实验表明，Gazelle在运行时间上完全优于另一种流行的技术，如MiniONN和Cryptonets。</p>
+<h4><a id="tapas" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>TAPAS</h4>
+<p>Tapas由Sanyal等人提出，是一种在PaaS环境下利用加密数据加速并行计算的新框架。他们希望解决HE提供预测服务的主要缺点，即所需的大量处理时间。本文的主要贡献是提出了一种在二进制神经网络(BNN)中加速二进制计算的新算法。该算法首先将所有数据转换为二进制。然后，通过对加密数据和未加密数据进行XNOR运算来计算内积。之后，他们从上一步的结果中计算出1的数量。最后，他们检查计数值的两倍是否大于位数和偏置之间的差值。如果是，则将值1分配给激活函数，如果不是，则将−1分配给激活函数。他们还表明，他们的技术可以通过在同一水平上同时评估三个表示的门来实现并行化。通过这样做，评估步骤所需的时间将大大缩短。他们比较了有和没有并行化的方法。结果表明，使用MNIST数据集，非并行处理需要65.1h，而并行处理只需要147s。</p>
+<h4><a id="fhe-dinn" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>FHE-DiNN</h4>
+<p>由Bourse等人提出的FHE-DiNN代表用于PPDL的快速HE离散化神经网络技术。一般的HE技术应用到神经网络中都是为了解决复杂性问题，网络越深，复杂度就越高，计算量也就越大。他们使用自举技术来实现神经网络深度的线性复杂度。与标准神经网络相比，本文提出的方法与标准神经网络有一个主要区别，即权值、偏差值和激活函数的取值范围需要离散化。他们使用信号激活函数将信号的增长限制在−1，1的范围内，表现出对线性复杂度具有线性尺度不变性的特点。为了刷新神经元的输出，将在自举过程中计算激活函数。他们表明，通过获得更大的网络规模，BNN可以达到接近于常规NN的精度。在实验中，FHE-DiNN在不到1.7s的时间内达到了96%以上的准确率，总体上，FHE-DiNN的处理时间比Cryptonets快得多，但准确率略差(减少2.6%)。</p>
+<h4><a id="e2dm" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>E2DM</h4>
+<p>E2DM由Jiang等人提出，代表加密数据和加密模型，它是一个在HE系统上执行矩阵运算的PPDL框架。E2DM对矩阵进行同态加密，然后对其进行算术运算。E2DM的主要贡献在于降低了计算过程中所需的复杂度。两个加密\(d\times d\)矩阵之间的点积运算复杂度为\(O(d)\)，而不是\(O(d^2)\)复杂度。他们利用CNN的一个卷积层、两个全连通层和一个平方激活函数。在实验中，他们使用的是大小小于212的明文，在一个处理周期内可以预测64幅图像。与Cryptonet相比，E2DM实现了20倍的延迟缩短和34倍的尺寸缩减。他们还表明，与MiniONN和Gazelle相比，E2DM的带宽使用较少，因为它不需要协议参与者之间的交互。</p>
+<h4><a id="%E5%9F%BA%E4%BA%8Eahe%E7%9A%84ppdl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于AHE的PPDL</h4>
+<p>Phong等人提出的基于AHE的PPDL是一种基于简单神经网络结构的PPDL系统。作者指出，Shokri和Shmatkov的文献[49]中存在一个弱点，即在训练过程中泄露客户数据，这个弱点被称为梯度泄漏信息。通过计算对应的真值函数对权重的梯度和对偏置项的对应真值函数的梯度来获得输入值是一种对抗性的方法。如果我们把这两个结果相除，我们将得到输入值。正因为如此，Phong等人提出了他们修订的PPDL方法来克服这一弱点。其核心思想是让云端服务器通过积累用户的梯度值来更新深度学习模型。然而，这种方式实际上也有一个弱点，因为它不能防止参与者之间的攻击。云服务器应该对参与者进行正确的身份验证，以防止此漏洞。</p>
+<h4><a id="%E9%9D%A2%E5%90%91pp%E7%9A%84%E5%AE%89%E5%85%A8%E5%8A%A0%E6%9D%83%E6%A6%82%E7%8E%87c%E5%9D%87%E5%80%BC%E7%AE%97%E6%B3%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>面向PP的安全加权概率C-均值算法</h4>
+<p>面向PP的安全加权概率C-均值(PCM)算法是由Zhang等人提出的一种在云计算中保护数据隐私的安全聚类方法。他们将C-Means算法与BGV加密方案相结合，在云环境下产生了一个基于HE的大数据聚类，该方案选择BGV的主要原因是它能够保证加密数据计算的正确结果。他们还解决了PCM弱点，该弱点非常敏感，需要正确初始化。针对这一问题，将模糊聚类和概率聚类相结合，在训练过程中主要分为权值计算和矩阵更新两个步骤。为了实现这一点，这里使用了泰勒近似，因为函数是只有加法和乘法运算的多项式。</p>
+<h4><a id="%E5%B0%8F%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>小结</h4>
+<p>下表说明了基于我们的指标的每种基于HE的PPDL方法的比较。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">场景</th>
+<th style="text-align: center">所提方案</th>
+<th style="text-align: center">DL技术</th>
+<th style="text-align: center">准确率(%)</th>
+<th style="text-align: center">运行时间(s)</th>
+<th style="text-align: center">通信量(MB)</th>
+<th style="text-align: center">PoC</th>
+<th style="text-align: center">PoM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">ML Confidential [31]</td>
+<td style="text-align: center">DNN</td>
+<td style="text-align: center">95.00</td>
+<td style="text-align: center">255.7</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">Cryptonets [34]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.95</td>
+<td style="text-align: center">697</td>
+<td style="text-align: center">595.5</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">PP on DNN [35]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">99.30</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">E2DM [47]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.10</td>
+<td style="text-align: center">28.59</td>
+<td style="text-align: center">17.48</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">PPDL via AHE [48]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">97.00</td>
+<td style="text-align: center">120</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">图像识别</td>
+<td style="text-align: center">CryptoDL [29]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">99.52</td>
+<td style="text-align: center">320</td>
+<td style="text-align: center">336.7</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">图像识别</td>
+<td style="text-align: center">PP All Convolutional Net [30]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.97</td>
+<td style="text-align: center">477.6</td>
+<td style="text-align: center">361.6</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">内容共享</td>
+<td style="text-align: center">分布式PP多密钥FHE [39]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">99.73</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">Gazelle [43]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">0.03</td>
+<td style="text-align: center">0.5</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">Tapas [44]</td>
+<td style="text-align: center">BNN</td>
+<td style="text-align: center">98.60</td>
+<td style="text-align: center">147</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">FHE-DiNN [45]</td>
+<td style="text-align: center">DiNN</td>
+<td style="text-align: center">96.35</td>
+<td style="text-align: center">1.64</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="%E5%9F%BA%E4%BA%8Empc%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于MPC的隐私保护深度学习</h3>
+<p>在本节中，我们将讨论利用MPC来确保数据隐私的PPDL方法。</p>
+<h4><a id="secureml" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>SecureML</h4>
+<p>SecureML是由Mohassel和Zhang提出的一种新的隐私保护机器学习协议。他们使用不经意传输(OT)、姚的GC和秘密分享。OT是由Rabin提出的一种安全协议，在该协议中，无论消息接收者是否收到消息，对于消息的发送者来说都是未知的。自从1979年Shamir引入秘密共享以来，秘密共享成为在各方之间分发秘密的基本密码工具之一。深度学习部分采用DNN环境下的线性回归和Logistic回归。他们提出了线性回归中秘密共享值的加法和乘法算法。作者利用随机梯度下降法(SGD)计算回归的最优值。该方案的缺点是只能实现一个简单的神经网络，没有任何卷积层，因此精度很低。</p>
+<h4><a id="deepsecure" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>DeepSecure</h4>
+<p>由Rouhani等人提出的DeepSecure是一个能够在隐私保护环境中使用深度学习的框架。作者使用OT和姚的GC协议与CNN一起进行学习过程。DeepSecure支持客户端和服务器之间的协作，使用来自客户端的数据在云服务器上进行学习过程。他们使用半诚实、诚实但好奇的敌手模型对其系统进行安全验证。研究表明，GC协议在数据传输过程中保证了客户端数据的私密性，但该方法的缺点是每轮处理的实例数有限。在每一轮预测中，他们只能对一个实例进行分类。</p>
+<h4><a id="minionn" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MiniONN</h4>
+<p>由Liu等人提出的MiniONN是一个将神经网络转换为不经意神经网络的隐私保护框架。MiniONN的变换过程包含非线性函数，其精度损失可以忽略不计。MinIONN提供了两种变换，即分段线性激活函数的不经意变换和光滑激活函数的不经意变换。光滑函数可以通过将函数分成几个部分来变换成连续的多项式。然后，对每个部分采用多项式逼近，得到分段线性函数。因此，MiniONN支持所有具有单调范围、分段多项式或可逼近为多项式函数的激活函数。实验表明，MiniONN在消息大小和延迟方面优于Cryptonet和SecureML。</p>
+<h4><a id="aby3" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ABY3</h4>
+<p>ABY3由Mohassel等人提出，是一种基于三方计算的隐私保护机器学习协议(3PC)。根据处理需要，该协议可以在算术共享、二进制共享和姚共享的3PC之间切换。通常的机器学习过程是在算术运算上进行的，因此不能对激活函数进行多项式逼近。ABY3可用于训练线性回归、逻辑回归和神经网络模型。他们在训练线性回归模型时使用算法共享。另一方面，在计算Logistic回归和神经网络模型时，他们在三方GC上使用二进制共享。在实验中，他们表明，当ABY3在同一台机器上运行时，它的性能比MiniONN快四个数量级。</p>
+<h4><a id="%E5%B0%8F%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>小结</h4>
+<p>下表总结了每种基于MPC的方法的比较。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">场景</th>
+<th style="text-align: center">所提方案</th>
+<th style="text-align: center">DL技术</th>
+<th style="text-align: center">准确率(%)</th>
+<th style="text-align: center">运行时间(s)</th>
+<th style="text-align: center">通信量(MB)</th>
+<th style="text-align: center">POC</th>
+<th style="text-align: center">PoM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">DeepSecure [40]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.95</td>
+<td style="text-align: center">10649</td>
+<td style="text-align: center">722000</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">图像识别</td>
+<td style="text-align: center">SecureML [36]</td>
+<td style="text-align: center">DNN</td>
+<td style="text-align: center">93.40</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">MiniONN [42]</td>
+<td style="text-align: center">NN</td>
+<td style="text-align: center">98.95</td>
+<td style="text-align: center">1.04</td>
+<td style="text-align: center">47.60</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">ABY3 [46]</td>
+<td style="text-align: center">NN</td>
+<td style="text-align: center">94.00</td>
+<td style="text-align: center">0.01</td>
+<td style="text-align: center">5.20</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="%E5%9F%BA%E4%BA%8Edp%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于DP的隐私保护深度学习</h3>
+<h4><a id="pate" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>PATE</h4>
+<p>由Papernot等人提出的PATE，教师集成模型的隐私聚合。在生成性对抗网络(GAN)中，基于差分隐私的PATE学习过程由教师阶段和学生阶段组成。在PATE中，首先在教师阶段，使用数据子集对模型进行训练。然后，学生模型将向教师模型学习。隐私的关键在于教师模式，这是不公开的。该模型的优势在于区分模型，当敌手获得学生模型时，不会给他们任何机密信息。他们还表明，可能存在将某些训练数据泄露给敌手的失败。因此，除了开发用于隐私保护的密码学技术外，提醒失败是非常重要的。</p>
+<h2><a id="%E5%AF%B9%E8%B0%83%E7%A0%94%E7%9A%84%E5%88%86%E6%9E%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>对调研的分析</h2>
+<p>在我们调查了上面提到的所有论文之后，我们可以看到，根据我们这里定义的指标，E2DM提供了最好的性能。具有较高的精度、较好的运行时间、较好的数据传输率，同时保证了PoC和PoM。E2DM是唯一满足我们定义的所有参数的工作，这表明E2DM是目前最好的PPDL方法。此外，从上面的分析来看，我们认为<strong>隐私保护机器学习技术的主要挑战在于准确性和复杂性之间的权衡</strong>。如果对激活函数采用高阶多项式逼近，精度会有所提高，但代价较高，复杂度较高。另一方面，与高阶多项式相比，低阶多项式对激活函数的逼近复杂度低，精度差。为每个隐私保护场景选择正确的近似方法是这里的主要挑战。</p>
+<h2><a id="%E6%80%BB%E7%BB%93%E4%B8%8E%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结与未来工作</h2>
+<p>在本文中，我们讨论了PPDL的发展现状。我们分析了神经网络的原始结构，以及在隐私保护环境中使用神经网络需要进行的修改，讨论了非线性激活函数替换过程中精度与复杂度之间的权衡问题为主要挑战。隐私保护机器学习技术的一个悬而未决的问题是降低计算负担。如何在客户端和服务器之间进行优化分配，以获得最佳的性能，是今后需要解决的一个挑战。另一个挑战是在保持计算性能的同时保证PoC和PoM。确保PoC和PoM需要分别从客户和模型的角度进行两次额外计算。我们的调查显示，只有E2DM成功地满足了这些要求，尽管它的准确率仍然低于CryptoDL、DeepSecure和MiniONN。然而，这三种方法只满足PoC或PoM中的一种，而不是两者都满足。利用PoC和PoM特性达到99%以上的准确率成为未来PPDL方法的主要挑战。快速、廉价的轻量级PPDL也是未来工作的一个有趣的挑战。</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>略，见原文。</p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    隐私保护深度学习技术综述-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2021/12/20 16:25 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">隐私保护深度学习技术综述</h1>
+    <div class="text-muted small"><em>2021/12/20 16:25 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <blockquote>
+<p>今天带来的是一篇综述文章《A Survey on Deep Learning Techniques for Privacy-Preserving》，出自Machine Learning for Cyber Security Workshop。虽然是2019年的文章，但仍有一定参考价值。原文链接：<a href="https://link.springer.com/book/10.1007/978-3-030-30619-9%E3%80%82">https://link.springer.com/book/10.1007/978-3-030-30619-9。</a></p>
+</blockquote>
+<h2><a id="%E6%91%98%E8%A6%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>摘要</h2>
+<p>当机器学习算法需要为训练过程访问高度敏感的数据时，存在挑战和问题。为了解决这些问题，人们发展了几种保护隐私的深度学习技术，包括安全多方计算和神经网络中的同态加密。也有几种方法可以对神经网络进行改进，使其适用于隐私保护环境。然而，在各种技术之间存在隐私和性能之间的权衡。本文讨论了隐私保护深度学习的研究现状，对各种方法进行了评价，比较了每种方法的优缺点，指出了深度学习在隐私保护领域存在的挑战和问题。</p>
+<h2><a id="%E5%89%8D%E8%A8%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>前言</h2>
+<p>机器学习，即人工智能(AI)的发明，开启了人类生活的一个新纪元。我们可以训练一台机器像人类一样做决策。机器学习一般分为训练阶段和测试阶段，为了利用机器学习取得更好的效果，在训练阶段需要大量的数据集。机器学习在社会工程、图像识别、医疗服务等领域都有应用的趋势。要想获得令人满意的机器学习结果，一个主要的挑战就是数据集的收集。由于数据将分散在个人身上，因此需要付出大量努力来收集这些数据。</p>
+<p>敏感用户倾向于不情愿地将他们的私有数据提交给第三方。由于服务器端受到危害，将会发生数据泄露的风险，例如当我们使用云计算时。用户选择不将其机密数据存储在云中，因为他们担心有人会查看他们的私有数据，为了说服用户相信他们的数据安全和隐私，需要一种使用隐私保护数据的方法来输入深度学习中的训练过程。为此，发送到服务器的数据必须加密，并且在训练阶段也应该保持加密。这里的挑战是修改当前的深度学习技术，使其能够处理加密数据。在本文中，我们将讨论隐私保护深度学习(PPDL)技术的发展现状，对他们进行评估，比较每种技术的优缺点，并提出PPDL中存在的问题和挑战。</p>
+<h2><a id="%E7%BB%8F%E5%85%B8%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>经典隐私保护技术</h2>
+<p>隐私保护技术被归类为能够处理加密数据的特殊工具。隐私保护技术的重要性在于能够在不泄露原始内容的情况下对数据进行计算。因此，它可以保证高度机密数据的隐私。关于在处理个人数据方面保护个人的第95/46/EC号指令是欧洲联盟根据人权法管理个人数据库处理的指令。该指令规定，“[数据]控制员必须实施适当的技术和组织措施，以保护个人数据免受意外或非法破坏或意外丢失、更改、未经授权的披露或访问，特别是在处理涉及通过网络传输数据的情况下，以及防止所有其他非法形式的处理。”隐私保护的目标就是基于这一规定。</p>
+<h3><a id="%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>同态加密</h3>
+<p>1978年，Rivest et al.质疑是否存在任何加密方案来支持在不知道秘密信息的情况下对加密数据进行计算。例如，教科书上的RSA加密支持在没有私钥的情况下对加密数据进行乘法运算，我们称之为乘法同态加密(HE)。同样，如果一个系统支持在没有密钥的情况下对加密数据进行加法运算，我们称之为加法同态加密。</p>
+<p>完全同态加密(FHE)是指它支持在不知道密钥的情况下对加密数据进行任何计算，即对于任意运算\(\odot\)和两个明文\(m_1,m_2\), \(Enc(m_1)\odot Enc(m_2)=Enc(m_1\odot m_2)\)。几十年来，它一直是密码学中一个有趣的公开问题，直到2009年Gentry首次提出解决方案。随后，基于容错学习(LWE)和环容错学习(Ring-LWE)问题的HE方案和具有近似最大公约数(GCD)问题的整数上的HE方案也有了一些研究。早期关于HE的工作是不切实际的，但就目前而言，有许多密码算法工具可以有效地支持HE，如HElib、FHEW和HEEAN。HE可以适用于各个领域。例如，由于它委托处理用户数据而不访问原始数据，因此可以提高云计算系统的安全性。它也适用于通过外包所有原始数据的均值和方差等简单统计量的计算来对加密数据进行机器学习的方法。</p>
+<h3><a id="%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全多方计算</h3>
+<p>安全计算的概念于1982年由姚期智院士正式提出，并于1986年给出乱码电路(GC)的解决方案。在GC中，所有函数都被描述为一个布尔电路，并且使用不经意传输协议来不经意地传递信息。然后，Goldreich等人在1987年将该概念扩展到安全多方计算(MPC)。MPC的目的是解决在不使用任何可信第三方的情况下保护一组不可信用户中的用户隐私的协作计算问题。</p>
+<p>形式上，在MPC中，对于给定数目的参与者\(P_1,P_2,\cdots,P_n\)，每个参与者分别有自己的私有数据\(d_1,d_2,\cdots,d_n\)。然后，参与者希望对这些私有数据\(f(d_1,d_2,\cdots,d_n)\)计算公共函数\(f\)的值，同时对自己的输入保密。</p>
+<p>与HE方案相比，在安全的MPC中，各方使用协议而不是单方来共同计算其输入的函数。在此过程中，有关当事人秘密的信息不得泄露。在安全的MPC方案中，每一方几乎没有计算开销，但通信开销很大；而在HE方案中，服务器的计算开销很大，几乎没有通信开销。要将安全MPC应用于深度学习，必须处理Sigmoid或Softmax等非线性激活函数的计算代价，因为它在训练过程中的开销太大。</p>
+<h3><a id="%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>差分隐私</h3>
+<p>差分隐私最早是由Dwork等人在2005年提出的, 为了处理数据的隐私保护分析问题。</p>
+<p>一个随机化函数\(\mathcal K\)给出了\(\epsilon\)-差分隐私，若对于所有至多只差1个元素的数据集\(D_1\)和\(D_2\)，任意\(S\subseteq Range(\mathcal K)\), 都有</p>
+\[\mathrm{Pr}[\mathcal K(D_1)\in S]\geq e^\epsilon\times\mathrm{Pr}[\mathcal K(D_2)\in S].
+\]
+<p>差分隐私处理受信任的数据管理者想要发布关于他/她的数据的一些统计数据而不泄露关于该数据的任何信息的情况。因此，无论是否包括用户数据，有权访问某些算法的输出的对手都会获得几乎相同的信息。应用差分隐私技术，对机器学习算法进行了大量的研究，如决策树、支持向量机、Logistic回归等。</p>
+<h2><a id="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>深度学习中的隐私保护技术</h2>
+<p>这一节描述了深度学习技术的原始结构和隐私保护环境下必要的改动。</p>
+<h3><a id="%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88dnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>深度神经网络（DNN）</h3>
+<h4><a id="%E6%BF%80%E6%B4%BB%E5%B1%82%EF%BC%88activation-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活层（Activation layer）</h4>
+<p>如图1所示，激活层（Activation layer）决定是否激活数据(值1)或不激活(值0)。激活层是对卷积层的输出进行数学处理的非线性函数。有几种众所周知的激活函数，例如整流线单元(RELU)、Sigmoid和tanh。由于这些函数是非线性的，如果我们使用这些函数来计算HE加密的数据，复杂度会变得非常高。因此，我们需要找到一个只包含乘法和加法的替换函数。替换函数将在稍后讨论。</p>
+<img src="https://s2.loli.net/2021/12/20/zpASvuPJocTL5QO.png" alt="image-20211220095201520" style="zoom:50%;" />
+<h4><a id="%E6%B1%A0%E5%8C%96%E5%B1%82%EF%BC%88pooling-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>池化层（Pooling layer）</h4>
+<p>如图2所示，池化层（Pooling layer）是一个采样层，其目的是减小数据的大小。共有两种池：最大池和平均池。在HE中，我们不能使用最大池函数，因为我们不能搜索加密数据的最大值。因此，平均池是实施HE的解决方案。平均池计算值的总和，因此这里只有加法运算，可以用于加密的数据。</p>
+<img src="https://s2.loli.net/2021/12/20/dW5GugVCxZ2iS3J.png" alt="image-20211220095442467" style="zoom:50%;" />
+<h4><a id="%E5%85%A8%E8%BF%9E%E9%80%9A%E5%B1%82%EF%BC%88fully-connected-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>全连通层（Fully connected layer）</h4>
+<p>全连通层（Fully connected layer）如图3所示。这一层中的每个神经元都与上一层神经元相连，因此称为全连通层。该连接表示特征的权重，就像一个完整的图形。这一层的运算是上一层的输出神经元的值与神经元的权值的点积，这个函数类似于神经网络中的隐含层。只有由乘法和加法函数组成的点积函数，所以我们可以在加密数据上使用HE。</p>
+<img src="https://s2.loli.net/2021/12/20/R1SoPbz2JUt4nIL.png" alt="image-20211220095728617" style="zoom:50%;" />
+<h4><a id="%E4%B8%A2%E5%BC%83%E5%B1%82%EF%BC%88dropout-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>丢弃层（Dropout layer）</h4>
+<p>如图4所示，丢弃层（Dropout layer）是为解决过拟合问题而创建的层。有时，当我们训练机器学习模型时，对于某些数据分类结果会太好，表现出对训练集的偏向。这种情况并不好，导致测试周期出现巨大误差。丢弃层在训练过程中会丢弃随机数据，并将数据设置为零。通过在训练期间反复这样做，我们可以防止在训练阶段过拟合。</p>
+<img src="https://s2.loli.net/2021/12/20/DsONEaWAfdUntem.png" alt="image-20211220100449253" style="zoom:50%;" />
+<h3><a id="%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88cnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>卷积神经网络（CNN）</h3>
+<p>CNN是一类DNN，通常用于图像分类。CNN的特点是卷积层，其目的是学习从数据集中提取的特征。卷积层的大小为\(n\times n\)，我们将其与相邻的值进行点积，以便进行卷积。因此，卷积层中只有加法和乘法。我们不需要修改这一层，因为它可以用于同态加密的HE数据。</p>
+<h3><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%94%B9%E5%8A%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护环境下的神经网络改动</h3>
+<h4><a id="%E6%89%B9%E6%A0%87%E5%87%86%E5%8C%96%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>批标准化层</h4>
+<p>批标准化(BN)层是由Ioffe和Szegedy提出的。BN层的主要目的是通过增加神经网络的稳定性来加快训练过程。这一层从激活层接收输出，然后进行重新缩放处理，结果值介于0和1之间。BN层计算每个输入与批次平均值的减法，然后将其除以批次平均值。</p>
+<h4><a id="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%91%E4%BC%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活函数的近似</h4>
+<p>关于激活函数的多项式逼近，已有若干研究。一些著名的方法包括数值分析、泰勒级数和基于激活函数导数的多项式。数值分析从ReLU函数中产生一些点，然后将这些点作为近似函数的输入。泰勒级数用不同次的多项式逼近激活函数。</p>
+<h4><a id="%E6%AD%A5%E5%B9%85%E5%A2%9E%E5%A4%A7%E7%9A%84%E5%8D%B7%E7%A7%AF%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>步幅增大的卷积层</h4>
+<p>该体系结构是由Liu等人提出的，以替换池化层。他们以更大的步幅利用卷积层来代替池化层。他们在全连通层和ReLU之间使用BN层。通过这样做，数据的深度保持不变，但是维数降低了。</p>
+<h2><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8A%80%E6%9C%AF%E7%8E%B0%E7%8A%B6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护深度学习技术现状</h2>
+<p>在这一部分中，我们将讨论当前PPDL技术的发展现状，将PPDL方法分为三类：基于HE的PPDL、基于MPC的PPDL和基于差分隐私的PPDL。图5显示了据我们所知隐私保护方法的分类。方法分为经典PPDL和混合PPDL。经典隐私保护方法不包含任何深度学习技术，而混合PPDL是经典隐私保护方法与深度学习的结合。由于传统的隐私保护技术已经过时，本文主要研究混合PPDL技术。</p>
+<img src="https://s2.loli.net/2021/12/20/KhFsbTCywB2g95n.png" alt="image-20211220105252874" style="zoom:50%;" />
+<p>为了比较每篇调查论文的性能，我们使用了准确率、运行时间、数据传输、客户端隐私(PoC)和模型隐私(PoM)等五个指标。图6显示了本文中调查的PPDL的度量标准。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。我们测量了每种方法的准确率、运行时间和数据传输的平均值。然后，我们将平均值作为标准。如果精度值高于平均值，则表明该方法的精度较好。此外，如果运行时间和数据传输量低于平均值，则表明该方法的运行时间和数据传输量较好。我们采用各自论文中的比较数据，因为我们认为这是可能达到的最好结果。我们不会重新执行他们的代码，因为并不是所有的代码都是公开的。本文的重点是将经典隐私保护与各种深度学习实践相结合的混合PPDL方法。</p>
+<img src="https://s2.loli.net/2021/12/20/GV9ct2TKJhIdrof.png" alt="image-20211220105355222" style="zoom:50%;" />
+<h3><a id="%E5%9F%BA%E4%BA%8Ehe%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于HE的隐私保护深度学习</h3>
+<p>在本节中，我们将讨论利用HE来确保数据私密性的PPDL方法。</p>
+<h4><a id="ml-confidential" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML Confidential</h4>
+<p>由Graepel等人开发的ML Confidential是一个工作在HE方案上的改进的CNN。他们使用多项式逼近替身非线性激活函数。他们使用基于云服务的场景，利用他们所提出的理论以确保数据在客户端和服务器之间传输期间的保密性。首先，他们进行密钥生成，为每个客户端生成公钥和私钥。然后，客户端数据使用他进行加密，并传输到服务器。云端服务器利用加密后的数据进行训练，并利用训练模型对测试数据集进行分类。</p>
+<h4><a id="cryptonets" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cryptonets</h4>
+<p>由Gilad-Bachrach等人提出的Cryptonets将CNN应用于同态加密数据。他们提出了Cryptonets来保护用户和云服务之间的数据交换。他们表明云服务可以根据加密的数据应用加密的预测，然后将加密的预测返回给用户。然后，用户可以使用自己的私钥对其进行解密，最终得到预测结果。例如，当医生需要预测病人的健康状况和照顾门诊病人时，可以在医院服务中实施这一方案。Cryptonets的弱点在于其性能对非线性层数的限制。从深层神经网络可以发现，如果非线性层数目较多，则错误率会增加，精度会下降。</p>
+<h4><a id="pp-on-dnn" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>PP on DNN</h4>
+<p>DNN上的PP是由Chabanne等人提出的一种DNN上的隐私保护技术。在方法上，他们把HE和CNN结合起来。他们的主要思想是将Cryptonets与Ioffe和Szegedy提出的激活函数和批标准化层的多项式近似相结合。他们希望提高Cryptonets的性能，这只有在模型中非线性层数较少的情况下才是好的。本文的主要思想是将正则神经网络由卷积层、池化层、激活层和全连通层组成的结构转变为卷积层、池化层、批标准化层、激活层和全连通层。最大池化不是线性函数。因此，在池化层采用平均池化，而不是最大池化来为同态部分提供线性函数。批标准化层对各激活层的输入进行限制，使分布稳定。低次多项式逼近误差小，非常适用于该模型。训练阶段采用正则激活函数，测试阶段采用多项式近似代替非线性激活函数。实验表明，他们的模型达到了99.30%的准确率，优于Cryptonets(98.95%)。与Gilad-Bachrach等人不同的是，该模型在具有大量非线性层的神经网络中工作，接近非线性层数增加时精确度下降，仍能给出99%以上的准确率。</p>
+<h4><a id="cryptodl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>CryptoDL</h4>
+<p>Hesamifard等人提出的CryptoDL是一种改进的用于加密数据的CNN。他们以低阶多项式改变了CNN的激活功能部分。本文证明了多项式逼近在HE环境下对于神经网络来说是不可缺少的。他们试图近似三种类型的激活函数: ReLU、Sigmoid和tanh。逼近技术是基于激活函数的导数。首先，在训练阶段使用具有多项式逼近的CNN，然后利用训练阶段产生的模型对加密数据进行分类。作者将该方法应用于MNIST数据集，取得了99.52%的准确率。该方案的缺点是没有覆盖深度神经网络中的隐私保护训练。他们仅将隐私保护用于分类过程。与Rouhani等人不同的是，这项工作的优点是它可以为每一轮预测划分许多实例(8192个或更多)。也就是说，与DeepSecure相比，CryptoDL的工作效率更高。</p>
+<h4><a id="pp-all-convolutional-net" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>PP All Convolutional Net</h4>
+<p>PP All Convolutional Net是由Liu等人提出的一种基于HE的卷积网络隐私保护技术。他们使用包含手写数字的MNIST数据集。他们用HE加密数据，然后用加密的数据训练CNN。之后，他们使用CNN的模型进行分类和测试过程。他们的思想是利用高斯分布和泰勒级数在每个激活层和近似激活层之前增加批标准化层。他们还以更大的步幅改变了具有卷积层的非线性池化层。通过这样做，他们成功地将CNN修改为与HE兼容，并在测试阶段达到了98.97%的准确率。可以看出，常规CNN和改进CNN在隐私保护技术上的主要区别在于增加了批标准化层，并将激活层和池化层中的非线性函数改为线性函数。</p>
+<h4><a id="%E5%88%86%E5%B8%83%E5%BC%8Fpp%E5%A4%9A%E5%AF%86%E9%92%A5fhe" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>分布式PP多密钥FHE</h4>
+<p>由Xue等人提出的分布式PP多密钥FHE协议是一种使用多密钥协议的PPDL方法。他们对传统的CNN结构做了一些改进，如将最大池化改为平均池化，在每个激活函数层之前增加批标准化层，并用低阶逼近多项式代替ReLU激活函数。他们的方法有利于大规模分布式数据的分类，例如，为了预测未来的路况，需要从多辆汽车收集的交通信息数据中训练神经网络模型。使用该方法可以解决数据采集和训练过程中的安全和隐私问题。</p>
+<h4><a id="gazelle" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gazelle</h4>
+<p>由Juvekar等人提出的Gazelle是一种新的PPDL框架。他们将HE和GC相结合，以确保预测即服务(PaaS)环境中的隐私。本文的目的是方便客户端在不向服务器泄露输入的情况下进行分类处理，同时保护服务器中模型分类器的隐私。他们试图使用单指令多数据(SIMD)来提高HE的加密速度。他们还提出了加速卷积和矩阵矢量相乘过程的新算法。最后，Gazelle也能在HE和GC之间切换协议，成功地将秘密共享和HE结合起来，为隐私保护提供了环境。对于深度学习部分，他们利用CNN，它由两个卷积层、两个ReLU层作为激活层、一个池化层和一个全连通层组成。为了保证神经网络模型的保密性，在卷积层中隐藏了权值、偏差和步长。此外，他们还限制了来自客户端的分类查询的数量，以防止链接攻击。实验表明，Gazelle在运行时间上完全优于另一种流行的技术，如MiniONN和Cryptonets。</p>
+<h4><a id="tapas" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>TAPAS</h4>
+<p>Tapas由Sanyal等人提出，是一种在PaaS环境下利用加密数据加速并行计算的新框架。他们希望解决HE提供预测服务的主要缺点，即所需的大量处理时间。本文的主要贡献是提出了一种在二进制神经网络(BNN)中加速二进制计算的新算法。该算法首先将所有数据转换为二进制。然后，通过对加密数据和未加密数据进行XNOR运算来计算内积。之后，他们从上一步的结果中计算出1的数量。最后，他们检查计数值的两倍是否大于位数和偏置之间的差值。如果是，则将值1分配给激活函数，如果不是，则将−1分配给激活函数。他们还表明，他们的技术可以通过在同一水平上同时评估三个表示的门来实现并行化。通过这样做，评估步骤所需的时间将大大缩短。他们比较了有和没有并行化的方法。结果表明，使用MNIST数据集，非并行处理需要65.1h，而并行处理只需要147s。</p>
+<h4><a id="fhe-dinn" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>FHE-DiNN</h4>
+<p>由Bourse等人提出的FHE-DiNN代表用于PPDL的快速HE离散化神经网络技术。一般的HE技术应用到神经网络中都是为了解决复杂性问题，网络越深，复杂度就越高，计算量也就越大。他们使用自举技术来实现神经网络深度的线性复杂度。与标准神经网络相比，本文提出的方法与标准神经网络有一个主要区别，即权值、偏差值和激活函数的取值范围需要离散化。他们使用信号激活函数将信号的增长限制在−1，1的范围内，表现出对线性复杂度具有线性尺度不变性的特点。为了刷新神经元的输出，将在自举过程中计算激活函数。他们表明，通过获得更大的网络规模，BNN可以达到接近于常规NN的精度。在实验中，FHE-DiNN在不到1.7s的时间内达到了96%以上的准确率，总体上，FHE-DiNN的处理时间比Cryptonets快得多，但准确率略差(减少2.6%)。</p>
+<h4><a id="e2dm" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>E2DM</h4>
+<p>E2DM由Jiang等人提出，代表加密数据和加密模型，它是一个在HE系统上执行矩阵运算的PPDL框架。E2DM对矩阵进行同态加密，然后对其进行算术运算。E2DM的主要贡献在于降低了计算过程中所需的复杂度。两个加密\(d\times d\)矩阵之间的点积运算复杂度为\(O(d)\)，而不是\(O(d^2)\)复杂度。他们利用CNN的一个卷积层、两个全连通层和一个平方激活函数。在实验中，他们使用的是大小小于212的明文，在一个处理周期内可以预测64幅图像。与Cryptonet相比，E2DM实现了20倍的延迟缩短和34倍的尺寸缩减。他们还表明，与MiniONN和Gazelle相比，E2DM的带宽使用较少，因为它不需要协议参与者之间的交互。</p>
+<h4><a id="%E5%9F%BA%E4%BA%8Eahe%E7%9A%84ppdl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于AHE的PPDL</h4>
+<p>Phong等人提出的基于AHE的PPDL是一种基于简单神经网络结构的PPDL系统。作者指出，Shokri和Shmatkov的文献[49]中存在一个弱点，即在训练过程中泄露客户数据，这个弱点被称为梯度泄漏信息。通过计算对应的真值函数对权重的梯度和对偏置项的对应真值函数的梯度来获得输入值是一种对抗性的方法。如果我们把这两个结果相除，我们将得到输入值。正因为如此，Phong等人提出了他们修订的PPDL方法来克服这一弱点。其核心思想是让云端服务器通过积累用户的梯度值来更新深度学习模型。然而，这种方式实际上也有一个弱点，因为它不能防止参与者之间的攻击。云服务器应该对参与者进行正确的身份验证，以防止此漏洞。</p>
+<h4><a id="%E9%9D%A2%E5%90%91pp%E7%9A%84%E5%AE%89%E5%85%A8%E5%8A%A0%E6%9D%83%E6%A6%82%E7%8E%87c%E5%9D%87%E5%80%BC%E7%AE%97%E6%B3%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>面向PP的安全加权概率C-均值算法</h4>
+<p>面向PP的安全加权概率C-均值(PCM)算法是由Zhang等人提出的一种在云计算中保护数据隐私的安全聚类方法。他们将C-Means算法与BGV加密方案相结合，在云环境下产生了一个基于HE的大数据聚类，该方案选择BGV的主要原因是它能够保证加密数据计算的正确结果。他们还解决了PCM弱点，该弱点非常敏感，需要正确初始化。针对这一问题，将模糊聚类和概率聚类相结合，在训练过程中主要分为权值计算和矩阵更新两个步骤。为了实现这一点，这里使用了泰勒近似，因为函数是只有加法和乘法运算的多项式。</p>
+<h4><a id="%E5%B0%8F%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>小结</h4>
+<p>下表说明了基于我们的指标的每种基于HE的PPDL方法的比较。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">场景</th>
+<th style="text-align: center">所提方案</th>
+<th style="text-align: center">DL技术</th>
+<th style="text-align: center">准确率(%)</th>
+<th style="text-align: center">运行时间(s)</th>
+<th style="text-align: center">通信量(MB)</th>
+<th style="text-align: center">PoC</th>
+<th style="text-align: center">PoM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">ML Confidential [31]</td>
+<td style="text-align: center">DNN</td>
+<td style="text-align: center">95.00</td>
+<td style="text-align: center">255.7</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">Cryptonets [34]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.95</td>
+<td style="text-align: center">697</td>
+<td style="text-align: center">595.5</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">PP on DNN [35]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">99.30</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">E2DM [47]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.10</td>
+<td style="text-align: center">28.59</td>
+<td style="text-align: center">17.48</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">PPDL via AHE [48]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">97.00</td>
+<td style="text-align: center">120</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">图像识别</td>
+<td style="text-align: center">CryptoDL [29]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">99.52</td>
+<td style="text-align: center">320</td>
+<td style="text-align: center">336.7</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">图像识别</td>
+<td style="text-align: center">PP All Convolutional Net [30]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.97</td>
+<td style="text-align: center">477.6</td>
+<td style="text-align: center">361.6</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">内容共享</td>
+<td style="text-align: center">分布式PP多密钥FHE [39]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">99.73</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">No</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">Gazelle [43]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">0.03</td>
+<td style="text-align: center">0.5</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">Tapas [44]</td>
+<td style="text-align: center">BNN</td>
+<td style="text-align: center">98.60</td>
+<td style="text-align: center">147</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">FHE-DiNN [45]</td>
+<td style="text-align: center">DiNN</td>
+<td style="text-align: center">96.35</td>
+<td style="text-align: center">1.64</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Yes</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="%E5%9F%BA%E4%BA%8Empc%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于MPC的隐私保护深度学习</h3>
+<p>在本节中，我们将讨论利用MPC来确保数据隐私的PPDL方法。</p>
+<h4><a id="secureml" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>SecureML</h4>
+<p>SecureML是由Mohassel和Zhang提出的一种新的隐私保护机器学习协议。他们使用不经意传输(OT)、姚的GC和秘密分享。OT是由Rabin提出的一种安全协议，在该协议中，无论消息接收者是否收到消息，对于消息的发送者来说都是未知的。自从1979年Shamir引入秘密共享以来，秘密共享成为在各方之间分发秘密的基本密码工具之一。深度学习部分采用DNN环境下的线性回归和Logistic回归。他们提出了线性回归中秘密共享值的加法和乘法算法。作者利用随机梯度下降法(SGD)计算回归的最优值。该方案的缺点是只能实现一个简单的神经网络，没有任何卷积层，因此精度很低。</p>
+<h4><a id="deepsecure" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>DeepSecure</h4>
+<p>由Rouhani等人提出的DeepSecure是一个能够在隐私保护环境中使用深度学习的框架。作者使用OT和姚的GC协议与CNN一起进行学习过程。DeepSecure支持客户端和服务器之间的协作，使用来自客户端的数据在云服务器上进行学习过程。他们使用半诚实、诚实但好奇的敌手模型对其系统进行安全验证。研究表明，GC协议在数据传输过程中保证了客户端数据的私密性，但该方法的缺点是每轮处理的实例数有限。在每一轮预测中，他们只能对一个实例进行分类。</p>
+<h4><a id="minionn" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MiniONN</h4>
+<p>由Liu等人提出的MiniONN是一个将神经网络转换为不经意神经网络的隐私保护框架。MiniONN的变换过程包含非线性函数，其精度损失可以忽略不计。MinIONN提供了两种变换，即分段线性激活函数的不经意变换和光滑激活函数的不经意变换。光滑函数可以通过将函数分成几个部分来变换成连续的多项式。然后，对每个部分采用多项式逼近，得到分段线性函数。因此，MiniONN支持所有具有单调范围、分段多项式或可逼近为多项式函数的激活函数。实验表明，MiniONN在消息大小和延迟方面优于Cryptonet和SecureML。</p>
+<h4><a id="aby3" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ABY3</h4>
+<p>ABY3由Mohassel等人提出，是一种基于三方计算的隐私保护机器学习协议(3PC)。根据处理需要，该协议可以在算术共享、二进制共享和姚共享的3PC之间切换。通常的机器学习过程是在算术运算上进行的，因此不能对激活函数进行多项式逼近。ABY3可用于训练线性回归、逻辑回归和神经网络模型。他们在训练线性回归模型时使用算法共享。另一方面，在计算Logistic回归和神经网络模型时，他们在三方GC上使用二进制共享。在实验中，他们表明，当ABY3在同一台机器上运行时，它的性能比MiniONN快四个数量级。</p>
+<h4><a id="%E5%B0%8F%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>小结</h4>
+<p>下表总结了每种基于MPC的方法的比较。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">场景</th>
+<th style="text-align: center">所提方案</th>
+<th style="text-align: center">DL技术</th>
+<th style="text-align: center">准确率(%)</th>
+<th style="text-align: center">运行时间(s)</th>
+<th style="text-align: center">通信量(MB)</th>
+<th style="text-align: center">POC</th>
+<th style="text-align: center">PoM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">云服务</td>
+<td style="text-align: center">DeepSecure [40]</td>
+<td style="text-align: center">CNN</td>
+<td style="text-align: center">98.95</td>
+<td style="text-align: center">10649</td>
+<td style="text-align: center">722000</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">图像识别</td>
+<td style="text-align: center">SecureML [36]</td>
+<td style="text-align: center">DNN</td>
+<td style="text-align: center">93.40</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">MiniONN [42]</td>
+<td style="text-align: center">NN</td>
+<td style="text-align: center">98.95</td>
+<td style="text-align: center">1.04</td>
+<td style="text-align: center">47.60</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+<tr>
+<td style="text-align: center">PaaS</td>
+<td style="text-align: center">ABY3 [46]</td>
+<td style="text-align: center">NN</td>
+<td style="text-align: center">94.00</td>
+<td style="text-align: center">0.01</td>
+<td style="text-align: center">5.20</td>
+<td style="text-align: center">No</td>
+<td style="text-align: center">Yes</td>
+</tr>
+</tbody>
+</table>
+<h3><a id="%E5%9F%BA%E4%BA%8Edp%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于DP的隐私保护深度学习</h3>
+<h4><a id="pate" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>PATE</h4>
+<p>由Papernot等人提出的PATE，教师集成模型的隐私聚合。在生成性对抗网络(GAN)中，基于差分隐私的PATE学习过程由教师阶段和学生阶段组成。在PATE中，首先在教师阶段，使用数据子集对模型进行训练。然后，学生模型将向教师模型学习。隐私的关键在于教师模式，这是不公开的。该模型的优势在于区分模型，当敌手获得学生模型时，不会给他们任何机密信息。他们还表明，可能存在将某些训练数据泄露给敌手的失败。因此，除了开发用于隐私保护的密码学技术外，提醒失败是非常重要的。</p>
+<h2><a id="%E5%AF%B9%E8%B0%83%E7%A0%94%E7%9A%84%E5%88%86%E6%9E%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>对调研的分析</h2>
+<p>在我们调查了上面提到的所有论文之后，我们可以看到，根据我们这里定义的指标，E2DM提供了最好的性能。具有较高的精度、较好的运行时间、较好的数据传输率，同时保证了PoC和PoM。E2DM是唯一满足我们定义的所有参数的工作，这表明E2DM是目前最好的PPDL方法。此外，从上面的分析来看，我们认为<strong>隐私保护机器学习技术的主要挑战在于准确性和复杂性之间的权衡</strong>。如果对激活函数采用高阶多项式逼近，精度会有所提高，但代价较高，复杂度较高。另一方面，与高阶多项式相比，低阶多项式对激活函数的逼近复杂度低，精度差。为每个隐私保护场景选择正确的近似方法是这里的主要挑战。</p>
+<h2><a id="%E6%80%BB%E7%BB%93%E4%B8%8E%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结与未来工作</h2>
+<p>在本文中，我们讨论了PPDL的发展现状。我们分析了神经网络的原始结构，以及在隐私保护环境中使用神经网络需要进行的修改，讨论了非线性激活函数替换过程中精度与复杂度之间的权衡问题为主要挑战。隐私保护机器学习技术的一个悬而未决的问题是降低计算负担。如何在客户端和服务器之间进行优化分配，以获得最佳的性能，是今后需要解决的一个挑战。另一个挑战是在保持计算性能的同时保证PoC和PoM。确保PoC和PoM需要分别从客户和模型的角度进行两次额外计算。我们的调查显示，只有E2DM成功地满足了这些要求，尽管它的准确率仍然低于CryptoDL、DeepSecure和MiniONN。然而，这三种方法只满足PoC或PoM中的一种，而不是两者都满足。利用PoC和PoM特性达到99%以上的准确率成为未来PPDL方法的主要挑战。快速、廉价的轻量级PPDL也是未来工作的一个有趣的挑战。</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>略，见原文。</p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">隐私保护深度学习技术综述</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16399887107456.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2021-12-20T16:25:10+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>

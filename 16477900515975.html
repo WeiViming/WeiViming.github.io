@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        BLAZE: 快速隐私保护机器学习 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <blockquote>
+<p>今天给大家带来的是Arpita Patra等人发表于NDSS'20上的文章《BLAZE: Blazing Fast Privacy-preserving Machine Learning》, 论文链接: <a href="https://arxiv.org/pdf/2005.09042.pdf">https://arxiv.org/pdf/2005.09042.pdf</a>.</p>
+</blockquote>
+<h2><a id="%E6%91%98%E8%A6%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>摘要</h2>
+<p>本文提出的BLAZE是安全外包三服务器服务环境下可抵抗一个恶意敌手的环\(\mathbb Z_{2^\ell}\)上的PPML框架, 实现了公平性(当敌手获得输出时, 所有诚实参与方也能获得相同的输出). 利用独立于输入的预处理阶段, BLAZE基于输入的在线阶段非常高效, 主要原因在于:</p>
+<ul>
+<li>提出的3PC诚实大多数假设下在线阶段通信量与向量长度无关的恶意点积计算协议;</li>
+<li>不需要像ABY3一样借助Ripple Carry Adders(RCA)来构造协议.</li>
+</ul>
+<img src="https://s2.loli.net/2022/03/20/L1idWqOVsM7bKPQ.png" alt="image-20220319170717589" style="zoom:40%;" />
+<h2><a id="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础知识</h2>
+<h3><a id="%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AC%A6%E5%8F%B7%E7%BA%A6%E5%AE%9A" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全模型与符号约定</h3>
+<p>三服务器代理模式, 静态敌手至多腐化一个服务器. 为减少通信开销, 服务器之间通过一次性密钥设置生成预共享密钥, 通过伪随机生成函数(PRF)来生成关联随机性. 抗碰撞的Hash函数记为\(\mathsf H()\), 承诺记作\(\mathsf{Com}()\). 计算域为\(\mathbb Z_{2^\ell}=\mathbb Z_{2^{64}}, \mathbb Z_{2^1}\), 分别代表算术环和布尔环.</p>
+<h3><a id="%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E8%AF%AD%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密共享语义</h3>
+<ul>
+<li>\([\cdot]\)秘密共享: 秘密\(v\)在\(P_1\)和\(P_2\)两方下的加法秘密共享, \(P_1\)有\([v]_1\), \(P_2\)有\([v]_2\), 使得\(v=[v]_1+[v]_2\).</li>
+<li>\(\langle\cdot\rangle\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)存在\([\lambda_v]_1,[\lambda_v]_2\in\mathbb Z_{2^\ell}\), 使得\(\lambda_v=[\lambda_v]_1+[\lambda_v]_2\), (2)\(P_0\)的份额为\(([\lambda_v]_1,[\lambda_v]_2)\), \(P_1\)的份额为\(([\lambda_v]_1,v+\lambda_v)\), \(P_2\)的份额为\(([\lambda_v]_2,v+\lambda_v)\).</li>
+<li>\([[\cdot]]\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)\(v\)在\(\langle\cdot\rangle\)秘密共享, 即\(P_0\)有\(([\alpha_v]_1,[\alpha_v]_2)\), \(P_1\)有\(([\alpha_v]_1,\beta_v)\), \(P_2\)有\(([\alpha_v]_2,\beta_v)\), 其中\(\beta_v=v+\alpha_v\), \(\alpha_v=[\alpha_v]_1+[\alpha_v]_2\), (2) 存在\(\gamma_v\in\mathbb Z_{2^\ell}\), 使得\(P_1,P_2\)有\(\gamma_v\), 同时\(P_0\)有\(\beta_v+\gamma_v\).</li>
+</ul>
+<p>以上三种秘密共享可以总结为</p>
+<img src="https://s2.loli.net/2022/03/20/KM6o7YUd5I4Lh3t.png" alt="image-20220319195925412" style="zoom:50%;" />
+<p>由于三种秘密共享方案都是线性的, 因此加法和标量积的计算不需要交互. 此外, 容易看出任意两方通过交换对方所缺失的份额都可以重构出原始秘密\(v\).</p>
+<h2><a id="%E5%9F%BA%E6%9C%AC%E5%8D%8F%E8%AE%AE%E6%9E%84%E9%80%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基本协议构造</h2>
+<h3><a id="%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密共享协议</h3>
+<p>秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\): 允许\(P_i\)生成\(v\)的\([[\cdot]]\)份额. 总体思路是预处理阶段参与方使用预共享密钥生成部分份额, 然后在线阶段参与方发送没有的份额发送给其他两方参与方以满足秘密共享语义, 通过交换接收到的份额的hash值来判断两方收到的秘密份额是否一致, 若一致, 则参与方接受该份额, 否则直接中止协议(abort), 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/7mTWK2ItihkJRNo.png" alt="image-20220319200924679" style="zoom:50%;" />
+<h3><a id="%E8%81%94%E5%90%88%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>联合共享协议</h3>
+<p>联合共享协议\(\Pi_\mathsf{jsh}(P_i,P_j,v)\): 允许两个参与方\(P_i,P_j\)联合生成他们的共同秘密\(v\)的\([[\cdot]]\)份额\([[v]]\). 总体思路是\(P_i\)执行秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\)生成\([[v]]\), \(P_j\)负责验证\(P_i\)生成的份额的正确性, 即发送份额的hash值给接收方进行验证一致性. 根据两方的不同可以分为三种情况, 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/wDs9gvyiBk3QEAN.png" alt="image-20220319204146055" style="zoom:50%;" />
+<p>若预处理阶段\(P_i\)和\(P_j\)都知道\(v\), 则可以不需要交互生成\([[v]]\), 具体方法是将相应份额设定为下表形式, 由于联合共享中的两方都知道秘密, 而其中至少一方是诚实的, 因此这样做是安全的.</p>
+<img src="https://s2.loli.net/2022/03/20/YKMVs6JomUBHRrW.png" alt="image-20220319205207743" style="zoom:50%;" />
+<h3><a id="%E7%A7%98%E5%AF%86%E9%87%8D%E6%9E%84%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密重构协议</h3>
+<p>秘密重构协议\(\Pi_\mathsf{rec}(\mathcal P,[[v]])\): 允许\(\mathcal P\)中的参与方从\([[v]]\)中重构秘密\(v\). 一方发送所缺失的份额给另一方, 第三方发送份额的hash值进行验证一致性, 若验证通过则可以重构秘密\(v\). 具体协议过程如下图4所示.</p>
+<p>在外包场景中, 当要向用户\(P\)重构\(v\)时, \(P_0\)发送\(([[\alpha_v]]^\mathbf A, \mathsf{H}([[\alpha_v]]^\mathbf B))\), \(P_1\)发送\((\beta_v, \mathsf{H}([[\alpha_v]]^\mathbf A))\), \(P_2\)发送\(([[\alpha_v]]^\mathbf B, \mathsf{H}(\beta_v))\), \(P\)验证相应的hash值是否匹配, 若匹配则接受, 否则中止.</p>
+<img src="https://s2.loli.net/2022/03/20/yrVH46XLsnBxQWR.png" alt="image-20220319210736130" style="zoom:50%;" />
+<p>公平重构协议\(\Pi_\mathsf{frec}(\mathcal P,[[v]])\): 确保参与方\(\mathcal P\)公平地重构秘密\(v\), 这意味着当腐化方获得\(v\)时保证诚实参与方也能得到相同的\(v\). 具体实现原理与ASTRA相同, 都是通过承诺来完成, 协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/tsV9L6hU4IWnpiS.png" alt="frecp" style="zoom:50%;" />
+<h3><a id="%E7%A7%98%E5%AF%86%E4%B9%98%E6%B3%95%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密乘法协议</h3>
+<p>秘密乘法协议\(\Pi_\mathsf{mult}(\mathcal P,[[x]],[[y]])\): 允许\(\mathcal P\)计算\(z=xy\)的秘密份额\([[z]]\).</p>
+<p>为此, 先介绍半诚实安全模型下的秘密乘法协议: 在预处理阶段, \(P_0, P_1\)随机选取\([\alpha_z]_1\), \(P_0,P_2\)随机选取\([\alpha_z]_2\), \(P_1,P_2\)随机选取\(\gamma_z\). 然后\(P_0\)本地计算\(\Gamma_{xy}=\alpha_x\alpha_y\)并生成它在\(P_1,P_2\)之间的\([\cdot]\)份额. 因为</p>
+\[\begin{aligned}
+\beta_z&amp;=z+\alpha_z=xy+\alpha_z=(\beta_x-\alpha_x)(\beta_y-\alpha_y)+\alpha_z\\
+&amp;=\beta_x\beta_y-\beta_x\alpha_y-\beta_y\alpha_x+\Gamma_{xy}+\alpha_z,
+\end{aligned}\tag{1}
+\]
+<p>成立, 因此在在线阶段对于\(j\in\{1,2\}\), \(P_j\)可以本地计算\([\beta_z]_j=(j-1)\beta_x\beta_y-\beta_x[\alpha_y]_j-\beta_y[\alpha_x]_j+[\Gamma_{xy}]_j+[\alpha_z]_j\), 相互交换份额重构\(\beta_z\), 最后\(P_1\)计算并发送\(\beta_z+\gamma_z\)给\(P_0\), 完成半诚实安全下的秘密乘法计算. 正确性由公式\((1)\)保证.</p>
+<p>但在恶意安全模型下, 上述秘密乘法协议存在如下三个问题:</p>
+<ol>
+<li>当\(P_0\)是腐化方时, 预处理阶段\(P_0\)生成\(\Gamma_{xy}\)的\([\cdot]\)份额可能是错误的, 即\(\Gamma_{xy}\neq\alpha_x\alpha_y\);</li>
+<li>当\(P_1\)或\(P_2\)是腐化方时, 在线阶段发送给另一方的\(\beta_z\)的份额\([\beta_z]_j\)可能是错误的, 从而导致重构的\(\beta_z\)是错误的;</li>
+<li>当\(P_1\)是腐化方时, 在线阶段发送给\(P_0\)的值\(\beta_z+\gamma_z\)是错误的.</li>
+</ol>
+<p>问题1和问题2可以规约到验证Beaver triple的正确性问题. 对于问题3, 为了验证\(P_1\)发送的\(\beta_z+\gamma_z\)的正确性, 只需\(P_2\)计算它的hash值并发送给\(P_1\)进行验证一致性, 若不然则中止.</p>
+<p>下面解决问题2, \(P_0\)通过\(\beta_x^*=\beta_x+\gamma_x\)和\(\beta_y^*=\beta_y+\gamma_y\), 可计算\(\beta_z^*=-\beta_x^*\alpha_y-\beta_y^*\alpha_x+2\Gamma_{xy}+\alpha_z\). 令\(\chi=\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy}+\psi\), 则\(\beta_z^*\)可以写成如下形式:</p>
+\[\begin{aligned}
+\beta_z^*&amp;=-\beta_x^*\alpha_y-\beta_y^*\alpha_x+2\Gamma_{xy}+\alpha_z\\
+&amp;=-(\beta_x+\gamma_x)\alpha_y-(\beta_y+\gamma_y)\alpha_x+2\Gamma_{xy}+\alpha_z\\
+&amp;=(-\beta_x\alpha_y-\beta_y\alpha_x+\Gamma_{xy}+\alpha_z)-(\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy})\\
+&amp;=(\beta_z-\beta_x\beta_y)-(\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy}+\psi)+\psi\\
+&amp;=(\beta_z-\beta_x\beta_y+\psi)-\chi.
+\end{aligned}
+\]
+<p>设\(P_1,P_2\)共同选取随机数\(\psi\in\mathbb{Z}_{2^\ell}\). 若\(P_0\)已知\(\chi\), 则可以发送\(\beta_z^*+\chi\)给\(P_1,P_2\). 然后\(P_1,P_2\)通过使用\(\beta_x,\beta_y\)和\(\chi\), 可以计算\(\beta_z-\beta_x\beta_y+\psi\overset{?}{=}\beta_z^*+\chi\)来验证\(\beta_z\)的正确性. 于是, 关键在于如何让\(P_0\)得到\(\chi\).</p>
+<p>对\(j\in\{1,2\}\), 设\([\psi]_j\)是\(P_1,P_2\)使用预共享密钥本地生成的随机数, \(P_j\)可以本地计算\([\chi]_j=\gamma_x[\alpha_y]_j+\gamma_y[\alpha_x]_j-[\Gamma_{xy}]_j+[\psi]_j\). \(P_j\)可发送各自的\([\chi]_j\)给\(P_0\), 从而\(P_0\)可以重构出\(\chi=[\chi]_1+[\chi]_2\). 为了验证\(P_0\)正确地计算了\(\chi\), 可以利用如下关系:</p>
+<p>设\(d=\gamma_x-\alpha_x\), \(e=\gamma_y-\alpha_y\), \(f=(\gamma_x\gamma_y+\psi)-\chi\), 若满足\(f=de\)当且仅当\(P_0\)正确计算了\(\chi\). 这是因为</p>
+\[\begin{aligned}
+de&amp;=(\gamma_x-\alpha_x)(\gamma_y-\alpha_y)=\gamma_x\gamma_y-\gamma_x\alpha_y-\gamma_y\alpha_x+\Gamma_{xy}\\
+&amp;=(\gamma_x\gamma_y+\psi)-(\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy}+\psi)\\
+&amp;=(\gamma_x\gamma_y+\psi)-\chi=f
+\end{aligned}
+\]
+<p>如此, \(\chi\)的正确性规约到验证\((d,e,f)\)是否是一个Beaver triple. 这种方案还可以解决问题1, 因为当\(P_0\)是腐化方时, 实际上生成的是\(\Gamma_{xy}+\Delta\)的份额, 如此\(de=f+\Delta\neq f\).</p>
+<p>BLAZE中的乘法协议的预处理阶段使用了[1]中提出的\(\langle\cdot\rangle\)共享的恶意安全乘法协议\(\Pi_\mathsf{mulZK}\), 具体过程协议如下:</p>
+<img src="https://s2.loli.net/2022/03/20/L21W9fDGNhMTAPw.png" alt="image-20220320143006197" style="zoom:50%;" />
+<p>给定\([[x]],[[y]]\), 服务器按如下方法本地计算\(\langle d\rangle,\langle e\rangle\): 在执行协议\(\Pi_\mathsf{mulZK}(\mathcal P,d,e)\)时, \(P_0\)得到\(([\lambda_f]_1,[\lambda_f]_2)\), \(P_1\)得到\(([\lambda_f]_1,f+\lambda_f)\), \(P_2\)得到\(([\lambda_f]_2,f+\lambda_f)\). 然后服务器将\([\chi]\)映射为\([\lambda_f]\), 将\(\gamma_x\gamma_y+\chi\)映射为\(f+\lambda_f\), 并按如下提取所需值为:</p>
+\[[\chi]_1=[\lambda_f]_1 ,\quad [\chi]_2=[\lambda_f]_2\qquad\rightarrow\qquad \chi=[\lambda_f]_1+[\lambda_f]_2
+\]
+\[\gamma_x\gamma_y+\psi=f+\lambda_f\qquad \rightarrow \qquad \psi=f+\lambda_f-\gamma_x\gamma_y
+\]
+\[[\gamma_{xy}]_j=\gamma_x[\alpha_y]_j+\gamma_y[\alpha_x]_j+[\psi]_j-[\chi]_j,\quad j\in\{1,2\}.
+\]
+<p>其中, \([\psi]\)由\(P_1,P_2\)通过共同选取随机数\(r\in\mathbb{Z}_{2^\ell}\), 并设定\([\psi]_1=r, [\psi]_2=\psi-r\), 不需要交互即可生成. 则\(P_1,P_2\)有\([\Gamma_{xy}]=[\alpha_x\alpha_y]\). 这因为</p>
+\[\begin{aligned}
+\Gamma_{xy}&amp;=\gamma_x\alpha_y+\gamma_y\alpha_x+\psi-\chi\\
+&amp;=(d+\lambda_d)\lambda_e+(e+\lambda_e)\lambda_d+(f+\lambda_f-\gamma_x\gamma_y)-\lambda_f\\
+&amp;=(d+\lambda_d)(e+\lambda_e)-de+\lambda_d\lambda_e+(f-\lambda_x\lambda_y)\\
+&amp;=\gamma_x\gamma_y-f+\lambda_d\lambda_e+(f-\gamma_x\gamma_y)=\lambda_d\lambda_e=\alpha_x\alpha_y.
+\end{aligned}
+\]
+<p>由于只规约到单个乘法三元组的验证问题, 因此与ASTRA相比, BLAZE将预处理阶段的通信开销从ASTRA的21个环元素降低到3个环元素, 进一步提升了性能. 秘密乘法协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/ZDBNqjlAfwEO3Y8.png" alt="Mult" style="zoom:50%;" />
+<h3><a id="%E6%AF%94%E7%89%B9%E6%8A%BD%E5%8F%96%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>比特抽取协议</h3>
+<p>比特抽取协议\(\Pi_\mathsf{bitext}(\mathcal P,[[v]])\): 给定算术份额\([[v]]\), 允许\(\mathcal P\)中的参与方计算\(v\)的最高有效位(符号位)的布尔共享份额\([[\cdot]]^\mathbf B\). 本文中通过混淆电路来构造常数轮的比特抽取协议.</p>
+<p>设\(GC=(u_1,u_2,u_3,u_4,u_5)\)代表输入为\(u_1,u_2,u_3\in\mathbb Z_{2^\ell},u_4,u_5\in\{0,1\}\), 输出为\(y=\mathsf{msb}(u_1-u_2-u_3)\oplus u_4\oplus u_5\)的混淆电路. 令\(u_1=\beta_v,u_2=[\alpha_v]_1,u_3=[\alpha_v]_2\), 使得\(u_1-u_2-u_3=v\). 令\(u_4=r_1,u_5=r_2\), 其中\(r_1\)代表\(P_0\)和\(P_1\)共同选取的随机比特, \(r_2\)代表\(P_0\)和\(P_2\)共同选取的随机比特. 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/TFqiVtSGsIMy4U9.png" alt="image-20220320145143810" style="zoom:50%;" />
+<h3><a id="%E6%AF%94%E7%89%B9%E8%BD%AC%E6%8D%A2%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>比特转换协议</h3>
+<p>比特转换协议Bit2A\(\Pi_\mathsf{bit2A}(\mathcal P,[[b]]^\mathbf B)\): 给定单个比特\(b\)的布尔份额\([[\cdot]]^\mathbf B\), 允许\(\mathcal P\)中的参与方得到\(b\)的算术共享份额\([[b]]^\mathbf A\). 记比特\(b\)在\(\mathbb Z_{2^\ell}\)上的值为\((b)^\mathbf A\). 设计思想是基于等式</p>
+\[(b)^\mathbf A=(\beta_b\oplus\alpha_b)^\mathbf A=(\beta_b)^\mathbf A+(\alpha_b)^\mathbf A-2(\beta_b)^\mathbf A(\alpha_b)^\mathbf A.
+\]
+<p>协议的具体过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/HW4UyPp1nISDkZe.png" alt="image-20220320155246874" style="zoom:50%;" />
+<h3><a id="%E7%82%B9%E7%A7%AF%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>点积计算协议</h3>
+<p>点积计算协议\(\Pi_\mathsf{dotp}(\mathcal P,\{[[x_i]],[[y_i]]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([[\vec{x}]]\)和\([[\vec y]]\), 计算\(z=\vec{x}\odot\vec{y}\)的\([[\cdot]]\)份额.</p>
+<p>通常做法是调用\(n\)次乘法协议\(\Pi_\mathsf{mult}\), 第\(i\)次计算\(z_i=x_i\cdot y_i\)的份额, 最后本地累加即可, 如此通信量将与向量长度\(n\)线性相关.</p>
+<p>本文对点积优化的关键在于不再分开重构每个\(\beta_z^*\)来计算\(\beta_z\), \(P_1,P_2\)本地计算\([\beta_z]=[\beta_{z_1}]+\cdots+[\beta_{z_n}]\)并重构\(\beta_z\); 此外, 对每个\(z_i\), \(P_0\)可以把所有的\(\beta_{z_i}^*\)合并为单个\(\beta_z^*\), 从而发送单个\(\beta_z^*\)给\(P_1,P_2\)进行验证. 具体来说, \(P_0\)计算\(\beta_z^*=\sum_{i=1}^n\beta_z^*\)并发送它的Hash值给\(P_1\)和\(P_2\), 然后\(P_1\)和\(P_2\)可以交叉检验它与\(\beta_z-\sum_{i=1}^n(\beta_{x_i}\cdot\beta_{y_i}-\psi_i)\)的Hash值的一致性. 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/jyFAeH5nJvoLiIs.png" alt="image-20220320171631561" style="zoom:50%;" />
+<h3><a id="%E5%AE%9A%E7%82%B9%E6%88%AA%E6%96%AD%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>定点截断协议</h3>
+<p>当进行秘密乘法后精度将翻倍, 为防止多次乘法后造成溢出需要对每次乘法后的秘密份额进行截断. 设定点数精度为\(d\), 本文中的截断协议设计思路同ABY3, 但主要的不同在于预处理阶段随机截断对\((r,r^d)\)的生成方法不依赖于RCA: \(P_0,P_1\)随机选取\(R_1\in\mathbb Z_{2^\ell}\), \(P_0,P_2\)随机选取\(R_2\in\mathbb Z_{2^\ell}\), 然后\(P_0\)本地计算\(r=R_1+R_2\)并截断得到\(r^d\). 注意到\(r=2^dr^d+r_d\), 其中\(r_d\)表示\(r\)的后\(d\)个比特组成的环元素, 其他位置为零. 然后, \(P_0\)执行\(\Pi_\mathsf{sh}\)生成\([[r^d]]\). 为了验证\(P_0\)分享的份额的正确性, \(P_1,P_2\)计算\(a=(r-2^dr^d-r_d)\)的\([\cdot]\)份额, 给定\(([r],[[r^d]])\), 验证\(a=0\)是否成立. 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/9hPTOL8SnGI7cR1.png" alt="image-20220320191700465" style="zoom:50%;" />
+<p>正确性: 只需说明\(u=v\), 其中\(u=[r]_1-2^d[r^d]_1-[r_d]_1\), \(v=2^d[r^d]_2+[r_d]_2-[r]_2\). 因为</p>
+\[\begin{aligned}
+r&amp;=2^dr^d+r_d\\
+[r]_1+[r]_2&amp;=2^d([r^d]_{1}+[r^d]_2)+([r_d]_1+[r_d]_2)\\
+[r]_1-2^d[r^d]_1-[r_d]_1&amp;=2^d[r^d]_2+[r_d]_2-[r]_2\\
+u&amp;=v.
+\end{aligned}
+\]
+<h3><a id="%E7%82%B9%E7%A7%AF%E6%88%AA%E6%96%AD%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>点积截断协议</h3>
+<p>点积截断协议\(\Pi_\mathsf{dotpt}(\mathcal P,\{[[x_i]],[[y_i]]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([[\vec{x}]]\)和\([[\vec y]]\), 计算\(z=\vec{x}\odot\vec{y}\)截断后\(z^d\)的\([[\cdot]]\)份额.</p>
+<p>预处理阶段同\(\Pi_\mathsf{dotp}\), 参与方执行\(\Pi_\mathsf{trgen}\)生成截断对\((r,r^d)\). 在线阶段, \(P_1,P_2\)本地计算\((z-r)\)的\([\cdot]\)份额, 然后\(P_1,P_2\)本地截断\((z-r)\)得到\((z-r)^d\)并通过\(\Pi_\mathsf{jsh}\)协议生成\([[\cdot]]\)份额. 最后, 参与方本地计算\([[z]]=[[(z-r)^d]]+[[r^d]]\)并进行一致性验证. 这里为了确保计算的正确性, 与上述点积计算协议不同, \(P_0\)计算的部分被改为\((z-r)^*\)而不是\(\beta_z^*\).</p>
+<p>具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/ODU9oLiGqus7vnE.png" alt="BLAZEdotpt" style="zoom:50%;" />
+<h3><a id="%E5%AE%89%E5%85%A8%E6%AF%94%E8%BE%83%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全比较协议</h3>
+<p>给定\([[x]],[[y]]\), 安全比较协议计算\((x&lt;y)\)的真值, 即需要抽取\(v=x-y\)的符号位. 为此, 首先本地计算\([[v]]=[[x]]-[[y]]\), 然后使用\(\Pi_\mathsf{bitext}([[v]])\)抽取符号位的布尔份额. 如果需要算术份额, 则再调用\(\Pi_\mathsf{bit2A}\)进行比特转换即可.</p>
+<h3><a id="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活函数协议</h3>
+<ol>
+<li>ReLU激活函数计算协议\(\Pi_\mathsf{relu}(\mathcal P, [[v]])\): 即计算\(\mathsf{relu}(v)=\mathsf{max}(0,v)=\bar{b}\cdot v\), 其中\(b=1\)当且仅当\(v&lt;0\), \(\bar{b}\)是\(b\)的补. 首先参与方执行\(\Pi_\mathsf{bitext}([[v]])\), 得到\([[b]]^\mathbf B\), 然后参与方通过设定\(\beta_{\bar b}=1\oplus\beta_b\), 本地计算\([[\bar b]]^\mathbf B\). 接着执行\(\Pi_\mathsf{bit2A}([[b]]^\mathbf B)\)生成\([[\bar b]]\). 最后, 通过\(\Pi_\mathsf{mult}\)计算\([[\bar bv]]\).</li>
+<li>Sigmoid激活函数计算协议\(\Pi_\mathsf{sig}(\mathcal P,[[v]])\): 同SecureML分段函数近似法, 将Sigmoid函数表示为\(\mathsf{sig}(v)=\bar{b}_1b_2(v+1/2)+\bar{b}_2\), 其中, 当\(v+1/2&lt;0\)时, \(b_1=1\); 当\(v-1/2&lt;0\)时, \(b_2=1\). 具体协议过程与\(\Pi_\mathsf{relu}\)协议类似.</li>
+</ol>
+<h2><a id="%E5%AE%9E%E9%AA%8C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>实验</h2>
+<p>本文主要以预处理阶段和在线阶段的吞吐量(throughput)为不同方案的对比基准. 下面仅提供部分实验截图.</p>
+<p>不同带宽下的ABY3与BLAZE点积协议吞吐量对比:</p>
+<img src="https://s2.loli.net/2022/03/20/jsZC1i2GdbTHnlW.png" alt="image-20220320213734911" style="zoom:50%;" />
+<p>线性回归与逻辑回归推理部分的吞吐量对比:</p>
+<img src="https://s2.loli.net/2022/03/20/H3hKBeaJkPtSA75.png" alt="image-20220320213954206" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/xhl4BZewOCvPLc8.png" alt="image-20220320214039017" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/KfyoNWYlGITs34B.png" alt="image-20220320214414667" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/SBoEQLHN7UtIgfd.png" alt="image-20220320214456070" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/eudlJo7R38W9kOy.png" alt="image-20220320222840218" style="zoom:50%;" />
+<p>与ASTRA对比:</p>
+<img src="https://s2.loli.net/2022/03/20/WBg2qY9lLCotDZd.png" alt="image-20220320222929474" style="zoom:50%;" />
+<h2><a id="%E6%80%BB%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结</h2>
+<p>BLAZE框架是环\(\mathbb Z_{2^\ell}\)上至多容忍一个恶意敌手的3PC隐私保护机器学习框架, 是对ASTRA框架的进一步提升, 且与ASTRA一样实现了公平性, 核心思想在于当发现恶意行为时参与方直接中止协议. 与ABY3相比, BLAZE摆脱了对RCA的依赖, 此外, 所设计恶意点积协议在线阶段通信开销与向量长度无关, 但离线阶段仍有关, 有待进一步优化. 与ASTRA相比, BLAZE极大降低了预处理阶段乘法协议的通信开销(21个环元素 VS 3个环元素). 实验发现, BLAZE在不同机器学习任务下的吞吐量都远高于ABY3的方案.</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>[1] D. Boneh, E. Boyle, H. Corrigan-Gibbs, N. Gilboa, and Y. Ishai, “Zero-knowledge proofs on secret-shared data via fully linear pcps,” in CRYPTO, 2019, pp. 67–97.</p>
+<p>[2] P. Mohassel and P. Rindal, “ABY3: A mixed protocol framework for machine learning,” in ACM CCS, 2018, pp. 35–52.</p>
+<p>[3] H. Chaudhari, A. Choudhury, A. Patra, and A. Suresh, “ASTRA: High-throughput 3PC over Rings with Application to Secure Prediction,” in ACM CCSW, 2019, pp. 81–92.</p>
+<p>[4] P. Mohassel and Y. Zhang, “SecureML: A system for scalable privacy-preserving machine learning,” in IEEE S&amp;P, 2017, pp. 19–38.</p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    BLAZE: 快速隐私保护机器学习-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/03/20 23:27 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">BLAZE: 快速隐私保护机器学习</h1>
+    <div class="text-muted small"><em>2022/03/20 23:27 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <blockquote>
+<p>今天给大家带来的是Arpita Patra等人发表于NDSS'20上的文章《BLAZE: Blazing Fast Privacy-preserving Machine Learning》, 论文链接: <a href="https://arxiv.org/pdf/2005.09042.pdf">https://arxiv.org/pdf/2005.09042.pdf</a>.</p>
+</blockquote>
+<h2><a id="%E6%91%98%E8%A6%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>摘要</h2>
+<p>本文提出的BLAZE是安全外包三服务器服务环境下可抵抗一个恶意敌手的环\(\mathbb Z_{2^\ell}\)上的PPML框架, 实现了公平性(当敌手获得输出时, 所有诚实参与方也能获得相同的输出). 利用独立于输入的预处理阶段, BLAZE基于输入的在线阶段非常高效, 主要原因在于:</p>
+<ul>
+<li>提出的3PC诚实大多数假设下在线阶段通信量与向量长度无关的恶意点积计算协议;</li>
+<li>不需要像ABY3一样借助Ripple Carry Adders(RCA)来构造协议.</li>
+</ul>
+<img src="https://s2.loli.net/2022/03/20/L1idWqOVsM7bKPQ.png" alt="image-20220319170717589" style="zoom:40%;" />
+<h2><a id="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础知识</h2>
+<h3><a id="%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AC%A6%E5%8F%B7%E7%BA%A6%E5%AE%9A" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全模型与符号约定</h3>
+<p>三服务器代理模式, 静态敌手至多腐化一个服务器. 为减少通信开销, 服务器之间通过一次性密钥设置生成预共享密钥, 通过伪随机生成函数(PRF)来生成关联随机性. 抗碰撞的Hash函数记为\(\mathsf H()\), 承诺记作\(\mathsf{Com}()\). 计算域为\(\mathbb Z_{2^\ell}=\mathbb Z_{2^{64}}, \mathbb Z_{2^1}\), 分别代表算术环和布尔环.</p>
+<h3><a id="%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E8%AF%AD%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密共享语义</h3>
+<ul>
+<li>\([\cdot]\)秘密共享: 秘密\(v\)在\(P_1\)和\(P_2\)两方下的加法秘密共享, \(P_1\)有\([v]_1\), \(P_2\)有\([v]_2\), 使得\(v=[v]_1+[v]_2\).</li>
+<li>\(\langle\cdot\rangle\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)存在\([\lambda_v]_1,[\lambda_v]_2\in\mathbb Z_{2^\ell}\), 使得\(\lambda_v=[\lambda_v]_1+[\lambda_v]_2\), (2)\(P_0\)的份额为\(([\lambda_v]_1,[\lambda_v]_2)\), \(P_1\)的份额为\(([\lambda_v]_1,v+\lambda_v)\), \(P_2\)的份额为\(([\lambda_v]_2,v+\lambda_v)\).</li>
+<li>\([[\cdot]]\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)\(v\)在\(\langle\cdot\rangle\)秘密共享, 即\(P_0\)有\(([\alpha_v]_1,[\alpha_v]_2)\), \(P_1\)有\(([\alpha_v]_1,\beta_v)\), \(P_2\)有\(([\alpha_v]_2,\beta_v)\), 其中\(\beta_v=v+\alpha_v\), \(\alpha_v=[\alpha_v]_1+[\alpha_v]_2\), (2) 存在\(\gamma_v\in\mathbb Z_{2^\ell}\), 使得\(P_1,P_2\)有\(\gamma_v\), 同时\(P_0\)有\(\beta_v+\gamma_v\).</li>
+</ul>
+<p>以上三种秘密共享可以总结为</p>
+<img src="https://s2.loli.net/2022/03/20/KM6o7YUd5I4Lh3t.png" alt="image-20220319195925412" style="zoom:50%;" />
+<p>由于三种秘密共享方案都是线性的, 因此加法和标量积的计算不需要交互. 此外, 容易看出任意两方通过交换对方所缺失的份额都可以重构出原始秘密\(v\).</p>
+<h2><a id="%E5%9F%BA%E6%9C%AC%E5%8D%8F%E8%AE%AE%E6%9E%84%E9%80%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基本协议构造</h2>
+<h3><a id="%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密共享协议</h3>
+<p>秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\): 允许\(P_i\)生成\(v\)的\([[\cdot]]\)份额. 总体思路是预处理阶段参与方使用预共享密钥生成部分份额, 然后在线阶段参与方发送没有的份额发送给其他两方参与方以满足秘密共享语义, 通过交换接收到的份额的hash值来判断两方收到的秘密份额是否一致, 若一致, 则参与方接受该份额, 否则直接中止协议(abort), 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/7mTWK2ItihkJRNo.png" alt="image-20220319200924679" style="zoom:50%;" />
+<h3><a id="%E8%81%94%E5%90%88%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>联合共享协议</h3>
+<p>联合共享协议\(\Pi_\mathsf{jsh}(P_i,P_j,v)\): 允许两个参与方\(P_i,P_j\)联合生成他们的共同秘密\(v\)的\([[\cdot]]\)份额\([[v]]\). 总体思路是\(P_i\)执行秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\)生成\([[v]]\), \(P_j\)负责验证\(P_i\)生成的份额的正确性, 即发送份额的hash值给接收方进行验证一致性. 根据两方的不同可以分为三种情况, 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/wDs9gvyiBk3QEAN.png" alt="image-20220319204146055" style="zoom:50%;" />
+<p>若预处理阶段\(P_i\)和\(P_j\)都知道\(v\), 则可以不需要交互生成\([[v]]\), 具体方法是将相应份额设定为下表形式, 由于联合共享中的两方都知道秘密, 而其中至少一方是诚实的, 因此这样做是安全的.</p>
+<img src="https://s2.loli.net/2022/03/20/YKMVs6JomUBHRrW.png" alt="image-20220319205207743" style="zoom:50%;" />
+<h3><a id="%E7%A7%98%E5%AF%86%E9%87%8D%E6%9E%84%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密重构协议</h3>
+<p>秘密重构协议\(\Pi_\mathsf{rec}(\mathcal P,[[v]])\): 允许\(\mathcal P\)中的参与方从\([[v]]\)中重构秘密\(v\). 一方发送所缺失的份额给另一方, 第三方发送份额的hash值进行验证一致性, 若验证通过则可以重构秘密\(v\). 具体协议过程如下图4所示.</p>
+<p>在外包场景中, 当要向用户\(P\)重构\(v\)时, \(P_0\)发送\(([[\alpha_v]]^\mathbf A, \mathsf{H}([[\alpha_v]]^\mathbf B))\), \(P_1\)发送\((\beta_v, \mathsf{H}([[\alpha_v]]^\mathbf A))\), \(P_2\)发送\(([[\alpha_v]]^\mathbf B, \mathsf{H}(\beta_v))\), \(P\)验证相应的hash值是否匹配, 若匹配则接受, 否则中止.</p>
+<img src="https://s2.loli.net/2022/03/20/yrVH46XLsnBxQWR.png" alt="image-20220319210736130" style="zoom:50%;" />
+<p>公平重构协议\(\Pi_\mathsf{frec}(\mathcal P,[[v]])\): 确保参与方\(\mathcal P\)公平地重构秘密\(v\), 这意味着当腐化方获得\(v\)时保证诚实参与方也能得到相同的\(v\). 具体实现原理与ASTRA相同, 都是通过承诺来完成, 协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/tsV9L6hU4IWnpiS.png" alt="frecp" style="zoom:50%;" />
+<h3><a id="%E7%A7%98%E5%AF%86%E4%B9%98%E6%B3%95%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密乘法协议</h3>
+<p>秘密乘法协议\(\Pi_\mathsf{mult}(\mathcal P,[[x]],[[y]])\): 允许\(\mathcal P\)计算\(z=xy\)的秘密份额\([[z]]\).</p>
+<p>为此, 先介绍半诚实安全模型下的秘密乘法协议: 在预处理阶段, \(P_0, P_1\)随机选取\([\alpha_z]_1\), \(P_0,P_2\)随机选取\([\alpha_z]_2\), \(P_1,P_2\)随机选取\(\gamma_z\). 然后\(P_0\)本地计算\(\Gamma_{xy}=\alpha_x\alpha_y\)并生成它在\(P_1,P_2\)之间的\([\cdot]\)份额. 因为</p>
+\[\begin{aligned}
+\beta_z&amp;=z+\alpha_z=xy+\alpha_z=(\beta_x-\alpha_x)(\beta_y-\alpha_y)+\alpha_z\\
+&amp;=\beta_x\beta_y-\beta_x\alpha_y-\beta_y\alpha_x+\Gamma_{xy}+\alpha_z,
+\end{aligned}\tag{1}
+\]
+<p>成立, 因此在在线阶段对于\(j\in\{1,2\}\), \(P_j\)可以本地计算\([\beta_z]_j=(j-1)\beta_x\beta_y-\beta_x[\alpha_y]_j-\beta_y[\alpha_x]_j+[\Gamma_{xy}]_j+[\alpha_z]_j\), 相互交换份额重构\(\beta_z\), 最后\(P_1\)计算并发送\(\beta_z+\gamma_z\)给\(P_0\), 完成半诚实安全下的秘密乘法计算. 正确性由公式\((1)\)保证.</p>
+<p>但在恶意安全模型下, 上述秘密乘法协议存在如下三个问题:</p>
+<ol>
+<li>当\(P_0\)是腐化方时, 预处理阶段\(P_0\)生成\(\Gamma_{xy}\)的\([\cdot]\)份额可能是错误的, 即\(\Gamma_{xy}\neq\alpha_x\alpha_y\);</li>
+<li>当\(P_1\)或\(P_2\)是腐化方时, 在线阶段发送给另一方的\(\beta_z\)的份额\([\beta_z]_j\)可能是错误的, 从而导致重构的\(\beta_z\)是错误的;</li>
+<li>当\(P_1\)是腐化方时, 在线阶段发送给\(P_0\)的值\(\beta_z+\gamma_z\)是错误的.</li>
+</ol>
+<p>问题1和问题2可以规约到验证Beaver triple的正确性问题. 对于问题3, 为了验证\(P_1\)发送的\(\beta_z+\gamma_z\)的正确性, 只需\(P_2\)计算它的hash值并发送给\(P_1\)进行验证一致性, 若不然则中止.</p>
+<p>下面解决问题2, \(P_0\)通过\(\beta_x^*=\beta_x+\gamma_x\)和\(\beta_y^*=\beta_y+\gamma_y\), 可计算\(\beta_z^*=-\beta_x^*\alpha_y-\beta_y^*\alpha_x+2\Gamma_{xy}+\alpha_z\). 令\(\chi=\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy}+\psi\), 则\(\beta_z^*\)可以写成如下形式:</p>
+\[\begin{aligned}
+\beta_z^*&amp;=-\beta_x^*\alpha_y-\beta_y^*\alpha_x+2\Gamma_{xy}+\alpha_z\\
+&amp;=-(\beta_x+\gamma_x)\alpha_y-(\beta_y+\gamma_y)\alpha_x+2\Gamma_{xy}+\alpha_z\\
+&amp;=(-\beta_x\alpha_y-\beta_y\alpha_x+\Gamma_{xy}+\alpha_z)-(\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy})\\
+&amp;=(\beta_z-\beta_x\beta_y)-(\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy}+\psi)+\psi\\
+&amp;=(\beta_z-\beta_x\beta_y+\psi)-\chi.
+\end{aligned}
+\]
+<p>设\(P_1,P_2\)共同选取随机数\(\psi\in\mathbb{Z}_{2^\ell}\). 若\(P_0\)已知\(\chi\), 则可以发送\(\beta_z^*+\chi\)给\(P_1,P_2\). 然后\(P_1,P_2\)通过使用\(\beta_x,\beta_y\)和\(\chi\), 可以计算\(\beta_z-\beta_x\beta_y+\psi\overset{?}{=}\beta_z^*+\chi\)来验证\(\beta_z\)的正确性. 于是, 关键在于如何让\(P_0\)得到\(\chi\).</p>
+<p>对\(j\in\{1,2\}\), 设\([\psi]_j\)是\(P_1,P_2\)使用预共享密钥本地生成的随机数, \(P_j\)可以本地计算\([\chi]_j=\gamma_x[\alpha_y]_j+\gamma_y[\alpha_x]_j-[\Gamma_{xy}]_j+[\psi]_j\). \(P_j\)可发送各自的\([\chi]_j\)给\(P_0\), 从而\(P_0\)可以重构出\(\chi=[\chi]_1+[\chi]_2\). 为了验证\(P_0\)正确地计算了\(\chi\), 可以利用如下关系:</p>
+<p>设\(d=\gamma_x-\alpha_x\), \(e=\gamma_y-\alpha_y\), \(f=(\gamma_x\gamma_y+\psi)-\chi\), 若满足\(f=de\)当且仅当\(P_0\)正确计算了\(\chi\). 这是因为</p>
+\[\begin{aligned}
+de&amp;=(\gamma_x-\alpha_x)(\gamma_y-\alpha_y)=\gamma_x\gamma_y-\gamma_x\alpha_y-\gamma_y\alpha_x+\Gamma_{xy}\\
+&amp;=(\gamma_x\gamma_y+\psi)-(\gamma_x\alpha_y+\gamma_y\alpha_x-\Gamma_{xy}+\psi)\\
+&amp;=(\gamma_x\gamma_y+\psi)-\chi=f
+\end{aligned}
+\]
+<p>如此, \(\chi\)的正确性规约到验证\((d,e,f)\)是否是一个Beaver triple. 这种方案还可以解决问题1, 因为当\(P_0\)是腐化方时, 实际上生成的是\(\Gamma_{xy}+\Delta\)的份额, 如此\(de=f+\Delta\neq f\).</p>
+<p>BLAZE中的乘法协议的预处理阶段使用了[1]中提出的\(\langle\cdot\rangle\)共享的恶意安全乘法协议\(\Pi_\mathsf{mulZK}\), 具体过程协议如下:</p>
+<img src="https://s2.loli.net/2022/03/20/L21W9fDGNhMTAPw.png" alt="image-20220320143006197" style="zoom:50%;" />
+<p>给定\([[x]],[[y]]\), 服务器按如下方法本地计算\(\langle d\rangle,\langle e\rangle\): 在执行协议\(\Pi_\mathsf{mulZK}(\mathcal P,d,e)\)时, \(P_0\)得到\(([\lambda_f]_1,[\lambda_f]_2)\), \(P_1\)得到\(([\lambda_f]_1,f+\lambda_f)\), \(P_2\)得到\(([\lambda_f]_2,f+\lambda_f)\). 然后服务器将\([\chi]\)映射为\([\lambda_f]\), 将\(\gamma_x\gamma_y+\chi\)映射为\(f+\lambda_f\), 并按如下提取所需值为:</p>
+\[[\chi]_1=[\lambda_f]_1 ,\quad [\chi]_2=[\lambda_f]_2\qquad\rightarrow\qquad \chi=[\lambda_f]_1+[\lambda_f]_2
+\]
+\[\gamma_x\gamma_y+\psi=f+\lambda_f\qquad \rightarrow \qquad \psi=f+\lambda_f-\gamma_x\gamma_y
+\]
+\[[\gamma_{xy}]_j=\gamma_x[\alpha_y]_j+\gamma_y[\alpha_x]_j+[\psi]_j-[\chi]_j,\quad j\in\{1,2\}.
+\]
+<p>其中, \([\psi]\)由\(P_1,P_2\)通过共同选取随机数\(r\in\mathbb{Z}_{2^\ell}\), 并设定\([\psi]_1=r, [\psi]_2=\psi-r\), 不需要交互即可生成. 则\(P_1,P_2\)有\([\Gamma_{xy}]=[\alpha_x\alpha_y]\). 这因为</p>
+\[\begin{aligned}
+\Gamma_{xy}&amp;=\gamma_x\alpha_y+\gamma_y\alpha_x+\psi-\chi\\
+&amp;=(d+\lambda_d)\lambda_e+(e+\lambda_e)\lambda_d+(f+\lambda_f-\gamma_x\gamma_y)-\lambda_f\\
+&amp;=(d+\lambda_d)(e+\lambda_e)-de+\lambda_d\lambda_e+(f-\lambda_x\lambda_y)\\
+&amp;=\gamma_x\gamma_y-f+\lambda_d\lambda_e+(f-\gamma_x\gamma_y)=\lambda_d\lambda_e=\alpha_x\alpha_y.
+\end{aligned}
+\]
+<p>由于只规约到单个乘法三元组的验证问题, 因此与ASTRA相比, BLAZE将预处理阶段的通信开销从ASTRA的21个环元素降低到3个环元素, 进一步提升了性能. 秘密乘法协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/ZDBNqjlAfwEO3Y8.png" alt="Mult" style="zoom:50%;" />
+<h3><a id="%E6%AF%94%E7%89%B9%E6%8A%BD%E5%8F%96%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>比特抽取协议</h3>
+<p>比特抽取协议\(\Pi_\mathsf{bitext}(\mathcal P,[[v]])\): 给定算术份额\([[v]]\), 允许\(\mathcal P\)中的参与方计算\(v\)的最高有效位(符号位)的布尔共享份额\([[\cdot]]^\mathbf B\). 本文中通过混淆电路来构造常数轮的比特抽取协议.</p>
+<p>设\(GC=(u_1,u_2,u_3,u_4,u_5)\)代表输入为\(u_1,u_2,u_3\in\mathbb Z_{2^\ell},u_4,u_5\in\{0,1\}\), 输出为\(y=\mathsf{msb}(u_1-u_2-u_3)\oplus u_4\oplus u_5\)的混淆电路. 令\(u_1=\beta_v,u_2=[\alpha_v]_1,u_3=[\alpha_v]_2\), 使得\(u_1-u_2-u_3=v\). 令\(u_4=r_1,u_5=r_2\), 其中\(r_1\)代表\(P_0\)和\(P_1\)共同选取的随机比特, \(r_2\)代表\(P_0\)和\(P_2\)共同选取的随机比特. 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/TFqiVtSGsIMy4U9.png" alt="image-20220320145143810" style="zoom:50%;" />
+<h3><a id="%E6%AF%94%E7%89%B9%E8%BD%AC%E6%8D%A2%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>比特转换协议</h3>
+<p>比特转换协议Bit2A\(\Pi_\mathsf{bit2A}(\mathcal P,[[b]]^\mathbf B)\): 给定单个比特\(b\)的布尔份额\([[\cdot]]^\mathbf B\), 允许\(\mathcal P\)中的参与方得到\(b\)的算术共享份额\([[b]]^\mathbf A\). 记比特\(b\)在\(\mathbb Z_{2^\ell}\)上的值为\((b)^\mathbf A\). 设计思想是基于等式</p>
+\[(b)^\mathbf A=(\beta_b\oplus\alpha_b)^\mathbf A=(\beta_b)^\mathbf A+(\alpha_b)^\mathbf A-2(\beta_b)^\mathbf A(\alpha_b)^\mathbf A.
+\]
+<p>协议的具体过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/HW4UyPp1nISDkZe.png" alt="image-20220320155246874" style="zoom:50%;" />
+<h3><a id="%E7%82%B9%E7%A7%AF%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>点积计算协议</h3>
+<p>点积计算协议\(\Pi_\mathsf{dotp}(\mathcal P,\{[[x_i]],[[y_i]]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([[\vec{x}]]\)和\([[\vec y]]\), 计算\(z=\vec{x}\odot\vec{y}\)的\([[\cdot]]\)份额.</p>
+<p>通常做法是调用\(n\)次乘法协议\(\Pi_\mathsf{mult}\), 第\(i\)次计算\(z_i=x_i\cdot y_i\)的份额, 最后本地累加即可, 如此通信量将与向量长度\(n\)线性相关.</p>
+<p>本文对点积优化的关键在于不再分开重构每个\(\beta_z^*\)来计算\(\beta_z\), \(P_1,P_2\)本地计算\([\beta_z]=[\beta_{z_1}]+\cdots+[\beta_{z_n}]\)并重构\(\beta_z\); 此外, 对每个\(z_i\), \(P_0\)可以把所有的\(\beta_{z_i}^*\)合并为单个\(\beta_z^*\), 从而发送单个\(\beta_z^*\)给\(P_1,P_2\)进行验证. 具体来说, \(P_0\)计算\(\beta_z^*=\sum_{i=1}^n\beta_z^*\)并发送它的Hash值给\(P_1\)和\(P_2\), 然后\(P_1\)和\(P_2\)可以交叉检验它与\(\beta_z-\sum_{i=1}^n(\beta_{x_i}\cdot\beta_{y_i}-\psi_i)\)的Hash值的一致性. 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/jyFAeH5nJvoLiIs.png" alt="image-20220320171631561" style="zoom:50%;" />
+<h3><a id="%E5%AE%9A%E7%82%B9%E6%88%AA%E6%96%AD%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>定点截断协议</h3>
+<p>当进行秘密乘法后精度将翻倍, 为防止多次乘法后造成溢出需要对每次乘法后的秘密份额进行截断. 设定点数精度为\(d\), 本文中的截断协议设计思路同ABY3, 但主要的不同在于预处理阶段随机截断对\((r,r^d)\)的生成方法不依赖于RCA: \(P_0,P_1\)随机选取\(R_1\in\mathbb Z_{2^\ell}\), \(P_0,P_2\)随机选取\(R_2\in\mathbb Z_{2^\ell}\), 然后\(P_0\)本地计算\(r=R_1+R_2\)并截断得到\(r^d\). 注意到\(r=2^dr^d+r_d\), 其中\(r_d\)表示\(r\)的后\(d\)个比特组成的环元素, 其他位置为零. 然后, \(P_0\)执行\(\Pi_\mathsf{sh}\)生成\([[r^d]]\). 为了验证\(P_0\)分享的份额的正确性, \(P_1,P_2\)计算\(a=(r-2^dr^d-r_d)\)的\([\cdot]\)份额, 给定\(([r],[[r^d]])\), 验证\(a=0\)是否成立. 具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/9hPTOL8SnGI7cR1.png" alt="image-20220320191700465" style="zoom:50%;" />
+<p>正确性: 只需说明\(u=v\), 其中\(u=[r]_1-2^d[r^d]_1-[r_d]_1\), \(v=2^d[r^d]_2+[r_d]_2-[r]_2\). 因为</p>
+\[\begin{aligned}
+r&amp;=2^dr^d+r_d\\
+[r]_1+[r]_2&amp;=2^d([r^d]_{1}+[r^d]_2)+([r_d]_1+[r_d]_2)\\
+[r]_1-2^d[r^d]_1-[r_d]_1&amp;=2^d[r^d]_2+[r_d]_2-[r]_2\\
+u&amp;=v.
+\end{aligned}
+\]
+<h3><a id="%E7%82%B9%E7%A7%AF%E6%88%AA%E6%96%AD%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>点积截断协议</h3>
+<p>点积截断协议\(\Pi_\mathsf{dotpt}(\mathcal P,\{[[x_i]],[[y_i]]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([[\vec{x}]]\)和\([[\vec y]]\), 计算\(z=\vec{x}\odot\vec{y}\)截断后\(z^d\)的\([[\cdot]]\)份额.</p>
+<p>预处理阶段同\(\Pi_\mathsf{dotp}\), 参与方执行\(\Pi_\mathsf{trgen}\)生成截断对\((r,r^d)\). 在线阶段, \(P_1,P_2\)本地计算\((z-r)\)的\([\cdot]\)份额, 然后\(P_1,P_2\)本地截断\((z-r)\)得到\((z-r)^d\)并通过\(\Pi_\mathsf{jsh}\)协议生成\([[\cdot]]\)份额. 最后, 参与方本地计算\([[z]]=[[(z-r)^d]]+[[r^d]]\)并进行一致性验证. 这里为了确保计算的正确性, 与上述点积计算协议不同, \(P_0\)计算的部分被改为\((z-r)^*\)而不是\(\beta_z^*\).</p>
+<p>具体协议过程如下:</p>
+<img src="https://s2.loli.net/2022/03/20/ODU9oLiGqus7vnE.png" alt="BLAZEdotpt" style="zoom:50%;" />
+<h3><a id="%E5%AE%89%E5%85%A8%E6%AF%94%E8%BE%83%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全比较协议</h3>
+<p>给定\([[x]],[[y]]\), 安全比较协议计算\((x&lt;y)\)的真值, 即需要抽取\(v=x-y\)的符号位. 为此, 首先本地计算\([[v]]=[[x]]-[[y]]\), 然后使用\(\Pi_\mathsf{bitext}([[v]])\)抽取符号位的布尔份额. 如果需要算术份额, 则再调用\(\Pi_\mathsf{bit2A}\)进行比特转换即可.</p>
+<h3><a id="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活函数协议</h3>
+<ol>
+<li>ReLU激活函数计算协议\(\Pi_\mathsf{relu}(\mathcal P, [[v]])\): 即计算\(\mathsf{relu}(v)=\mathsf{max}(0,v)=\bar{b}\cdot v\), 其中\(b=1\)当且仅当\(v&lt;0\), \(\bar{b}\)是\(b\)的补. 首先参与方执行\(\Pi_\mathsf{bitext}([[v]])\), 得到\([[b]]^\mathbf B\), 然后参与方通过设定\(\beta_{\bar b}=1\oplus\beta_b\), 本地计算\([[\bar b]]^\mathbf B\). 接着执行\(\Pi_\mathsf{bit2A}([[b]]^\mathbf B)\)生成\([[\bar b]]\). 最后, 通过\(\Pi_\mathsf{mult}\)计算\([[\bar bv]]\).</li>
+<li>Sigmoid激活函数计算协议\(\Pi_\mathsf{sig}(\mathcal P,[[v]])\): 同SecureML分段函数近似法, 将Sigmoid函数表示为\(\mathsf{sig}(v)=\bar{b}_1b_2(v+1/2)+\bar{b}_2\), 其中, 当\(v+1/2&lt;0\)时, \(b_1=1\); 当\(v-1/2&lt;0\)时, \(b_2=1\). 具体协议过程与\(\Pi_\mathsf{relu}\)协议类似.</li>
+</ol>
+<h2><a id="%E5%AE%9E%E9%AA%8C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>实验</h2>
+<p>本文主要以预处理阶段和在线阶段的吞吐量(throughput)为不同方案的对比基准. 下面仅提供部分实验截图.</p>
+<p>不同带宽下的ABY3与BLAZE点积协议吞吐量对比:</p>
+<img src="https://s2.loli.net/2022/03/20/jsZC1i2GdbTHnlW.png" alt="image-20220320213734911" style="zoom:50%;" />
+<p>线性回归与逻辑回归推理部分的吞吐量对比:</p>
+<img src="https://s2.loli.net/2022/03/20/H3hKBeaJkPtSA75.png" alt="image-20220320213954206" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/xhl4BZewOCvPLc8.png" alt="image-20220320214039017" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/KfyoNWYlGITs34B.png" alt="image-20220320214414667" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/SBoEQLHN7UtIgfd.png" alt="image-20220320214456070" style="zoom:50%;" />
+<img src="https://s2.loli.net/2022/03/20/eudlJo7R38W9kOy.png" alt="image-20220320222840218" style="zoom:50%;" />
+<p>与ASTRA对比:</p>
+<img src="https://s2.loli.net/2022/03/20/WBg2qY9lLCotDZd.png" alt="image-20220320222929474" style="zoom:50%;" />
+<h2><a id="%E6%80%BB%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结</h2>
+<p>BLAZE框架是环\(\mathbb Z_{2^\ell}\)上至多容忍一个恶意敌手的3PC隐私保护机器学习框架, 是对ASTRA框架的进一步提升, 且与ASTRA一样实现了公平性, 核心思想在于当发现恶意行为时参与方直接中止协议. 与ABY3相比, BLAZE摆脱了对RCA的依赖, 此外, 所设计恶意点积协议在线阶段通信开销与向量长度无关, 但离线阶段仍有关, 有待进一步优化. 与ASTRA相比, BLAZE极大降低了预处理阶段乘法协议的通信开销(21个环元素 VS 3个环元素). 实验发现, BLAZE在不同机器学习任务下的吞吐量都远高于ABY3的方案.</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>[1] D. Boneh, E. Boyle, H. Corrigan-Gibbs, N. Gilboa, and Y. Ishai, “Zero-knowledge proofs on secret-shared data via fully linear pcps,” in CRYPTO, 2019, pp. 67–97.</p>
+<p>[2] P. Mohassel and P. Rindal, “ABY3: A mixed protocol framework for machine learning,” in ACM CCS, 2018, pp. 35–52.</p>
+<p>[3] H. Chaudhari, A. Choudhury, A. Patra, and A. Suresh, “ASTRA: High-throughput 3PC over Rings with Application to Secure Prediction,” in ACM CCSW, 2019, pp. 81–92.</p>
+<p>[4] P. Mohassel and Y. Zhang, “SecureML: A system for scalable privacy-preserving machine learning,” in IEEE S&amp;P, 2017, pp. 19–38.</p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">BLAZE: 快速隐私保护机器学习</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16477900515975.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-03-20T23:27:31+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        Eigen3使用教程 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <h2><a id="%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵定义</h2>
+<pre class="line-numbers"><code class="language-c++">#include &lt;Eigen/Dense&gt;
+
+Matrix&lt;double, 3, 3&gt; A;               // Fixed rows and cols. Same as Matrix3d.
+Matrix&lt;double, 3, Dynamic&gt; B;         // Fixed rows, dynamic cols.
+Matrix&lt;double, Dynamic, Dynamic&gt; C;   // Full dynamic. Same as MatrixXd.
+Matrix&lt;double, 3, 3, RowMajor&gt; E;     // Row major; default is column-major.
+Matrix3f P, Q, R;                     // 3x3 float matrix.
+Vector3f x, y, z;                     // 3x1 float matrix.
+RowVector3f a, b, c;                  // 1x3 float matrix.
+VectorXd v;                           // Dynamic column vector of doubles
+// Eigen          // Matlab           // comments
+x.size()          // length(x)        // vector size
+C.rows()          // size(C,1)        // number of rows
+C.cols()          // size(C,2)        // number of columns
+x(i)              // x(i+1)           // Matlab is 1-based
+C(i,j)            // C(i+1,j+1)       //
+</code></pre>
+<h2><a id="%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础使用</h2>
+<pre class="line-numbers"><code class="language-c++">// Basic usage
+// Eigen        // Matlab           // comments
+x.size()        // length(x)        // vector size
+C.rows()        // size(C,1)        // number of rows
+C.cols()        // size(C,2)        // number of columns
+x(i)            // x(i+1)           // Matlab is 1-based
+C(i, j)         // C(i+1,j+1)       //
+
+A.resize(4, 4);   // Runtime error if assertions are on.
+B.resize(4, 9);   // Runtime error if assertions are on.
+A.resize(3, 3);   // Ok; size didn't change.
+B.resize(3, 9);   // Ok; only dynamic cols changed.
+                  
+A &lt;&lt; 1, 2, 3,     // Initialize A. The elements can also be
+     4, 5, 6,     // matrices, which are stacked along cols
+     7, 8, 9;     // and then the rows are stacked.
+B &lt;&lt; A, A, A;     // B is three horizontally stacked A's.
+A.fill(10);       // Fill A with all 10's.
+</code></pre>
+<h2><a id="%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5%E7%94%9F%E6%88%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>特殊矩阵生成</h2>
+<pre class="line-numbers"><code class="language-c++">// Eigen                            // Matlab
+MatrixXd::Identity(rows,cols)       // eye(rows,cols)
+C.setIdentity(rows,cols)            // C = eye(rows,cols)
+MatrixXd::Zero(rows,cols)           // zeros(rows,cols)
+C.setZero(rows,cols)                // C = zeros(rows,cols)
+MatrixXd::Ones(rows,cols)           // ones(rows,cols)
+C.setOnes(rows,cols)                // C = ones(rows,cols)
+MatrixXd::Random(rows,cols)         // rand(rows,cols)*2-1        // MatrixXd::Random returns uniform random numbers in (-1, 1).
+C.setRandom(rows,cols)              // C = rand(rows,cols)*2-1
+VectorXd::LinSpaced(size,low,high)  // linspace(low,high,size)'
+v.setLinSpaced(size,low,high)       // v = linspace(low,high,size)'
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%88%86%E5%9D%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵分块</h2>
+<pre class="line-numbers"><code class="language-c++">// Matrix slicing and blocks. All expressions listed here are read/write.
+// Templated size versions are faster. Note that Matlab is 1-based (a size N
+// vector is x(1)...x(N)).
+// Eigen                           // Matlab
+x.head(n)                          // x(1:n)
+x.head&lt;n&gt;()                        // x(1:n)
+x.tail(n)                          // x(end - n + 1: end)
+x.tail&lt;n&gt;()                        // x(end - n + 1: end)
+x.segment(i, n)                    // x(i+1 : i+n)
+x.segment&lt;n&gt;(i)                    // x(i+1 : i+n)
+P.block(i, j, rows, cols)          // P(i+1 : i+rows, j+1 : j+cols)
+P.block&lt;rows, cols&gt;(i, j)          // P(i+1 : i+rows, j+1 : j+cols)
+P.row(i)                           // P(i+1, :)
+P.col(j)                           // P(:, j+1)
+P.leftCols&lt;cols&gt;()                 // P(:, 1:cols)
+P.leftCols(cols)                   // P(:, 1:cols)
+P.middleCols&lt;cols&gt;(j)              // P(:, j+1:j+cols)
+P.middleCols(j, cols)              // P(:, j+1:j+cols)
+P.rightCols&lt;cols&gt;()                // P(:, end-cols+1:end)
+P.rightCols(cols)                  // P(:, end-cols+1:end)
+P.topRows&lt;rows&gt;()                  // P(1:rows, :)
+P.topRows(rows)                    // P(1:rows, :)
+P.middleRows&lt;rows&gt;(i)              // P(i+1:i+rows, :)
+P.middleRows(i, rows)              // P(i+1:i+rows, :)
+P.bottomRows&lt;rows&gt;()               // P(end-rows+1:end, :)
+P.bottomRows(rows)                 // P(end-rows+1:end, :)
+P.topLeftCorner(rows, cols)        // P(1:rows, 1:cols)
+P.topRightCorner(rows, cols)       // P(1:rows, end-cols+1:end)
+P.bottomLeftCorner(rows, cols)     // P(end-rows+1:end, 1:cols)
+P.bottomRightCorner(rows, cols)    // P(end-rows+1:end, end-cols+1:end)
+P.topLeftCorner&lt;rows,cols&gt;()       // P(1:rows, 1:cols)
+P.topRightCorner&lt;rows,cols&gt;()      // P(1:rows, end-cols+1:end)
+P.bottomLeftCorner&lt;rows,cols&gt;()    // P(end-rows+1:end, 1:cols)
+P.bottomRightCorner&lt;rows,cols&gt;()   // P(end-rows+1:end, end-cols+1:end)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%85%83%E7%B4%A0%E4%BA%A4%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵元素交换</h2>
+<pre class="line-numbers"><code class="language-c++">// Of particular note is Eigen's swap function which is highly optimized.
+// Eigen                           // Matlab
+R.row(i) = P.col(j);               // R(i, :) = P(:, i)
+R.col(j1).swap(mat1.col(j2));      // R(:, [j1 j2]) = R(:, [j2, j1])
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵转置</h2>
+<pre class="line-numbers"><code class="language-c++">// Views, transpose, etc; all read-write except for .adjoint().
+// Eigen                           // Matlab
+R.adjoint()                        // R'
+R.transpose()                      // R.' or conj(R')
+R.diagonal()                       // diag(R)
+x.asDiagonal()                     // diag(x)
+R.transpose().colwise().reverse(); // rot90(R)
+R.conjugate()                      // conj(R)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E4%B9%98%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵乘积</h2>
+<pre class="line-numbers"><code class="language-c++">// All the same as Matlab, but matlab doesn't have *= style operators.
+// Matrix-vector.  Matrix-matrix.   Matrix-scalar.
+y  = M*x;          R  = P*Q;        R  = P*s;
+a  = b*M;          R  = P - Q;      R  = s*P;
+a *= M;            R  = P + Q;      R  = P/s;
+                   R *= Q;          R  = s*P;
+                   R += Q;          R *= s;
+                   R -= Q;          R /= s;
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵单个元素操作</h2>
+<pre class="line-numbers"><code class="language-c++">// Vectorized operations on each element independently
+// Eigen                  // Matlab
+R = P.cwiseProduct(Q);    // R = P .* Q
+R = P.array() * s.array();// R = P .* s
+R = P.cwiseQuotient(Q);   // R = P ./ Q
+R = P.array() / Q.array();// R = P ./ Q
+R = P.array() + s.array();// R = P + s
+R = P.array() - s.array();// R = P - s
+R.array() += s;           // R = R + s
+R.array() -= s;           // R = R - s
+R.array() &lt; Q.array();    // R &lt; Q
+R.array() &lt;= Q.array();   // R &lt;= Q
+R.cwiseInverse();         // 1 ./ P
+R.array().inverse();      // 1 ./ P
+R.array().sin()           // sin(P)
+R.array().cos()           // cos(P)
+R.array().pow(s)          // P .^ s
+R.array().square()        // P .^ 2
+R.array().cube()          // P .^ 3
+R.cwiseSqrt()             // sqrt(P)
+R.array().sqrt()          // sqrt(P)
+R.array().exp()           // exp(P)
+R.array().log()           // log(P)
+R.cwiseMax(P)             // max(R, P)
+R.array().max(P.array())  // max(R, P)
+R.cwiseMin(P)             // min(R, P)
+R.array().min(P.array())  // min(R, P)
+R.cwiseAbs()              // abs(P)
+R.array().abs()           // abs(P)
+R.cwiseAbs2()             // abs(P.^2)
+R.array().abs2()          // abs(P.^2)
+(R.array() &lt; s).select(P,Q);  // (R &lt; s ? P : Q)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%8C%96%E7%AE%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵化简</h2>
+<pre class="line-numbers"><code class="language-c++">// Reductions.
+int r, c;
+// Eigen                  // Matlab
+R.minCoeff()              // min(R(:))
+R.maxCoeff()              // max(R(:))
+s = R.minCoeff(&amp;r, &amp;c)    // [s, i] = min(R(:)); [r, c] = ind2sub(size(R), i);
+s = R.maxCoeff(&amp;r, &amp;c)    // [s, i] = max(R(:)); [r, c] = ind2sub(size(R), i);
+R.sum()                   // sum(R(:))
+R.colwise().sum()         // sum(R)
+R.rowwise().sum()         // sum(R, 2) or sum(R')'
+R.prod()                  // prod(R(:))
+R.colwise().prod()        // prod(R)
+R.rowwise().prod()        // prod(R, 2) or prod(R')'
+R.trace()                 // trace(R)
+R.all()                   // all(R(:))
+R.colwise().all()         // all(R)
+R.rowwise().all()         // all(R, 2)
+R.any()                   // any(R(:))
+R.colwise().any()         // any(R)
+R.rowwise().any()         // any(R, 2)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E7%82%B9%E4%B9%98%E4%B8%8E%E8%A7%84%E8%8C%83%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵点乘与规范化</h2>
+<pre class="line-numbers"><code class="language-c++">// Dot products, norms, etc.
+// Eigen                  // Matlab
+x.norm()                  // norm(x).    Note that norm(R) doesn't work in Eigen.
+x.squaredNorm()           // dot(x, x)   Note the equivalence is not true for complex
+x.dot(y)                  // dot(x, y)
+x.cross(y)                // cross(x, y) Requires #include &lt;Eigen/Geometry&gt;
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵类型转换</h2>
+<pre class="line-numbers"><code class="language-c++">//// Type conversion
+// Eigen                           // Matlab
+A.cast&lt;double&gt;();                  // double(A)
+A.cast&lt;float&gt;();                   // single(A)
+A.cast&lt;int&gt;();                     // int32(A)
+A.real();                          // real(A)
+A.imag();                          // imag(A)
+// if the original type equals destination type, no work is done
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E7%89%B9%E5%BE%81%E5%80%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵特征值</h2>
+<pre class="line-numbers"><code class="language-c++">// Eigenvalue problems
+// Eigen                          // Matlab
+A.eigenvalues();                  // eig(A);
+EigenSolver&lt;Matrix3d&gt; eig(A);     // [vec val] = eig(A)
+eig.eigenvalues();                // diag(val)
+eig.eigenvectors();               // vec
+// For self-adjoint matrices use SelfAdjointEigenSolver&lt;&gt;
+</code></pre>
+<h2><a id="%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84ax-b" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>求解线性方程组\(Ax=b\)</h2>
+<pre class="line-numbers"><code class="language-c++">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
+x = A.ldlt().solve(b));  // A sym. p.s.d.    #include &lt;Eigen/Cholesky&gt;
+x = A.llt() .solve(b));  // A sym. p.d.      #include &lt;Eigen/Cholesky&gt;
+x = A.lu()  .solve(b));  // Stable and fast. #include &lt;Eigen/LU&gt;
+x = A.qr()  .solve(b));  // No pivoting.     #include &lt;Eigen/QR&gt;
+x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
+// .ldlt() -&gt; .matrixL() and .matrixD()
+// .llt()  -&gt; .matrixL()
+// .lu()   -&gt; .matrixL() and .matrixU()
+// .qr()   -&gt; .matrixQ() and .matrixR()
+// .svd()  -&gt; .matrixU(), .singularValues(), and .matrixV()
+</code></pre>
+<h2><a id="%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考来源</h2>
+<p><a href="https://www.cnblogs.com/rainbow70626/p/8819119.html">C++矩阵库 Eigen 简介</a></p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    Eigen3使用教程-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2021/08/18 21:23 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">Eigen3使用教程</h1>
+    <div class="text-muted small"><em>2021/08/18 21:23 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E7%BC%96%E7%A8%8B.html" class="badge badge-default align-text-bottom ml-1 text-muted">#编程</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <h2><a id="%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵定义</h2>
+<pre class="line-numbers"><code class="language-c++">#include &lt;Eigen/Dense&gt;
+
+Matrix&lt;double, 3, 3&gt; A;               // Fixed rows and cols. Same as Matrix3d.
+Matrix&lt;double, 3, Dynamic&gt; B;         // Fixed rows, dynamic cols.
+Matrix&lt;double, Dynamic, Dynamic&gt; C;   // Full dynamic. Same as MatrixXd.
+Matrix&lt;double, 3, 3, RowMajor&gt; E;     // Row major; default is column-major.
+Matrix3f P, Q, R;                     // 3x3 float matrix.
+Vector3f x, y, z;                     // 3x1 float matrix.
+RowVector3f a, b, c;                  // 1x3 float matrix.
+VectorXd v;                           // Dynamic column vector of doubles
+// Eigen          // Matlab           // comments
+x.size()          // length(x)        // vector size
+C.rows()          // size(C,1)        // number of rows
+C.cols()          // size(C,2)        // number of columns
+x(i)              // x(i+1)           // Matlab is 1-based
+C(i,j)            // C(i+1,j+1)       //
+</code></pre>
+<h2><a id="%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础使用</h2>
+<pre class="line-numbers"><code class="language-c++">// Basic usage
+// Eigen        // Matlab           // comments
+x.size()        // length(x)        // vector size
+C.rows()        // size(C,1)        // number of rows
+C.cols()        // size(C,2)        // number of columns
+x(i)            // x(i+1)           // Matlab is 1-based
+C(i, j)         // C(i+1,j+1)       //
+
+A.resize(4, 4);   // Runtime error if assertions are on.
+B.resize(4, 9);   // Runtime error if assertions are on.
+A.resize(3, 3);   // Ok; size didn't change.
+B.resize(3, 9);   // Ok; only dynamic cols changed.
+                  
+A &lt;&lt; 1, 2, 3,     // Initialize A. The elements can also be
+     4, 5, 6,     // matrices, which are stacked along cols
+     7, 8, 9;     // and then the rows are stacked.
+B &lt;&lt; A, A, A;     // B is three horizontally stacked A's.
+A.fill(10);       // Fill A with all 10's.
+</code></pre>
+<h2><a id="%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5%E7%94%9F%E6%88%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>特殊矩阵生成</h2>
+<pre class="line-numbers"><code class="language-c++">// Eigen                            // Matlab
+MatrixXd::Identity(rows,cols)       // eye(rows,cols)
+C.setIdentity(rows,cols)            // C = eye(rows,cols)
+MatrixXd::Zero(rows,cols)           // zeros(rows,cols)
+C.setZero(rows,cols)                // C = zeros(rows,cols)
+MatrixXd::Ones(rows,cols)           // ones(rows,cols)
+C.setOnes(rows,cols)                // C = ones(rows,cols)
+MatrixXd::Random(rows,cols)         // rand(rows,cols)*2-1        // MatrixXd::Random returns uniform random numbers in (-1, 1).
+C.setRandom(rows,cols)              // C = rand(rows,cols)*2-1
+VectorXd::LinSpaced(size,low,high)  // linspace(low,high,size)'
+v.setLinSpaced(size,low,high)       // v = linspace(low,high,size)'
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%88%86%E5%9D%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵分块</h2>
+<pre class="line-numbers"><code class="language-c++">// Matrix slicing and blocks. All expressions listed here are read/write.
+// Templated size versions are faster. Note that Matlab is 1-based (a size N
+// vector is x(1)...x(N)).
+// Eigen                           // Matlab
+x.head(n)                          // x(1:n)
+x.head&lt;n&gt;()                        // x(1:n)
+x.tail(n)                          // x(end - n + 1: end)
+x.tail&lt;n&gt;()                        // x(end - n + 1: end)
+x.segment(i, n)                    // x(i+1 : i+n)
+x.segment&lt;n&gt;(i)                    // x(i+1 : i+n)
+P.block(i, j, rows, cols)          // P(i+1 : i+rows, j+1 : j+cols)
+P.block&lt;rows, cols&gt;(i, j)          // P(i+1 : i+rows, j+1 : j+cols)
+P.row(i)                           // P(i+1, :)
+P.col(j)                           // P(:, j+1)
+P.leftCols&lt;cols&gt;()                 // P(:, 1:cols)
+P.leftCols(cols)                   // P(:, 1:cols)
+P.middleCols&lt;cols&gt;(j)              // P(:, j+1:j+cols)
+P.middleCols(j, cols)              // P(:, j+1:j+cols)
+P.rightCols&lt;cols&gt;()                // P(:, end-cols+1:end)
+P.rightCols(cols)                  // P(:, end-cols+1:end)
+P.topRows&lt;rows&gt;()                  // P(1:rows, :)
+P.topRows(rows)                    // P(1:rows, :)
+P.middleRows&lt;rows&gt;(i)              // P(i+1:i+rows, :)
+P.middleRows(i, rows)              // P(i+1:i+rows, :)
+P.bottomRows&lt;rows&gt;()               // P(end-rows+1:end, :)
+P.bottomRows(rows)                 // P(end-rows+1:end, :)
+P.topLeftCorner(rows, cols)        // P(1:rows, 1:cols)
+P.topRightCorner(rows, cols)       // P(1:rows, end-cols+1:end)
+P.bottomLeftCorner(rows, cols)     // P(end-rows+1:end, 1:cols)
+P.bottomRightCorner(rows, cols)    // P(end-rows+1:end, end-cols+1:end)
+P.topLeftCorner&lt;rows,cols&gt;()       // P(1:rows, 1:cols)
+P.topRightCorner&lt;rows,cols&gt;()      // P(1:rows, end-cols+1:end)
+P.bottomLeftCorner&lt;rows,cols&gt;()    // P(end-rows+1:end, 1:cols)
+P.bottomRightCorner&lt;rows,cols&gt;()   // P(end-rows+1:end, end-cols+1:end)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%85%83%E7%B4%A0%E4%BA%A4%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵元素交换</h2>
+<pre class="line-numbers"><code class="language-c++">// Of particular note is Eigen's swap function which is highly optimized.
+// Eigen                           // Matlab
+R.row(i) = P.col(j);               // R(i, :) = P(:, i)
+R.col(j1).swap(mat1.col(j2));      // R(:, [j1 j2]) = R(:, [j2, j1])
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵转置</h2>
+<pre class="line-numbers"><code class="language-c++">// Views, transpose, etc; all read-write except for .adjoint().
+// Eigen                           // Matlab
+R.adjoint()                        // R'
+R.transpose()                      // R.' or conj(R')
+R.diagonal()                       // diag(R)
+x.asDiagonal()                     // diag(x)
+R.transpose().colwise().reverse(); // rot90(R)
+R.conjugate()                      // conj(R)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E4%B9%98%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵乘积</h2>
+<pre class="line-numbers"><code class="language-c++">// All the same as Matlab, but matlab doesn't have *= style operators.
+// Matrix-vector.  Matrix-matrix.   Matrix-scalar.
+y  = M*x;          R  = P*Q;        R  = P*s;
+a  = b*M;          R  = P - Q;      R  = s*P;
+a *= M;            R  = P + Q;      R  = P/s;
+                   R *= Q;          R  = s*P;
+                   R += Q;          R *= s;
+                   R -= Q;          R /= s;
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵单个元素操作</h2>
+<pre class="line-numbers"><code class="language-c++">// Vectorized operations on each element independently
+// Eigen                  // Matlab
+R = P.cwiseProduct(Q);    // R = P .* Q
+R = P.array() * s.array();// R = P .* s
+R = P.cwiseQuotient(Q);   // R = P ./ Q
+R = P.array() / Q.array();// R = P ./ Q
+R = P.array() + s.array();// R = P + s
+R = P.array() - s.array();// R = P - s
+R.array() += s;           // R = R + s
+R.array() -= s;           // R = R - s
+R.array() &lt; Q.array();    // R &lt; Q
+R.array() &lt;= Q.array();   // R &lt;= Q
+R.cwiseInverse();         // 1 ./ P
+R.array().inverse();      // 1 ./ P
+R.array().sin()           // sin(P)
+R.array().cos()           // cos(P)
+R.array().pow(s)          // P .^ s
+R.array().square()        // P .^ 2
+R.array().cube()          // P .^ 3
+R.cwiseSqrt()             // sqrt(P)
+R.array().sqrt()          // sqrt(P)
+R.array().exp()           // exp(P)
+R.array().log()           // log(P)
+R.cwiseMax(P)             // max(R, P)
+R.array().max(P.array())  // max(R, P)
+R.cwiseMin(P)             // min(R, P)
+R.array().min(P.array())  // min(R, P)
+R.cwiseAbs()              // abs(P)
+R.array().abs()           // abs(P)
+R.cwiseAbs2()             // abs(P.^2)
+R.array().abs2()          // abs(P.^2)
+(R.array() &lt; s).select(P,Q);  // (R &lt; s ? P : Q)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E5%8C%96%E7%AE%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵化简</h2>
+<pre class="line-numbers"><code class="language-c++">// Reductions.
+int r, c;
+// Eigen                  // Matlab
+R.minCoeff()              // min(R(:))
+R.maxCoeff()              // max(R(:))
+s = R.minCoeff(&amp;r, &amp;c)    // [s, i] = min(R(:)); [r, c] = ind2sub(size(R), i);
+s = R.maxCoeff(&amp;r, &amp;c)    // [s, i] = max(R(:)); [r, c] = ind2sub(size(R), i);
+R.sum()                   // sum(R(:))
+R.colwise().sum()         // sum(R)
+R.rowwise().sum()         // sum(R, 2) or sum(R')'
+R.prod()                  // prod(R(:))
+R.colwise().prod()        // prod(R)
+R.rowwise().prod()        // prod(R, 2) or prod(R')'
+R.trace()                 // trace(R)
+R.all()                   // all(R(:))
+R.colwise().all()         // all(R)
+R.rowwise().all()         // all(R, 2)
+R.any()                   // any(R(:))
+R.colwise().any()         // any(R)
+R.rowwise().any()         // any(R, 2)
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E7%82%B9%E4%B9%98%E4%B8%8E%E8%A7%84%E8%8C%83%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵点乘与规范化</h2>
+<pre class="line-numbers"><code class="language-c++">// Dot products, norms, etc.
+// Eigen                  // Matlab
+x.norm()                  // norm(x).    Note that norm(R) doesn't work in Eigen.
+x.squaredNorm()           // dot(x, x)   Note the equivalence is not true for complex
+x.dot(y)                  // dot(x, y)
+x.cross(y)                // cross(x, y) Requires #include &lt;Eigen/Geometry&gt;
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵类型转换</h2>
+<pre class="line-numbers"><code class="language-c++">//// Type conversion
+// Eigen                           // Matlab
+A.cast&lt;double&gt;();                  // double(A)
+A.cast&lt;float&gt;();                   // single(A)
+A.cast&lt;int&gt;();                     // int32(A)
+A.real();                          // real(A)
+A.imag();                          // imag(A)
+// if the original type equals destination type, no work is done
+</code></pre>
+<h2><a id="%E7%9F%A9%E9%98%B5%E7%89%B9%E5%BE%81%E5%80%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵特征值</h2>
+<pre class="line-numbers"><code class="language-c++">// Eigenvalue problems
+// Eigen                          // Matlab
+A.eigenvalues();                  // eig(A);
+EigenSolver&lt;Matrix3d&gt; eig(A);     // [vec val] = eig(A)
+eig.eigenvalues();                // diag(val)
+eig.eigenvectors();               // vec
+// For self-adjoint matrices use SelfAdjointEigenSolver&lt;&gt;
+</code></pre>
+<h2><a id="%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84ax-b" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>求解线性方程组\(Ax=b\)</h2>
+<pre class="line-numbers"><code class="language-c++">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
+x = A.ldlt().solve(b));  // A sym. p.s.d.    #include &lt;Eigen/Cholesky&gt;
+x = A.llt() .solve(b));  // A sym. p.d.      #include &lt;Eigen/Cholesky&gt;
+x = A.lu()  .solve(b));  // Stable and fast. #include &lt;Eigen/LU&gt;
+x = A.qr()  .solve(b));  // No pivoting.     #include &lt;Eigen/QR&gt;
+x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
+// .ldlt() -&gt; .matrixL() and .matrixD()
+// .llt()  -&gt; .matrixL()
+// .lu()   -&gt; .matrixL() and .matrixU()
+// .qr()   -&gt; .matrixQ() and .matrixR()
+// .svd()  -&gt; .matrixU(), .singularValues(), and .matrixV()
+</code></pre>
+<h2><a id="%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考来源</h2>
+<p><a href="https://www.cnblogs.com/rainbow70626/p/8819119.html">C++矩阵库 Eigen 简介</a></p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">Eigen3使用教程</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16292930037213.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2021-08-18T21:23:23+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>

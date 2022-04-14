@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        隐私保护机器学习资料 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <h1><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h1>
+<p>This is a current list of resources related to the research and development of privacy-preserving machine learning.</p>
+<h1><a id="secure-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Machine Learning</h1>
+<ul>
+<li><a href="https://eprint.iacr.org/2014/331.pdf">Machine Learning Classification over Encrypted Data, NDSS'14</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/ohrimenko">Oblivious Multi-Party Machine Learning on Trusted Processors, USENIX SECURITY'16</a></li>
+<li><a href="https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/corrigan-gibbs">Prio: Private, Robust, and Scalable Computation of Aggregate Statistics, NSDI'17</a></li>
+<li><a href="https://eprint.iacr.org/2017/396">SecureML: A System for Scalable Privacy-Preserving Machine Learning, S&amp;P'17</a></li>
+<li><a href="https://acmccs.github.io/papers/p619-liuA.pdf">MiniONN: Oblivious Neural Network Predictions via MiniONN Transformations, CCS'17</a></li>
+<li><a href="https://eprint.iacr.org/2017/1164">Chameleon: A Hybrid Secure Computation Framework for Machine Learning Applications, AsiaCCS'17</a></li>
+<li><a href="https://arxiv.org/abs/1705.08963">DeepSecure: Scalable Provably-Secure Deep Learning, DAC'17</a></li>
+<li><a href="https://arxiv.org/abs/1901.00329">Secure Computation for Machine Learning With SPDZ, NIPS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/403.pdf">ABY3:a Mixed protocol Framework for Machine Learning, CCS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/442.pdf">SecureNN: Efficient and Private Neural Network Training, PoPETs'18</a></li>
+<li><a href="https://arxiv.org/abs/1801.05507">Gazelle: A Low Latency Framework for Secure Neural Network Inference, USENIX SECURITY'18</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3314628">CHET: an optimizing compiler for fully-homomorphic neural-network inferencing, PLDI'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/599.pdf">New Primitives for Actively-Secure MPC over Rings with Applications to Private Machine Learning, S&amp;P'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8835215">Helen: Maliciously Secure Coopetitive Learning for Linear Models, S&amp;P'19</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3363207">Efficient multi-key homomorphic encryption with packed ciphertexts with application to oblivious neural network inference. CCS'19</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/riazi">XONN: XNOR-based Oblivious Deep Neural Network Inference, USENIX Security'19</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3339819">QUOTIENT: two-party secure neural network training and prediction, CCS'19</a></li>
+<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p355.xml">Secure Evaluation of Quantized Neural Networks, PoPETs'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/429">ASTRA: High Throughput 3PC over Rings with Application to Secure Prediction, CCSW'19</a></li>
+<li><a href="https://eprint.iacr.org/2018/1099.pdf">SoK: Modular and Efficient Private Decision Tree Evaluation, PoPETs'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/1315">Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning, NDSS'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/042">BLAZE: Blazing Fast Privacy-Preserving Machine Learning, NDSS'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/1365">FLASH: Fast and Robust Framework for Privacy-preserving Machine Learning, PoPETs'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/050">Delphi: A Cryptographic Inference Service for Neural Networks, USENIX SECURITY'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3404397.3404399">ParSecureML: An Efficient Parallel Secure Machine Learning Framework on GPUs, ICPP'20</a></li>
+<li><a href="https://arxiv.org/abs/2004.02229">FALCON: Honest-Majority Maliciously Secure Framework for Private Deep Learning, PoPETs'21</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3407023.3407045">MP2ML: A Mixed-Protocol Machine Learning Framework for Private Inference, ARES'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/chen-hao">SANNS: Scaling Up Secure Approximate k-Nearest Neighbors Search, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/abs/1811.04017">PySyft: A Generic Framework for Privacy Preserving Deep Learning</a></li>
+<li><a href="https://arxiv.org/abs/1810.08130">Private Deep Learning in TensorFlow Using Secure Computation</a></li>
+<li><a href="https://arxiv.org/abs/1711.05189">CryptoDL: Deep Neural Networks over Encrypted Data</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/CryptonetsTechReport.pdf">CryptoNets: Applying Neural Networks to Encrypted Data with High Throughput and Accuracy</a></li>
+<li><a href="https://eprint.iacr.org/2019/1049.pdf">CrypTFlow: Secure TensorFlow Inference</a></li>
+<li><a href="https://arxiv.org/abs/2010.06457">CrypTFlow2: Practical 2-Party Secure Inference, CCS'20</a></li>
+<li><a href="https://arxiv.org/abs/2006.04593">ARIANN: Low-Interaction Privacy-Preserving Deep Learning via Function Secret Sharing</a></li>
+<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p414.xml">Practical Privacy-Preserving K-means Clustering, PoPETs'20</a></li>
+<li><a href="https://arxiv.org/abs/2005.10296">SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_21">An Efficient 3-Party Framework for Privacy-Preserving Neural Network Inference, ESORICS'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3427228.3427232">Secure and Verifiable Inference in Deep Neural Networks, ACSAC'20</a></li>
+<li><a href="https://www.eurecom.fr/publication/6475/download/sec-publi-6475.0.pdf">Privacy-preserving Density-based Clustering, AisaCCS'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/459">SIRNN: A Math Library for Secure RNN Inference, S&amp;P'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/lets-stride-blindfolded-in-a-forest-sublinear-multi-client-decision-trees-evaluation/">Let’s Stride Blindfolded in a Forest: Sublinear Multi-Client Decision Trees Evaluation, NDSS'21</a></li>
+<li><a href="https://people.eecs.berkeley.edu/~raluca/MUSEcamera.pdf">MUSE: Secure Inference Resilient to Malicious Clients, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2103.01396">DeepReDuce: ReLU Reduction for Fast Private Inference, ICML'21</a></li>
+<li><a href="https://eprint.iacr.org/2019/338.pdf">Garbled Neural Networks are Practical</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/ng">GForce : GPU-Friendly Oblivious and Rapid Neural Network Inference, USENIX Security'21</a></li>
+<li><a href="http://arxiv.org/abs/2104.10949">CryptGPU: Fast Privacy-Preserving Machine Learning on the GPU, S&amp;P'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/gala-greedy-computation-for-linear-algebra-in-privacy-preserved-neural-networks/">GALA : Greedy ComputAtion for Linear Algebra in Privacy-Preserved Neural Networks, NDSS'21</a></li>
+<li><a href="https://www.usenix.org/system/files/sec21fall-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2008.08753">When homomorphic encryption marries secret sharing: secure large-scale sparse logistic regression and applications in risk control, KDD'21</a></li>
+<li><a href="https://arxiv.org/pdf/1911.07101.pdf">Glyph: Fast and Accurately Training Deep Neural Networks on Encrypted Data, NeurIPS'20</a></li>
+<li><a href="https://eprint.iacr.org/2021/730">Mystique: Efficient Conversions for Zero-Knowledge Proofs with Applications to Machine Learning, USENIX Security'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/809">SoK: Efficient Privacy-preserving Clustering, PoPETs'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/087/20210127:132648">ZEN: Efficient Zero-Knowledge Proofs for Neural Networks</a></li>
+<li><a href="https://eprint.iacr.org/2021/673">zkCNN: Zero Knowledge Proofs for Convolutional Neural Network Predictions and Accuracy</a></li>
+<li><a href="https://arxiv.org/abs/2107.00501">Secure Quantized Training for Deep Learning</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/zheng">Cerebro: A Platform for Multi-Party Cryptographic Collaborative Learning, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2106.02850">Tetrad: Actively Secure 4PC for Secure Training and Inference</a></li>
+<li><a href="https://arxiv.org/abs/2106.02203">Adam in Private : Secure and Fast Training of Deep Neural Networks with Adaptive Moment Estimation</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/chandran">SIMC: ML Inference Secure Against Malicious Clients at Semi-Honest Cost, USENIX Security'22</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2021/file/11eba2991cc62daa4a85be5c0cfdae97-Paper.pdf">Circa: Stochastic ReLUs for Private Deep Learning, NeurIPS'21</a></li>
+<li><a href="https://eprint.iacr.org/2022/207">Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference, USENIX Security'22</a></li>
+</ul>
+<h1><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h1>
+<ul>
+<li><a href="https://dl.acm.org/citation.cfm?id=2813687">Privacy-Preserving Deep Learning, CCS'15</a></li>
+<li><a href="https://eprint.iacr.org/2017/281.pdf">Practical Secure Aggregation for Privacy Preserving Machine Learning, CCS'17</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/8241854">Privacy-Preserving Deep Learning via Additively Homomorphic Encryption, TIFS'17</a></li>
+<li><a href="http://cacr.uwaterloo.ca/techreports/2018/cacr2018-10.pdf">NIKE-based Fast Privacy-preserving High-dimensional Data Aggregation for Mobile Devices, CACR'18</a></li>
+<li><a href="https://eprint.iacr.org/2019/979.pdf">PrivFL: Practical Privacy-preserving Federated Regressions on High-dimensional Data over Mobile Networks, CCSW'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8765347">VerifyNet: Secure and verifiable federated learning, TIFS'19</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_20">PrivColl: Practical Privacy-Preserving Collaborative Machine Learning</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8981947">NPMML: A Framework for Non-interactive Privacy-preserving Multi-party Machine Learning, TDSC'20</a></li>
+<li><a href="https://arxiv.org/abs/2007.14861">SAFER: Sparse secure Aggregation for FEderated leaRning</a></li>
+<li><a href="https://arxiv.org/abs/2006.04747">Secure Byzantine-Robust Machine Learning</a></li>
+<li><a href="https://eprint.iacr.org/2020/704.pdf">Secure Single-Server Aggregation with (Poly)Logarithmic Overhead, CCS'20</a></li>
+<li><a href="https://www.usenix.org/conference/atc20/presentation/zhang-chengliang">Batchcrypt: Efficient homomorphic encryption for cross-silo federated learning, USENIX ATC'21</a></li>
+<li><a href="https://arxiv.org/abs/2003.10637">FedSel: Federated SGD under Local Differential Privacy with Top-k Dimension Selection, DASFAA'20</a></li>
+<li><a href="https://eprint.iacr.org/2021/025">FLGUARD: Secure and Private Federated Learning, Cryptology Eprint'21</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/9292450">Biscotti: A Blockchain System for Private and Secure Federated Learning, TPDS'21</a></li>
+<li><a href="https://arxiv.org/abs/2009.00349">POSEIDON: Privacy-Preserving Federated Neural Network Learning, NDSS'21</a></li>
+<li><a href="https://arxiv.org/abs/2104.14380">PPFL: Privacy-preserving Federated Learning with Trusted Execution Environments, MobiSys'21</a></li>
+</ul>
+<h1><a id="mpc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MPC</h1>
+<ul>
+<li><a href="https://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2015.20150763">实用安全多方计算协议关键技术研究进展, 计算机研究与发展'15</a></li>
+<li><a href="https://encrypto.de/papers/DSZ15.pdf">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-39884-1_23">GMW vs. Yao? Efficient secure two-party computation with low depth circuits, FC'13</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-14577-3_6">Secure computation with fixed-point numbers, FC'10</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-32009-5_38">Multiparty computation from somewhat homomorphic encryption, Crypto'12</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-40203-6_1">Practical covertly secure MPC for dishonest majority–or: breaking the SPDZ limits, ESORICS'13</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2978357">MASCOT: faster malicious arithmetic secure computation with oblivious transfer, CCS'16</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-319-96881-0_26">SPDZ^2k: Efficient MPC mod 2^k for Dishonest Majority, Crypto'18</a></li>
+<li><a href="https://eprint.iacr.org/2017/1230">Overdrive^2k: Making SPDZ Great Again</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2978331">High-Throughput Semi-Honest Secure Three-Party Computation with an Honest Majority, CCS'16</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-540-88313-5_13">Sharemind: A framework for fast privacy-preserving computations, ESORICS'08</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2660366">Efficiently Verifiable Computation on Encrypted Data, CCS'14</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3243734.3243837">Secure outsourced matrix computation and application to neural networks, CCS'18</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3292500.3330920">PrivPy: General and Scalable Privacy-Preserving Data Mining, KDD'19</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3372297.3417872">MP-SPDZ: A Versatile Framework for Multi-Party Computation, CCS'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/poddar">Senate: A Maliciously-Secure MPC Platform for Collaborative Analytics, USENIX Security'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/338.pdf">Improved primitives for mpc over mixed arithmetic-binary circuits, CRYPTO'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/1137">MOTION - A Framework for Mixed-Protocol Multi-Party Computation, TOPS'21</a></li>
+<li><a href="https://eprint.iacr.org/2020/1225.pdf">ABY2.0: Improved Mixed-Protocol Secure Two-Party Computation (Full Version), USENIX Security'21</a></li>
+<li><a href="https://encrypto.de/papers/PSSY21HOST.pdf">SynCirc: Efficient Synthesis of Depth-Optimized Circuits for Secure Computation, HOST'21</a></li>
+<li><a href="https://www.usenix.org/conference/osdi21/presentation/kumar">MAGE: Nearly Zero-Cost Virtual Memory for Secure Computation, USENIX OSDI'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/1493.pdf">VASA : Vector AES Instructions for Security Applications, ACSAC'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/833">ATLAS: Efficient and Scalable MPC in the Honest Majority Setting, CRYPTO'21</a></li>
+</ul>
+<h1><a id="federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Federated Learning</h1>
+<h2><a id="communication-optimization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Optimization</h2>
+<ul>
+<li><a href="http://papers.nips.cc/paper/6749-terngrad-ternary-gradients-to-reduce-communication-in-distributed-deep-learning">Terngrad: Ternary gradients to reduce communication in distributed deep learning, NIPS'17</a></li>
+<li><a href="https://papers.nips.cc/paper/2018/hash/314450613369e0ee72d0da7f6fee773c-Abstract.html">The Convergence of Sparsified Gradient Methods, NIPS'18</a></li>
+</ul>
+<h2><a id="byzantine-tolerant" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Byzantine-Tolerant</h2>
+<ul>
+<li><a href="http://papers.nips.cc/paper/6617-machine-learning-with-adversaries-byzantine-tolerant-gradient-descent">Machine Learning with Adversaries: Byzantine Tolerant Gradient Descent, NIPS'17</a></li>
+<li><a href="https://papers.nips.cc/paper/2018/file/a07c2f3b3b907aaf8436a26c6d77f0a2-Paper.pdf">Byzantine stochastic gradient descent, NIPS'18</a></li>
+<li><a href="https://arxiv.org/abs/1802.07927">The Hidden Vulnerability of Distributed Learning in Byzantium, ICML'18</a></li>
+<li><a href="https://arxiv.org/abs/1803.01498">Byzantine-Robust Distributed Learning: Towards Optimal Statistical Rates, ICML'18</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/fang">Local Model Poisoning Attacks to Byzantine-Robust Federated Learning, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/abs/2012.13995">FLTrust: Byzantine-robust Federated Learning via Trust Bootstrapping, NDSS'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/manipulating-the-byzantine-optimizing-model-poisoning-attacks-and-defenses-for-federated-learning/">Manipulating the Byzantine: Optimizing Model Poisoning Attacks and Defenses for Federated Learning, NDSS'21</a></li>
+<li><a href="https://www.usenix.org/system/files/sec20-pan.pdf">Justinian’s GAAvernor: Robust Distributed Learning with Gradient Aggregation Agent, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/pdf/2105.02295.pdf">Byzantine-robust and privacy-preserving framework for FEDML, ICLR Workshop'21</a></li>
+<li><a href="http://proceedings.mlr.press/v139/karimireddy21a/karimireddy21a.pdf">Learning from History for Byzantine Robust Optimization, ICML'21</a></li>
+<li><a href="https://arxiv.org/abs/2101.02281">FLAME: Taming backdoors in federated learning, USENIX Security'22</a></li>
+</ul>
+<h1><a id="privacy-leakages-of-mlfl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Leakages of ML/FL</h1>
+<ul>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/7958568">Membership inference attacks against machine learning models, S&amp;P'17</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8835245">Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning, S&amp;P'19</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_24">Data Poisoning Attacks Against Federated Learning Systems, ESORICS'20</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_27">A Framework for Evaluating Client Privacy Leakages in Federated Learning, ESORICS'20</a></li>
+<li><a href="https://www.computer.org/csdl/magazine/sp/2021/04/09433648/1tHMTWXyaUE">A Critical Overview of Privacy in Machine Learning, IEEE Security &amp; Privacy'21</a></li>
+</ul>
+<h1><a id="blogs" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blogs</h1>
+<ul>
+<li><a href="https://mortendahl.github.io/">Cryptography and Machine Learning: Mixing both for private data analysis</a></li>
+<li><a href="https://iamtrask.github.io/2017/03/17/safe-ai/">Building Safe A.I.: A Tutorial for Encrypted Deep Learning</a></li>
+<li><a href="https://github.com/rdragos/awesome-mpc">Awesome MPC: Curated List of resources for MPC</a></li>
+<li><a href="https://www.zhihu.com/column/c_1380808297608613888">安全多方计算学习笔记</a></li>
+<li><a href="https://www.zhihu.com/column/c_1121838720017338368">机器学习隐私保护</a></li>
+</ul>
+<h1><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h1>
+<ul>
+<li><a href="https://github.com/esonghori/TinyGarble">TinyGarble: Logic Synthesis and Sequential Descriptions for Yao's Garbled Circuits</a></li>
+<li><a href="https://github.com/bristolcrypto/SPDZ-2">SPDZ-2: Multiparty computation with SPDZ, MASCOT, and Overdrive offline phases</a></li>
+<li><a href="https://github.com/encryptogroup/aby">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation</a></li>
+<li><a href="http://oblivc.org/">Obliv - C: C compiler for embedding privacy preserving protocols:</a></li>
+<li><a href="https://github.com/tfhe/tfhe">TFHE: Fast Fully Homomorphic Encryption Library over the Torus</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/project/simple-encrypted-arithmetic-library/">SEAL: Simple Encypted Arithmatic Library</a></li>
+<li><a href="https://github.com/Lab41/PySEAL">PySEAL: Python interface to SEAL</a></li>
+<li><a href="https://github.com/shaih/HElib%5D">HElib: An Implementation of homomorphic encryption</a></li>
+<li><a href="https://github.com/mpc-msri/EzPC">EzPC: programmable, efficient, and scalable secure two-party computation for machine learning</a></li>
+<li><a href="https://github.com/vernamlab/cuFHE">CUDA-accelerated Fully Homomorphic Encryption Library</a></li>
+<li><a href="https://github.com/facebookresearch/CrypTen">CrypTen: A framework for Privacy Preserving Machine Learning</a></li>
+<li><a href="https://github.com/tf-encrypted/tf-encrypted">tf-encrypted: A Framework for Machine Learning on Encrypted Data</a></li>
+<li><a href="https://sourceforge.net/projects/sharemind/">Sharemind</a></li>
+<li><a href="https://github.com/data61/python-paillier">PythonPaillier</a></li>
+<li><a href="https://github.com/OpenMined/TenSEAL">TenSEAL</a></li>
+<li><a href="https://github.com/data61/MP-SPDZ">MP-SPDZ</a></li>
+<li><a href="https://github.com/snwagh/securenn-public">Securenn-public</a></li>
+<li><a href="https://github.com/FudanMPL/SecMML">SecMML</a></li>
+<li><a href="https://github.com/csiro-mlai/mnist-mpc">mnist-mpc</a></li>
+<li><a href="https://github.com/bit-ml/Private-Set-Intersection">Private-Set-Intersection</a></li>
+<li><a href="https://github.com/snwagh/falcon-public">falcon-public</a></li>
+<li><a href="https://github.com/LatticeX-Foundation/Rosetta">Rosetta</a></li>
+<li><a href="https://github.com/alipay/Antchain-MPC">Antchain-MPC</a></li>
+<li><a href="https://github.com/yuchen1024/Kunlun">Kunlun</a></li>
+<li><a href="https://github.com/encryptogroup/MOTION2NX">MOTION2NX</a></li>
+<li><a href="https://github.com/anderspkd/SecureQ8">SecureQ8</a></li>
+<li><a href="https://github.com/mkskeller/mpc-benchmarks">mpc-benchmarks</a></li>
+<li><a href="https://github.com/mc2-project/muse">muse</a></li>
+<li><a href="https://github.com/Ye-D/PPML-Resource">ABY3: A Three Party MPC framework for Machine learning and Databases</a></li>
+<li><a href="https://www.win.tue.nl/~berry/mpyc/">MPyC: MPyC for Secure Multiparty Computation in Python</a></li>
+<li><a href="https://github.com/OpenMined/SyMPC">SyMPC: A SMPC companion library for Syft</a></li>
+</ul>
+<p>来源: <a href="https://github.com/WeiViming/PPML-Resource">Materials about Privacy-Preserving Machine Learning</a></p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    隐私保护机器学习资料-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/01/29 23:01 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">隐私保护机器学习资料</h1>
+    <div class="text-muted small"><em>2022/01/29 23:01 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <h1><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h1>
+<p>This is a current list of resources related to the research and development of privacy-preserving machine learning.</p>
+<h1><a id="secure-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Machine Learning</h1>
+<ul>
+<li><a href="https://eprint.iacr.org/2014/331.pdf">Machine Learning Classification over Encrypted Data, NDSS'14</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/ohrimenko">Oblivious Multi-Party Machine Learning on Trusted Processors, USENIX SECURITY'16</a></li>
+<li><a href="https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/corrigan-gibbs">Prio: Private, Robust, and Scalable Computation of Aggregate Statistics, NSDI'17</a></li>
+<li><a href="https://eprint.iacr.org/2017/396">SecureML: A System for Scalable Privacy-Preserving Machine Learning, S&amp;P'17</a></li>
+<li><a href="https://acmccs.github.io/papers/p619-liuA.pdf">MiniONN: Oblivious Neural Network Predictions via MiniONN Transformations, CCS'17</a></li>
+<li><a href="https://eprint.iacr.org/2017/1164">Chameleon: A Hybrid Secure Computation Framework for Machine Learning Applications, AsiaCCS'17</a></li>
+<li><a href="https://arxiv.org/abs/1705.08963">DeepSecure: Scalable Provably-Secure Deep Learning, DAC'17</a></li>
+<li><a href="https://arxiv.org/abs/1901.00329">Secure Computation for Machine Learning With SPDZ, NIPS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/403.pdf">ABY3:a Mixed protocol Framework for Machine Learning, CCS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/442.pdf">SecureNN: Efficient and Private Neural Network Training, PoPETs'18</a></li>
+<li><a href="https://arxiv.org/abs/1801.05507">Gazelle: A Low Latency Framework for Secure Neural Network Inference, USENIX SECURITY'18</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3314628">CHET: an optimizing compiler for fully-homomorphic neural-network inferencing, PLDI'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/599.pdf">New Primitives for Actively-Secure MPC over Rings with Applications to Private Machine Learning, S&amp;P'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8835215">Helen: Maliciously Secure Coopetitive Learning for Linear Models, S&amp;P'19</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3363207">Efficient multi-key homomorphic encryption with packed ciphertexts with application to oblivious neural network inference. CCS'19</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/riazi">XONN: XNOR-based Oblivious Deep Neural Network Inference, USENIX Security'19</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3339819">QUOTIENT: two-party secure neural network training and prediction, CCS'19</a></li>
+<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p355.xml">Secure Evaluation of Quantized Neural Networks, PoPETs'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/429">ASTRA: High Throughput 3PC over Rings with Application to Secure Prediction, CCSW'19</a></li>
+<li><a href="https://eprint.iacr.org/2018/1099.pdf">SoK: Modular and Efficient Private Decision Tree Evaluation, PoPETs'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/1315">Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning, NDSS'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/042">BLAZE: Blazing Fast Privacy-Preserving Machine Learning, NDSS'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/1365">FLASH: Fast and Robust Framework for Privacy-preserving Machine Learning, PoPETs'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/050">Delphi: A Cryptographic Inference Service for Neural Networks, USENIX SECURITY'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3404397.3404399">ParSecureML: An Efficient Parallel Secure Machine Learning Framework on GPUs, ICPP'20</a></li>
+<li><a href="https://arxiv.org/abs/2004.02229">FALCON: Honest-Majority Maliciously Secure Framework for Private Deep Learning, PoPETs'21</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3407023.3407045">MP2ML: A Mixed-Protocol Machine Learning Framework for Private Inference, ARES'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/chen-hao">SANNS: Scaling Up Secure Approximate k-Nearest Neighbors Search, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/abs/1811.04017">PySyft: A Generic Framework for Privacy Preserving Deep Learning</a></li>
+<li><a href="https://arxiv.org/abs/1810.08130">Private Deep Learning in TensorFlow Using Secure Computation</a></li>
+<li><a href="https://arxiv.org/abs/1711.05189">CryptoDL: Deep Neural Networks over Encrypted Data</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/CryptonetsTechReport.pdf">CryptoNets: Applying Neural Networks to Encrypted Data with High Throughput and Accuracy</a></li>
+<li><a href="https://eprint.iacr.org/2019/1049.pdf">CrypTFlow: Secure TensorFlow Inference</a></li>
+<li><a href="https://arxiv.org/abs/2010.06457">CrypTFlow2: Practical 2-Party Secure Inference, CCS'20</a></li>
+<li><a href="https://arxiv.org/abs/2006.04593">ARIANN: Low-Interaction Privacy-Preserving Deep Learning via Function Secret Sharing</a></li>
+<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p414.xml">Practical Privacy-Preserving K-means Clustering, PoPETs'20</a></li>
+<li><a href="https://arxiv.org/abs/2005.10296">SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_21">An Efficient 3-Party Framework for Privacy-Preserving Neural Network Inference, ESORICS'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3427228.3427232">Secure and Verifiable Inference in Deep Neural Networks, ACSAC'20</a></li>
+<li><a href="https://www.eurecom.fr/publication/6475/download/sec-publi-6475.0.pdf">Privacy-preserving Density-based Clustering, AisaCCS'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/459">SIRNN: A Math Library for Secure RNN Inference, S&amp;P'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/lets-stride-blindfolded-in-a-forest-sublinear-multi-client-decision-trees-evaluation/">Let’s Stride Blindfolded in a Forest: Sublinear Multi-Client Decision Trees Evaluation, NDSS'21</a></li>
+<li><a href="https://people.eecs.berkeley.edu/~raluca/MUSEcamera.pdf">MUSE: Secure Inference Resilient to Malicious Clients, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2103.01396">DeepReDuce: ReLU Reduction for Fast Private Inference, ICML'21</a></li>
+<li><a href="https://eprint.iacr.org/2019/338.pdf">Garbled Neural Networks are Practical</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/ng">GForce : GPU-Friendly Oblivious and Rapid Neural Network Inference, USENIX Security'21</a></li>
+<li><a href="http://arxiv.org/abs/2104.10949">CryptGPU: Fast Privacy-Preserving Machine Learning on the GPU, S&amp;P'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/gala-greedy-computation-for-linear-algebra-in-privacy-preserved-neural-networks/">GALA : Greedy ComputAtion for Linear Algebra in Privacy-Preserved Neural Networks, NDSS'21</a></li>
+<li><a href="https://www.usenix.org/system/files/sec21fall-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2008.08753">When homomorphic encryption marries secret sharing: secure large-scale sparse logistic regression and applications in risk control, KDD'21</a></li>
+<li><a href="https://arxiv.org/pdf/1911.07101.pdf">Glyph: Fast and Accurately Training Deep Neural Networks on Encrypted Data, NeurIPS'20</a></li>
+<li><a href="https://eprint.iacr.org/2021/730">Mystique: Efficient Conversions for Zero-Knowledge Proofs with Applications to Machine Learning, USENIX Security'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/809">SoK: Efficient Privacy-preserving Clustering, PoPETs'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/087/20210127:132648">ZEN: Efficient Zero-Knowledge Proofs for Neural Networks</a></li>
+<li><a href="https://eprint.iacr.org/2021/673">zkCNN: Zero Knowledge Proofs for Convolutional Neural Network Predictions and Accuracy</a></li>
+<li><a href="https://arxiv.org/abs/2107.00501">Secure Quantized Training for Deep Learning</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/zheng">Cerebro: A Platform for Multi-Party Cryptographic Collaborative Learning, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2106.02850">Tetrad: Actively Secure 4PC for Secure Training and Inference</a></li>
+<li><a href="https://arxiv.org/abs/2106.02203">Adam in Private : Secure and Fast Training of Deep Neural Networks with Adaptive Moment Estimation</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/chandran">SIMC: ML Inference Secure Against Malicious Clients at Semi-Honest Cost, USENIX Security'22</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2021/file/11eba2991cc62daa4a85be5c0cfdae97-Paper.pdf">Circa: Stochastic ReLUs for Private Deep Learning, NeurIPS'21</a></li>
+<li><a href="https://eprint.iacr.org/2022/207">Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference, USENIX Security'22</a></li>
+</ul>
+<h1><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h1>
+<ul>
+<li><a href="https://dl.acm.org/citation.cfm?id=2813687">Privacy-Preserving Deep Learning, CCS'15</a></li>
+<li><a href="https://eprint.iacr.org/2017/281.pdf">Practical Secure Aggregation for Privacy Preserving Machine Learning, CCS'17</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/8241854">Privacy-Preserving Deep Learning via Additively Homomorphic Encryption, TIFS'17</a></li>
+<li><a href="http://cacr.uwaterloo.ca/techreports/2018/cacr2018-10.pdf">NIKE-based Fast Privacy-preserving High-dimensional Data Aggregation for Mobile Devices, CACR'18</a></li>
+<li><a href="https://eprint.iacr.org/2019/979.pdf">PrivFL: Practical Privacy-preserving Federated Regressions on High-dimensional Data over Mobile Networks, CCSW'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8765347">VerifyNet: Secure and verifiable federated learning, TIFS'19</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_20">PrivColl: Practical Privacy-Preserving Collaborative Machine Learning</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8981947">NPMML: A Framework for Non-interactive Privacy-preserving Multi-party Machine Learning, TDSC'20</a></li>
+<li><a href="https://arxiv.org/abs/2007.14861">SAFER: Sparse secure Aggregation for FEderated leaRning</a></li>
+<li><a href="https://arxiv.org/abs/2006.04747">Secure Byzantine-Robust Machine Learning</a></li>
+<li><a href="https://eprint.iacr.org/2020/704.pdf">Secure Single-Server Aggregation with (Poly)Logarithmic Overhead, CCS'20</a></li>
+<li><a href="https://www.usenix.org/conference/atc20/presentation/zhang-chengliang">Batchcrypt: Efficient homomorphic encryption for cross-silo federated learning, USENIX ATC'21</a></li>
+<li><a href="https://arxiv.org/abs/2003.10637">FedSel: Federated SGD under Local Differential Privacy with Top-k Dimension Selection, DASFAA'20</a></li>
+<li><a href="https://eprint.iacr.org/2021/025">FLGUARD: Secure and Private Federated Learning, Cryptology Eprint'21</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/9292450">Biscotti: A Blockchain System for Private and Secure Federated Learning, TPDS'21</a></li>
+<li><a href="https://arxiv.org/abs/2009.00349">POSEIDON: Privacy-Preserving Federated Neural Network Learning, NDSS'21</a></li>
+<li><a href="https://arxiv.org/abs/2104.14380">PPFL: Privacy-preserving Federated Learning with Trusted Execution Environments, MobiSys'21</a></li>
+</ul>
+<h1><a id="mpc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MPC</h1>
+<ul>
+<li><a href="https://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2015.20150763">实用安全多方计算协议关键技术研究进展, 计算机研究与发展'15</a></li>
+<li><a href="https://encrypto.de/papers/DSZ15.pdf">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-39884-1_23">GMW vs. Yao? Efficient secure two-party computation with low depth circuits, FC'13</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-14577-3_6">Secure computation with fixed-point numbers, FC'10</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-32009-5_38">Multiparty computation from somewhat homomorphic encryption, Crypto'12</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-40203-6_1">Practical covertly secure MPC for dishonest majority–or: breaking the SPDZ limits, ESORICS'13</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2978357">MASCOT: faster malicious arithmetic secure computation with oblivious transfer, CCS'16</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-319-96881-0_26">SPDZ^2k: Efficient MPC mod 2^k for Dishonest Majority, Crypto'18</a></li>
+<li><a href="https://eprint.iacr.org/2017/1230">Overdrive^2k: Making SPDZ Great Again</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2978331">High-Throughput Semi-Honest Secure Three-Party Computation with an Honest Majority, CCS'16</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-540-88313-5_13">Sharemind: A framework for fast privacy-preserving computations, ESORICS'08</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2660366">Efficiently Verifiable Computation on Encrypted Data, CCS'14</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3243734.3243837">Secure outsourced matrix computation and application to neural networks, CCS'18</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3292500.3330920">PrivPy: General and Scalable Privacy-Preserving Data Mining, KDD'19</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3372297.3417872">MP-SPDZ: A Versatile Framework for Multi-Party Computation, CCS'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/poddar">Senate: A Maliciously-Secure MPC Platform for Collaborative Analytics, USENIX Security'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/338.pdf">Improved primitives for mpc over mixed arithmetic-binary circuits, CRYPTO'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/1137">MOTION - A Framework for Mixed-Protocol Multi-Party Computation, TOPS'21</a></li>
+<li><a href="https://eprint.iacr.org/2020/1225.pdf">ABY2.0: Improved Mixed-Protocol Secure Two-Party Computation (Full Version), USENIX Security'21</a></li>
+<li><a href="https://encrypto.de/papers/PSSY21HOST.pdf">SynCirc: Efficient Synthesis of Depth-Optimized Circuits for Secure Computation, HOST'21</a></li>
+<li><a href="https://www.usenix.org/conference/osdi21/presentation/kumar">MAGE: Nearly Zero-Cost Virtual Memory for Secure Computation, USENIX OSDI'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/1493.pdf">VASA : Vector AES Instructions for Security Applications, ACSAC'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/833">ATLAS: Efficient and Scalable MPC in the Honest Majority Setting, CRYPTO'21</a></li>
+</ul>
+<h1><a id="federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Federated Learning</h1>
+<h2><a id="communication-optimization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Optimization</h2>
+<ul>
+<li><a href="http://papers.nips.cc/paper/6749-terngrad-ternary-gradients-to-reduce-communication-in-distributed-deep-learning">Terngrad: Ternary gradients to reduce communication in distributed deep learning, NIPS'17</a></li>
+<li><a href="https://papers.nips.cc/paper/2018/hash/314450613369e0ee72d0da7f6fee773c-Abstract.html">The Convergence of Sparsified Gradient Methods, NIPS'18</a></li>
+</ul>
+<h2><a id="byzantine-tolerant" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Byzantine-Tolerant</h2>
+<ul>
+<li><a href="http://papers.nips.cc/paper/6617-machine-learning-with-adversaries-byzantine-tolerant-gradient-descent">Machine Learning with Adversaries: Byzantine Tolerant Gradient Descent, NIPS'17</a></li>
+<li><a href="https://papers.nips.cc/paper/2018/file/a07c2f3b3b907aaf8436a26c6d77f0a2-Paper.pdf">Byzantine stochastic gradient descent, NIPS'18</a></li>
+<li><a href="https://arxiv.org/abs/1802.07927">The Hidden Vulnerability of Distributed Learning in Byzantium, ICML'18</a></li>
+<li><a href="https://arxiv.org/abs/1803.01498">Byzantine-Robust Distributed Learning: Towards Optimal Statistical Rates, ICML'18</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/fang">Local Model Poisoning Attacks to Byzantine-Robust Federated Learning, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/abs/2012.13995">FLTrust: Byzantine-robust Federated Learning via Trust Bootstrapping, NDSS'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/manipulating-the-byzantine-optimizing-model-poisoning-attacks-and-defenses-for-federated-learning/">Manipulating the Byzantine: Optimizing Model Poisoning Attacks and Defenses for Federated Learning, NDSS'21</a></li>
+<li><a href="https://www.usenix.org/system/files/sec20-pan.pdf">Justinian’s GAAvernor: Robust Distributed Learning with Gradient Aggregation Agent, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/pdf/2105.02295.pdf">Byzantine-robust and privacy-preserving framework for FEDML, ICLR Workshop'21</a></li>
+<li><a href="http://proceedings.mlr.press/v139/karimireddy21a/karimireddy21a.pdf">Learning from History for Byzantine Robust Optimization, ICML'21</a></li>
+<li><a href="https://arxiv.org/abs/2101.02281">FLAME: Taming backdoors in federated learning, USENIX Security'22</a></li>
+</ul>
+<h1><a id="privacy-leakages-of-mlfl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Leakages of ML/FL</h1>
+<ul>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/7958568">Membership inference attacks against machine learning models, S&amp;P'17</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8835245">Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning, S&amp;P'19</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_24">Data Poisoning Attacks Against Federated Learning Systems, ESORICS'20</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_27">A Framework for Evaluating Client Privacy Leakages in Federated Learning, ESORICS'20</a></li>
+<li><a href="https://www.computer.org/csdl/magazine/sp/2021/04/09433648/1tHMTWXyaUE">A Critical Overview of Privacy in Machine Learning, IEEE Security &amp; Privacy'21</a></li>
+</ul>
+<h1><a id="blogs" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blogs</h1>
+<ul>
+<li><a href="https://mortendahl.github.io/">Cryptography and Machine Learning: Mixing both for private data analysis</a></li>
+<li><a href="https://iamtrask.github.io/2017/03/17/safe-ai/">Building Safe A.I.: A Tutorial for Encrypted Deep Learning</a></li>
+<li><a href="https://github.com/rdragos/awesome-mpc">Awesome MPC: Curated List of resources for MPC</a></li>
+<li><a href="https://www.zhihu.com/column/c_1380808297608613888">安全多方计算学习笔记</a></li>
+<li><a href="https://www.zhihu.com/column/c_1121838720017338368">机器学习隐私保护</a></li>
+</ul>
+<h1><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h1>
+<ul>
+<li><a href="https://github.com/esonghori/TinyGarble">TinyGarble: Logic Synthesis and Sequential Descriptions for Yao's Garbled Circuits</a></li>
+<li><a href="https://github.com/bristolcrypto/SPDZ-2">SPDZ-2: Multiparty computation with SPDZ, MASCOT, and Overdrive offline phases</a></li>
+<li><a href="https://github.com/encryptogroup/aby">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation</a></li>
+<li><a href="http://oblivc.org/">Obliv - C: C compiler for embedding privacy preserving protocols:</a></li>
+<li><a href="https://github.com/tfhe/tfhe">TFHE: Fast Fully Homomorphic Encryption Library over the Torus</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/project/simple-encrypted-arithmetic-library/">SEAL: Simple Encypted Arithmatic Library</a></li>
+<li><a href="https://github.com/Lab41/PySEAL">PySEAL: Python interface to SEAL</a></li>
+<li><a href="https://github.com/shaih/HElib%5D">HElib: An Implementation of homomorphic encryption</a></li>
+<li><a href="https://github.com/mpc-msri/EzPC">EzPC: programmable, efficient, and scalable secure two-party computation for machine learning</a></li>
+<li><a href="https://github.com/vernamlab/cuFHE">CUDA-accelerated Fully Homomorphic Encryption Library</a></li>
+<li><a href="https://github.com/facebookresearch/CrypTen">CrypTen: A framework for Privacy Preserving Machine Learning</a></li>
+<li><a href="https://github.com/tf-encrypted/tf-encrypted">tf-encrypted: A Framework for Machine Learning on Encrypted Data</a></li>
+<li><a href="https://sourceforge.net/projects/sharemind/">Sharemind</a></li>
+<li><a href="https://github.com/data61/python-paillier">PythonPaillier</a></li>
+<li><a href="https://github.com/OpenMined/TenSEAL">TenSEAL</a></li>
+<li><a href="https://github.com/data61/MP-SPDZ">MP-SPDZ</a></li>
+<li><a href="https://github.com/snwagh/securenn-public">Securenn-public</a></li>
+<li><a href="https://github.com/FudanMPL/SecMML">SecMML</a></li>
+<li><a href="https://github.com/csiro-mlai/mnist-mpc">mnist-mpc</a></li>
+<li><a href="https://github.com/bit-ml/Private-Set-Intersection">Private-Set-Intersection</a></li>
+<li><a href="https://github.com/snwagh/falcon-public">falcon-public</a></li>
+<li><a href="https://github.com/LatticeX-Foundation/Rosetta">Rosetta</a></li>
+<li><a href="https://github.com/alipay/Antchain-MPC">Antchain-MPC</a></li>
+<li><a href="https://github.com/yuchen1024/Kunlun">Kunlun</a></li>
+<li><a href="https://github.com/encryptogroup/MOTION2NX">MOTION2NX</a></li>
+<li><a href="https://github.com/anderspkd/SecureQ8">SecureQ8</a></li>
+<li><a href="https://github.com/mkskeller/mpc-benchmarks">mpc-benchmarks</a></li>
+<li><a href="https://github.com/mc2-project/muse">muse</a></li>
+<li><a href="https://github.com/Ye-D/PPML-Resource">ABY3: A Three Party MPC framework for Machine learning and Databases</a></li>
+<li><a href="https://www.win.tue.nl/~berry/mpyc/">MPyC: MPyC for Secure Multiparty Computation in Python</a></li>
+<li><a href="https://github.com/OpenMined/SyMPC">SyMPC: A SMPC companion library for Syft</a></li>
+</ul>
+<p>来源: <a href="https://github.com/WeiViming/PPML-Resource">Materials about Privacy-Preserving Machine Learning</a></p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">隐私保护机器学习资料</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16434684624710.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-01-29T23:01:02+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

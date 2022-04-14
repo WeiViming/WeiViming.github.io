@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        几个Makefile模板 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <h2><a id="%E6%A8%A1%E6%9D%BF1" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板1</h2>
+<pre class="line-numbers"><code class="language-makefile">#
+# c.cpp混合编译的makefile模板
+#
+#
+
+
+BIN = 
+CROSS = 
+CC = $(CROSS)gcc
+CPP = $(CROSS)g++
+LD = $(CROSS)ld
+#这里只加入库头文件路径及库路径
+INCS = #-I&quot;c:/mingw/include&quot;
+LIBS = #-L&quot;c:/mingw/lib&quot; 
+SUBDIRS =
+#生成依赖信息时的搜索目录，比如到下列目录中搜索一个依赖文件(比如.h文件)，例如 -I&quot;./***/&quot; -I&quot;./base/&quot;
+DEFINC = -I./snap7/ -I./snap7/src/sys/ -I./snap7/src/lib/ -I./snap7/src/core/
+#给INCS加上依赖搜索路径，分开写可能会产生不一致情况，而且繁琐
+INCS += $(DEFINC)
+#
+#maintest.c tree/rbtree.c  多了子目录，那就直接添加 目录/*.c即可   所有的源文件--  .c文件列表
+CSRCS = $(wildcard ./*.c ./snap7/*.c)
+CPPSRCS = $(wildcard ./snap7/src/sys/*.cpp ./snap7/src/lib/*.cpp ./snap7/src/core/*.cpp)
+#
+#所有的.o文件列表
+COBJS := $(CSRCS:.c=.o)
+CPPOBJS := $(CPPSRCS:.cpp=.o)
+#
+#生成依赖信息 -MM是只生成自己的头文件信息，-M 包含了标准库头文件信息。
+#-MT 或 -MQ都可以改变生成的依赖  xxx.o:src/xxx.h 为 src/xxx.o:src/xxx.h 当然。前面的 src/xxx.o需自己指定
+#格式为 -MM 输入.c或.cpp  查找依赖路径  -MT或-MQ  生成规则，比如src/xxx.o
+#MAKEDEPEND = gcc -MM -MT
+CFLAGS += $(INCS)
+CFLAGS += -O2 -Wall -g -fPIC
+CPPFLAGS += $(INCS)
+CPPFLAGS += -O2 -Wall -g -fPIC
+LDFLAGS += -shared -fPIC -lpthread -lm -lrt -lstdc++
+
+all:$(BIN)
+#$(OBJS):%.o :%.c  先用$(OBJS)中的一项，比如foo.o: %.o : %.c  含义为:试着用%.o匹配foo.o。如果成功%就等于foo。如果不成功，
+# Make就会警告，然后。给foo.o添加依赖文件foo.c(用foo替换了%.c里的%)
+# 也可以不要下面的这个生成规则，因为下面的 include $(DEF)  就隐含了。此处为了明了，易懂。故留着
+$(COBJS) : %.o: %.c
+	$(CC) $(CFLAGS) -c $&lt; -o $@ 
+$(CPPOBJS) : %.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $&lt; -o $@ 
+
+# $@--目标文件，$^--所有的依赖文件，$&lt;--第一个依赖文件。每次$&lt; $@ 代表的值就是列表中的
+#
+$(BIN) : $(COBJS) $(CPPOBJS)
+	$(CC) -o $(BIN) $(COBJS) $(CPPOBJS) $(LDFLAGS) $(LIBS) 
+	rm $(COBJS)
+	rm $(CPPOBJS)
+# 链接为最终目标
+
+
+#引入了.o文件对.c和.h的依赖情况。以后.h被修改也会重新生成，可看看.d文件内容即知道为何
+#引入了依赖就相当于引入了一系列的规则，因为依赖内容例如： 目录/xxx.o:目录/xxx.c 目录/xxx.h 也相当于隐含的引入了生成规则
+#故上面不能在出现如： $(OBJS) : $(DEF)之类。切记
+.PHONY:clean cleanall
+
+#清除所有目标文件以及生成的最终目标文件
+clean:            
+	rm $(BIN) #$(COBJS) $(CPPOBJS)
+#rm *.d
+cleanall:
+	rm $(BIN) $(COBJS) $(CPPOBJS)
+</code></pre>
+<p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/4a3ee91b4a0aeec53b822267b500f0ff/raw/3b752d0b694defffbd3831cc289b3cfbf375ccaa/Makefile">这里</a></p>
+<h2><a id="%E6%A8%A1%E6%9D%BF2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板2</h2>
+<pre class="line-numbers"><code class="language-makefile">#####################################################################
+## file        : test makefile for build current dir .c            ##
+## author      : jernymy                                           ##
+## date-time   : 05/06/2010                                        ##
+#####################################################################
+
+CC      = gcc
+CPP     = g++
+RM      = rm -rf
+
+## debug flag
+DBG_ENABLE   = 1
+
+## source file path
+SRC_PATH   := .
+
+## target exec file name
+TARGET     := test
+
+## get all source files
+SRCS         += $(wildcard $(SRC_PATH)/*.c)
+
+## all .o based on all .c
+OBJS        := $(SRCS:.c=.o)
+
+
+## need libs, add at here
+LIBS :=
+
+## used headers  file path
+INCLUDE_PATH := .
+
+## used include librarys file path
+LIBRARY_PATH := /lib
+
+## debug for debug info, when use gdb to debug
+ifeq (1, ${DBG_ENABLE}) 
+    CFLAGS += -D_DEBUG -O0 -g -DDEBUG=1
+endif
+
+## get all include path
+CFLAGS  += $(foreach dir, $(INCLUDE_PATH), -I$(dir))
+
+## get all library path
+LDFLAGS += $(foreach lib, $(LIBRARY_PATH), -L$(lib))
+
+## get all librarys
+LDFLAGS += $(foreach lib, $(LIBS), -l$(lib))
+
+
+all: clean build
+
+build:
+    $(CC) -c $(CFLAGS) $(SRCS)
+    $(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
+    $(RM) $(OBJS)
+
+clean:
+    $(RM) $(OBJS) $(TARGET)
+</code></pre>
+<p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/c99c565c0602390f0fa75a753ed56d64/raw/8ec354d586792132a6d6489b0de898f61834d2bd/Makeflie">这里</a></p>
+<h2><a id="%E6%A8%A1%E6%9D%BF3" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板3</h2>
+<pre class="line-numbers"><code class="language-makefile">#===============================================================================
+#
+#     Filename: Makefile
+#  Description:
+#
+#        Usage: make              (generate executable                      )
+#               make clean        (remove objects, executable, prerequisits )
+#               make tarball      (generate compressed archive              )
+#               make zip          (generate compressed archive              )
+#
+#      Version: 1.0
+#      Created:
+#     Revision: ---
+#
+#       Author:
+#      Company:
+#        Email:
+#
+#        Notes: This is a GNU make (gmake) makefile.
+#               C   extension   :  c
+#               C++ extensions  :  cc cpp C
+#               C and C++ sources can be mixed.
+#               Prerequisites are generated automatically; makedepend is not
+#               needed (see documentation for GNU make Version 3.80, July 2002,
+#               section 4.13). The utility sed is used.
+#========================================== makefile template version 1.8 ======
+
+# DEBUG can be set to YES to include debugging info, or NO otherwise
+DEBUG          := NO
+
+# PROFILE can be set to YES to include profiling info, or NO otherwise
+PROFILE        := NO
+
+# ------------  name of the executable  ----------------------------------------
+EXECUTABLE      := zruijie
+
+# ------------  list of all source files  --------------------------------------
+SOURCES         := blog.c  eap_protocol.c  main.c  md5.c  zruijie.c
+
+# ------------  compiler  ------------------------------------------------------
+CC              := gcc
+CXX             := g++
+
+# ------------  compiler flags  ------------------------------------------------
+DEBUG_CFLAGS    := -Wall -O0 -g
+RELEASE_CFLAGS  := -Wall -O2
+
+# ------------  linker flags  --------------------------------------------------
+DEBUG_LDFLAGS    := -g
+RELEASE_LDFLAGS  :=
+
+ifeq (YES, ${DEBUG})
+  CFLAGS       := ${DEBUG_CFLAGS}
+  CXXFLAGS     := ${DEBUG_CXXFLAGS}
+  LDFLAGS      := ${DEBUG_LDFLAGS}
+else
+  CFLAGS       := ${RELEASE_CFLAGS}
+  CXXFLAGS     := ${RELEASE_CXXFLAGS}
+  LDFLAGS      := ${RELEASE_LDFLAGS}
+endif
+
+ifeq (YES, ${PROFILE})
+  CFLAGS       := ${CFLAGS}   -pg -O3
+  CXXFLAGS     := ${CXXFLAGS} -pg -O3
+  LDFLAGS      := ${LDFLAGS}  -pg
+endif
+
+# ------------  additional system include directories  -------------------------
+GLOBAL_INC_DIR  =
+
+# ------------  private include directories  -----------------------------------
+LOCAL_INC_DIR   = 
+
+# ------------  system libraries  (e.g. -lm )  ---------------------------------
+SYS_LIBS        = /usr/lib/libpcap.a
+
+# ------------  additional system library directories  -------------------------
+GLOBAL_LIB_DIR  =
+
+# ------------  additional system libraries  -----------------------------------
+GLOBAL_LIBS     =
+
+# ------------  private library directories  -----------------------------------
+LOCAL_LIB_DIR   = 
+
+# ------------  private libraries  (e.g. libxyz.a )  ---------------------------
+LOCAL_LIBS      =
+
+# ------------  archive generation ---------------------------------------------
+TARBALL_EXCLUDE = *.{o,gz,zip}
+ZIP_EXCLUDE     = *.{o,gz,zip}
+
+# ------------  run executable out of this Makefile  (yes/no)  -----------------
+# ------------  cmd line parameters for this executable  -----------------------
+EXE_START       = no
+EXE_CMDLINE     =
+
+#===============================================================================
+# The following statements usually need not to be changed
+#===============================================================================
+
+C_SOURCES       = $(filter     %.c, $(SOURCES))
+CPP_SOURCES     = $(filter-out %.c, $(SOURCES))
+ALL_INC_DIR     = $(addprefix -I, $(LOCAL_INC_DIR) $(GLOBAL_INC_DIR))
+ALL_LIB_DIR     = $(addprefix -L, $(LOCAL_LIB_DIR) $(GLOBAL_LIB_DIR))
+GLOBAL_LIBSS    = $(addprefix $(GLOBAL_LIB_DIR)/, $(GLOBAL_LIBS))
+LOCAL_LIBSS     = $(addprefix $(LOCAL_LIB_DIR)/, $(LOCAL_LIBS))
+ALL_CFLAGS      = $(CFLAGS) $(ALL_INC_DIR)
+ALL_LFLAGS      = $(LDFLAGS) $(ALL_LIB_DIR)
+BASENAMES       = $(basename $(SOURCES))
+
+# ------------  generate the names of the object files  ------------------------
+OBJECTS         = $(addsuffix .o,$(BASENAMES))
+
+# ------------  generate the names of the hidden prerequisite files  -----------
+PREREQUISITES   = $(addprefix .,$(addsuffix .d,$(BASENAMES)))
+
+# ------------  make the executable (the default goal)  ------------------------
+$(EXECUTABLE):	$(OBJECTS)
+ifeq ($(strip $(CPP_SOURCES)),)
+								$(CC)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+else
+								$(CXX) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+endif
+ifeq ($(EXE_START),yes)
+								./$(EXECUTABLE) $(EXE_CMDLINE)
+endif
+
+# ------------  include the automatically generated prerequisites  -------------
+# ------------  if target is not clean, tarball or zip             -------------
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(MAKECMDGOALS),tarball)
+ifneq ($(MAKECMDGOALS),zip)
+include         $(PREREQUISITES)
+endif
+endif
+endif
+
+# ------------  make the objects  ----------------------------------------------
+%.o:		%.c
+				$(CC)  -c $(ALL_CFLAGS) $&lt;
+
+%.o:		%.cc
+				$(CXX) -c $(ALL_CFLAGS) $&lt;
+
+%.o:		%.cpp
+				$(CXX) -c $(ALL_CFLAGS) $&lt;
+
+%.o:		%.C
+				$(CXX) -c $(ALL_CFLAGS) $&lt;
+
+# ------------  make the prerequisites  ----------------------------------------
+#
+.%.d:   %.c
+				@$(make-prerequisite-c)
+
+.%.d:		%.cc
+				@$(make-prerequisite-cplusplus)
+
+.%.d:		%.cpp
+				@$(make-prerequisite-cplusplus)
+
+.%.d:		%.C
+				@$(make-prerequisite-cplusplus)
+
+#  canned command sequences
+#  echoing of the sed command is suppressed by the leading @
+
+define	make-prerequisite-c
+				@$(CC)   -MM $(ALL_CFLAGS) $&lt; &gt; $@.$$$$;            \
+				sed 's/\($*\)\.o[ :]*/\1.o $@ : /g' &lt; $@.$$$$ &gt; $@; \
+				rm -f $@.$$$$;
+endef
+
+define	make-prerequisite-cplusplus
+				@$(CXX)  -MM $(ALL_CFLAGS) $&lt; &gt; $@.$$$$;            \
+				sed 's/\($*\)\.o[ :]*/\1.o $@ : /g' &lt; $@.$$$$ &gt; $@; \
+				rm -f $@.$$$$;
+endef
+
+# ------------  remove generated files  ----------------------------------------
+# ------------  remove hidden backup files  ------------------------------------
+clean:
+								-rm -v  $(EXECUTABLE) $(OBJECTS) $(PREREQUISITES) *~
+
+# ------------ tarball generation ----------------------------------------------
+tarball:
+					@lokaldir=`pwd`; lokaldir=$${lokaldir##*/}; \
+					rm --force $$lokaldir.tar.gz;               \
+					tar --exclude=$(TARBALL_EXCLUDE)            \
+					    --create                                \
+					    --gzip                                  \
+					    --verbose                               \
+					    --file  $$lokaldir.tar.gz *
+
+# ------------ zip -------------------------------------------------------------
+zip:
+					@lokaldir=`pwd`; lokaldir=$${lokaldir##*/}; \
+					zip -r  $$lokaldir.zip * -x $(ZIP_EXCLUDE)
+
+install: $(EXECUTABLE)
+				@./install /usr/local/bin
+
+uninstall:
+				-rm /usr/local/bin/$(EXECUTABLE) /usr/local/bin/runruijie
+
+
+.PHONY: clean tarball zip
+
+# ==============================================================================
+# vim: set tabstop=2: set shiftwidth=2:
+</code></pre>
+<p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/826f47d2db2da9575e0916b4c1c234fc/raw/88aa7ff68557762e7ff3c275f9cceab62ec41da5/Makefile">这里</a></p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    几个Makefile模板-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2021/11/19 14:55 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">几个Makefile模板</h1>
+    <div class="text-muted small"><em>2021/11/19 14:55 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E7%BC%96%E7%A8%8B.html" class="badge badge-default align-text-bottom ml-1 text-muted">#编程</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <h2><a id="%E6%A8%A1%E6%9D%BF1" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板1</h2>
+<pre class="line-numbers"><code class="language-makefile">#
+# c.cpp混合编译的makefile模板
+#
+#
+
+
+BIN = 
+CROSS = 
+CC = $(CROSS)gcc
+CPP = $(CROSS)g++
+LD = $(CROSS)ld
+#这里只加入库头文件路径及库路径
+INCS = #-I&quot;c:/mingw/include&quot;
+LIBS = #-L&quot;c:/mingw/lib&quot; 
+SUBDIRS =
+#生成依赖信息时的搜索目录，比如到下列目录中搜索一个依赖文件(比如.h文件)，例如 -I&quot;./***/&quot; -I&quot;./base/&quot;
+DEFINC = -I./snap7/ -I./snap7/src/sys/ -I./snap7/src/lib/ -I./snap7/src/core/
+#给INCS加上依赖搜索路径，分开写可能会产生不一致情况，而且繁琐
+INCS += $(DEFINC)
+#
+#maintest.c tree/rbtree.c  多了子目录，那就直接添加 目录/*.c即可   所有的源文件--  .c文件列表
+CSRCS = $(wildcard ./*.c ./snap7/*.c)
+CPPSRCS = $(wildcard ./snap7/src/sys/*.cpp ./snap7/src/lib/*.cpp ./snap7/src/core/*.cpp)
+#
+#所有的.o文件列表
+COBJS := $(CSRCS:.c=.o)
+CPPOBJS := $(CPPSRCS:.cpp=.o)
+#
+#生成依赖信息 -MM是只生成自己的头文件信息，-M 包含了标准库头文件信息。
+#-MT 或 -MQ都可以改变生成的依赖  xxx.o:src/xxx.h 为 src/xxx.o:src/xxx.h 当然。前面的 src/xxx.o需自己指定
+#格式为 -MM 输入.c或.cpp  查找依赖路径  -MT或-MQ  生成规则，比如src/xxx.o
+#MAKEDEPEND = gcc -MM -MT
+CFLAGS += $(INCS)
+CFLAGS += -O2 -Wall -g -fPIC
+CPPFLAGS += $(INCS)
+CPPFLAGS += -O2 -Wall -g -fPIC
+LDFLAGS += -shared -fPIC -lpthread -lm -lrt -lstdc++
+
+all:$(BIN)
+#$(OBJS):%.o :%.c  先用$(OBJS)中的一项，比如foo.o: %.o : %.c  含义为:试着用%.o匹配foo.o。如果成功%就等于foo。如果不成功，
+# Make就会警告，然后。给foo.o添加依赖文件foo.c(用foo替换了%.c里的%)
+# 也可以不要下面的这个生成规则，因为下面的 include $(DEF)  就隐含了。此处为了明了，易懂。故留着
+$(COBJS) : %.o: %.c
+	$(CC) $(CFLAGS) -c $&lt; -o $@ 
+$(CPPOBJS) : %.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $&lt; -o $@ 
+
+# $@--目标文件，$^--所有的依赖文件，$&lt;--第一个依赖文件。每次$&lt; $@ 代表的值就是列表中的
+#
+$(BIN) : $(COBJS) $(CPPOBJS)
+	$(CC) -o $(BIN) $(COBJS) $(CPPOBJS) $(LDFLAGS) $(LIBS) 
+	rm $(COBJS)
+	rm $(CPPOBJS)
+# 链接为最终目标
+
+
+#引入了.o文件对.c和.h的依赖情况。以后.h被修改也会重新生成，可看看.d文件内容即知道为何
+#引入了依赖就相当于引入了一系列的规则，因为依赖内容例如： 目录/xxx.o:目录/xxx.c 目录/xxx.h 也相当于隐含的引入了生成规则
+#故上面不能在出现如： $(OBJS) : $(DEF)之类。切记
+.PHONY:clean cleanall
+
+#清除所有目标文件以及生成的最终目标文件
+clean:            
+	rm $(BIN) #$(COBJS) $(CPPOBJS)
+#rm *.d
+cleanall:
+	rm $(BIN) $(COBJS) $(CPPOBJS)
+</code></pre>
+<p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/4a3ee91b4a0aeec53b822267b500f0ff/raw/3b752d0b694defffbd3831cc289b3cfbf375ccaa/Makefile">这里</a></p>
+<h2><a id="%E6%A8%A1%E6%9D%BF2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板2</h2>
+<pre class="line-numbers"><code class="language-makefile">#####################################################################
+## file        : test makefile for build current dir .c            ##
+## author      : jernymy                                           ##
+## date-time   : 05/06/2010                                        ##
+#####################################################################
+
+CC      = gcc
+CPP     = g++
+RM      = rm -rf
+
+## debug flag
+DBG_ENABLE   = 1
+
+## source file path
+SRC_PATH   := .
+
+## target exec file name
+TARGET     := test
+
+## get all source files
+SRCS         += $(wildcard $(SRC_PATH)/*.c)
+
+## all .o based on all .c
+OBJS        := $(SRCS:.c=.o)
+
+
+## need libs, add at here
+LIBS :=
+
+## used headers  file path
+INCLUDE_PATH := .
+
+## used include librarys file path
+LIBRARY_PATH := /lib
+
+## debug for debug info, when use gdb to debug
+ifeq (1, ${DBG_ENABLE}) 
+    CFLAGS += -D_DEBUG -O0 -g -DDEBUG=1
+endif
+
+## get all include path
+CFLAGS  += $(foreach dir, $(INCLUDE_PATH), -I$(dir))
+
+## get all library path
+LDFLAGS += $(foreach lib, $(LIBRARY_PATH), -L$(lib))
+
+## get all librarys
+LDFLAGS += $(foreach lib, $(LIBS), -l$(lib))
+
+
+all: clean build
+
+build:
+    $(CC) -c $(CFLAGS) $(SRCS)
+    $(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
+    $(RM) $(OBJS)
+
+clean:
+    $(RM) $(OBJS) $(TARGET)
+</code></pre>
+<p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/c99c565c0602390f0fa75a753ed56d64/raw/8ec354d586792132a6d6489b0de898f61834d2bd/Makeflie">这里</a></p>
+<h2><a id="%E6%A8%A1%E6%9D%BF3" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>模板3</h2>
+<pre class="line-numbers"><code class="language-makefile">#===============================================================================
+#
+#     Filename: Makefile
+#  Description:
+#
+#        Usage: make              (generate executable                      )
+#               make clean        (remove objects, executable, prerequisits )
+#               make tarball      (generate compressed archive              )
+#               make zip          (generate compressed archive              )
+#
+#      Version: 1.0
+#      Created:
+#     Revision: ---
+#
+#       Author:
+#      Company:
+#        Email:
+#
+#        Notes: This is a GNU make (gmake) makefile.
+#               C   extension   :  c
+#               C++ extensions  :  cc cpp C
+#               C and C++ sources can be mixed.
+#               Prerequisites are generated automatically; makedepend is not
+#               needed (see documentation for GNU make Version 3.80, July 2002,
+#               section 4.13). The utility sed is used.
+#========================================== makefile template version 1.8 ======
+
+# DEBUG can be set to YES to include debugging info, or NO otherwise
+DEBUG          := NO
+
+# PROFILE can be set to YES to include profiling info, or NO otherwise
+PROFILE        := NO
+
+# ------------  name of the executable  ----------------------------------------
+EXECUTABLE      := zruijie
+
+# ------------  list of all source files  --------------------------------------
+SOURCES         := blog.c  eap_protocol.c  main.c  md5.c  zruijie.c
+
+# ------------  compiler  ------------------------------------------------------
+CC              := gcc
+CXX             := g++
+
+# ------------  compiler flags  ------------------------------------------------
+DEBUG_CFLAGS    := -Wall -O0 -g
+RELEASE_CFLAGS  := -Wall -O2
+
+# ------------  linker flags  --------------------------------------------------
+DEBUG_LDFLAGS    := -g
+RELEASE_LDFLAGS  :=
+
+ifeq (YES, ${DEBUG})
+  CFLAGS       := ${DEBUG_CFLAGS}
+  CXXFLAGS     := ${DEBUG_CXXFLAGS}
+  LDFLAGS      := ${DEBUG_LDFLAGS}
+else
+  CFLAGS       := ${RELEASE_CFLAGS}
+  CXXFLAGS     := ${RELEASE_CXXFLAGS}
+  LDFLAGS      := ${RELEASE_LDFLAGS}
+endif
+
+ifeq (YES, ${PROFILE})
+  CFLAGS       := ${CFLAGS}   -pg -O3
+  CXXFLAGS     := ${CXXFLAGS} -pg -O3
+  LDFLAGS      := ${LDFLAGS}  -pg
+endif
+
+# ------------  additional system include directories  -------------------------
+GLOBAL_INC_DIR  =
+
+# ------------  private include directories  -----------------------------------
+LOCAL_INC_DIR   = 
+
+# ------------  system libraries  (e.g. -lm )  ---------------------------------
+SYS_LIBS        = /usr/lib/libpcap.a
+
+# ------------  additional system library directories  -------------------------
+GLOBAL_LIB_DIR  =
+
+# ------------  additional system libraries  -----------------------------------
+GLOBAL_LIBS     =
+
+# ------------  private library directories  -----------------------------------
+LOCAL_LIB_DIR   = 
+
+# ------------  private libraries  (e.g. libxyz.a )  ---------------------------
+LOCAL_LIBS      =
+
+# ------------  archive generation ---------------------------------------------
+TARBALL_EXCLUDE = *.{o,gz,zip}
+ZIP_EXCLUDE     = *.{o,gz,zip}
+
+# ------------  run executable out of this Makefile  (yes/no)  -----------------
+# ------------  cmd line parameters for this executable  -----------------------
+EXE_START       = no
+EXE_CMDLINE     =
+
+#===============================================================================
+# The following statements usually need not to be changed
+#===============================================================================
+
+C_SOURCES       = $(filter     %.c, $(SOURCES))
+CPP_SOURCES     = $(filter-out %.c, $(SOURCES))
+ALL_INC_DIR     = $(addprefix -I, $(LOCAL_INC_DIR) $(GLOBAL_INC_DIR))
+ALL_LIB_DIR     = $(addprefix -L, $(LOCAL_LIB_DIR) $(GLOBAL_LIB_DIR))
+GLOBAL_LIBSS    = $(addprefix $(GLOBAL_LIB_DIR)/, $(GLOBAL_LIBS))
+LOCAL_LIBSS     = $(addprefix $(LOCAL_LIB_DIR)/, $(LOCAL_LIBS))
+ALL_CFLAGS      = $(CFLAGS) $(ALL_INC_DIR)
+ALL_LFLAGS      = $(LDFLAGS) $(ALL_LIB_DIR)
+BASENAMES       = $(basename $(SOURCES))
+
+# ------------  generate the names of the object files  ------------------------
+OBJECTS         = $(addsuffix .o,$(BASENAMES))
+
+# ------------  generate the names of the hidden prerequisite files  -----------
+PREREQUISITES   = $(addprefix .,$(addsuffix .d,$(BASENAMES)))
+
+# ------------  make the executable (the default goal)  ------------------------
+$(EXECUTABLE):	$(OBJECTS)
+ifeq ($(strip $(CPP_SOURCES)),)
+								$(CC)  $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+else
+								$(CXX) $(ALL_LFLAGS) -o $(EXECUTABLE) $(OBJECTS) $(LOCAL_LIBSS) $(GLOBAL_LIBSS) $(SYS_LIBS)
+endif
+ifeq ($(EXE_START),yes)
+								./$(EXECUTABLE) $(EXE_CMDLINE)
+endif
+
+# ------------  include the automatically generated prerequisites  -------------
+# ------------  if target is not clean, tarball or zip             -------------
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(MAKECMDGOALS),tarball)
+ifneq ($(MAKECMDGOALS),zip)
+include         $(PREREQUISITES)
+endif
+endif
+endif
+
+# ------------  make the objects  ----------------------------------------------
+%.o:		%.c
+				$(CC)  -c $(ALL_CFLAGS) $&lt;
+
+%.o:		%.cc
+				$(CXX) -c $(ALL_CFLAGS) $&lt;
+
+%.o:		%.cpp
+				$(CXX) -c $(ALL_CFLAGS) $&lt;
+
+%.o:		%.C
+				$(CXX) -c $(ALL_CFLAGS) $&lt;
+
+# ------------  make the prerequisites  ----------------------------------------
+#
+.%.d:   %.c
+				@$(make-prerequisite-c)
+
+.%.d:		%.cc
+				@$(make-prerequisite-cplusplus)
+
+.%.d:		%.cpp
+				@$(make-prerequisite-cplusplus)
+
+.%.d:		%.C
+				@$(make-prerequisite-cplusplus)
+
+#  canned command sequences
+#  echoing of the sed command is suppressed by the leading @
+
+define	make-prerequisite-c
+				@$(CC)   -MM $(ALL_CFLAGS) $&lt; &gt; $@.$$$$;            \
+				sed 's/\($*\)\.o[ :]*/\1.o $@ : /g' &lt; $@.$$$$ &gt; $@; \
+				rm -f $@.$$$$;
+endef
+
+define	make-prerequisite-cplusplus
+				@$(CXX)  -MM $(ALL_CFLAGS) $&lt; &gt; $@.$$$$;            \
+				sed 's/\($*\)\.o[ :]*/\1.o $@ : /g' &lt; $@.$$$$ &gt; $@; \
+				rm -f $@.$$$$;
+endef
+
+# ------------  remove generated files  ----------------------------------------
+# ------------  remove hidden backup files  ------------------------------------
+clean:
+								-rm -v  $(EXECUTABLE) $(OBJECTS) $(PREREQUISITES) *~
+
+# ------------ tarball generation ----------------------------------------------
+tarball:
+					@lokaldir=`pwd`; lokaldir=$${lokaldir##*/}; \
+					rm --force $$lokaldir.tar.gz;               \
+					tar --exclude=$(TARBALL_EXCLUDE)            \
+					    --create                                \
+					    --gzip                                  \
+					    --verbose                               \
+					    --file  $$lokaldir.tar.gz *
+
+# ------------ zip -------------------------------------------------------------
+zip:
+					@lokaldir=`pwd`; lokaldir=$${lokaldir##*/}; \
+					zip -r  $$lokaldir.zip * -x $(ZIP_EXCLUDE)
+
+install: $(EXECUTABLE)
+				@./install /usr/local/bin
+
+uninstall:
+				-rm /usr/local/bin/$(EXECUTABLE) /usr/local/bin/runruijie
+
+
+.PHONY: clean tarball zip
+
+# ==============================================================================
+# vim: set tabstop=2: set shiftwidth=2:
+</code></pre>
+<p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/826f47d2db2da9575e0916b4c1c234fc/raw/88aa7ff68557762e7ff3c275f9cceab62ec41da5/Makefile">这里</a></p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">几个Makefile模板</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16373049349337.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2021-11-19T14:55:34+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>

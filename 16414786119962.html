@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        隐私计算技术路线 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <p>根据“大数据联合国全球工作组”(Bigdata UN Global Working Group)的定义, 隐私计算(Privacy-Preserving Computation)是一类技术方案, 在处理和分析计算数据的过程中能保持数据不透明、不泄漏、无法被计算方以及其他非授权方获取. 隐私计算是指在保护数据本身不对外泄漏的前提下实现数据分析计算的技术集合.</p>
+<h2><a id="%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>数据安全法律法规</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">法律法规</th>
+<th style="text-align: center">英文全称</th>
+<th style="text-align: center">简称</th>
+<th style="text-align: center">发起地区</th>
+<th style="text-align: center">施行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">《通用数据保护条例》</td>
+<td style="text-align: center">General Data Protection Regulation</td>
+<td style="text-align: center">GDPR</td>
+<td style="text-align: center">欧盟</td>
+<td style="text-align: center">2018.5.25</td>
+</tr>
+<tr>
+<td style="text-align: center">《加利福尼亚州消费者隐私法》</td>
+<td style="text-align: center">California Consumer Privacy Act</td>
+<td style="text-align: center">CCPA</td>
+<td style="text-align: center">美国</td>
+<td style="text-align: center">2020.1.1</td>
+</tr>
+<tr>
+<td style="text-align: center">《网络安全法》</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">中国</td>
+<td style="text-align: center">2017.6.1</td>
+</tr>
+<tr>
+<td style="text-align: center">《数据安全法》</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">中国</td>
+<td style="text-align: center">2021.9.1</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E4%B8%8E%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算与传统数据安全的关系</h2>
+<p>来源: 《隐私计算介绍》华控清交 赵一飞</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">传统数据保密</th>
+<th style="text-align: center">隐私计算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">数据在加密后不可计算, 使用必须解密</td>
+<td style="text-align: center">数据加密后仍可计算, 计算结果解密后与明文计算结果一致</td>
+</tr>
+<tr>
+<td style="text-align: center">需要信任系统管理员、硬件平台和操作系统</td>
+<td style="text-align: center">无需信任系统管理员、硬件和操作系统(密码学流派)</td>
+</tr>
+<tr>
+<td style="text-align: center">主要能力面向数据的存储和传输</td>
+<td style="text-align: center">主要能力面向数据的使用和计算</td>
+</tr>
+<tr>
+<td style="text-align: center">以Hash、非对称、对称等密码学为基础</td>
+<td style="text-align: center">安全性和正确性由数学理论保证(密码学流派)</td>
+</tr>
+</tbody>
+</table>
+<p>传统数据安全与隐私计算是互补关系, 综合使用才能够保障数据的全生命周期安全.</p>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E6%8A%80%E6%9C%AF%E6%B5%81%E6%B4%BE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算技术流派</h2>
+<p>来源: 《隐私计算介绍》华控清交 赵一飞</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: center">联邦学习</th>
+<th style="text-align: center">多方安全计算</th>
+<th style="text-align: center">可信执行环境</th>
+<th style="text-align: center">安全沙箱</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">能力概述</td>
+<td style="text-align: center">数据不出域, 本地明文计算, 交互通过MPC加密</td>
+<td style="text-align: center">原始数据不出域, 纯密文计算</td>
+<td style="text-align: center">数据通过安全通道进入隔离硬件环境计算, 支持各种通用计算</td>
+<td style="text-align: center">明文数据进入安全沙箱, 支持第三方软件协作分析</td>
+</tr>
+<tr>
+<td style="text-align: center">应用场景</td>
+<td style="text-align: center">多数据源联合机器学习建模</td>
+<td style="text-align: center">多数据源联合基础运算、联合查询、联合统计、部分机器学习建模</td>
+<td style="text-align: center">多数据源联合基础运算、联合查询、联合统计、机器学习建模</td>
+<td style="text-align: center">多数据源联合基础运算、联合查询、联合统计、机器学习建模</td>
+</tr>
+<tr>
+<td style="text-align: center">安全等级</td>
+<td style="text-align: center">中~高</td>
+<td style="text-align: center">高(满足一定安全假设前提下)</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">低</td>
+</tr>
+<tr>
+<td style="text-align: center">核心技术</td>
+<td style="text-align: center">交互层使用密码算法<br> HE, OT, RSA, Hash</td>
+<td style="text-align: center">底层基于严格论证的密码算法<br>GC, SS, OT, HE, ZKP</td>
+<td style="text-align: center">在硬件层面安全指令集设计</td>
+<td style="text-align: center">在网络、操作系统之上软安全域设计</td>
+</tr>
+<tr>
+<td style="text-align: center">性能对比</td>
+<td style="text-align: center">中~高</td>
+<td style="text-align: center">分布式模式性能低<br>代理模式性能中~高</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">高</td>
+</tr>
+<tr>
+<td style="text-align: center">部署形式</td>
+<td style="text-align: center">各方部署计算和数据节点</td>
+<td style="text-align: center">分布式模式各方部署计算和数据节点<br>代理模式计算节点集中部署</td>
+<td style="text-align: center">各方部署数据节点，计算节点集中部署</td>
+<td style="text-align: center">集中部署</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E5%AF%86%E7%A0%81%E5%AD%A6%E7%A0%94%E7%A9%B6%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>密码学研究领域划分</h2>
+<ol>
+<li>计算问题: 基础困难假设;</li>
+<li>密码原语: 基础功能算法, 包括对称加密算法、公钥加密算法、哈希函数算法、伪随机生成器等;</li>
+<li>密码协议: 基于密码原语实现多种功能, 多方安全计算、零知识证明、可搜索加密等;</li>
+<li>安全系统: 基于密码协议构建安全系统, 多学科交叉.</li>
+</ol>
+<p>以上四个层次层层递进, 每一层都依赖于上一层的相应实现.</p>
+<h2><a id="%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97%E7%9A%84%E7%B1%BB%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全多方计算的类型</h2>
+<h3><a id="%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>通用安全多方计算</h3>
+<ol>
+<li>支持<strong>任意</strong>函数;</li>
+<li>相同设计应用不用场景, 易于设计.</li>
+</ol>
+<h3><a id="%E4%B8%93%E7%94%A8%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>专用安全多方计算</h3>
+<ol>
+<li>支持<strong>部分</strong>函数;</li>
+<li>针对特定问题的解决方案定制, 效率高;</li>
+<li>常见场景: 隐私集合求交(PSI)问题, 门限密码等.</li>
+</ol>
+<h2><a id="%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8F%91%E5%B1%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>全同态加密技术的发展</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">发展阶段</th>
+<th style="text-align: center">困难性假设</th>
+<th style="text-align: center">特点</th>
+<th style="text-align: center">代表方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">第一代</td>
+<td style="text-align: center">理想格陪集问题、稀疏子集和问题</td>
+<td style="text-align: center">理论可行, 实现效率低</td>
+<td style="text-align: center">Gentry09</td>
+</tr>
+<tr>
+<td style="text-align: center">第二代</td>
+<td style="text-align: center">LWE/NTRU问题</td>
+<td style="text-align: center">优化充分, 当前效率最高, 多项式运算优势</td>
+<td style="text-align: center">BGV、BFV、CKKS</td>
+</tr>
+<tr>
+<td style="text-align: center">第三代</td>
+<td style="text-align: center">LWE问题</td>
+<td style="text-align: center">形式简洁, 参数选取更简便, 逻辑运算优势</td>
+<td style="text-align: center">TFHE、FHEW</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E4%B8%8D%E5%90%8C%E6%8A%80%E6%9C%AF%E8%B7%AF%E7%BA%BF%E7%9A%84%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>不同技术路线的对比</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">安全多方计算类型</th>
+<th style="text-align: center">技术路线</th>
+<th style="text-align: center">优点</th>
+<th style="text-align: center">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">通用</td>
+<td style="text-align: center">通用安全多方计算(混淆电路 + 不经意传输 + 秘密共享)</td>
+<td style="text-align: center">功能全面</td>
+<td style="text-align: center">计算及通信开销大</td>
+</tr>
+<tr>
+<td style="text-align: center">通用</td>
+<td style="text-align: center">基于全同态加密的通用安全多方计算(FHE)</td>
+<td style="text-align: center">功能全面</td>
+<td style="text-align: center">自举效率低</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于秘密共享的专用安全多方计算</td>
+<td style="text-align: center">效率较高, 功能较多</td>
+<td style="text-align: center">运算往往依赖第三方辅助, 部分运算计算及通信开销大</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于不经意传输的专用安全多方计算</td>
+<td style="text-align: center">效率高</td>
+<td style="text-align: center">功能单一</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于半同态算法的专用安全多方计算</td>
+<td style="text-align: center">效率较高</td>
+<td style="text-align: center">功能有限</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于全同态加密的专用安全多方计算(Leveled HE)</td>
+<td style="text-align: center">效率较高, 功能按需设计</td>
+<td style="text-align: center">需要面向应用场景设置参数</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7%E8%A1%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算关键技术综合评价表</h2>
+<p>来源: 中国信息通信研究院、阿里巴巴(中国)有限公司、北京数牍科技有限公司《隐私保护计算技术研究报告(2020年)》</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">技术</th>
+<th style="text-align: center">计算过程保护</th>
+<th style="text-align: center">计算结果保护</th>
+<th style="text-align: center">计算性能</th>
+<th style="text-align: center">计算精度</th>
+<th style="text-align: center">硬件依赖</th>
+<th style="text-align: center">理论支持场景</th>
+<th style="text-align: center">实际已商用场景</th>
+<th style="text-align: center">计算模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">安全多方计算MPC</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★★☆☆☆</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">国外: 拍卖、薪资统计、密钥管理; <br>国内: 密钥管理、联合建模</td>
+<td style="text-align: center">分布式</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦学习FL</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">机器学习建模</td>
+<td style="text-align: center">国外: 以横向FL为主, 如谷歌Gboard; <br>国内: 以纵向FL为主, 在金融风控领域应用居多</td>
+<td style="text-align: center">分布式</td>
+</tr>
+<tr>
+<td style="text-align: center">机密计算CC</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">有</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">国外: 密钥管理; <br>国内: 联合建模、区块链</td>
+<td style="text-align: center">中心化</td>
+</tr>
+<tr>
+<td style="text-align: center">差分隐私DP</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">有</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">谷歌Gboard</td>
+<td style="text-align: center">中心化</td>
+</tr>
+<tr>
+<td style="text-align: center">本地差分隐私LDP</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">有</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">★★☆☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">数据统计</td>
+<td style="text-align: center">谷歌Chrome/苹果iPhone</td>
+<td style="text-align: center">分布式 + 中心化</td>
+</tr>
+<tr>
+<td style="text-align: center">全同态加密FHE</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★☆☆☆☆</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">---</td>
+<td style="text-align: center">中心化</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算技术体系</h2>
+<p>来源: 中国信通院调研、Gartner</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">技术</th>
+<th style="text-align: center">性能</th>
+<th style="text-align: center">通用性</th>
+<th style="text-align: center">安全性</th>
+<th style="text-align: center">可信方</th>
+<th style="text-align: center">整体描述</th>
+<th style="text-align: center">技术成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">多方安全计算(MPC)</td>
+<td style="text-align: center">低~中</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">通用性高,计算和通信开销大,安全性高,研究时间长,久经考验,性能不断提升</td>
+<td style="text-align: center">已达到技术成熟的预期巅峰</td>
+</tr>
+<tr>
+<td style="text-align: center">可信执行环境(TEE)</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">中~高</td>
+<td style="text-align: center">需要</td>
+<td style="text-align: center">通用性高,性能强,开发和部署难度大,需要信任硬件厂商</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦学习(FL)</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">均可</td>
+<td style="text-align: center">综合运用MPC、DP、HE方法, 主要用于AI模型训练和预测</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">同态加密(HE)</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">计算开销大, 通信开销小, 安全性高, 可用于联邦学习安全聚合、构造MPC协议</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">零知识证明(ZKP)</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">广泛应用于各类安全协议设计, 是各类认证协议的基础</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">差分隐私(DP)</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">计算和通信性能与直接明文计算几乎无区别, 安全性损失依赖于噪声大小</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">区块链(BC)</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">基于带时间戳的块链式存储、智能合约、分布式共识等技术辅助隐私计算, 保证原始数据、计算过程及结果可验证</td>
+<td style="text-align: center">逐渐接近技术成熟的预期巅峰</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%83%BD%E4%B8%89%E8%A7%92" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算中的不可能三角</h2>
+<p>以下三点相互制约, 三者无法同时达到最优.</p>
+<ol>
+<li>安全性/隐私性</li>
+<li>效率性</li>
+<li>精确性</li>
+</ol>
+<h2><a id="%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9E%E7%8E%B0%E9%9A%BE%E5%BA%A6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全多方计算协议的实现难度</h2>
+<p>来源：阿里安全双子星实验室 洪澄博士</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">实现难度</th>
+<th style="text-align: center">诚实大多数</th>
+<th style="text-align: center">不诚实大多数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">半诚实安全</td>
+<td style="text-align: center">☆</td>
+<td style="text-align: center">☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align: center">恶意安全</td>
+<td style="text-align: center">☆☆☆</td>
+<td style="text-align: center">☆☆☆☆☆</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>联邦学习开源框架对比</h2>
+<p>来源: 《WeBank - 联邦学习白皮书2.0》</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">开源框架</th>
+<th style="text-align: center">FATE</th>
+<th style="text-align: center">TensorFlow Federated</th>
+<th style="text-align: center">PaddleFL</th>
+<th style="text-align: center">PySyft</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">受众定位</td>
+<td style="text-align: center">工业产品/学术研究</td>
+<td style="text-align: center">学术研究</td>
+<td style="text-align: center">学术研究</td>
+<td style="text-align: center">学术研究</td>
+</tr>
+<tr>
+<td style="text-align: center">牵头单位/机构</td>
+<td style="text-align: center">微众银行</td>
+<td style="text-align: center">Google</td>
+<td style="text-align: center">百度</td>
+<td style="text-align: center">OpenMined</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦学习类型</td>
+<td style="text-align: center">横向/纵向/迁移</td>
+<td style="text-align: center">横向</td>
+<td style="text-align: center">横向/纵向</td>
+<td style="text-align: center">横向</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦特征工程算法</td>
+<td style="text-align: center">支持特征的分箱、选择、相关性分析</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+</tr>
+<tr>
+<td style="text-align: center">机器学习算法</td>
+<td style="text-align: center">LR, GBDT, DNN等</td>
+<td style="text-align: center">LR, DNN等</td>
+<td style="text-align: center">LR, DNN等</td>
+<td style="text-align: center">LR, DNN等</td>
+</tr>
+<tr>
+<td style="text-align: center">安全协议</td>
+<td style="text-align: center">HE, SS, RSA, DH</td>
+<td style="text-align: center">DP</td>
+<td style="text-align: center">DP</td>
+<td style="text-align: center">HE, SS</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦在线推理</td>
+<td style="text-align: center">支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+</tr>
+<tr>
+<td style="text-align: center">Kubernetes</td>
+<td style="text-align: center">支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+</tr>
+<tr>
+<td style="text-align: center">代码托管平台</td>
+<td style="text-align: center"><a href="https://github.com/FederatedAI/FATE">Github</a></td>
+<td style="text-align: center"><a href="https://github.com/tensorflow/federated">Github</a></td>
+<td style="text-align: center"><a href="https://github.com/PaddlePaddle/PaddleFL">Github</a></td>
+<td style="text-align: center"><a href="https://github.com/OpenMined/PySyft">Github</a></td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护机器学习的计算安全等级</h2>
+<p>来源: 《隐私保护机器学习》, P85, 王力、张秉晟、陈超超 著, 2021.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">等级分类</th>
+<th style="text-align: center">安全要求</th>
+<th style="text-align: center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">第一安全等级</td>
+<td style="text-align: center">不传输原始数据, 但不对中间数据进行保护</td>
+<td style="text-align: center">不传输原始数据, 明文传输梯度</td>
+</tr>
+<tr>
+<td style="text-align: center">第二安全等级</td>
+<td style="text-align: center">概率性地保护半诚实安全模型下中间数据的安全, 概率应可计算</td>
+<td style="text-align: center">对传输梯度进行差分噪声的保护</td>
+</tr>
+<tr>
+<td style="text-align: center">第三安全等级</td>
+<td style="text-align: center">在半诚实安全模型下, 可证明安全</td>
+<td style="text-align: center">基于半诚实安全模型的多方计算方案</td>
+</tr>
+<tr>
+<td style="text-align: center">第四安全等级</td>
+<td style="text-align: center">在恶意安全模型下, 可证明安全</td>
+<td style="text-align: center">基于恶意安全模型的多方计算方案</td>
+</tr>
+<tr>
+<td style="text-align: center">第五安全等级</td>
+<td style="text-align: center">在恶意安全模型下且有多攻击方共谋时, 可证明安全</td>
+<td style="text-align: center">不诚实大多数的多方计算方案</td>
+</tr>
+</tbody>
+</table>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    隐私计算技术路线-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/01/06 22:16 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">隐私计算技术路线</h1>
+    <div class="text-muted small"><em>2022/01/06 22:16 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <p>根据“大数据联合国全球工作组”(Bigdata UN Global Working Group)的定义, 隐私计算(Privacy-Preserving Computation)是一类技术方案, 在处理和分析计算数据的过程中能保持数据不透明、不泄漏、无法被计算方以及其他非授权方获取. 隐私计算是指在保护数据本身不对外泄漏的前提下实现数据分析计算的技术集合.</p>
+<h2><a id="%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>数据安全法律法规</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">法律法规</th>
+<th style="text-align: center">英文全称</th>
+<th style="text-align: center">简称</th>
+<th style="text-align: center">发起地区</th>
+<th style="text-align: center">施行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">《通用数据保护条例》</td>
+<td style="text-align: center">General Data Protection Regulation</td>
+<td style="text-align: center">GDPR</td>
+<td style="text-align: center">欧盟</td>
+<td style="text-align: center">2018.5.25</td>
+</tr>
+<tr>
+<td style="text-align: center">《加利福尼亚州消费者隐私法》</td>
+<td style="text-align: center">California Consumer Privacy Act</td>
+<td style="text-align: center">CCPA</td>
+<td style="text-align: center">美国</td>
+<td style="text-align: center">2020.1.1</td>
+</tr>
+<tr>
+<td style="text-align: center">《网络安全法》</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">中国</td>
+<td style="text-align: center">2017.6.1</td>
+</tr>
+<tr>
+<td style="text-align: center">《数据安全法》</td>
+<td style="text-align: center"></td>
+<td style="text-align: center">–</td>
+<td style="text-align: center">中国</td>
+<td style="text-align: center">2021.9.1</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E4%B8%8E%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算与传统数据安全的关系</h2>
+<p>来源: 《隐私计算介绍》华控清交 赵一飞</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">传统数据保密</th>
+<th style="text-align: center">隐私计算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">数据在加密后不可计算, 使用必须解密</td>
+<td style="text-align: center">数据加密后仍可计算, 计算结果解密后与明文计算结果一致</td>
+</tr>
+<tr>
+<td style="text-align: center">需要信任系统管理员、硬件平台和操作系统</td>
+<td style="text-align: center">无需信任系统管理员、硬件和操作系统(密码学流派)</td>
+</tr>
+<tr>
+<td style="text-align: center">主要能力面向数据的存储和传输</td>
+<td style="text-align: center">主要能力面向数据的使用和计算</td>
+</tr>
+<tr>
+<td style="text-align: center">以Hash、非对称、对称等密码学为基础</td>
+<td style="text-align: center">安全性和正确性由数学理论保证(密码学流派)</td>
+</tr>
+</tbody>
+</table>
+<p>传统数据安全与隐私计算是互补关系, 综合使用才能够保障数据的全生命周期安全.</p>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E6%8A%80%E6%9C%AF%E6%B5%81%E6%B4%BE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算技术流派</h2>
+<p>来源: 《隐私计算介绍》华控清交 赵一飞</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center"></th>
+<th style="text-align: center">联邦学习</th>
+<th style="text-align: center">多方安全计算</th>
+<th style="text-align: center">可信执行环境</th>
+<th style="text-align: center">安全沙箱</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">能力概述</td>
+<td style="text-align: center">数据不出域, 本地明文计算, 交互通过MPC加密</td>
+<td style="text-align: center">原始数据不出域, 纯密文计算</td>
+<td style="text-align: center">数据通过安全通道进入隔离硬件环境计算, 支持各种通用计算</td>
+<td style="text-align: center">明文数据进入安全沙箱, 支持第三方软件协作分析</td>
+</tr>
+<tr>
+<td style="text-align: center">应用场景</td>
+<td style="text-align: center">多数据源联合机器学习建模</td>
+<td style="text-align: center">多数据源联合基础运算、联合查询、联合统计、部分机器学习建模</td>
+<td style="text-align: center">多数据源联合基础运算、联合查询、联合统计、机器学习建模</td>
+<td style="text-align: center">多数据源联合基础运算、联合查询、联合统计、机器学习建模</td>
+</tr>
+<tr>
+<td style="text-align: center">安全等级</td>
+<td style="text-align: center">中~高</td>
+<td style="text-align: center">高(满足一定安全假设前提下)</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">低</td>
+</tr>
+<tr>
+<td style="text-align: center">核心技术</td>
+<td style="text-align: center">交互层使用密码算法<br> HE, OT, RSA, Hash</td>
+<td style="text-align: center">底层基于严格论证的密码算法<br>GC, SS, OT, HE, ZKP</td>
+<td style="text-align: center">在硬件层面安全指令集设计</td>
+<td style="text-align: center">在网络、操作系统之上软安全域设计</td>
+</tr>
+<tr>
+<td style="text-align: center">性能对比</td>
+<td style="text-align: center">中~高</td>
+<td style="text-align: center">分布式模式性能低<br>代理模式性能中~高</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">高</td>
+</tr>
+<tr>
+<td style="text-align: center">部署形式</td>
+<td style="text-align: center">各方部署计算和数据节点</td>
+<td style="text-align: center">分布式模式各方部署计算和数据节点<br>代理模式计算节点集中部署</td>
+<td style="text-align: center">各方部署数据节点，计算节点集中部署</td>
+<td style="text-align: center">集中部署</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E5%AF%86%E7%A0%81%E5%AD%A6%E7%A0%94%E7%A9%B6%E9%A2%86%E5%9F%9F%E5%88%92%E5%88%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>密码学研究领域划分</h2>
+<ol>
+<li>计算问题: 基础困难假设;</li>
+<li>密码原语: 基础功能算法, 包括对称加密算法、公钥加密算法、哈希函数算法、伪随机生成器等;</li>
+<li>密码协议: 基于密码原语实现多种功能, 多方安全计算、零知识证明、可搜索加密等;</li>
+<li>安全系统: 基于密码协议构建安全系统, 多学科交叉.</li>
+</ol>
+<p>以上四个层次层层递进, 每一层都依赖于上一层的相应实现.</p>
+<h2><a id="%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97%E7%9A%84%E7%B1%BB%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全多方计算的类型</h2>
+<h3><a id="%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>通用安全多方计算</h3>
+<ol>
+<li>支持<strong>任意</strong>函数;</li>
+<li>相同设计应用不用场景, 易于设计.</li>
+</ol>
+<h3><a id="%E4%B8%93%E7%94%A8%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>专用安全多方计算</h3>
+<ol>
+<li>支持<strong>部分</strong>函数;</li>
+<li>针对特定问题的解决方案定制, 效率高;</li>
+<li>常见场景: 隐私集合求交(PSI)问题, 门限密码等.</li>
+</ol>
+<h2><a id="%E5%85%A8%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8F%91%E5%B1%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>全同态加密技术的发展</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">发展阶段</th>
+<th style="text-align: center">困难性假设</th>
+<th style="text-align: center">特点</th>
+<th style="text-align: center">代表方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">第一代</td>
+<td style="text-align: center">理想格陪集问题、稀疏子集和问题</td>
+<td style="text-align: center">理论可行, 实现效率低</td>
+<td style="text-align: center">Gentry09</td>
+</tr>
+<tr>
+<td style="text-align: center">第二代</td>
+<td style="text-align: center">LWE/NTRU问题</td>
+<td style="text-align: center">优化充分, 当前效率最高, 多项式运算优势</td>
+<td style="text-align: center">BGV、BFV、CKKS</td>
+</tr>
+<tr>
+<td style="text-align: center">第三代</td>
+<td style="text-align: center">LWE问题</td>
+<td style="text-align: center">形式简洁, 参数选取更简便, 逻辑运算优势</td>
+<td style="text-align: center">TFHE、FHEW</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E4%B8%8D%E5%90%8C%E6%8A%80%E6%9C%AF%E8%B7%AF%E7%BA%BF%E7%9A%84%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>不同技术路线的对比</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">安全多方计算类型</th>
+<th style="text-align: center">技术路线</th>
+<th style="text-align: center">优点</th>
+<th style="text-align: center">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">通用</td>
+<td style="text-align: center">通用安全多方计算(混淆电路 + 不经意传输 + 秘密共享)</td>
+<td style="text-align: center">功能全面</td>
+<td style="text-align: center">计算及通信开销大</td>
+</tr>
+<tr>
+<td style="text-align: center">通用</td>
+<td style="text-align: center">基于全同态加密的通用安全多方计算(FHE)</td>
+<td style="text-align: center">功能全面</td>
+<td style="text-align: center">自举效率低</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于秘密共享的专用安全多方计算</td>
+<td style="text-align: center">效率较高, 功能较多</td>
+<td style="text-align: center">运算往往依赖第三方辅助, 部分运算计算及通信开销大</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于不经意传输的专用安全多方计算</td>
+<td style="text-align: center">效率高</td>
+<td style="text-align: center">功能单一</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于半同态算法的专用安全多方计算</td>
+<td style="text-align: center">效率较高</td>
+<td style="text-align: center">功能有限</td>
+</tr>
+<tr>
+<td style="text-align: center">专用</td>
+<td style="text-align: center">基于全同态加密的专用安全多方计算(Leveled HE)</td>
+<td style="text-align: center">效率较高, 功能按需设计</td>
+<td style="text-align: center">需要面向应用场景设置参数</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7%E8%A1%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算关键技术综合评价表</h2>
+<p>来源: 中国信息通信研究院、阿里巴巴(中国)有限公司、北京数牍科技有限公司《隐私保护计算技术研究报告(2020年)》</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">技术</th>
+<th style="text-align: center">计算过程保护</th>
+<th style="text-align: center">计算结果保护</th>
+<th style="text-align: center">计算性能</th>
+<th style="text-align: center">计算精度</th>
+<th style="text-align: center">硬件依赖</th>
+<th style="text-align: center">理论支持场景</th>
+<th style="text-align: center">实际已商用场景</th>
+<th style="text-align: center">计算模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">安全多方计算MPC</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★★☆☆☆</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">国外: 拍卖、薪资统计、密钥管理; <br>国内: 密钥管理、联合建模</td>
+<td style="text-align: center">分布式</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦学习FL</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">机器学习建模</td>
+<td style="text-align: center">国外: 以横向FL为主, 如谷歌Gboard; <br>国内: 以纵向FL为主, 在金融风控领域应用居多</td>
+<td style="text-align: center">分布式</td>
+</tr>
+<tr>
+<td style="text-align: center">机密计算CC</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">有</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">国外: 密钥管理; <br>国内: 联合建模、区块链</td>
+<td style="text-align: center">中心化</td>
+</tr>
+<tr>
+<td style="text-align: center">差分隐私DP</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">有</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">★★★☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">谷歌Gboard</td>
+<td style="text-align: center">中心化</td>
+</tr>
+<tr>
+<td style="text-align: center">本地差分隐私LDP</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">有</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">★★☆☆☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">数据统计</td>
+<td style="text-align: center">谷歌Chrome/苹果iPhone</td>
+<td style="text-align: center">分布式 + 中心化</td>
+</tr>
+<tr>
+<td style="text-align: center">全同态加密FHE</td>
+<td style="text-align: center">★★★★★</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">★☆☆☆☆</td>
+<td style="text-align: center">★★★★☆</td>
+<td style="text-align: center">无</td>
+<td style="text-align: center">任意计算</td>
+<td style="text-align: center">---</td>
+<td style="text-align: center">中心化</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算技术体系</h2>
+<p>来源: 中国信通院调研、Gartner</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">技术</th>
+<th style="text-align: center">性能</th>
+<th style="text-align: center">通用性</th>
+<th style="text-align: center">安全性</th>
+<th style="text-align: center">可信方</th>
+<th style="text-align: center">整体描述</th>
+<th style="text-align: center">技术成熟度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">多方安全计算(MPC)</td>
+<td style="text-align: center">低~中</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">通用性高,计算和通信开销大,安全性高,研究时间长,久经考验,性能不断提升</td>
+<td style="text-align: center">已达到技术成熟的预期巅峰</td>
+</tr>
+<tr>
+<td style="text-align: center">可信执行环境(TEE)</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">中~高</td>
+<td style="text-align: center">需要</td>
+<td style="text-align: center">通用性高,性能强,开发和部署难度大,需要信任硬件厂商</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦学习(FL)</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">均可</td>
+<td style="text-align: center">综合运用MPC、DP、HE方法, 主要用于AI模型训练和预测</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">同态加密(HE)</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">计算开销大, 通信开销小, 安全性高, 可用于联邦学习安全聚合、构造MPC协议</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">零知识证明(ZKP)</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">广泛应用于各类安全协议设计, 是各类认证协议的基础</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">差分隐私(DP)</td>
+<td style="text-align: center">高</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">计算和通信性能与直接明文计算几乎无区别, 安全性损失依赖于噪声大小</td>
+<td style="text-align: center">快速增长的技术创新阶段</td>
+</tr>
+<tr>
+<td style="text-align: center">区块链(BC)</td>
+<td style="text-align: center">低</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">中</td>
+<td style="text-align: center">不需要</td>
+<td style="text-align: center">基于带时间戳的块链式存储、智能合约、分布式共识等技术辅助隐私计算, 保证原始数据、计算过程及结果可验证</td>
+<td style="text-align: center">逐渐接近技术成熟的预期巅峰</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97%E4%B8%AD%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%83%BD%E4%B8%89%E8%A7%92" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私计算中的不可能三角</h2>
+<p>以下三点相互制约, 三者无法同时达到最优.</p>
+<ol>
+<li>安全性/隐私性</li>
+<li>效率性</li>
+<li>精确性</li>
+</ol>
+<h2><a id="%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9E%E7%8E%B0%E9%9A%BE%E5%BA%A6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全多方计算协议的实现难度</h2>
+<p>来源：阿里安全双子星实验室 洪澄博士</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">实现难度</th>
+<th style="text-align: center">诚实大多数</th>
+<th style="text-align: center">不诚实大多数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">半诚实安全</td>
+<td style="text-align: center">☆</td>
+<td style="text-align: center">☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align: center">恶意安全</td>
+<td style="text-align: center">☆☆☆</td>
+<td style="text-align: center">☆☆☆☆☆</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>联邦学习开源框架对比</h2>
+<p>来源: 《WeBank - 联邦学习白皮书2.0》</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">开源框架</th>
+<th style="text-align: center">FATE</th>
+<th style="text-align: center">TensorFlow Federated</th>
+<th style="text-align: center">PaddleFL</th>
+<th style="text-align: center">PySyft</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">受众定位</td>
+<td style="text-align: center">工业产品/学术研究</td>
+<td style="text-align: center">学术研究</td>
+<td style="text-align: center">学术研究</td>
+<td style="text-align: center">学术研究</td>
+</tr>
+<tr>
+<td style="text-align: center">牵头单位/机构</td>
+<td style="text-align: center">微众银行</td>
+<td style="text-align: center">Google</td>
+<td style="text-align: center">百度</td>
+<td style="text-align: center">OpenMined</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦学习类型</td>
+<td style="text-align: center">横向/纵向/迁移</td>
+<td style="text-align: center">横向</td>
+<td style="text-align: center">横向/纵向</td>
+<td style="text-align: center">横向</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦特征工程算法</td>
+<td style="text-align: center">支持特征的分箱、选择、相关性分析</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+</tr>
+<tr>
+<td style="text-align: center">机器学习算法</td>
+<td style="text-align: center">LR, GBDT, DNN等</td>
+<td style="text-align: center">LR, DNN等</td>
+<td style="text-align: center">LR, DNN等</td>
+<td style="text-align: center">LR, DNN等</td>
+</tr>
+<tr>
+<td style="text-align: center">安全协议</td>
+<td style="text-align: center">HE, SS, RSA, DH</td>
+<td style="text-align: center">DP</td>
+<td style="text-align: center">DP</td>
+<td style="text-align: center">HE, SS</td>
+</tr>
+<tr>
+<td style="text-align: center">联邦在线推理</td>
+<td style="text-align: center">支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+</tr>
+<tr>
+<td style="text-align: center">Kubernetes</td>
+<td style="text-align: center">支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+<td style="text-align: center">不支持</td>
+</tr>
+<tr>
+<td style="text-align: center">代码托管平台</td>
+<td style="text-align: center"><a href="https://github.com/FederatedAI/FATE">Github</a></td>
+<td style="text-align: center"><a href="https://github.com/tensorflow/federated">Github</a></td>
+<td style="text-align: center"><a href="https://github.com/PaddlePaddle/PaddleFL">Github</a></td>
+<td style="text-align: center"><a href="https://github.com/OpenMined/PySyft">Github</a></td>
+</tr>
+</tbody>
+</table>
+<h2><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护机器学习的计算安全等级</h2>
+<p>来源: 《隐私保护机器学习》, P85, 王力、张秉晟、陈超超 著, 2021.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">等级分类</th>
+<th style="text-align: center">安全要求</th>
+<th style="text-align: center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">第一安全等级</td>
+<td style="text-align: center">不传输原始数据, 但不对中间数据进行保护</td>
+<td style="text-align: center">不传输原始数据, 明文传输梯度</td>
+</tr>
+<tr>
+<td style="text-align: center">第二安全等级</td>
+<td style="text-align: center">概率性地保护半诚实安全模型下中间数据的安全, 概率应可计算</td>
+<td style="text-align: center">对传输梯度进行差分噪声的保护</td>
+</tr>
+<tr>
+<td style="text-align: center">第三安全等级</td>
+<td style="text-align: center">在半诚实安全模型下, 可证明安全</td>
+<td style="text-align: center">基于半诚实安全模型的多方计算方案</td>
+</tr>
+<tr>
+<td style="text-align: center">第四安全等级</td>
+<td style="text-align: center">在恶意安全模型下, 可证明安全</td>
+<td style="text-align: center">基于恶意安全模型的多方计算方案</td>
+</tr>
+<tr>
+<td style="text-align: center">第五安全等级</td>
+<td style="text-align: center">在恶意安全模型下且有多攻击方共谋时, 可证明安全</td>
+<td style="text-align: center">不诚实大多数的多方计算方案</td>
+</tr>
+</tbody>
+</table>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">隐私计算技术路线</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16414786119962.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-01-06T22:16:51+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

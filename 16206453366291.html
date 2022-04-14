@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        基于秘密共享的安全计算 - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+
+    <style>
+        *, body, html {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(7)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: 快速隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: 快速隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460999786637.html" title="安全计算协议的不同安全性区别" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全计算协议的不同安全性区别</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: 精简快速安全两方深度神经网络推理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: 精简快速安全两方深度神经网络推理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: 超快速鲁棒隐私保护机器学习" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: 超快速鲁棒隐私保护机器学习</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="隐私保护机器学习资料" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护机器学习资料</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: 具有恶意安全的诚实大多数四方安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: 具有恶意安全的诚实大多数四方安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <div class="mweb_toc"><ul>
+<li><a href="#spdz%E6%96%B9%E6%A1%88">SPDZ方案</a></li>
+<li><a href="#2-out-of-3%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E6%96%B9%E6%A1%88">2-out-of-3秘密共享方案</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</a></li>
+</ul>
+</div>
+<p>当前有两种主要方案来构造安全计算协议: 一是秘密共享, 二是同态加密. 同态加密要求计算开销很大, 因而需要更长的计算时间, 在大数据和物联网中不适用. 秘密共享方案是密码学领域中用于数据加密的一种方法, 它将单个秘密分成多个秘密份额, 然后将其共享给多个用户. 比较有名的秘密共享方案是Shamir于1979年提出的\((k,n)\)门限秘密共享, 原始秘密只能由至少\(k\)个秘密份额重构, 而任意\(k-1\)个及以下均无法获得原始秘密的任何信息, 因此, 当\(n&gt;k\)时, \((k,n)\)门限秘密共享方案最多可以容忍\(n-k\)个秘密份额丢失.</p>
+<h2><a id="spdz%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>SPDZ方案</h2>
+<p>Damgård等人提出了一个基于\((k,n)\)门限秘密共享的安全多方计算框架SPDZ, 它使用了Somewhat同态加密(BGV同态加密), 在\(n=k\)的情形下, 可以安全抵抗不诚实大多数的参与方. 在SPDZ中, 数据拥有者也是计算参与方之一, 因此即使\(n-1\)个参与方合谋, 只要秘密拥有者保持秘密份额的安全, 原始秘密就无法从\(n-1\)个秘密份额中重建出来. SPDZ包含两个阶段: 预处理阶段(preprocessing phase)和在线阶段(online phase). 可以通过加法秘密共享来确保秘密的机密性. SPDZ中的秘密加法是容易实现的, 但是秘密乘法则需要基于Beaver在1991年提出的电路随机化(circuit randomization)方案, 即乘法三元组(multiplication triple)来实现. 随机数份额\((\langle a\rangle, \langle b\rangle, \langle c\rangle)\)被称为一个乘法三元组, 如果它满足\(ab=c\). 在SPDZ中, \(x\)的秘密信息是从其份额\(\langle x\rangle\)重构的, 表示为\(x=open(\langle x\rangle)\). SPDZ计算秘密乘法的\(x\cdot y\)的方式如下:</p>
+<ol>
+<li>(Offline phase, 离线阶段) 准备乘法三元组\((\langle a\rangle, \langle b\rangle, \langle c\rangle)\);</li>
+<li>(Distribution phase, 秘密分发阶段) 计算秘密\(x,y\)的份额\(\langle x\rangle, \langle y\rangle\);</li>
+<li>(Online phase, 在线阶段) 每个参与方重构\(d=open(\langle x\rangle-\langle a\rangle), e=open(\langle y\rangle-\langle b\rangle)\), 并计算\(\langle x\cdot y\rangle=d\cdot e+e\cdot\langle a\rangle+d\cdot\langle b\rangle+\langle c\rangle\).</li>
+</ol>
+<p>其原理非常简单:</p>
+\[\begin{aligned} 
+z=xy&amp;=(x-a+a)(y-b+b) \\
+&amp;=(x-a)(y-b)+a(y-b)+b(x-a)+ab\\
+&amp;=de+ae+bd+c.
+\end{aligned}
+\]
+<h2><a id="2-out-of-3%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2-out-of-3秘密共享方案</h2>
+<p>Araki等人[AFL2016]针对\(n=3,k=2\)的情形给出了进行快速保密计算的一种方案, 该方案是诚实大多数方案, 可以抵抗1个恶意敌手, 且每次乘法只需要进行一次通信. 注意到预处理阶段存在通信, 通常不认为在预处理阶段需要进行通信是一个问题. 此外, 安全计算秘密加法仍然是本地计算的. Araki等人的详细的方案描述如下:</p>
+<ol>
+<li>
+<p>(Preprocessing Phase, 预处理阶段) 参与方\(P_1,P_2,P_3\)生成并持有\(\beta_1,\beta_2,\beta_3\in\mathbb{Z}_{2^\ell}\), 满足\(\beta_1+\beta_2+\beta_3=0\).</p>
+</li>
+<li>
+<p>(Computation Phase, 计算阶段) 设\(D\)的秘密为\(v_1,v_2\), 记\(i=1\)时, \(a_{i-1}\)表示秘密\(a\)的\(P_3\)的份额, 记\(i=3\)时, \(a_{i+1}\)表示秘密\(a\)的\(P_1\)的份额.
+(1) 秘密分发</p>
+<ul>
+<li>
+<p>数据拥有者\(D\)选取随机数\(x_1,x_2,x_3\in\mathbb{Z}_{2^n}\), 其中\(x_1+x_2+x_3=0\);</p>
+</li>
+<li>
+<p>\(D\)发送秘密\(v_1\)的份额\((x_i,a_i)\)给参与方\(P_i\), 其中\(a_i=x_{i-1}-v_1(i=1,2,3)\);</p>
+</li>
+<li>
+<p>\(D\)重复上述两步, 发送秘密\(v_2\)的份额\((y_i,b_i)\)给参与方\(P_i\), 其中\(b_i=y_{i-1}-v_2(i=1,2,3), y_1+y_2+y_3=0\).</p>
+</li>
+</ul>
+<p>(2) 秘密加法(设三方需要秘密计算\(m=v_1+v_2\))</p>
+<ul>
+<li>参与方\(P_i\)本地计算\((z_i,c_i)=(x_i+y_i,a_i+b_i)\), 并将\((z_i,c_i)\)作为\(m=v_1+v_2\)的秘密份额.</li>
+</ul>
+<p>(3) 秘密乘法(设三方需要秘密计算\(m=v_1v_2\))</p>
+<ul>
+<li>参与方\(P_i\)计算\(r_i=(a_ib_i-x_iy_i+\beta_i)/3\), 并发给\(P_{i+1}\);</li>
+<li>参与方\(P_i\)计算\(z_i=r_{i-1}-r_i, c_i=-2r_{i-1}-r_i\), 并将持有的\((z_i,c_i)\)当作\(m=v_1v_2\)的秘密份额.</li>
+</ul>
+<p>(4) 秘密重构</p>
+<p>对于任意两方\(P_i,P_{i-1}\)分别拥有\((z_i,c_i)\)和\((z_{i-1},c_{i-1})\), 通过计算\(m=z_{i-1}-c_i\)可以轻易地重构获得秘密\(m\).</p>
+<p>对于加法而言, 有</p>
+</li>
+</ol>
+\[
+    \begin{aligned}
+   z_{i-1}-c_i&amp;=x_{i-1}+y_{i-1}-(a_i+b_i)\\&amp;=(x_{i-1}-a_i)+(y_{i-1}-b_i)\\&amp;=v_1+v_2\\&amp;=m.
+   \end{aligned}
+   
+\]
+<p>对于乘法而言, 可以证明\(r_1+r_2+r_3=v_1v_2\), 而</p>
+\[
+   \begin{aligned}
+   c_i&amp;=-2r_{i-1}-r_i\\
+   &amp;=-r_{i-1}-r_{i-1}-r_i-r_{i+1}+r_{i+1}\\
+   &amp;=(r_{i+1}-r_{i-1})-(r_{i-1}+r_i+r_{i+1})=z_{i-1}-v_1v_2,
+   \end{aligned}
+   
+\]
+<p>因此\(m=v_1v_2=z_{i-1}-c_i\).</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<ol>
+<li>Damgård I., Pastro V., Smart N., Zakarias S. Multiparty computation from somewhat homomorphic encryption. In CRYPTO 2012. LNCS, vol 7417, pp.643-662. Springer, Berlin, Heidelberg.</li>
+<li>Damgård I., Keller M., Larraia E., Pastro V., Scholl P., Smart N.P. Practical covertly secure MPC for dishonest majority – Or: Breaking the SPDZ Limits. In ESORICS 2013. LNCS, vol. 8134, pp. 1-18. Springer, Berlin, Heidelberg.</li>
+<li>Araki T., Furukawa J., Lindell Y., Nof A., Ohara K. High throughput semi-honest secure three-party computation with an honest majority. In CCS 2016, pp. 805-817. ACM, New York, NY, USA.</li>
+</ol>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div>
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    基于秘密共享的安全计算-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2021/05/10 19:15 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">基于秘密共享的安全计算</h1>
+    <div class="text-muted small"><em>2021/05/10 19:15 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <div class="mweb_toc"><ul>
+<li><a href="#spdz%E6%96%B9%E6%A1%88">SPDZ方案</a></li>
+<li><a href="#2-out-of-3%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E6%96%B9%E6%A1%88">2-out-of-3秘密共享方案</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献</a></li>
+</ul>
+</div>
+<p>当前有两种主要方案来构造安全计算协议: 一是秘密共享, 二是同态加密. 同态加密要求计算开销很大, 因而需要更长的计算时间, 在大数据和物联网中不适用. 秘密共享方案是密码学领域中用于数据加密的一种方法, 它将单个秘密分成多个秘密份额, 然后将其共享给多个用户. 比较有名的秘密共享方案是Shamir于1979年提出的\((k,n)\)门限秘密共享, 原始秘密只能由至少\(k\)个秘密份额重构, 而任意\(k-1\)个及以下均无法获得原始秘密的任何信息, 因此, 当\(n&gt;k\)时, \((k,n)\)门限秘密共享方案最多可以容忍\(n-k\)个秘密份额丢失.</p>
+<h2><a id="spdz%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>SPDZ方案</h2>
+<p>Damgård等人提出了一个基于\((k,n)\)门限秘密共享的安全多方计算框架SPDZ, 它使用了Somewhat同态加密(BGV同态加密), 在\(n=k\)的情形下, 可以安全抵抗不诚实大多数的参与方. 在SPDZ中, 数据拥有者也是计算参与方之一, 因此即使\(n-1\)个参与方合谋, 只要秘密拥有者保持秘密份额的安全, 原始秘密就无法从\(n-1\)个秘密份额中重建出来. SPDZ包含两个阶段: 预处理阶段(preprocessing phase)和在线阶段(online phase). 可以通过加法秘密共享来确保秘密的机密性. SPDZ中的秘密加法是容易实现的, 但是秘密乘法则需要基于Beaver在1991年提出的电路随机化(circuit randomization)方案, 即乘法三元组(multiplication triple)来实现. 随机数份额\((\langle a\rangle, \langle b\rangle, \langle c\rangle)\)被称为一个乘法三元组, 如果它满足\(ab=c\). 在SPDZ中, \(x\)的秘密信息是从其份额\(\langle x\rangle\)重构的, 表示为\(x=open(\langle x\rangle)\). SPDZ计算秘密乘法的\(x\cdot y\)的方式如下:</p>
+<ol>
+<li>(Offline phase, 离线阶段) 准备乘法三元组\((\langle a\rangle, \langle b\rangle, \langle c\rangle)\);</li>
+<li>(Distribution phase, 秘密分发阶段) 计算秘密\(x,y\)的份额\(\langle x\rangle, \langle y\rangle\);</li>
+<li>(Online phase, 在线阶段) 每个参与方重构\(d=open(\langle x\rangle-\langle a\rangle), e=open(\langle y\rangle-\langle b\rangle)\), 并计算\(\langle x\cdot y\rangle=d\cdot e+e\cdot\langle a\rangle+d\cdot\langle b\rangle+\langle c\rangle\).</li>
+</ol>
+<p>其原理非常简单:</p>
+\[\begin{aligned} 
+z=xy&amp;=(x-a+a)(y-b+b) \\
+&amp;=(x-a)(y-b)+a(y-b)+b(x-a)+ab\\
+&amp;=de+ae+bd+c.
+\end{aligned}
+\]
+<h2><a id="2-out-of-3%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2-out-of-3秘密共享方案</h2>
+<p>Araki等人[AFL2016]针对\(n=3,k=2\)的情形给出了进行快速保密计算的一种方案, 该方案是诚实大多数方案, 可以抵抗1个恶意敌手, 且每次乘法只需要进行一次通信. 注意到预处理阶段存在通信, 通常不认为在预处理阶段需要进行通信是一个问题. 此外, 安全计算秘密加法仍然是本地计算的. Araki等人的详细的方案描述如下:</p>
+<ol>
+<li>
+<p>(Preprocessing Phase, 预处理阶段) 参与方\(P_1,P_2,P_3\)生成并持有\(\beta_1,\beta_2,\beta_3\in\mathbb{Z}_{2^\ell}\), 满足\(\beta_1+\beta_2+\beta_3=0\).</p>
+</li>
+<li>
+<p>(Computation Phase, 计算阶段) 设\(D\)的秘密为\(v_1,v_2\), 记\(i=1\)时, \(a_{i-1}\)表示秘密\(a\)的\(P_3\)的份额, 记\(i=3\)时, \(a_{i+1}\)表示秘密\(a\)的\(P_1\)的份额.
+(1) 秘密分发</p>
+<ul>
+<li>
+<p>数据拥有者\(D\)选取随机数\(x_1,x_2,x_3\in\mathbb{Z}_{2^n}\), 其中\(x_1+x_2+x_3=0\);</p>
+</li>
+<li>
+<p>\(D\)发送秘密\(v_1\)的份额\((x_i,a_i)\)给参与方\(P_i\), 其中\(a_i=x_{i-1}-v_1(i=1,2,3)\);</p>
+</li>
+<li>
+<p>\(D\)重复上述两步, 发送秘密\(v_2\)的份额\((y_i,b_i)\)给参与方\(P_i\), 其中\(b_i=y_{i-1}-v_2(i=1,2,3), y_1+y_2+y_3=0\).</p>
+</li>
+</ul>
+<p>(2) 秘密加法(设三方需要秘密计算\(m=v_1+v_2\))</p>
+<ul>
+<li>参与方\(P_i\)本地计算\((z_i,c_i)=(x_i+y_i,a_i+b_i)\), 并将\((z_i,c_i)\)作为\(m=v_1+v_2\)的秘密份额.</li>
+</ul>
+<p>(3) 秘密乘法(设三方需要秘密计算\(m=v_1v_2\))</p>
+<ul>
+<li>参与方\(P_i\)计算\(r_i=(a_ib_i-x_iy_i+\beta_i)/3\), 并发给\(P_{i+1}\);</li>
+<li>参与方\(P_i\)计算\(z_i=r_{i-1}-r_i, c_i=-2r_{i-1}-r_i\), 并将持有的\((z_i,c_i)\)当作\(m=v_1v_2\)的秘密份额.</li>
+</ul>
+<p>(4) 秘密重构</p>
+<p>对于任意两方\(P_i,P_{i-1}\)分别拥有\((z_i,c_i)\)和\((z_{i-1},c_{i-1})\), 通过计算\(m=z_{i-1}-c_i\)可以轻易地重构获得秘密\(m\).</p>
+<p>对于加法而言, 有</p>
+</li>
+</ol>
+\[
+    \begin{aligned}
+   z_{i-1}-c_i&amp;=x_{i-1}+y_{i-1}-(a_i+b_i)\\&amp;=(x_{i-1}-a_i)+(y_{i-1}-b_i)\\&amp;=v_1+v_2\\&amp;=m.
+   \end{aligned}
+   
+\]
+<p>对于乘法而言, 可以证明\(r_1+r_2+r_3=v_1v_2\), 而</p>
+\[
+   \begin{aligned}
+   c_i&amp;=-2r_{i-1}-r_i\\
+   &amp;=-r_{i-1}-r_{i-1}-r_i-r_{i+1}+r_{i+1}\\
+   &amp;=(r_{i+1}-r_{i-1})-(r_{i-1}+r_i+r_{i+1})=z_{i-1}-v_1v_2,
+   \end{aligned}
+   
+\]
+<p>因此\(m=v_1v_2=z_{i-1}-c_i\).</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<ol>
+<li>Damgård I., Pastro V., Smart N., Zakarias S. Multiparty computation from somewhat homomorphic encryption. In CRYPTO 2012. LNCS, vol 7417, pp.643-662. Springer, Berlin, Heidelberg.</li>
+<li>Damgård I., Keller M., Larraia E., Pastro V., Scholl P., Smart N.P. Practical covertly secure MPC for dishonest majority – Or: Breaking the SPDZ Limits. In ESORICS 2013. LNCS, vol. 8134, pp. 1-18. Springer, Berlin, Heidelberg.</li>
+<li>Araki T., Furukawa J., Lindell Y., Nof A., Ohara K. High throughput semi-honest secure three-party computation with an honest majority. In CCS 2016, pp. 805-817. ACM, New York, NY, USA.</li>
+</ol>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">基于秘密共享的安全计算</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://WeiViming.github.io/16206453366291.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2021-05-10T19:15:36+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://www.maoyupeng.club" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>
