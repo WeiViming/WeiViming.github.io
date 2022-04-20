@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-04-18T10:21:44+08:00</updated>
+  <updated>2022-04-20T19:47:44+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -697,7 +697,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[隐私保护机器学习资料]]></title>
+    <title type="html"><![CDATA[Privacy Preserving Machine Learning Resources]]></title>
     <link href="https://weiviming.github.io/16434684624710.html"/>
     <updated>2022-01-29T23:01:02+08:00</updated>
     <id>https://weiviming.github.io/16434684624710.html</id>
@@ -714,7 +714,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://eprint.iacr.org/2017/1164">Chameleon: A Hybrid Secure Computation Framework for Machine Learning Applications, AsiaCCS'17</a></li>
 <li><a href="https://arxiv.org/abs/1705.08963">DeepSecure: Scalable Provably-Secure Deep Learning, DAC'17</a></li>
 <li><a href="https://arxiv.org/abs/1901.00329">Secure Computation for Machine Learning With SPDZ, NIPS'18</a></li>
-<li><a href="https://eprint.iacr.org/2018/403.pdf">ABY3:a Mixed protocol Framework for Machine Learning, CCS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/403.pdf">ABY3: A Mixed protocol Framework for Machine Learning, CCS'18</a></li>
 <li><a href="https://eprint.iacr.org/2018/442.pdf">SecureNN: Efficient and Private Neural Network Training, PoPETs'18</a></li>
 <li><a href="https://arxiv.org/abs/1801.05507">Gazelle: A Low Latency Framework for Secure Neural Network Inference, USENIX SECURITY'18</a></li>
 <li><a href="https://dl.acm.org/citation.cfm?id=3314628">CHET: an optimizing compiler for fully-homomorphic neural-network inferencing, PLDI'19</a></li>
@@ -742,7 +742,6 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://arxiv.org/abs/2010.06457">CrypTFlow2: Practical 2-Party Secure Inference, CCS'20</a></li>
 <li><a href="https://arxiv.org/abs/2006.04593">ARIANN: Low-Interaction Privacy-Preserving Deep Learning via Function Secret Sharing</a></li>
 <li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p414.xml">Practical Privacy-Preserving K-means Clustering, PoPETs'20</a></li>
-<li><a href="https://arxiv.org/abs/2005.10296">SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</a></li>
 <li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_21">An Efficient 3-Party Framework for Privacy-Preserving Neural Network Inference, ESORICS'20</a></li>
 <li><a href="https://dl.acm.org/doi/abs/10.1145/3427228.3427232">Secure and Verifiable Inference in Deep Neural Networks, ACSAC'20</a></li>
 <li><a href="https://www.eurecom.fr/publication/6475/download/sec-publi-6475.0.pdf">Privacy-preserving Density-based Clustering, AisaCCS'21</a></li>
@@ -751,9 +750,10 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://people.eecs.berkeley.edu/~raluca/MUSEcamera.pdf">MUSE: Secure Inference Resilient to Malicious Clients, USENIX Security'21</a></li>
 <li><a href="https://arxiv.org/abs/2103.01396">DeepReDuce: ReLU Reduction for Fast Private Inference, ICML'21</a></li>
 <li><a href="https://eprint.iacr.org/2019/338.pdf">Garbled Neural Networks are Practical</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/ng">GForce : GPU-Friendly Oblivious and Rapid Neural Network Inference, USENIX Security'21</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/ng">GForce: GPU-Friendly Oblivious and Rapid Neural Network Inference, USENIX Security'21</a></li>
 <li><a href="http://arxiv.org/abs/2104.10949">CryptGPU: Fast Privacy-Preserving Machine Learning on the GPU, S&amp;P'21</a></li>
 <li><a href="https://www.ndss-symposium.org/ndss-paper/gala-greedy-computation-for-linear-algebra-in-privacy-preserved-neural-networks/">GALA : Greedy ComputAtion for Linear Algebra in Privacy-Preserved Neural Networks, NDSS'21</a></li>
+<li><a href="https://arxiv.org/abs/2005.10296">SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning, USENIX Security'21</a></li>
 <li><a href="https://www.usenix.org/system/files/sec21fall-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security, USENIX Security'21</a></li>
 <li><a href="https://arxiv.org/abs/2008.08753">When homomorphic encryption marries secret sharing: secure large-scale sparse logistic regression and applications in risk control, KDD'21</a></li>
 <li><a href="https://arxiv.org/pdf/1911.07101.pdf">Glyph: Fast and Accurately Training Deep Neural Networks on Encrypted Data, NeurIPS'20</a></li>
@@ -763,11 +763,12 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://eprint.iacr.org/2021/673">zkCNN: Zero Knowledge Proofs for Convolutional Neural Network Predictions and Accuracy</a></li>
 <li><a href="https://arxiv.org/abs/2107.00501">Secure Quantized Training for Deep Learning</a></li>
 <li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/zheng">Cerebro: A Platform for Multi-Party Cryptographic Collaborative Learning, USENIX Security'21</a></li>
-<li><a href="https://arxiv.org/abs/2106.02850">Tetrad: Actively Secure 4PC for Secure Training and Inference</a></li>
-<li><a href="https://arxiv.org/abs/2106.02203">Adam in Private : Secure and Fast Training of Deep Neural Networks with Adaptive Moment Estimation</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/chandran">SIMC: ML Inference Secure Against Malicious Clients at Semi-Honest Cost, USENIX Security'22</a></li>
 <li><a href="https://proceedings.neurips.cc/paper/2021/file/11eba2991cc62daa4a85be5c0cfdae97-Paper.pdf">Circa: Stochastic ReLUs for Private Deep Learning, NeurIPS'21</a></li>
+<li><a href="https://arxiv.org/abs/2106.02850">Tetrad: Actively Secure 4PC for Secure Training and Inference, NDSS'22</a></li>
+<li><a href="https://arxiv.org/abs/2106.02203">Adam in Private: Secure and Fast Training of Deep Neural Networks with Adaptive Moment Estimation</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/chandran">SIMC: ML Inference Secure Against Malicious Clients at Semi-Honest Cost, USENIX Security'22</a></li>
 <li><a href="https://eprint.iacr.org/2022/207">Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference, USENIX Security'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/322.pdf">SecFloat: Accurate Floating-Point meets Secure 2-Party Computation, S&amp;P'22</a></li>
 </ul>
 <h1><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h1>
 <ul>
@@ -848,8 +849,8 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://mortendahl.github.io/">Cryptography and Machine Learning: Mixing both for private data analysis</a></li>
 <li><a href="https://iamtrask.github.io/2017/03/17/safe-ai/">Building Safe A.I.: A Tutorial for Encrypted Deep Learning</a></li>
 <li><a href="https://github.com/rdragos/awesome-mpc">Awesome MPC: Curated List of resources for MPC</a></li>
-<li><a href="https://www.zhihu.com/column/c_1380808297608613888">安全多方计算学习笔记</a></li>
-<li><a href="https://www.zhihu.com/column/c_1121838720017338368">机器学习隐私保护</a></li>
+<li><a href="https://www.zhihu.com/column/c_1121838720017338368">知乎专栏: 机器学习隐私保护</a></li>
+<li><a href="https://www.zhihu.com/column/c_1380808297608613888">知乎专栏: 安全多方计算学习笔记</a></li>
 </ul>
 <h1><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h1>
 <ul>
@@ -902,7 +903,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <tr>
 <th style="text-align: center">级别</th>
 <th style="text-align: center">会议全称</th>
-<th style="text-align: center">会议简称与官方链接</th>
+<th style="text-align: center">会议简称</th>
 <th style="text-align: center">会议类型</th>
 <th style="text-align: center">CCF分级</th>
 <th style="text-align: center">CACR分级</th>
@@ -1191,7 +1192,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 </tr>
 <tr>
 <td style="text-align: center">3</td>
-<td style="text-align: center">Conference on Fast Software Encryption (FSE)</td>
+<td style="text-align: center">Conference on Fast Software Encryption</td>
 <td style="text-align: center"><a href="https://www.iacr.org/meetings/fse/">FSE</a></td>
 <td style="text-align: center">密码</td>
 <td style="text-align: center">B</td>
