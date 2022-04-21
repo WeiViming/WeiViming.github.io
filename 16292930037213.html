@@ -53,45 +53,46 @@
     <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
 
     	<style type="text/css">
-/* latin */
-@font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin */
-@font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin */
-@font-face {
-  font-family: 'Nunito';
-  font-style: bold;
-  font-weight: 700;
-  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-	</style>
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: bold;
+        font-weight: 700;
+        src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+	    </style>
 
     <style>
         body, html {
             /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
             /* font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif; */
+            font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
         #toc_container ul {
             list-style: none;
             padding-left: 10px;
         }
         p, ul, ol, li, table{
-            /* font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif; */
+            font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
-        table{
+        *{
             width: auto;
         }
     </style>
@@ -451,7 +452,7 @@
 
 <!--                <article class="markdown-body single-content">-->
 <!--                    <h2><a id="%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵定义</h2>
-<pre class="line-numbers"><code class="language-c++">#include &lt;Eigen/Dense&gt;
+<pre class="line-numbers"><code class="language-cpp">#include &lt;Eigen/Dense&gt;
 
 Matrix&lt;double, 3, 3&gt; A;               // Fixed rows and cols. Same as Matrix3d.
 Matrix&lt;double, 3, Dynamic&gt; B;         // Fixed rows, dynamic cols.
@@ -469,7 +470,7 @@ x(i)              // x(i+1)           // Matlab is 1-based
 C(i,j)            // C(i+1,j+1)       //
 </code></pre>
 <h2><a id="%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础使用</h2>
-<pre class="line-numbers"><code class="language-c++">// Basic usage
+<pre class="line-numbers"><code class="language-cpp">// Basic usage
 // Eigen        // Matlab           // comments
 x.size()        // length(x)        // vector size
 C.rows()        // size(C,1)        // number of rows
@@ -489,7 +490,7 @@ B &lt;&lt; A, A, A;     // B is three horizontally stacked A's.
 A.fill(10);       // Fill A with all 10's.
 </code></pre>
 <h2><a id="%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5%E7%94%9F%E6%88%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>特殊矩阵生成</h2>
-<pre class="line-numbers"><code class="language-c++">// Eigen                            // Matlab
+<pre class="line-numbers"><code class="language-cpp">// Eigen                            // Matlab
 MatrixXd::Identity(rows,cols)       // eye(rows,cols)
 C.setIdentity(rows,cols)            // C = eye(rows,cols)
 MatrixXd::Zero(rows,cols)           // zeros(rows,cols)
@@ -502,7 +503,7 @@ VectorXd::LinSpaced(size,low,high)  // linspace(low,high,size)'
 v.setLinSpaced(size,low,high)       // v = linspace(low,high,size)'
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%88%86%E5%9D%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵分块</h2>
-<pre class="line-numbers"><code class="language-c++">// Matrix slicing and blocks. All expressions listed here are read/write.
+<pre class="line-numbers"><code class="language-cpp">// Matrix slicing and blocks. All expressions listed here are read/write.
 // Templated size versions are faster. Note that Matlab is 1-based (a size N
 // vector is x(1)...x(N)).
 // Eigen                           // Matlab
@@ -538,13 +539,13 @@ P.bottomLeftCorner&lt;rows,cols&gt;()    // P(end-rows+1:end, 1:cols)
 P.bottomRightCorner&lt;rows,cols&gt;()   // P(end-rows+1:end, end-cols+1:end)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%85%83%E7%B4%A0%E4%BA%A4%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵元素交换</h2>
-<pre class="line-numbers"><code class="language-c++">// Of particular note is Eigen's swap function which is highly optimized.
+<pre class="line-numbers"><code class="language-cpp">// Of particular note is Eigen's swap function which is highly optimized.
 // Eigen                           // Matlab
 R.row(i) = P.col(j);               // R(i, :) = P(:, i)
 R.col(j1).swap(mat1.col(j2));      // R(:, [j1 j2]) = R(:, [j2, j1])
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵转置</h2>
-<pre class="line-numbers"><code class="language-c++">// Views, transpose, etc; all read-write except for .adjoint().
+<pre class="line-numbers"><code class="language-cpp">// Views, transpose, etc; all read-write except for .adjoint().
 // Eigen                           // Matlab
 R.adjoint()                        // R'
 R.transpose()                      // R.' or conj(R')
@@ -554,7 +555,7 @@ R.transpose().colwise().reverse(); // rot90(R)
 R.conjugate()                      // conj(R)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E4%B9%98%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵乘积</h2>
-<pre class="line-numbers"><code class="language-c++">// All the same as Matlab, but matlab doesn't have *= style operators.
+<pre class="line-numbers"><code class="language-cpp">// All the same as Matlab, but matlab doesn't have *= style operators.
 // Matrix-vector.  Matrix-matrix.   Matrix-scalar.
 y  = M*x;          R  = P*Q;        R  = P*s;
 a  = b*M;          R  = P - Q;      R  = s*P;
@@ -564,7 +565,7 @@ a *= M;            R  = P + Q;      R  = P/s;
                    R -= Q;          R /= s;
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵单个元素操作</h2>
-<pre class="line-numbers"><code class="language-c++">// Vectorized operations on each element independently
+<pre class="line-numbers"><code class="language-cpp">// Vectorized operations on each element independently
 // Eigen                  // Matlab
 R = P.cwiseProduct(Q);    // R = P .* Q
 R = P.array() * s.array();// R = P .* s
@@ -598,7 +599,7 @@ R.array().abs2()          // abs(P.^2)
 (R.array() &lt; s).select(P,Q);  // (R &lt; s ? P : Q)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%8C%96%E7%AE%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵化简</h2>
-<pre class="line-numbers"><code class="language-c++">// Reductions.
+<pre class="line-numbers"><code class="language-cpp">// Reductions.
 int r, c;
 // Eigen                  // Matlab
 R.minCoeff()              // min(R(:))
@@ -620,7 +621,7 @@ R.colwise().any()         // any(R)
 R.rowwise().any()         // any(R, 2)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E7%82%B9%E4%B9%98%E4%B8%8E%E8%A7%84%E8%8C%83%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵点乘与规范化</h2>
-<pre class="line-numbers"><code class="language-c++">// Dot products, norms, etc.
+<pre class="line-numbers"><code class="language-cpp">// Dot products, norms, etc.
 // Eigen                  // Matlab
 x.norm()                  // norm(x).    Note that norm(R) doesn't work in Eigen.
 x.squaredNorm()           // dot(x, x)   Note the equivalence is not true for complex
@@ -628,7 +629,7 @@ x.dot(y)                  // dot(x, y)
 x.cross(y)                // cross(x, y) Requires #include &lt;Eigen/Geometry&gt;
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵类型转换</h2>
-<pre class="line-numbers"><code class="language-c++">//// Type conversion
+<pre class="line-numbers"><code class="language-cpp">//// Type conversion
 // Eigen                           // Matlab
 A.cast&lt;double&gt;();                  // double(A)
 A.cast&lt;float&gt;();                   // single(A)
@@ -638,7 +639,7 @@ A.imag();                          // imag(A)
 // if the original type equals destination type, no work is done
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E7%89%B9%E5%BE%81%E5%80%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵特征值</h2>
-<pre class="line-numbers"><code class="language-c++">// Eigenvalue problems
+<pre class="line-numbers"><code class="language-cpp">// Eigenvalue problems
 // Eigen                          // Matlab
 A.eigenvalues();                  // eig(A);
 EigenSolver&lt;Matrix3d&gt; eig(A);     // [vec val] = eig(A)
@@ -647,7 +648,7 @@ eig.eigenvectors();               // vec
 // For self-adjoint matrices use SelfAdjointEigenSolver&lt;&gt;
 </code></pre>
 <h2><a id="%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84ax-b" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>求解线性方程组\(Ax=b\)</h2>
-<pre class="line-numbers"><code class="language-c++">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
+<pre class="line-numbers"><code class="language-cpp">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
 x = A.ldlt().solve(b));  // A sym. p.s.d.    #include &lt;Eigen/Cholesky&gt;
 x = A.llt() .solve(b));  // A sym. p.d.      #include &lt;Eigen/Cholesky&gt;
 x = A.lu()  .solve(b));  // Stable and fast. #include &lt;Eigen/LU&gt;
@@ -771,7 +772,7 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
                                 <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
 
                                     <h2><a id="%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵定义</h2>
-<pre class="line-numbers"><code class="language-c++">#include &lt;Eigen/Dense&gt;
+<pre class="line-numbers"><code class="language-cpp">#include &lt;Eigen/Dense&gt;
 
 Matrix&lt;double, 3, 3&gt; A;               // Fixed rows and cols. Same as Matrix3d.
 Matrix&lt;double, 3, Dynamic&gt; B;         // Fixed rows, dynamic cols.
@@ -789,7 +790,7 @@ x(i)              // x(i+1)           // Matlab is 1-based
 C(i,j)            // C(i+1,j+1)       //
 </code></pre>
 <h2><a id="%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础使用</h2>
-<pre class="line-numbers"><code class="language-c++">// Basic usage
+<pre class="line-numbers"><code class="language-cpp">// Basic usage
 // Eigen        // Matlab           // comments
 x.size()        // length(x)        // vector size
 C.rows()        // size(C,1)        // number of rows
@@ -809,7 +810,7 @@ B &lt;&lt; A, A, A;     // B is three horizontally stacked A's.
 A.fill(10);       // Fill A with all 10's.
 </code></pre>
 <h2><a id="%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5%E7%94%9F%E6%88%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>特殊矩阵生成</h2>
-<pre class="line-numbers"><code class="language-c++">// Eigen                            // Matlab
+<pre class="line-numbers"><code class="language-cpp">// Eigen                            // Matlab
 MatrixXd::Identity(rows,cols)       // eye(rows,cols)
 C.setIdentity(rows,cols)            // C = eye(rows,cols)
 MatrixXd::Zero(rows,cols)           // zeros(rows,cols)
@@ -822,7 +823,7 @@ VectorXd::LinSpaced(size,low,high)  // linspace(low,high,size)'
 v.setLinSpaced(size,low,high)       // v = linspace(low,high,size)'
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%88%86%E5%9D%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵分块</h2>
-<pre class="line-numbers"><code class="language-c++">// Matrix slicing and blocks. All expressions listed here are read/write.
+<pre class="line-numbers"><code class="language-cpp">// Matrix slicing and blocks. All expressions listed here are read/write.
 // Templated size versions are faster. Note that Matlab is 1-based (a size N
 // vector is x(1)...x(N)).
 // Eigen                           // Matlab
@@ -858,13 +859,13 @@ P.bottomLeftCorner&lt;rows,cols&gt;()    // P(end-rows+1:end, 1:cols)
 P.bottomRightCorner&lt;rows,cols&gt;()   // P(end-rows+1:end, end-cols+1:end)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%85%83%E7%B4%A0%E4%BA%A4%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵元素交换</h2>
-<pre class="line-numbers"><code class="language-c++">// Of particular note is Eigen's swap function which is highly optimized.
+<pre class="line-numbers"><code class="language-cpp">// Of particular note is Eigen's swap function which is highly optimized.
 // Eigen                           // Matlab
 R.row(i) = P.col(j);               // R(i, :) = P(:, i)
 R.col(j1).swap(mat1.col(j2));      // R(:, [j1 j2]) = R(:, [j2, j1])
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵转置</h2>
-<pre class="line-numbers"><code class="language-c++">// Views, transpose, etc; all read-write except for .adjoint().
+<pre class="line-numbers"><code class="language-cpp">// Views, transpose, etc; all read-write except for .adjoint().
 // Eigen                           // Matlab
 R.adjoint()                        // R'
 R.transpose()                      // R.' or conj(R')
@@ -874,7 +875,7 @@ R.transpose().colwise().reverse(); // rot90(R)
 R.conjugate()                      // conj(R)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E4%B9%98%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵乘积</h2>
-<pre class="line-numbers"><code class="language-c++">// All the same as Matlab, but matlab doesn't have *= style operators.
+<pre class="line-numbers"><code class="language-cpp">// All the same as Matlab, but matlab doesn't have *= style operators.
 // Matrix-vector.  Matrix-matrix.   Matrix-scalar.
 y  = M*x;          R  = P*Q;        R  = P*s;
 a  = b*M;          R  = P - Q;      R  = s*P;
@@ -884,7 +885,7 @@ a *= M;            R  = P + Q;      R  = P/s;
                    R -= Q;          R /= s;
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵单个元素操作</h2>
-<pre class="line-numbers"><code class="language-c++">// Vectorized operations on each element independently
+<pre class="line-numbers"><code class="language-cpp">// Vectorized operations on each element independently
 // Eigen                  // Matlab
 R = P.cwiseProduct(Q);    // R = P .* Q
 R = P.array() * s.array();// R = P .* s
@@ -918,7 +919,7 @@ R.array().abs2()          // abs(P.^2)
 (R.array() &lt; s).select(P,Q);  // (R &lt; s ? P : Q)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E5%8C%96%E7%AE%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵化简</h2>
-<pre class="line-numbers"><code class="language-c++">// Reductions.
+<pre class="line-numbers"><code class="language-cpp">// Reductions.
 int r, c;
 // Eigen                  // Matlab
 R.minCoeff()              // min(R(:))
@@ -940,7 +941,7 @@ R.colwise().any()         // any(R)
 R.rowwise().any()         // any(R, 2)
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E7%82%B9%E4%B9%98%E4%B8%8E%E8%A7%84%E8%8C%83%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵点乘与规范化</h2>
-<pre class="line-numbers"><code class="language-c++">// Dot products, norms, etc.
+<pre class="line-numbers"><code class="language-cpp">// Dot products, norms, etc.
 // Eigen                  // Matlab
 x.norm()                  // norm(x).    Note that norm(R) doesn't work in Eigen.
 x.squaredNorm()           // dot(x, x)   Note the equivalence is not true for complex
@@ -948,7 +949,7 @@ x.dot(y)                  // dot(x, y)
 x.cross(y)                // cross(x, y) Requires #include &lt;Eigen/Geometry&gt;
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵类型转换</h2>
-<pre class="line-numbers"><code class="language-c++">//// Type conversion
+<pre class="line-numbers"><code class="language-cpp">//// Type conversion
 // Eigen                           // Matlab
 A.cast&lt;double&gt;();                  // double(A)
 A.cast&lt;float&gt;();                   // single(A)
@@ -958,7 +959,7 @@ A.imag();                          // imag(A)
 // if the original type equals destination type, no work is done
 </code></pre>
 <h2><a id="%E7%9F%A9%E9%98%B5%E7%89%B9%E5%BE%81%E5%80%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵特征值</h2>
-<pre class="line-numbers"><code class="language-c++">// Eigenvalue problems
+<pre class="line-numbers"><code class="language-cpp">// Eigenvalue problems
 // Eigen                          // Matlab
 A.eigenvalues();                  // eig(A);
 EigenSolver&lt;Matrix3d&gt; eig(A);     // [vec val] = eig(A)
@@ -967,7 +968,7 @@ eig.eigenvectors();               // vec
 // For self-adjoint matrices use SelfAdjointEigenSolver&lt;&gt;
 </code></pre>
 <h2><a id="%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84ax-b" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>求解线性方程组\(Ax=b\)</h2>
-<pre class="line-numbers"><code class="language-c++">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
+<pre class="line-numbers"><code class="language-cpp">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
 x = A.ldlt().solve(b));  // A sym. p.s.d.    #include &lt;Eigen/Cholesky&gt;
 x = A.llt() .solve(b));  // A sym. p.d.      #include &lt;Eigen/Cholesky&gt;
 x = A.lu()  .solve(b));  // Stable and fast. #include &lt;Eigen/LU&gt;
@@ -1153,7 +1154,7 @@ x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto", "margin": "10px 0px 10px 0px !important", "border-radius": "3px !important", border: "1px solid #ccc !important", padding: "5px 5px 5px 5px !important" }, ".MathJax": { padding: "2px 2px 2px 2px !important" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto", "margin": "10px 0px 10px 0px !important", padding: "5px 5px 5px 5px !important" }, ".MathJax": { padding: "2px 2px 2px 2px !important" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
 <!-- <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> -->
 
 <!-- <script type="text/x-mathjax-config">MathJax.Hub.Config({

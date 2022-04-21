@@ -53,45 +53,46 @@
     <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
 
     	<style type="text/css">
-/* latin */
-@font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin */
-@font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin */
-@font-face {
-  font-family: 'Nunito';
-  font-style: bold;
-  font-weight: 700;
-  src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-	</style>
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: bold;
+        font-weight: 700;
+        src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+	    </style>
 
     <style>
         body, html {
             /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
             /* font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif; */
+            font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
         #toc_container ul {
             list-style: none;
             padding-left: 10px;
         }
         p, ul, ol, li, table{
-            /* font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif; */
+            font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
-        table{
+        *{
             width: auto;
         }
     </style>
@@ -458,7 +459,7 @@
 <p>此法简单粗暴, 一般可以解决问题, 一次不行那就多杀几次, 如果还不行, 那就只能重启WSL了.</p>
 <h2><a id="%E9%87%8D%E5%90%AFwsl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>重启WSL</h2>
 <p>重启WSL, 然而WSL在Windows下得关机重启电脑, 实际上可以这样做来重启WSL而无需重启电脑, 新建bat批处理文件, 内容如下:</p>
-<pre class="line-numbers"><code class="language-bash">net stop lxssManager
+<pre class="line-numbers"><code class="language-powershell">net stop lxssManager
 net start lxssManager
 </code></pre>
 <p>保存, 并右键管理员权限执行bat文件, 即可重启WSL.</p>
@@ -579,7 +580,7 @@ net start lxssManager
 <p>此法简单粗暴, 一般可以解决问题, 一次不行那就多杀几次, 如果还不行, 那就只能重启WSL了.</p>
 <h2><a id="%E9%87%8D%E5%90%AFwsl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>重启WSL</h2>
 <p>重启WSL, 然而WSL在Windows下得关机重启电脑, 实际上可以这样做来重启WSL而无需重启电脑, 新建bat批处理文件, 内容如下:</p>
-<pre class="line-numbers"><code class="language-bash">net stop lxssManager
+<pre class="line-numbers"><code class="language-powershell">net stop lxssManager
 net start lxssManager
 </code></pre>
 <p>保存, 并右键管理员权限执行bat文件, 即可重启WSL.</p>
