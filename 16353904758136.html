@@ -82,14 +82,17 @@
     <style>
         body, html {
             /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
-            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+            /* font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif; */
         }
         #toc_container ul {
             list-style: none;
             padding-left: 10px;
         }
-        p, ul, ol, li{
-            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+        p, ul, ol, li, table{
+            /* font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif; */
+        }
+        table{
+            width: auto;
         }
     </style>
 
@@ -448,15 +451,15 @@
 
 <!--                <article class="markdown-body single-content">-->
 <!--                    <p>通常使用Typora插入图片时, 如果使用Markdown语法, 则默认图片居中, 文字位于图片下方.</p>
+<div style="float:left;" >
+<img  align="left" src="https://ae01.alicdn.com/kf/H73ce37a1a0eb4f3aa901914e04526123k.jpg" alt="This is a image" style="zoom:20%;" >
+</div>
 <p>实际上可以通过HTML语法将图片插入文字两侧. 具体语法如下:</p>
 <pre class="line-numbers"><code class="language-html">&lt;div style=&quot;float:left;&quot; &gt;
-&lt;img align=&quot;left&quot; src=&quot;/path/to/image.png&quot; alt=&quot;This is a image&quot; style=&quot;zoom:40%;&quot; &gt;
+&lt;img align=&quot;left&quot; src=&quot;/path/to/image.png&quot; alt=&quot;This is a image&quot; style=&quot;zoom:20%;&quot; &gt;
 &lt;/div&gt;
 </code></pre>
-<div style="float:left;" >
-<img  align="left" src="https://ae01.alicdn.com/kf/H73ce37a1a0eb4f3aa901914e04526123k.jpg" alt="This is a image" style="zoom:40%;" >
-</div>
-<p>其中<code>align=&quot;left&quot;</code>将图片居左,  <code>style=&quot;zoom:40%</code>指的是放缩为原图片的40%显示.</p>
+<p>其中<code>align=&quot;left&quot;</code>将图片居左,  <code>zoom:20%</code>指的是放缩为原图片的20%显示.</p>
 <p>不过该方法有个缺点: 这样做的话, 无法右键上传图片了.</p>
 -->
 <!--                </article>-->
@@ -568,15 +571,15 @@
                                 <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
 
                                     <p>通常使用Typora插入图片时, 如果使用Markdown语法, 则默认图片居中, 文字位于图片下方.</p>
+<div style="float:left;" >
+<img  align="left" src="https://ae01.alicdn.com/kf/H73ce37a1a0eb4f3aa901914e04526123k.jpg" alt="This is a image" style="zoom:20%;" >
+</div>
 <p>实际上可以通过HTML语法将图片插入文字两侧. 具体语法如下:</p>
 <pre class="line-numbers"><code class="language-html">&lt;div style=&quot;float:left;&quot; &gt;
-&lt;img align=&quot;left&quot; src=&quot;/path/to/image.png&quot; alt=&quot;This is a image&quot; style=&quot;zoom:40%;&quot; &gt;
+&lt;img align=&quot;left&quot; src=&quot;/path/to/image.png&quot; alt=&quot;This is a image&quot; style=&quot;zoom:20%;&quot; &gt;
 &lt;/div&gt;
 </code></pre>
-<div style="float:left;" >
-<img  align="left" src="https://ae01.alicdn.com/kf/H73ce37a1a0eb4f3aa901914e04526123k.jpg" alt="This is a image" style="zoom:40%;" >
-</div>
-<p>其中<code>align=&quot;left&quot;</code>将图片居左,  <code>style=&quot;zoom:40%</code>指的是放缩为原图片的40%显示.</p>
+<p>其中<code>align=&quot;left&quot;</code>将图片居左,  <code>zoom:20%</code>指的是放缩为原图片的20%显示.</p>
 <p>不过该方法有个缺点: 这样做的话, 无法右键上传图片了.</p>
 
 
