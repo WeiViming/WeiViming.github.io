@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-04-21T15:15:16+08:00</updated>
+  <updated>2022-04-25T11:54:45+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -190,7 +190,7 @@ u&amp;=v.
 </ul>
 <p>完美安全性和统计安全性统称为信息论安全性（Information-theoretic security）。满足信息论安全的协议比计算安全的协议更高效，因为它们通常更简单，而且不依赖于某些特定的计算困难问题的参数。但是，信息论安全性并非总是可以实现的。</p>
 <h2><a id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考资料</h2>
-<p>Escudero, D. An Introduction to Secret-Sharing-Based Secure Multiparty Computation. <a href="https://eprint.iacr.org/2022/062">https://eprint.iacr.org/2022/062</a> (2022).</p>
+<p>Escudero, D. <a href="https://eprint.iacr.org/2022/062">An Introduction to Secret-Sharing-Based Secure Multiparty Computation</a>. 2022.</p>
 
 ]]></content>
   </entry>
@@ -702,20 +702,9 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
     <updated>2022-01-29T23:01:02+08:00</updated>
     <id>https://weiviming.github.io/16434684624710.html</id>
     <content type="html"><![CDATA[
-<h2><a id="content" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Content</h2>
-<ul>
-<li><a href="#about">About</a></li>
-<li><a href="#secure-machine-learning">Secure Machine Learning</a></li>
-<li><a href="#secure-federated-learning">Secure Federated Learning</a></li>
-<li><a href="#MPC">MPC</a></li>
-<li><a href="#federated-learning">Federated Learning</a></li>
-<li><a href="#privacy-leakages-of-ml/fl">Privacy Leakages of ML/FL</a></li>
-<li><a href="#blogs">Blogs</a></li>
-<li><a href="#libraries-and-frameworks">Libraries and Frameworks</a></li>
-</ul>
-<h1><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h1>
+<h2><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h2>
 <p>This is a current list of resources related to the research and development of privacy-preserving machine learning.</p>
-<h1><a id="secure-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Machine Learning</h1>
+<h2><a id="secure-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Machine Learning</h2>
 <ul>
 <li><a href="https://eprint.iacr.org/2014/331.pdf">Machine Learning Classification over Encrypted Data, NDSS'14</a></li>
 <li><a href="https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/ohrimenko">Oblivious Multi-Party Machine Learning on Trusted Processors, USENIX Security'16</a></li>
@@ -781,7 +770,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://eprint.iacr.org/2022/322.pdf">SecFloat: Accurate Floating-Point meets Secure 2-Party Computation, S&amp;P'22</a></li>
 <li><a href="https://arxiv.org/abs/2006.04593">ARIANN: Low-Interaction Privacy-Preserving Deep Learning via Function Secret Sharing, PoPETs'22</a></li>
 </ul>
-<h1><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h1>
+<h2><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h2>
 <ul>
 <li><a href="https://dl.acm.org/citation.cfm?id=2813687">Privacy-Preserving Deep Learning, CCS'15</a></li>
 <li><a href="https://eprint.iacr.org/2017/281.pdf">Practical Secure Aggregation for Privacy Preserving Machine Learning, CCS'17</a></li>
@@ -802,7 +791,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://arxiv.org/abs/2009.00349">POSEIDON: Privacy-Preserving Federated Neural Network Learning, NDSS'21</a></li>
 <li><a href="https://arxiv.org/abs/2104.14380">PPFL: Privacy-preserving Federated Learning with Trusted Execution Environments, MobiSys'21</a></li>
 </ul>
-<h1><a id="mpc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MPC</h1>
+<h2><a id="mpc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MPC</h2>
 <ul>
 <li><a href="https://link.springer.com/chapter/10.1007/978-3-642-14577-3_6">Secure computation with fixed-point numbers, FC'10</a></li>
 <li><a href="https://link.springer.com/chapter/10.1007/978-3-642-32009-5_38">Multiparty computation from somewhat homomorphic encryption, Crypto'12</a></li>
@@ -829,13 +818,13 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://eprint.iacr.org/2021/1493.pdf">VASA : Vector AES Instructions for Security Applications, ACSAC'21</a></li>
 <li><a href="https://eprint.iacr.org/2021/833">ATLAS: Efficient and Scalable MPC in the Honest Majority Setting, CRYPTO'21</a></li>
 </ul>
-<h1><a id="federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Federated Learning</h1>
-<h2><a id="communication-optimization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Optimization</h2>
+<h2><a id="federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Federated Learning</h2>
+<h3><a id="communication-optimization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Optimization</h3>
 <ul>
 <li><a href="http://papers.nips.cc/paper/6749-terngrad-ternary-gradients-to-reduce-communication-in-distributed-deep-learning">Terngrad: Ternary gradients to reduce communication in distributed deep learning, NIPS'17</a></li>
 <li><a href="https://papers.nips.cc/paper/2018/hash/314450613369e0ee72d0da7f6fee773c-Abstract.html">The Convergence of Sparsified Gradient Methods, NIPS'18</a></li>
 </ul>
-<h2><a id="byzantine-tolerant" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Byzantine-Tolerant</h2>
+<h3><a id="byzantine-tolerant" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Byzantine-Tolerant</h3>
 <ul>
 <li><a href="http://papers.nips.cc/paper/6617-machine-learning-with-adversaries-byzantine-tolerant-gradient-descent">Machine Learning with Adversaries: Byzantine Tolerant Gradient Descent, NIPS'17</a></li>
 <li><a href="https://papers.nips.cc/paper/2018/file/a07c2f3b3b907aaf8436a26c6d77f0a2-Paper.pdf">Byzantine stochastic gradient descent, NIPS'18</a></li>
@@ -849,7 +838,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="http://proceedings.mlr.press/v139/karimireddy21a/karimireddy21a.pdf">Learning from History for Byzantine Robust Optimization, ICML'21</a></li>
 <li><a href="https://arxiv.org/abs/2101.02281">FLAME: Taming backdoors in federated learning, USENIX Security'22</a></li>
 </ul>
-<h1><a id="privacy-leakages-of-mlfl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Leakages of ML/FL</h1>
+<h2><a id="privacy-leakages-of-mlfl" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Leakages of ML/FL</h2>
 <ul>
 <li><a href="https://ieeexplore.ieee.org/abstract/document/7958568">Membership inference attacks against machine learning models, S&amp;P'17</a></li>
 <li><a href="https://ieeexplore.ieee.org/abstract/document/8835245">Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning, S&amp;P'19</a></li>
@@ -857,7 +846,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_27">A Framework for Evaluating Client Privacy Leakages in Federated Learning, ESORICS'20</a></li>
 <li><a href="https://www.computer.org/csdl/magazine/sp/2021/04/09433648/1tHMTWXyaUE">A Critical Overview of Privacy in Machine Learning, IEEE Security &amp; Privacy'21</a></li>
 </ul>
-<h1><a id="blogs" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blogs</h1>
+<h2><a id="blogs" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blogs</h2>
 <ul>
 <li><a href="https://mortendahl.github.io/">Cryptography and Machine Learning: Mixing both for private data analysis</a></li>
 <li><a href="https://iamtrask.github.io/2017/03/17/safe-ai/">Building Safe A.I.: A Tutorial for Encrypted Deep Learning</a></li>
@@ -865,7 +854,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://www.zhihu.com/column/c_1121838720017338368">知乎专栏: 机器学习隐私保护</a></li>
 <li><a href="https://www.zhihu.com/column/c_1380808297608613888">知乎专栏: 安全多方计算学习笔记</a></li>
 </ul>
-<h1><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h1>
+<h2><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h2>
 <ul>
 <li><a href="https://github.com/esonghori/TinyGarble">TinyGarble: Logic Synthesis and Sequential Descriptions for Yao's Garbled Circuits</a></li>
 <li><a href="https://github.com/bristolcrypto/SPDZ-2">SPDZ-2: Multiparty computation with SPDZ, MASCOT, and Overdrive offline phases</a></li>
@@ -3971,7 +3960,7 @@ convert -append image1.png image2.png output.png
 <h2><a id="%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全计算协议</h2>
 <h3><a id="%E5%A4%8D%E5%88%B6%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>复制秘密共享方案</h3>
 <p>记四个参与方分别为\(P_i,P_j,P_g,P_h\), 其中\(i,j,g,h\in\{1,2,3,4\}\), 本文使用秘密共享方案是复制秘密共享(Replicated Secret Sharing). Dealer在四方下秘密共享秘密\(s\in\mathbb Z_{2^k}\)的方法(文章中的协议1), 如下图所示:</p>
-<p><img src="https://s2.loli.net/2022/04/15/jwsUL3xKEgNPCpB.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/04/15/jwsUL3xKEgNPCpB.png" alt="RSS" /></p>
 <ol>
 <li>
 <p>在\(\mathbb Z_{2^k}\)上选取三个随机数\(s_1,s_2,s_3\), 然后令\(s_4=s-(s_1+s_2+s_3)\);</p>
@@ -4069,8 +4058,8 @@ b_i^1, &amp; b_i^0=0 \\
 <p>现在说明排除潜在的恶意参与方后, 如何实现份额转换.</p>
 <p>设\(x=x_1+x_2+x_3+x_4\), 参与方\(P_i\)拥有的份额为\(\{x_j\}_{j\neq i}\).</p>
 <ol>
-<li>四方份额转三方份额: 假设\(P_0\)被排除, 则进行如下转换: \(P_1,P_2\)定义\(x'=x_0+x_3\), \(P_3\)丢弃\(x_0\). 这样, \(P_1\)的持有的份额为\((x',x_2)\), \(P_2\)持有的份额为\((x_1,x')\), \(P_3\)的持有份额为\((x_1,x_2)\). 此后计算为恶意安全的三方计算.</li>
-<li>三方份额转两方份额: 假设\(P_3\)被排除, 则进行如下转换: \(P_1\)定义\(x''=x'+x_2\), \(P_2\)丢弃\(x'\). 这样\(P_1\)的持有份额为\(x''\), \(P_2\)的持有份额为\(x_1\). 此后计算为半诚实安全的两方计算, 但可以引入诚实方生成乘法三元组协助两方进行计算.</li>
+<li>四方份额转三方份额: 假设\(P_1\)被排除, 则进行如下转换: \(P_2,P_3\)定义\(x'=x_1+x_4\), \(P_4\)丢弃\(x_1\). 这样, \(P_2\)的持有的份额为\((x',x_3)\), \(P_3\)持有的份额为\((x_2,x')\), \(P_4\)的持有份额为\((x_2,x_3)\). 此后计算为恶意安全的三方计算.</li>
+<li>三方份额转两方份额: 假设\(P_4\)被排除, 则进行如下转换: \(P_2\)定义\(x''=x'+x_3\), \(P_3\)丢弃\(x'\). 这样, \(P_2\)的持有份额为\(x''\), \(P_3\)的持有份额为\(x_2\). 此后计算为半诚实安全的两方计算, 但可以引入诚实方生成乘法三元组协助两方进行计算.</li>
 </ol>
 <h2><a id="%E5%AE%9E%E9%AA%8C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>实验</h2>
 <p>文章中的实验仅实现了中止安全性. 表2展示了不同安全模型下3层网络训练MNIST的计算开销和不同epoch下的模型准确率. 此外, 表3中可以看出文章所提出的半诚实安全的3PC和恶意安全的4PC开销基本相近.</p>
