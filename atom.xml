@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-04-25T11:54:45+08:00</updated>
+  <updated>2022-04-28T13:56:17+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -13,7 +13,7 @@
   <generator uri="http://www.mweb.im/">MWeb</generator>
   
   <entry>
-    <title type="html"><![CDATA[BLAZE: 快速隐私保护机器学习]]></title>
+    <title type="html"><![CDATA[BLAZE: Blazing Fast Privacy-preserving Machine Learning]]></title>
     <link href="https://weiviming.github.io/16477900515975.html"/>
     <updated>2022-03-20T23:27:31+08:00</updated>
     <id>https://weiviming.github.io/16477900515975.html</id>
@@ -3929,7 +3929,7 @@ convert -append image1.png image2.png output.png
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Fantastic Four: 具有恶意安全的诚实大多数四方安全计算]]></title>
+    <title type="html"><![CDATA[Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security]]></title>
     <link href="https://weiviming.github.io/16337773581295.html"/>
     <updated>2021-10-09T19:02:38+08:00</updated>
     <id>https://weiviming.github.io/16337773581295.html</id>
@@ -3937,9 +3937,9 @@ convert -append image1.png image2.png output.png
 <blockquote>
 <p>今天给大家带来的是发表于<em>USENIX Security'21</em>的一篇文章<a href="https://www.usenix.org/system/files/sec21-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security</a>, 报告的slide见<a href="https://www.usenix.org/system/files/sec21_slides_dalskov.pdf">这里</a>.</p>
 </blockquote>
-<h2><a id="%E6%91%98%E8%A6%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>摘要</h2>
+<h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
 <p>本文介绍了一种诚实大多数的鲁棒四方计算协议, 具有主动安全性, 且不依赖于function-dependent preprocessing(预处理), 实现了输出可达性(Guaranteed output delivery, GOD), 同时保证协议中止同时确保任何一方不会得到超过输出的任何信息. 以往实现输出可达性采用的方案有SWIFT<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>, FLASH<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>, 让确定为诚实的参与方重构秘密并在明文下进行协议计算. 实验表明, 本文所提协议的效率接近于仅提供半诚实安全的三方诚实大多数计算协议, 这表明, 通过添加第四方是实现主动安全而不影响性能的有效方案.</p>
-<h2><a id="%E8%83%8C%E6%99%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>背景</h2>
+<h2><a id="background" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background</h2>
 <p>当前最快的MPC协议仅提供了中止安全性. 传统的MLaaS架构缺乏隐私保护, 而客户端/服务器模型(client/server model)是MLaaS架构常用的隐私保护替代方案, 如果存在恶意的计算方导致中止计算, 那么用户将无法得到输出, 这对于MLaaS来说是不能接受的, 因此模型的鲁棒性非常重要. 这里的鲁棒性可以理解为, 协议为所有参与方提供输出可达性, 而不论敌手是否存在恶意行为. 考虑MLaaS架构中的两种鲁棒类型的外包计算:</p>
 <ul>
 <li>
@@ -3949,7 +3949,7 @@ convert -append image1.png image2.png output.png
 <p>隐私鲁棒(private robustness)外包计算: 这种类型下的外包计算也可以保证计算最后输出正确的结果, 但不依赖于诚实方获得用户的隐私输入. 本文介绍了如何通过四方和三方协议之间的转换来达到这一点.</p>
 </li>
 </ul>
-<h3><a id="%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>主要贡献</h3>
+<h3><a id="main-contributions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main Contributions</h3>
 <ol>
 <li>提出了\(\mathbb{Z}_{2^k}\)上抵抗一个腐化方的主动安全的四方计算协议, 在相同设定下与当前好的方案整体复杂性相同, 除了常数开销的设定外, 无需任何预处理. 此外, 本文的方案允许丢弃后面计算中不必要的中间信息.</li>
 <li>提出了\(\mathbb{Z}_{2^k}\)上抵抗一个腐化方的主动安全的三方计算协议, 虽然在线阶段的通信复杂度略高于当前最好的方案BLAZE<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>, 但总体复杂性低几个数量级, 主要原因是点积计算的通信量与输入的长度无关.</li>
@@ -3957,8 +3957,8 @@ convert -append image1.png image2.png output.png
 <li>展示了如何在保持隐私性的同时使得四方协议具备鲁棒性.</li>
 </ol>
 <p>本文的所有协议在<a href="https://github.com/data61/MP-SPDZ">MP-SPDZ</a>中可用.</p>
-<h2><a id="%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全计算协议</h2>
-<h3><a id="%E5%A4%8D%E5%88%B6%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>复制秘密共享方案</h3>
+<h2><a id="secure-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Protocol</h2>
+<h3><a id="replicated-secret-sharing" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Replicated Secret Sharing</h3>
 <p>记四个参与方分别为\(P_i,P_j,P_g,P_h\), 其中\(i,j,g,h\in\{1,2,3,4\}\), 本文使用秘密共享方案是复制秘密共享(Replicated Secret Sharing). Dealer在四方下秘密共享秘密\(s\in\mathbb Z_{2^k}\)的方法(文章中的协议1), 如下图所示:</p>
 <p><img src="https://s2.loli.net/2022/04/15/jwsUL3xKEgNPCpB.png" alt="RSS" /></p>
 <ol>
@@ -3987,7 +3987,7 @@ convert -append image1.png image2.png output.png
 <li>若只有两个参与方知道\(x\), 则可以借助\(\mathsf{PRG}_k\)(伪随机生成器)来完成, 其中\(k\)是密钥. 具体方案如下图协议3. 这里的第3步需要调用JMP确保\(P_g\)获得的\(x_h\)与\(P_i, P_j\)计算得到的是一致的.</li>
 </ol>
 <img src="https://s2.loli.net/2022/04/15/r7jLhQCFmRo1Ag5.png" style="zoom:50%;" />
-<h3><a id="%E5%AE%89%E5%85%A8%E4%B9%98%E6%B3%95%E7%AE%97%E5%AD%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全乘法算子</h3>
+<h3><a id="secure-multiplication" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Multiplication</h3>
 <p>为计算\(x,y\)秘密分享的乘法\(xy\), 为此, 按照秘密共享形式将\(xy\) 展开, 我们得到如下几项, 乘法的目标就是计算所有这些项的和. 其中\(x_iy_i\)这一类的项是参与方无需交互就能计算的, 因为只有\(P_i\)无法计算这一项, 为此令\(P_i\)的三个分享都为0, 其他参与方的其中一个分享为\(x_iy_i\), 其余为0即可. 因此关键在于计算交叉项之和(文章的协议3).</p>
 <p><img src="https://s2.loli.net/2022/04/15/ZOzTEKumb6jIk3U.png" alt="" /></p>
 <p>下面以\(z:=x_1y_2+y_1x_2\)为例, 这一项\(P_3,P_4\)可以本地计算得到, 问题转化为\(P_3, P_4\)已知秘密\(z\), 如何向\(P_1,P_2\)秘密分享\(z\), 为此可以借助\(\mathsf{PRG}_k\)(伪随机生成器), \(k\)是密钥. 假设\(P_2,P_3,P_4\)之间有预分享的密钥\(k\), 首先\(P_2,P_3,P_4\)计算随机数\(z_1=r=\mathsf{PRG}_k()\)作为其中一个分享, \(P_3,P_4\)设定另一个分享为\(z_2=z-r\), 然后\(P_1,P_2\)令\(z_3=z_4=0\), 接下来只需让\(P_3\)发送\(z_2\)给\(P_1\)即可完成交叉项秘密分享. 由于是恶意安全模型下, 需要确保参与方\(P_3\)发送给\(P_1\)的信息和\(P_4\)持有的都是\(z_2\), 为此需要进行三方作弊识别检测(文章的协议2, Joint Message Passing), 并使得\(P_1\)得到正确的\(z_2\). 其余交叉项情况类似, 因为一共有6个这样的交叉项求和, 因此, 计算一个秘密分享的乘法算子需要发送6个元素, 整个乘法算子的计算步骤见文章协议4. 文章指出, 本文的方案除了JMP部分的哈希函数和伪随机生成器的状态之外, 不需要保留任何后续计算不再需要的秘密分享, 不依赖于功能函数的预处理阶段.</p>
@@ -3997,26 +3997,27 @@ convert -append image1.png image2.png output.png
 <img align="right" src="https://s2.loli.net/2022/04/15/n3bzYMSNFDEpdh6.png" style="zoom:40%;" />
 <p>为了处理多方计算的定点算术(fixed-point arithmetic)问题, 本文将Dalskov等人<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>与SWIFT<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>的截断协议相结合给出概率截断的MPC协议(协议5).</p>
 <p>给定\(\mathbb Z_{2^k}\)上的秘密份额\([x]\)和定点精度\(m\), 截断协议的目标是获得份额\([y]\), 这里的\(y=\lfloor x/2^m\rfloor\), 这等价于获得\(y=\lfloor x/2^m\rceil\). 在概率截断中, 我们更关注\(\lfloor x/2^m\rceil\)的最佳近似(就近取整). 具体而言, \(y=\lfloor x/2^m\rceil+u\), 其中\(u\in\{0,1\}\)更偏向于正确结果\(\lfloor x/2^m\rceil\), 即若\(x/2^m\)更接近于\(\lceil x/2^m\rceil\), 则\(u=1\); 若\(x/2^m\)更接近于\(\lfloor x/2^m\rfloor\), 则\(u=0\). 换而言之, \(u=1\)的概率为\((x\bmod 2^m)/2^m\). 举个例子, 若\(x=7,m=2\), 此时正确的结果应为\(7/2^2=1.75\), 概率截断协议给出的可能结果为\(\lfloor 7/4\rfloor=1\), 或\(\lfloor7/4\rfloor+1=2\), 后者即\(u=1\)的概率为\((7\bmod 2^2)/2^2=0.75\), 刚好是正确结果的小数部分.</p>
-<p>为说明协议5的正确性, 令\(x\)是正数, 即\(\mathsf{MSB}(x)=0\), 则有\(0&lt;x&lt;2^{k-1}, x\bmod2^{k-1}=x\), 这意味着我们有: \(c=x+r\bmod2^k, c=x+r\bmod2^{k-1}\)成立.  这等价于\(c=x+r-2^ku\), 其中\(u\)是溢出标识比特, 即\(u=(x+r\geq _?2^k)\).  类似地有\(c\bmod 2^{k-1}=x\bmod2^{k-1}+r\bmod2^{k-1}-2^{k-1}v\), 其中\(v=(x+r\geq_?2^{k-1})\). 若记\(r_{k-1}=\mathsf{MSB}(r)\), 则通过分类讨论容易证明\(u=v\cdot r_{k-1}\).</p>
-<p>又因为\(c=2^{k-1}\cdot \lfloor c/2^{k-1}\rfloor+(c\bmod2^{k-1})\), 记\(c''=\lfloor c/2^{k-1}\rfloor\). 则有</p>
+<p>为说明协议5的正确性, 令\(x\)是正数, 即\(\mathsf{MSB}(x)=0\), 则有\(0&lt;x&lt;2^{k-1}, x\bmod2^{k-1}=x\), 这意味着我们有: \(c=x+r\bmod2^k\), 这等价于\(c=x+r-2^ku\), 其中\(u\)是溢出标识比特, 即\(u=(x+r\geq _?2^k)\).  另一方面, 我们有\(c\bmod2^{k-1}=x\bmod2^{k-1}+r\bmod2^{k-1}\), 这等价于\(c\bmod 2^{k-1}=x\bmod2^{k-1}+r\bmod2^{k-1}-2^{k-1}b\), 其中\(b=(x\bmod2^{k-1}+r\bmod2^{k-1}\geq_?2^{k-1})\). 若记\(r_{k-1}=\mathsf{MSB}(r)\), 则可以证明\(u=b\cdot r_{k-1}\).</p>
+<p>根据带余除法, 有\(r=2^{k-1}\cdot r_{k-1}+(r\bmod2^{k-1})\), \(c=2^{k-1}\cdot \lfloor c/2^{k-1}\rfloor+(c\bmod2^{k-1})\), 记\(c''=\lfloor c/2^{k-1}\rfloor\), 利用性质: 若\(a,b\)是两个比特, 则有\(a\oplus b=a+b-2ab\). 我们有</p>
 \[\begin{aligned}
 2^{k-1}\cdot c''&amp;=c-(c\bmod2^{k-1})\\
-&amp;=(x+r-2^ku)-(x+(r\bmod2^{k-1})-2^{k-1}v)\\
-&amp;=2^{k-1}r_{k-1}+2^{k-1}v-2^k\cdot v\cdot r_{k-1}\\
-&amp;=2^{k-1}(r_{k-1}\oplus v).
+&amp;=(x+r-2^ku)-(x+(r\bmod2^{k-1})-2^{k-1}b)\\
+&amp;=2^{k-1}r_{k-1}+2^{k-1}b-2^k\cdot b\cdot r_{k-1}\\
+&amp;=2^{k-1}(r_{k-1}+b-2br_{k-1})\\
+&amp;=2^{k-1}(r_{k-1}\oplus b).
 \end{aligned}
 \]
-<p>有\(c''=r_{k-1}\oplus v\), 或\(v=c''\oplus r_{k-1}\), \(v\)即协议中的\(b\). 这里的最后一步利用了比特运算与算术运算之间的性质: 若\(a,b\)是两个比特, 则有\(a\oplus b=a+b-2ab\). 协议5的第6步也利用了这一性质.</p>
-<p>因为\(x\bmod2^{k-1}=x\), 则有\((c\bmod2^{k-1})=x+(r\bmod2^{k-1})-2^{k-1}v\), 因此</p>
-\[\lfloor(c\bmod2^{k-1})/2^m\rfloor=\lfloor\dfrac{x+(r\bmod2^{k-1})}{2^m}\rfloor-2^{k-m-1}v.
+<p>故有\(c''=r_{k-1}\oplus b\), 于是\(b=c''\oplus r_{k-1}\).</p>
+<p>因为\(x\bmod2^{k-1}=x\), 则有\((c\bmod2^{k-1})=x+(r\bmod2^{k-1})-2^{k-1}b\), 两边除于\(2^m\)并下取整得</p>
+\[c'=\lfloor\frac{(c\bmod2^{k-1})}{2^m}\rfloor=\lfloor\dfrac{x+(r\bmod2^{k-1})}{2^m}\rfloor-2^{k-m-1}b,
 \]
-<p>另一方面, 因为</p>
-\[c'=\lfloor(x+(r\bmod2^{k-1}))/2^m\rfloor=\lfloor x/2^m\rfloor+\lfloor(r\bmod2^{k-1})/2^m\rfloor+w, ~~~~w\in\{0,1\}.
+<p>其中</p>
+\[\lfloor\dfrac{x+(r\bmod2^{k-1})}{2^m}\rfloor=\lfloor \dfrac{x}{2^m}\rfloor+\lfloor\dfrac{(r\bmod2^{k-1})}{2^m}\rfloor+w, ~~~~w\in\{0,1\}.
 \]
-<p>而协议中的\(r'=\lfloor(r\bmod2^{k-1})/2^m\rfloor\), 于是协议5的第7步输出为</p>
-\[c'-r'+2^{k-m-1}b=\lfloor x/2^m\rfloor+w.
+<p>而\(r'=\lfloor\dfrac{(r\bmod2^{k-1})}{2^m}\rfloor\), 于是协议5的第7步输出为</p>
+\[c'-r'+2^{k-m-1}b=\lfloor \dfrac{x}{2^m}\rfloor+w.
 \]
-<p>因此, \(w=1\)的概率等于\(\dfrac{x}{2^m}\)的小数部分, 即概率截断输出更倾向于\(\lfloor x/2^m\rceil\).</p>
+<p>因此, \(w=1\)的概率等于\(\dfrac{x}{2^m}\)的小数部分, 即概率截断输出更倾向于\(\lfloor \dfrac{x}{2^m}\rceil\).</p>
 <h3><a id="random-bit-generation-for-4pc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random Bit Generation for 4PC</h3>
 <p>生成随机比特是多方计算中一个基础原语. 协议6给出了4PC下的具体方案, 总体思想是将参与方分为两组, 每组通过预分享的密钥生成随机比特, 然后再对其进行秘密分享, 通过比特运算与算术运算的关系来生成随机比特\(b\). 因为每组中至少有一个参与方是诚实的, 所以恶参与方可以在INP协议中检测出来, 因此可以保证\(b\)的正确性.</p>
 <img src="https://s2.loli.net/2022/04/15/rxVq6yEa7DcS42d.png" style="zoom:50%;" />
@@ -4029,7 +4030,7 @@ convert -append image1.png image2.png output.png
 <p>Escudero等人<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>将第二种方法从1比特扩展到了\(m\)比特, 提出了extended daBits(edaBits), 并介绍了如何在任意安全模型中生成edaBits. 本文提出了在复制秘密共享模数为二次幂的高效生成预处理edaBits的方案. 构造的关键在于将生成edaBits中的使用的溢出校正(overflow correction)与复制秘密共享的本地份额转换相结合, 文章称之为份额拆分(Share splitting). 具体方案如下图协议7, 其中\(x[j]\)表示\(x\)的第\(j\)比特. 协议7可以扩展到\(n\)方复制秘密共享中.</p>
 <p>协议8给出了高效生成edaBits的方法. edaBits是由\(\mathbb Z_{2^k}\)上秘密分享的随机值\([r]_{2^k}\)和它比特\(\{r[i]\}_{i=0}^{k-1}\)的二进制分享\([r]_2\)组成的对\(([r]_{2^k},[r]_2)\).若\(r\in\{0,1\}\)是均匀随机的, 则edaBits即为daBits. 通过daBits可以将\([b]_{2}\)转换为\([b]_{2^k}\): 参与方打开\(c\leftarrow[r]_2+[b]_2\), 然后计算\([b]_{2^k}=[r]_{2^k}+c-2\cdot c\cdot [r]_{2^k}\). 根据这个假设, 可以扩展生成\(m\)比特的edaBits.</p>
 <p><img src="https://s2.loli.net/2022/04/15/vHbJsPExAiYwTgQ.png" alt="" /></p>
-<h2><a id="%E6%81%B6%E6%84%8F%E5%AE%89%E5%85%A8%E7%9A%84%E4%B8%89%E6%96%B9%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>恶意安全的三方计算</h2>
+<h3><a id="3pc-with-malicious-security" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3PC with Malicious Security</h3>
 <img align="right"  src="https://s2.loli.net/2022/04/15/K6gX1Gk4sPF8xpb.png" style="zoom:30%;" >
 <p>本文实现鲁棒性依赖于三方计算. 与SPDZ类似, Abspoel等人的方案通过加入MAC到秘密份额中使得作弊可以被检测出来, 但他们的方案不支持连续计算, 因为它涉及验证正确性的最后检测阶段, 在此之前的一切都不被信任, 由于检测会泄漏某些防止作弊的秘密信息, 检测后无法进一步计算. 本文通过修改他们的验证协议, 通过献祭(sacrificing)在底层协议中的一个额外的秘密乘法, 使得这些秘密信息被隐藏起来, 以利于连续计算. 连续计算的好处是允许将秘密共享信息保存更长时间. 在实际操作方面, 检测协议将每个乘法的信息保留到检测阶段. 此外, 连续计算可以减少存储要求, 因为它允许定期检查, 从而删除中间信息.</p>
 <p>设\(\langle x\rangle=([x]_{2^{k+s}},[r\cdot x]_{2^{k+s}})\)是\(x\)的SPDZ份额, 其中\(r\in\mathbb{Z}_{2^s}\)是全局MAC密钥. 见协议9, 这里直接使用了基于RSS的在模数为二次幂上的Zero-check功能函数\(\mathcal F_\mathsf{CheckZero}\). 这里简单介绍一下协议9中的Zero-check的具体思路<sup class="footnote-ref"><a href="#fn6" id="fnref6">6</a></sup>, 设存在一个随机预言机\(\mathcal H\), 若\(\sum_{i}x_i=0\), 则\(x_{i-1}\equiv_{k+s} -(x_i+x_{i+1})\), 因此\(P_i\)发送\(z_i=\mathcal H(-(x_i+x_{i+1}))\)给\(P_{i+1}\), 而\(P_{i+1}\)和\(P_{i-1}\)都有\(x_{i-1}\), 因此\(P_{i+1}\)可以检测\(z_i=\mathcal H(x_{i-1})\)是否成立, 若不成立, 则直接输出中止(Abort).</p>
@@ -4049,7 +4050,7 @@ b_i^1, &amp; b_i^0=0 \\
 \end{cases}
 \]
 <p>即, 无关\(b_i^0\),  \(b_i\in\{0,1\}\)当且仅当\(b_i^1\in\{0,1\}\). 这种方法排除了对\(b_i^0\)的选择失败攻击.</p>
-<h2><a id="%E9%80%9A%E4%BF%A1%E5%A4%8D%E6%9D%82%E5%BA%A6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>通信复杂度</h2>
+<h3><a id="communication-cost" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Cost</h3>
 <p>本文的三方协议比其他工作慢一个数量级, 四方相差大约2倍.</p>
 <p><img src="https://s2.loli.net/2022/04/15/gBRnk7m3X2pqYhV.png" alt="" /></p>
 <h2><a id="privacy-robustness" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Robustness</h2>
@@ -4061,18 +4062,18 @@ b_i^1, &amp; b_i^0=0 \\
 <li>四方份额转三方份额: 假设\(P_1\)被排除, 则进行如下转换: \(P_2,P_3\)定义\(x'=x_1+x_4\), \(P_4\)丢弃\(x_1\). 这样, \(P_2\)的持有的份额为\((x',x_3)\), \(P_3\)持有的份额为\((x_2,x')\), \(P_4\)的持有份额为\((x_2,x_3)\). 此后计算为恶意安全的三方计算.</li>
 <li>三方份额转两方份额: 假设\(P_4\)被排除, 则进行如下转换: \(P_2\)定义\(x''=x'+x_3\), \(P_3\)丢弃\(x'\). 这样, \(P_2\)的持有份额为\(x''\), \(P_3\)的持有份额为\(x_2\). 此后计算为半诚实安全的两方计算, 但可以引入诚实方生成乘法三元组协助两方进行计算.</li>
 </ol>
-<h2><a id="%E5%AE%9E%E9%AA%8C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>实验</h2>
+<h2><a id="experiment" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Experiment</h2>
 <p>文章中的实验仅实现了中止安全性. 表2展示了不同安全模型下3层网络训练MNIST的计算开销和不同epoch下的模型准确率. 此外, 表3中可以看出文章所提出的半诚实安全的3PC和恶意安全的4PC开销基本相近.</p>
 <p><img src="https://s2.loli.net/2022/04/15/LerDZkw7tnKUTHQ.png" alt="" /></p>
-<h3><a id="%E5%AE%9A%E7%82%B9%E7%B2%BE%E5%BA%A6%E7%9A%84%E5%BD%B1%E5%93%8D" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>定点精度的影响</h3>
+<h3><a id="the-impact-of-fixed-point-precision" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Impact of Fixed-Point Precision</h3>
 <p>MPC使用浮点算术(float-point arithmetic)通常可以获得更好的准确性, 但开销也相对较大, 因此通常MPC使用的是效率更高的定点算术(fixed-point arithmetic). 但定点算术的方法由于需要进行概率截断, 可能会导致模型的准确率下降, 先前的工作所选的参数在小型模型上具有较好的准确率, 但大多忽略了在大型模型中的准确性降低的程度. 文章分别对比了不同定点精度与计算域位长导致的准确率和效率之间差异. 结果见表5和表6.</p>
 <p>先前的工作大多要求概率截断中的精度比计算域最大长度\(k\)小得多, 误差概率为\(2^{\ell-k}\), 其中\(\ell\)是概率截断输入的长度. 表5表明这个概率大概为\(2^{-20}\). 为训练双层模型, 通常需要将每个数的误差概率限制为\(2^{-40}\).</p>
 <p>表6说明虽然低精度截断使得通信量节省了大约1/3, 但较大的模数使得双层模型训练的时间增加了1倍.</p>
 <p>此外, 文章还指出64比特模数和13比特定点精度不能满足大型模型训练要求, 表5双层模型定点精度为12时, 随着epoch增大, 模型的准确度反而下降.</p>
 <p><img src="https://s2.loli.net/2022/04/15/DYGjVrCN3eHh65W.png" alt="" /></p>
-<h2><a id="%E6%80%BB%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结</h2>
-<p>本文提出了Privacy robustness, 在不泄漏任何参与方输入隐私的前提下, 实现了输出可达性. 提出的协议不需要预处理阶段, 但安全性保证的前提是假设诚实方只存储预期信息, 即协议执行完后诚实方不能恢复隐私输入, 为此本文设计的协议不含让诚实参与方恢复信息的步骤. 如果诚实方长期存储所有的输入信息, 则本文提出的方案不适用, 安全性假设较强.</p>
-<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<h2><a id="conclusion" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h2>
+<p>SWIFT中不考虑对诚实方保护输入的隐私性, 为此本文提出了Privacy robustness, 在不泄漏任何参与方输入隐私的前提下, 实现了输出可达性. 提出的协议不需要预处理阶段, 但安全性保证的前提是假设诚实方只存储预期信息, 即协议执行完后诚实方不能恢复隐私输入, 为此本文设计的协议不含让诚实参与方恢复信息的步骤. 如果诚实方长期存储所有的输入信息, 则本文提出的方案不适用, 安全性假设较强.</p>
+<h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
 <section class="footnotes">
 <ol>
 <li id="fn1">
