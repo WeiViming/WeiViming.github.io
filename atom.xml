@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-05-08T09:28:27+08:00</updated>
+  <updated>2022-05-11T20:07:20+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -88,7 +88,7 @@
 <p>安全计算\(\langle b\rangle\leftarrow\langle x\rangle&lt;_?\langle y\rangle\), 其中比特\(b=(x&lt;y)\). 对于不同的代数结构, \(\mathbb F_p\)可参考文献<sup class="footnote-ref"><a href="#fn9" id="fnref9">9</a></sup>; \(\mathbb Z_{2^k}\)可参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>. 对于复制秘密共享, ABY3提供了更高效的方案.</p>
 <h3><a id="truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Truncation</h3>
 <p>对于公开参数\(m\), 需要安全计算\(\langle y\rangle\leftarrow\langle x\rangle\), 这里的\(y=\lfloor\frac{x}{2^m}\rfloor\). 可通过概率截断(probabilistic truncation)协议. 在概率截断协议中, 计算\(\langle z\rangle\), 其中\(z=\lfloor\frac{x}{2^m}\rfloor+u\), 这里\(u\in\{0,1\}\)是小误差, 取值取决于\(\lfloor\frac{x}{2^m}\rceil\), 即\(u=1\)的概率为\(\frac{x}{2^m}\)的小数部分\((x\bmod2^m)/2^m\). 例如\(x=7,m=2\), 则概率截断将以\((7\bmod2^2)/2^2=0.75\)的概率输出\(u=1, z=\lfloor\frac{7}{4}\rfloor+1=2\), 以0.25的概率输出\(u=0, z=\lfloor\frac{7}{4}\rfloor=1\).</p>
-<p>本文提出了一种环\(\mathbb Z_{2^k}\)上的概率截断方案, 份额只需比秘密大1bit, 同时常数轮通信的, 结果的误差最多为1,偏向于最接近\(x/2^m\)的整数. 假设有一个生成随机份额比特的方法, 生成\(\langle b\rangle\), 满足\(b\in\{0,1\}\)是均匀随机且敌手未知的. 在不诚实大多数设定下可以参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>的方法生成. 一般地,  可以让\(P_i\)生成1比特\(\langle b_i\rangle\), 然后参与方将这些比特XOR在一起得到一个随机1比特. 当然为了确保\(P_i\)生成的\(\langle b_i\rangle\)确实是1比特的, 可以验证\(\langle b_i\rangle\cdot(1-\langle b_i\rangle)\)是否为零. 具体的概率截断如下图协议所示.</p>
+<p>本文提出了一种环\(\mathbb Z_{2^k}\)上的概率截断方案, 份额只需比秘密大1bit, 同时常数轮通信的, 结果的误差最多为1,偏向于最接近\(x/2^m\)的整数. 假设有一个生成随机份额比特的方法, 生成\(\langle b\rangle\), 满足\(b\in\{0,1\}\)是均匀随机且敌手未知的. 在不诚实大多数设定下可以参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>的方法生成. 一般地,  可以让\(P_i\)生成1比特\(\langle b_i\rangle\), 然后参与方将这些比特XOR在一起得到一个随机1比特. 当然为了确保\(P_i\)生成的\(\langle b_i\rangle\)确实是1比特的, 可以验证\(\langle b_i\rangle\cdot(1-\langle b_i\rangle)\)是否为零. 具体的概率截断如下, 注意图中第二步应为\(c'\leftarrow (c\bmod2^{k-1})/2^m\), 第四步中应为输出\(c'-\sum_{i=m}^{k-2}\langle r_i\rangle\cdot2^{i-m}+\langle b\rangle\cdot2^{k-m-1}\).</p>
 <img src="media/16519051511907/16519726485643.png" alt="image-20211214213428298" style="zoom:50%;" />
 <p>如果考虑环\(\mathbb Z_{2^k}\)上三方复制秘密共享、半诚实安全设定, 可以让将上述对称的三方协议转化为两方协议, 由第三方生成供其他两方使用的相关随机性, 如任意长度的随机数, 这样不再需要逐比特生成随机数.</p>
 <img src="media/16519051511907/16519726485658.png" alt="image-20211214220908605" style="zoom:50%;" />
