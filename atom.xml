@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-05-13T10:36:25+08:00</updated>
+  <updated>2022-05-13T10:44:38+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -19,7 +19,7 @@
     <id>https://weiviming.github.io/16524092173945.html</id>
     <content type="html"><![CDATA[
 <blockquote>
-<p>今天给大家带来的是发表于NDSS'20上的文章Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning, 原文链接: <a href="https://www.ndss-symposium.org/wp-content/uploads/2020/02/23005.pdf">https://www.ndss-symposium.org/wp-content/uploads/2020/02/23005.pdf</a></p>
+<p>今天给大家带来的是发表于NDSS'20上的文章Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning, 原文链接: <a href="https://arxiv.org/pdf/1912.02631.pdf">https://arxiv.org/pdf/1912.02631.pdf</a></p>
 </blockquote>
 <h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
 <p>本文提出环上遵循离线-在线范式的具有主动安全的四方隐私保护机器学习框架Trident, 可抵抗一个恶意敌手, 同时还实现了公平性(Fairness). 与三方的ABY3相比, 本文通过在离线阶段引入一个额外诚实方, 并尽可能少地使用昂贵的电路来提升效率, 例如截断技术不影响乘法的在线开销, 离线阶段不需要任何电路, 而在线阶段则只涉及三方计算; B2A转化在通信轮次上有7倍改进, 通信复杂度有18倍改进. 本文所提出的混合计算协议支持秘密份额在Arithmetic、Boolean、Garbled World上进行高效转换, 而且具有恒定的轮复杂度, 适合安全外包计算场景. 最后本文与ABY3在64比特环上就LAN和WAN设定进行了实验对比, 发现训练阶段快187倍, 推理阶段快158倍.</p>
