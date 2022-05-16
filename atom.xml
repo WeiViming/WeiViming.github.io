@@ -4,13 +4,159 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-05-13T10:44:38+08:00</updated>
+  <updated>2022-05-16T21:18:55+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[Simulation-based Security]]></title>
+    <link href="https://weiviming.github.io/16525868704962.html"/>
+    <updated>2022-05-15T11:54:30+08:00</updated>
+    <id>https://weiviming.github.io/16525868704962.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>本文译自Daniel Escudero的文章An Introduction to Secret-Sharing-Based Secure Multiparty Computation, 原文链接: <a href="https://eprint.iacr.org/2022/062">https://eprint.iacr.org/2022/062</a></p>
+</blockquote>
+<h2><a id="%E8%83%8C%E6%99%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>背景</h2>
+<p>现代密码学的主要成就之一在于适当地将一些结构形式化, 如加密或数字签名, 从而使严格的数学推理可以应用于这些结构. 这样一来, 就可以实现具体的保障和不同概念之间的关系, “可证明安全”的想法便是一个例子.</p>
+<p>安全多方计算在80年代末作为一项有趣的研究任务出现, 它有许多潜在的应用, 并涉及非常有趣的技术. 然而, 过了近十年后, 才出现了更多关于安全多方计算的正式理论, 从而能够对该领域进行更严格的处理. 安全多方计算任务的“数学框架”不是平凡的, 这无疑是对其本身的贡献.</p>
+<h2><a id="%E6%A6%82%E8%A7%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>概览</h2>
+<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
+<p>将敌手不学习某些数据的想法形式化在密码学中很常见, 因为它已经出现在诸如加密方案等结构中, 这些结构是用基于游戏的安全证明(Game-based Security)形式化的. 简而言之, 基于游戏的安全考虑了这样的场景: 敌手与系统交互, 试图区分某些打算隐藏的数据, 而安全证明的形式化要求没有敌手能以高概率在这个“游戏”中获胜. 然而, MPC设定中的主要挑战是, 敌手确实获得了一些打算隐藏的数据, 即计算的输出. 此外, 另一个主要的复杂性在于安全多方计算是一个分布式应用, 涉及各方之间按照某种特定的模式通信. 敌手可以看到在协议执行过程中与腐化方交互的所有信息, 当敌手是主动的时候, 它甚至有能力修改腐化方的行为. 这些复杂的问题给广泛用于密码学的简单的基于游戏的安全证明定义的使用带来了障碍.</p>
+<p>解决上述复杂问题的关键是考虑一个理想世界(Ideal world), 它能捕捉到所需的交互属性, 并以某种方式要求实际协议执行的现实世界(Real world)与理想世界不可区分. 通常情况下, 理想世界包含各方将他们的输入发送给可信第三方, 后者计算函数并返回结果, 而且仅返回结果给各方. 现在, 为了说明这两个世界是不可区分的, 一个自然的做法是说明敌手不能区分现实世界和理想世界. 然而, 这种方式是注定会失败的, 因为从敌手的视角来看, 这两个世界可以很平凡地区分开来: 在现实世界中, 信息在所有参与方中相互传递, 有多个通信轮次, 且没有可信方, 而在理想世界中, 有一个可信第三方, 只是接收输入和发送输出. 这两个世界看起来完全不同, 所以敌手可以轻松区分这两个世界.</p>
+<p>这就是模拟的概念的作用. 在现实世界中, 敌手腐化了某些参与方集合的子集, 与诚实方交互, 并在执行结束时得到一个结果. 在理想世界中, 敌手不会直接与可信方交互, 相反, 当诚实方与可信第三方交互时, 敌手与一些“虚拟”的诚实方交互, 这些虚拟诚实方与真实诚实方不同, 不能接触到对敌手隐藏的输入. 这些虚拟诚实方由一个模拟器(Simulator)协调, 该模拟器也控制着理想世界中的腐化方, 发送输入并接收来自可信方的输出. 如此一来, 模拟器就有效充当了一个接口, 是敌手能够与理想世界中的可信第三方进行交互, 同时拥有等同于现实世界中的交互.</p>
+<p>为了证明一个给定的安全多方计算协议时安全的, 需要定义一个模拟器, 作为上述的接口, 其证明安全的方式是说明现实世界(敌手与持有真实输入的真实诚实方交互的世界)与理想世界(敌手与模拟器控制的虚拟诚实方交互的世界)是不可区分的. 需要注意的是, 为了“愚弄”敌手, 模拟器所依靠的唯一能力是对接收输入并只显示输出的可信第三方的访问. 因此, 从直觉上来说, 这意味着敌手在现实世界中的经验可以通过只接触可信第三方来“重现”(recreated), 从哲学的角度来看, 这体现了敌手与现实世界中的诚实方交互之后, 只学习计算的输出这一核心思想.</p>
+<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
+<h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BB%A3%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式代理</h2>
+<p>我们首先考虑参与安全多方计算协议形式化的所有不同实体机器安全性. 我们的出发点是交互式代理(Interactive agent)的概念, 在直观层面上, 它是一个接收和发送消息、持有内部状态并进行计算的计算设备. 例如, 安全多方计算协议中的各方都是交互式代理, 但在这些想法被形式化的框架中, 还有其他几个交互式代理出现. 交互式代理可以通过交互式图灵机的方式被形式化. 这只是传统的图灵机(或算法), 除了进行计算外, 还可以向某些通信端口发送和接收数据, 这些端口可被看成是计算机总线或信道.</p>
+<p>现在我们描述出现在UC框架中的不同的交互式代理. 正如我们已经提到的, 第一个自然的交互代理是各个参与方, 它们是进行计算的实际设备, 但还有其他几个交互代理, 例如模拟器或“可信第三方”出现. 我们下面分别进行讨论.</p>
+<ul>
+<li>参与方(Parties)</li>
+</ul>
+<p>参与方\(P_1,P_2,\cdots,P_n\)构成了交互代理的第一个自然例子. 每个参与方\(P_i\)有一定的计算输入, 根据协议的指示进行, 执行本地计算, 并根据需要向其他各方发送/接收数据. 在执行结束时, 每一方\(P_i\)都会得到计算的结果.</p>
+<ul>
+<li>现实世界中的功能性(Functionalities in the real world)</li>
+</ul>
+<p>一个功能只是一个连接到参与方的交互代理. 它从那里接收信息, 执行本地计算, 维护内部状态, 并将消息发回给各方.</p>
+<p>尽管只有一种“类型”的功能, 但这些功能被用于两种不同的背景. 第一种情况是协议的实际执行发生在现实世界中, 在一个安全多方计算协议的执行中, 各个参与方可以使用某些“外部”资源, 这些资源可以在计算中帮助他们. 举例来说, 各方可以依靠可信第三方, 尽管它可能不会为各方计算整个所需的函数, 但可以提供某些帮助, 如分发一些密钥, 或者发送某些证书. 这可以被形式化为各方在执行当前协议期间的对话功能. 此外, 至关重要的是如果以后开发出另一个模拟该功能行为的协议, 那么各方可以把这个结构作为一个子程序, 整个结构仍然是安全的, 而不需要可信第三方来提供上述例子中的密钥或证书服务.</p>
+<p>此外, 到目前为止, 我们一直隐含地假设各方通过在两两之间通过设定特殊的端口进行相互通信. 然而, 既然我们已经引入了功能的概念, 就可以方便地将通信视为一种功能, 它从各方接收信息并向各方发送信息. 例如, 一个简单的点对点网络可被建模为一个功能, 其作用是: \(P_i\)发送一个类型为&quot;发送信息\(m\)给\(P_j\)&quot;的信息, 而该功能发送给\(P_j\)的信息为: “\(P_i\)发送信息\(m\)”. 虽然这种方法看起来是一种不必要的复杂化, 但它实际上发挥了重要的作用, 使各方之间的对话方式具有灵活性. 此外, 功能的一个重要的低层次细节是它们会向环境泄漏某些信息, 这可以用来模拟这样的一个事实: 在实际中, 敌手可能会看到某些元数据, 例如诚实方何时向另一个诚实方发送信息, 信息的大小等.</p>
+<ul>
+<li>理想世界中的功能性(Functionalities in the ideal world)</li>
+</ul>
+<p>使用功能的第二种情况是在理想世界中, 有一个可信第三方接收来自不同参与方的输入并返回计算的结果. 这正是一个功能, 正如上面所定义的, 它是一个交互式代理, 接收来自各方的输入, 执行某些内部计算并将结果发送给各方.</p>
+<p>在简单的情况下, 一个功能接收一个给定函数的输入, 在内部评估这个函数, 并将结果返回给各方. 然而, 功能的概念允许我们对更复杂的交互进行建模. 例如, 在非反应式计算(non-reactive computation)中, 它使各方能够获得部分结果并在之后继续进行计算. 这可以由一个功能来捕获, 这个功能接收各方的输入, 存储一些内部状态, 发送部分结果, 并按照各方的指示继续进行.</p>
+<ul>
+<li>敌手(Adversary)</li>
+</ul>
+<p>我们用\(\mathcal A\)来表示敌手, 它被建模为另一个交互代理, 它有与每个腐化方通信的端口. 如果腐化是被动的, 这些端口被用来通知敌手关于腐化方的内部状态, 包括它们收到的信息. 另一方面, 如果腐化是主动的, 这些端口则被用来“完全控制”各腐化方.</p>
+<ul>
+<li>环境(Environment)</li>
+</ul>
+<p>这个实体在基于模拟的安全概念中起着至关重要的作用. 直观地说, 环境负责区分现实世界和理想世界. 正如前面提到的, 敌手不能区分理想世界和现实世界是不够的. 其主要原因是, 如果我们简单地要求敌手不能区分两个世界, 那么即使来自诚实方的输入受到保护, 也可能出现诚实方没有收到计算的正确输出的情况, 这也是一个重要的问题. 这是有可能发生的, 因为为了“愚弄”敌手, 模拟器只需要向敌手创造一个看起来类似的交互, 但它可能是现实世界中的诚实方最终计算出与现实世界中完全不同的结果, 而在理想世界中它们获得了正确的结果. 由于敌手看不到这些只属于诚实方的输出, 所以这两个世界仍将不可区分.</p>
+<p>为了解决这个问题, 不可区分是通过考虑计算的输入和输出来定义的. 这是通过考虑另一个代理—环境, 通常用\(\mathcal Z\)表示, 它指示各方使用哪些输入, 并从每一方收到它们在所考虑的世界中获得的结果(在理想世界中对应于计算的正确结果, 而在现实世界中是各方在执行给定协议时计算的结果)来正式确定的. 在这种新的考虑下, 如果没有环境可以区分现实世界和理想世界, 那么就可以说一个协议是安全的. 需要注意的是, 这尤其意味着敌手不能区分这两个世界, 因为否则敌手可以告知环境当前正在执行哪个世界, 但是即使这两个执行对敌手来说是不可区分的, 环境仍然可以利用它提供给计算的输入和收到的输出来试图进行区分. 如果即使如此之后, 两个执行仍然无法区分, 则是因为不仅分布对敌手来说是相似的, 而且现实世界中的输出也遵循与理想世界中的输入相同的分布, 这恰恰对应于计算的正确结果.</p>
+<p>在UC模型中, 环境和敌手本质上是“一体”的, 其模型是: 这两个代理有一个共享的端口, 使环境能够完全控制敌手, 这与敌手在主动腐化情况下能够完全控制诚实方的方式基本相同. 鉴于这两个实体, 也包括腐化方, 在本文中, 我们将环境、敌手和腐化方合并, 不明确地使用环境/敌手这个术语来指代所产生的交互代理. 这个实体负责: (1) 扮演腐化方的角色; (2) 向诚实参与方发送输入并接收来自诚实方的输出.</p>
+<ul>
+<li>模拟器(Simulator)</li>
+</ul>
+<p>正如前面所说的, 模拟器负责充当理想世界中敌手和所需功能之间的“接口”. 这是通过一个交互式代理来实现的, 它通过与现实世界中的腐化方相同的端口连接到理想世界中的敌手/环境, 同时也“代表”腐化方连接到考虑中的功能. 这样一来, 模拟器就可以向功能发送输入并接收输出, 这就构成了模拟器的主要工具, 以创造一个与现实世界的环境不可区分的场景.</p>
+<h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式系统</h2>
+<p>一个交互式系统(Interactive Systems)是交互式代理的集合. 例如, 各参与方的集合就是一个交互式系统, 我们将其称为协议. 首先回顾一些重要概念.</p>
+<ul>
+<li>开放/封闭端口(Open/closed ports)</li>
+</ul>
+<p>通信端口是一个“信道”, 不同的交互式代理可以访问, 以便发送和接收信息. 例如, 每方都有与协议执行中使用的功能共享的端口, 这使得它们能够向/从它发送和接收信息. 一个交互式系统作为一个交互式代理的集合, 包含几个端口, 其中许多将涉及至少两个交互式代理, 如每一方和一个功能之间使用的端口. 然而, 在一个交互式系统中, 有些端口可能只涉及一个交互式代理, 例如, 环境向诚实方发送输入并接收输出, 另外他可以向腐化方发送指令并接收信息, 这意味着各方有与环境通信的端口. 鉴于此, 在像协议这样不包含环境的交互式系统中, 这些端口只涉及一个交互代理(换而言之, 这些端口是“开放的”). 协议中的其他开放端口是各方用来与不同的功能进行通信的端口.</p>
+<p>至少涉及两个交互式代理的端口被称为封闭端口(closed ports), 而只涉及一个交互式代理的端口被称为开放端口(open ports).</p>
+<ul>
+<li>开放式/封闭式交互系统(Open/closed interactive systems)</li>
+</ul>
+<p>一个具有开放端口的交互式系统被称为开放式交互系统, 而一个只有封闭端口的交互系统被称为封闭式交互系统. 例如, 一个协议是一个开放式交互系统, 鉴于它有对应于环境和各方之间的交互以及参与方和现实世界中使用的不同功能之间的开放端口.</p>
+<p>开放式交互系统原则上不能运行, 因为它们可能缺失了某些应写入开放端口的数据. 例如, 一个协议不能被运行, 因为它至少缺失了参与方可以用来通信的功能, 而且它也缺失了(由环境)提供给开放端口的所要使用的输入(另外, 环境也负责安排协议本身的执行). 另一方面, 如果我们考虑一个更大的交互式系统, 有协议(各参与方的集合)、要使用的不同功能和环境组成, 则我们可以得到一个封闭的交互式系统. 这个系统可以被运行, 因为环境现在可以向参与方提供输入, 执行协议, 并获得结果(事实上, 可以多次这样做).</p>
+<ul>
+<li>交互式系统的组成(Composition of interactive systems)</li>
+</ul>
+<p>给定两个交互式系统\(\mathcal I_1\)和\(\mathcal I_2\), 通过考虑参与这两个集合的所有交互代理的集合, 或者说\(\mathcal I_1\)和\(\mathcal I_2\)的集合的联合, 就有可能从这两个系统中得到一个更大的系统, 这表示为\(\mathcal I=\mathcal I_1\diamondsuit\mathcal I_2\). 例如, 我们上面考虑的由\(\mathcal Z\diamondsuit \Pi\diamondsuit (\mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell)\)给定的封闭式系统, 其中\(\Pi\)表示所考虑的协议, \(\mathcal F_1,\cdots,\mathcal F_\ell\)表示协议执行中使用的各种功能.</p>
+<h3><a id="uc%E6%A1%86%E6%9E%B6%E4%B8%AD%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>UC框架中的交互式系统</h3>
+<p>我们已经讨论了一个重要的交互式系统, 即协议, 它只是参与方的集合. 现在我们考虑UC框架中的两个主要交互系统: 现实世界和理想世界. 回顾一下, 给定协议的实际执行发生在现实世界中, 而各方利用可信第三方以功能为模型安全地计算函数发生在理想世界中. 这些想法很容易通过交互式系统的概念形式化.</p>
+<ul>
+<li>
+<p>现实世界(Real world): 直观地说, 现实世界是安全多方计算协议实际执行的地方. 我们通过下面的交互式系统来正式说明这一点. 令\(\Pi=\{P_1,\cdots,P_n\}\)是协议, \(\mathcal F_1,\cdots,\mathcal F_\ell\)表示协议执行时使用的各种功能. 现实世界是被定义为由\(\mathrm{Real}:=\Pi\diamondsuit (\mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell)\)给出的交互式系统. 注意, 这是一个开放式系统, 因为它需要环境提供输入并安排协议的执行.</p>
+</li>
+<li>
+<p>理想世界(Ideal world): 在高层次上, 我们认为理想世界是各方将他们的输入发送到一个可信第三方, 然后接收输出. 这必须被细化为包含一个模拟器\(\mathcal S\), 作为敌手/环境和可信第三方之间的接口.</p>
+<p>令\(\mathcal F\)是模拟要安全进行的预期计算的功能(即可信第三方), \(\mathcal S\)是一个模拟器. 理想世界被定义为有\(\mathrm{Ideal}:=\mathcal S\diamondsuit\mathcal F\)给出的交互式系统. 这也是一个开放的系统, 事实上它具有与交互式系统\(\mathrm{Real}\)相同的开放端口: 模拟器包含开放的端口供环境连接, 就像它与现实世界中的腐化方连接一样, 而功能\(\mathcal F\)具有开放的端口供环境向诚实方提供输入和接收输出.</p>
+</li>
+</ul>
+<p>特别地, 交互式系统\(\mathcal Z\diamondsuit \mathrm{Real}\)和\(\mathcal Z\diamondsuit \mathrm{Ideal}\)都是封闭的.</p>
+<h3><a id="%E5%8F%82%E6%95%B0%E5%8C%96%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参数化的交互式系统</h3>
+<p>一些交互式代理(进而, 交互式系统)可以包含几个可调整的外部参数. 例如, 一个协议通常允许在不同的代数结构上进行计算(例如, 大小不同的域), 或者一个功能可以根据它所接收的信息长度来进行参数化, 这只是一些例子. 这些都是外部参数, 意味着它们必须在考虑执行这些交互式代理之前被设定. 为了说明问题, 它们可以被认为是类似于编译程序语言中的编译时参数.</p>
+<p>一个非常重要的外部参数是安全参数(Security parameter). 直观地说, 它是一个自然数, 随着它的增大, 协议变得“更安全”. 在所考虑的各种相互作用的代理所拥有的所有不同的外部参数中, 我们明确提出的是安全参数, 表示为\(\kappa\). 为了明确这一点, 我们有时可以写成\(\mathcal I(\kappa)\), 其中\(\mathcal I\)是以\(\kappa\)为参数的交互式系统/代理.</p>
+<h2><a id="%E5%AE%89%E5%85%A8%E6%80%A7%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全性定义</h2>
+<p>在定义了我们框架中所涉及的不同的交互式代理之后, 我们现在把注意力转移到定义安全性上. 正如我们已经提到的, 这将通过要求没有环境可以区分现实和理想的执行来实现. 在本节中, 我们将更详细地定义“不可区分性”.</p>
+<p>首先, 我们提出可忽略函数的定义.</p>
+<p><strong>定义1</strong>(可忽略函数, Negligible functions): 一个函数\(\mu:\mathbb N\mapsto[0,\infty)\)是可忽略的, 如果对所有\(c\in\mathbb N\), 存在\(\kappa_c\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_c\), 都有\(\mu(\kappa)\leq\kappa^{-c}\). 或者说, \(\mu\)是可忽略的, 如果对所有多项式\(p(X)\), 存在\(\kappa_{p(X)}\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_{p(X)}\), 都有\(\mu(\kappa)\leq p(\kappa)\).</p>
+<p>可忽略函数的一个例子是\(\mu(\kappa)=2^{-\kappa}\). 直观地说, 一个可忽略函数是其逆函数渐进增长速度比任何可能的多项式都快. 这些函数在整个密码学中被广泛用于表示非常小的量.</p>
+<p>我们需要注意的第二个问题是, 我们包含了环境的额外语义概念. 这个交互式代理负责区分现实和理想执行, 它通过与这些世界中的任何一个进行交互并输出一个比特\(0\)或者\(1\), 代表环境认为它在与哪个世界进行交互. 正如我们将看到的, 这些比特和两个世界之间的分配是不相关的. 每当环境\(\mathcal Z\)与一个交互式系统\(\mathcal I\)进行交互, 并输出\(b\)时, 我们用\(b\leftarrow\mathcal Z\diamondsuit \mathcal I\)来表示. 请注意, 这是一个随机变量, 因为\(\mathcal Z\)所进行的整个计算是潜在随机的.</p>
+<p>下面我们考虑协议\(\Pi\)被用于安全地计算一个功能\(\mathcal F\), 同时利用功能\(\mathcal F_1,\cdots,\mathcal F_\ell\). 以下的所有概念都是针对一个给定的敌手结构而设定的, 敌手结构决定了可能被腐化的集合.</p>
+<h3><a id="%E5%AE%8C%E7%BE%8E%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>完美安全性</h3>
+<p>首先, 我们定义完美安全的概念, 它反映了一个协议即使在无限计算资源的环境/敌手的情况下仍然不会被攻破.</p>
+<p><strong>定义2</strong>(完美安全性, Perfect Security) 我们称协议\(\Pi\)在具有完美安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果存在一个模拟器\(\mathcal S\)使得对任意环境\(\mathcal Z\)和对所有\(\kappa\in\mathbb N\), 都有</p>
+\[\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)],
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>让我们详细分析一下上述定义, 首先, 完美安全的协议通常不依赖参数\(\kappa\), 所以我们可以把它从定义中删除(为了在下面的描述其他安全概念方面保持符号的某些“统一性”, 它被包括在内). 上面的安全定义指出, 必须存在一个模拟器\(\mathcal S\), 使\(\mathcal Z\)在与系统\(\mathrm{Real}\)交互时输出\(1\), 其概率与\(\mathcal Z\)在与系统\(\mathrm{Ideal}\)交互时输出\(1\)的概率完全相同. 这恰恰意味着\(\mathcal Z\)不能区分这两个世界, 因为如果它可以, 则它可选择只在现实世界输出\(1\), 而在理想世界输出\(0\), 如此\(\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]=1\), 且\(\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]=0\).</p>
+<p>需要注意的是这里输出\(1\)没有什么特殊之处, 同样的定义也适用于输出\(0\), 因为\(\mathrm{Pr}[0\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]=1-\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]\), \(\mathrm{Pr}[0\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]=1-\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]\). 下面介绍的其他安全概念亦是如此.</p>
+<p>通常定义\(\mathcal Z\)的统计优势(Statistical advantage)为$|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|$. 它本质上是衡量\(\mathcal Z\)在现实世界和理想世界之间的区分程度. 容易看出, 在完美安全设定下, 任何环境的优势都是0.</p>
+<h3><a id="%E7%BB%9F%E8%AE%A1%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>统计安全性</h3>
+<p>现在我们考虑一个更灵活的定义—统计安全性, 它允许细微的区分优势. 在这里, 我们必须稍微限制一下定义2中的环境, 它没有任何限制. 在这种情况下, 我们必须假设, 尽管\(\mathcal Z\)在计算上可能具有无限资源, 但它只会对\(\mathrm{Real}\)或者\(\mathrm{Ideal}\)进行多项式次数的“调用”. 否则, 统计安全性无法实现, 因为通过与两个世界中的一个世界进行超多项式次数的交互, 可以任意提高区分两个世界的概率.</p>
+<p><strong>定义3</strong>(统计安全性, Statistical Security) 我们称协议\(\Pi\)在具有统计安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果存在一个可忽略的函数\(\mu(\kappa)\), 使得对任意环境\(\mathcal Z\), 有</p>
+\[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq \mu(\kappa),
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>在这种情况下, \(\mathcal Z\)可能能够“稍微”区分这两个世界, 这反映在\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]\)和\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]\)可能不想等的情况下. 事实上, 可能的情况是, 对于\(\kappa\)的某些值, 环境可能会很好地区分这两个世界(例如, 对于\(\kappa\)的某些值可能发生\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=1\), \(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]=0\)). 然而, 统计安全性要求随着\(\kappa\)的增长, 这种区分优势以一个良好的速度缩小. 例如, 若\(\mu(\kappa)=2^{-k}\), 则选择\(\kappa=1\)是不合适的, 因为这意味着环境区分两个世界的优势有\(1/2\), 但如果\(\kappa=40\), 则优势就减少到了\(2^{-40}\), 这更能被接受. 事实上, 在设计统计安全的协议时, \(2^{-40}\)是一个非常常见的目标值.</p>
+<h3><a id="%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>计算安全性</h3>
+<p>最后, 我们考虑关于安全多方计算协议的“最弱”的安全概念. 在这种情况下, 环境有一个细微的区分优势, 但这只在环境是计算上有界的情况下才成立, 也就是说, 它在多项式时间内运行. 就实际意义而言, 鉴于在实际的MPC部署中, 所有参与方都将使用有界的计算资源, 这个概念已经足够好了. 此外, 一些安全多方计算场景不允许使用前面的任何概念, 而需要计算安全.</p>
+<p><strong>定义4</strong>(计算安全性, Computational Security) 我们称协议\(\Pi\)在具有计算安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果对任意有效的环境\(\mathcal Z\), 都存在一个可忽略函数\(\mu_\mathcal Z(\kappa)\), 使得</p>
+\[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq\mu_\mathcal Z(\kappa),
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>计算安全性定义中的有效环境从高层次上来说是相对于它的参数以多项式时间运行. 一般而言, 给定的环境, 任何交互式代理与其他代理交换信息, 可以对这些代理进行“调用”. 更多细节可参考文献[2].</p>
+<p>计算安全与统计安全不同的是在试图区分现实世界和理想世界时, 并没有固定一个可忽略函数\(\mu(\kappa)\)来限定每个可能的环境\(\mathcal Z\)的优势. 这在一般情况下是不可能实现的, 因为可能有一系列的环境\(\mathcal Z_1,\mathcal Z_2,\cdots\), 每个\(\mathcal Z_c\)的运行时间为多项式的\(\kappa^c\), 所以对于一个固定的\(\kappa_0\), 这些环境的运行时间\(\kappa_0^1,\kappa_0^2,\cdots\)是无界的. 因此, 只要有足够的运行时间, 就有可能打破对\(\mu(\kappa_0)\)的优势的固定约束.</p>
+<p>因此, 最好的希望是对于每个单一的环境\(\mathcal Z\), 其区分优势是以一个与该环境有关的可忽略的函数\(\mu_\mathcal Z(\kappa)\)为上界. 可以这样理解, 考虑对协议的最有效的已知攻击, 从中推导出一个环境\(\mathcal Z\), 确定相关的可忽略函数\(\mu_\mathcal Z(\kappa)\), 并选择\(\kappa\)使这个环境的优势低于某些特定的阈值(例如\(2^{-80}\)). 鉴于我们以上的观察, 可能会出现这样的情况, 即选择的\(\kappa\)不足以确保其他环境的低区分优势, 但至少它排除了目前已知的最佳环境.</p>
+<p>在本文中, 即使我们考虑到只有计算安全可以实现的环境, 我们在实际的安全证明中只处理完美安全和统计安全. 这是因为, 对于不允许这种类型安全的环境, 我们考虑了一个离线/在线范式(offline-online paradigm), 在某些功能的帮助下, 可使计算具有完美安全和统计安全.</p>
+<h2><a id="%E7%BB%84%E5%90%88%E5%AE%9A%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>组合定理</h2>
+<p>考虑一个协议\(\Pi_\mathcal F\)在一些其他功能\(\mathcal R\)的帮助下(即在\(\mathcal R\)-混合模型下)安全地实例化了功能\(\mathcal F\). 在现实世界中, \(\mathcal R\)充当了某种可信第三方, 各方可以在它的协助下完成安全计算\(\mathcal F\)的任务. 然而, 在实践中这个\(\mathcal R\)必须以某种方式实例化. 例如, 如果\(\mathcal R\)是代表点对点的加密和认证信道, 则必须执行类似于TLS这样的协议来建立这些信道. 从形式上看, 这意味着可能在某个\(\mathcal T\)-混合模型中使用了一个实例化\(\mathcal R\)的新协议\(\Pi_\mathcal R\), 一个自然的问题是: 新协议可以实现什么类型的正式安全保证? 对于“新协议”, 我们指的是协议\(\Pi_\mathcal F\), 但通过协议\(\Pi_\mathcal R\)的执行来取代与功能\(\mathcal F_\mathcal R\)的交互, 而协议\(\Pi_\mathcal R\)则将\(\mathcal F_\mathcal R\)的功能实例化.</p>
+<p>UC框架(通用可组合框架, Universal-composability framework)的核心结果准确地说是产生的组合协议继承了所涉及的两个协议\(\Pi_\mathcal F\)和\(\Pi_\mathcal R\)的属性. 特别地, 这个协议仍然是\(\mathcal F\)的实例化, 但它不是在\(\mathcal R\)-混合模型中进行, 而是在\(\mathcal T\)-混合模型中进行, 这是协议\(\Pi_\mathcal R\)所需要的功能. 通常情况下, \(\mathcal T\)比\(\mathcal R\)要简单得多, 这意味着在安全实例化\(\mathcal F\)方面已经取得了进展.</p>
+<p>在详细讨论组合定理之前, 我们先讨论上述结果的高层次描述的某些影响. 首先, 组合定理使得高度复杂的协议模块化描述成为可能, 它将协议分解成若干个片段, 然后分别证明每个片段的安全性. 例如, 在一个庞大而复杂的协议\(\Pi\)中, 可能会出现某些片段或模式在协议执行的几个地方重复出现的情况. 这一部分可以作为一个协议\(\Pi'\)独立出来, 实例化某些功能\(\mathcal R\), 而协议\(\Pi\)有可能以一种更简单的方式来表达这个功能. 现在为了证明安全性, 我们不需要提供大的“单体”协议\(\Pi\)的证明, 而是可以证明比它简单的在\(\mathcal R\)-混合模型中实例化了所需功能的变体, 然后我们可以只关注证明协议\(\Pi'\)确实实例化了\(\mathcal R\). 为了说明问题, 可以把上述方法看作是把编程语言中的复杂函数分割成对其他函数进行调用的更简单结构. 这种方法可以实现清晰和模块化的证明和协议描述, 可以说这是使安全多方计算领域的研究如此丰富和富有成效的关键因素之一.</p>
+<p>组合定理在实践中非常有用, 通常安全多方计算协议被部署在大型复杂的分布式系统中, 这些系统可能同时运行许多其他协议以实现其他任务. 例如, 必须协商密钥, 必须对随机值进行采样, 必须提供输入等等. 组合定理确保了即使几个协议同时执行, 只要其中每个协议都能被证明是安全的, 那么所产生的新协议组也是安全的. 这是一个重要的观察结果, 相比于其他形式化的模型, 例如不接受这种灵活的并发组合的独立模型来说, UC框架更具有优势.</p>
+<ul>
+<li>组合协议</li>
+</ul>
+<p>为了正确地阐述组合定理, 清楚明确地定义所涉及的不同交互式代理和系统是非常重要的.</p>
+<p>考虑协议\(\Pi_\mathcal F=\{P_1,\cdots,P_n\}\)在\(\mathcal R\)-混合模型中实例化了一个功能\(\mathcal F\), 并考虑另一个有不同参与方\(\{Q_1,\cdots,Q_n\}\)的协议\(\Pi_\mathcal R\)在\(\mathcal T\)-混合模型中实例化了功能\(\mathcal R\). 将协议\(\Pi_\mathcal F\)和\(\Pi_\mathcal R\)组合起来成为交互式系统, 用\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)来表示.</p>
+<p>为了使这一概念更有意义, 回顾一下各方\(Q_1,\cdots,Q_n\)有与环境\(\mathcal Z\)通信的端口, 而\(P_1,\cdots,P_n\)有与功能\(\mathcal R\)通信的端口. 这些端口是相同的: 从\(P_i\)发给\(\mathcal R\)的信息被来自环境的\(Q_i\)接收, 反之亦然. 这样一来, 交互式系统\(\{P_i,Q_i\}\)就像是单个参与方, 与环境(通过\(P_i\)的端口)和功能\(\mathcal T\)(通过\(Q_i\)的端口)进行交互. 有了这个新的解释, 我们看到两个“兼容”的组成又是一个协议, 其中新参与方可能是交互式系统, 其行为就像是一个交互式代理. 更多细节参考文献[2]的第4.2.7节.</p>
+<ul>
+<li>组合定理</li>
+</ul>
+<p><strong>定理</strong>(Composition Theorem): 令\(\Pi_\mathcal F\)是在\(\mathcal R\)-混合模型中实例化功能\(\mathcal F\)的协议, 具有完美/统计/计算安全性, 设\(\Pi_\mathcal R\)是在\(\mathcal T\)-混合模型中实例化功能\(\mathcal R\)的协议, 具有相同的安全性类型, 则组合协议\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)以同样的安全性类型在\(\mathcal T\)-混合模型中安全地实例化功能\(\mathcal F\).</p>
+<p>完整的定理证明参考文献[2].</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning]]></title>
@@ -3694,7 +3840,7 @@ $
 这两种构造方式各有优劣, 通常构造协议时需要根据实际情况来作出取舍。</p>
 <p>此外, 多方计算协议的安全性也是一个要点。</p>
 <p>由于多方计算的诸多概念较难梳理, 因此本人基于个人所了解的一些多方计算技术要点, 描绘了如下思维导图。理解如有不对之处, 可以知乎联系我: @云中雨雾。</p>
-<p><img src="https://i.loli.net/2021/11/24/AgBzir7e8RPMbpl.png" alt="MPC Protocol" /></p>
+<p><img src="media/16377612600578/16526053508741.png" alt="MPC Protocol" /></p>
 
 ]]></content>
   </entry>
@@ -4480,227 +4626,6 @@ b_i^1, &amp; b_i^0=0 \\
 net start lxssManager
 </code></pre>
 <p>保存, 并右键管理员权限执行bat文件, 即可重启WSL.</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Eigen3使用教程]]></title>
-    <link href="https://weiviming.github.io/16292930037213.html"/>
-    <updated>2021-08-18T21:23:23+08:00</updated>
-    <id>https://weiviming.github.io/16292930037213.html</id>
-    <content type="html"><![CDATA[
-<h2><a id="%E7%9F%A9%E9%98%B5%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵定义</h2>
-<pre class="line-numbers"><code class="language-cpp">#include &lt;Eigen/Dense&gt;
-
-Matrix&lt;double, 3, 3&gt; A;               // Fixed rows and cols. Same as Matrix3d.
-Matrix&lt;double, 3, Dynamic&gt; B;         // Fixed rows, dynamic cols.
-Matrix&lt;double, Dynamic, Dynamic&gt; C;   // Full dynamic. Same as MatrixXd.
-Matrix&lt;double, 3, 3, RowMajor&gt; E;     // Row major; default is column-major.
-Matrix3f P, Q, R;                     // 3x3 float matrix.
-Vector3f x, y, z;                     // 3x1 float matrix.
-RowVector3f a, b, c;                  // 1x3 float matrix.
-VectorXd v;                           // Dynamic column vector of doubles
-// Eigen          // Matlab           // comments
-x.size()          // length(x)        // vector size
-C.rows()          // size(C,1)        // number of rows
-C.cols()          // size(C,2)        // number of columns
-x(i)              // x(i+1)           // Matlab is 1-based
-C(i,j)            // C(i+1,j+1)       //
-</code></pre>
-<h2><a id="%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基础使用</h2>
-<pre class="line-numbers"><code class="language-cpp">// Basic usage
-// Eigen        // Matlab           // comments
-x.size()        // length(x)        // vector size
-C.rows()        // size(C,1)        // number of rows
-C.cols()        // size(C,2)        // number of columns
-x(i)            // x(i+1)           // Matlab is 1-based
-C(i, j)         // C(i+1,j+1)       //
-
-A.resize(4, 4);   // Runtime error if assertions are on.
-B.resize(4, 9);   // Runtime error if assertions are on.
-A.resize(3, 3);   // Ok; size didn't change.
-B.resize(3, 9);   // Ok; only dynamic cols changed.
-                  
-A &lt;&lt; 1, 2, 3,     // Initialize A. The elements can also be
-     4, 5, 6,     // matrices, which are stacked along cols
-     7, 8, 9;     // and then the rows are stacked.
-B &lt;&lt; A, A, A;     // B is three horizontally stacked A's.
-A.fill(10);       // Fill A with all 10's.
-</code></pre>
-<h2><a id="%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5%E7%94%9F%E6%88%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>特殊矩阵生成</h2>
-<pre class="line-numbers"><code class="language-cpp">// Eigen                            // Matlab
-MatrixXd::Identity(rows,cols)       // eye(rows,cols)
-C.setIdentity(rows,cols)            // C = eye(rows,cols)
-MatrixXd::Zero(rows,cols)           // zeros(rows,cols)
-C.setZero(rows,cols)                // C = zeros(rows,cols)
-MatrixXd::Ones(rows,cols)           // ones(rows,cols)
-C.setOnes(rows,cols)                // C = ones(rows,cols)
-MatrixXd::Random(rows,cols)         // rand(rows,cols)*2-1        // MatrixXd::Random returns uniform random numbers in (-1, 1).
-C.setRandom(rows,cols)              // C = rand(rows,cols)*2-1
-VectorXd::LinSpaced(size,low,high)  // linspace(low,high,size)'
-v.setLinSpaced(size,low,high)       // v = linspace(low,high,size)'
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E5%88%86%E5%9D%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵分块</h2>
-<pre class="line-numbers"><code class="language-cpp">// Matrix slicing and blocks. All expressions listed here are read/write.
-// Templated size versions are faster. Note that Matlab is 1-based (a size N
-// vector is x(1)...x(N)).
-// Eigen                           // Matlab
-x.head(n)                          // x(1:n)
-x.head&lt;n&gt;()                        // x(1:n)
-x.tail(n)                          // x(end - n + 1: end)
-x.tail&lt;n&gt;()                        // x(end - n + 1: end)
-x.segment(i, n)                    // x(i+1 : i+n)
-x.segment&lt;n&gt;(i)                    // x(i+1 : i+n)
-P.block(i, j, rows, cols)          // P(i+1 : i+rows, j+1 : j+cols)
-P.block&lt;rows, cols&gt;(i, j)          // P(i+1 : i+rows, j+1 : j+cols)
-P.row(i)                           // P(i+1, :)
-P.col(j)                           // P(:, j+1)
-P.leftCols&lt;cols&gt;()                 // P(:, 1:cols)
-P.leftCols(cols)                   // P(:, 1:cols)
-P.middleCols&lt;cols&gt;(j)              // P(:, j+1:j+cols)
-P.middleCols(j, cols)              // P(:, j+1:j+cols)
-P.rightCols&lt;cols&gt;()                // P(:, end-cols+1:end)
-P.rightCols(cols)                  // P(:, end-cols+1:end)
-P.topRows&lt;rows&gt;()                  // P(1:rows, :)
-P.topRows(rows)                    // P(1:rows, :)
-P.middleRows&lt;rows&gt;(i)              // P(i+1:i+rows, :)
-P.middleRows(i, rows)              // P(i+1:i+rows, :)
-P.bottomRows&lt;rows&gt;()               // P(end-rows+1:end, :)
-P.bottomRows(rows)                 // P(end-rows+1:end, :)
-P.topLeftCorner(rows, cols)        // P(1:rows, 1:cols)
-P.topRightCorner(rows, cols)       // P(1:rows, end-cols+1:end)
-P.bottomLeftCorner(rows, cols)     // P(end-rows+1:end, 1:cols)
-P.bottomRightCorner(rows, cols)    // P(end-rows+1:end, end-cols+1:end)
-P.topLeftCorner&lt;rows,cols&gt;()       // P(1:rows, 1:cols)
-P.topRightCorner&lt;rows,cols&gt;()      // P(1:rows, end-cols+1:end)
-P.bottomLeftCorner&lt;rows,cols&gt;()    // P(end-rows+1:end, 1:cols)
-P.bottomRightCorner&lt;rows,cols&gt;()   // P(end-rows+1:end, end-cols+1:end)
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E5%85%83%E7%B4%A0%E4%BA%A4%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵元素交换</h2>
-<pre class="line-numbers"><code class="language-cpp">// Of particular note is Eigen's swap function which is highly optimized.
-// Eigen                           // Matlab
-R.row(i) = P.col(j);               // R(i, :) = P(:, i)
-R.col(j1).swap(mat1.col(j2));      // R(:, [j1 j2]) = R(:, [j2, j1])
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵转置</h2>
-<pre class="line-numbers"><code class="language-cpp">// Views, transpose, etc; all read-write except for .adjoint().
-// Eigen                           // Matlab
-R.adjoint()                        // R'
-R.transpose()                      // R.' or conj(R')
-R.diagonal()                       // diag(R)
-x.asDiagonal()                     // diag(x)
-R.transpose().colwise().reverse(); // rot90(R)
-R.conjugate()                      // conj(R)
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E4%B9%98%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵乘积</h2>
-<pre class="line-numbers"><code class="language-cpp">// All the same as Matlab, but matlab doesn't have *= style operators.
-// Matrix-vector.  Matrix-matrix.   Matrix-scalar.
-y  = M*x;          R  = P*Q;        R  = P*s;
-a  = b*M;          R  = P - Q;      R  = s*P;
-a *= M;            R  = P + Q;      R  = P/s;
-                   R *= Q;          R  = s*P;
-                   R += Q;          R *= s;
-                   R -= Q;          R /= s;
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵单个元素操作</h2>
-<pre class="line-numbers"><code class="language-cpp">// Vectorized operations on each element independently
-// Eigen                  // Matlab
-R = P.cwiseProduct(Q);    // R = P .* Q
-R = P.array() * s.array();// R = P .* s
-R = P.cwiseQuotient(Q);   // R = P ./ Q
-R = P.array() / Q.array();// R = P ./ Q
-R = P.array() + s.array();// R = P + s
-R = P.array() - s.array();// R = P - s
-R.array() += s;           // R = R + s
-R.array() -= s;           // R = R - s
-R.array() &lt; Q.array();    // R &lt; Q
-R.array() &lt;= Q.array();   // R &lt;= Q
-R.cwiseInverse();         // 1 ./ P
-R.array().inverse();      // 1 ./ P
-R.array().sin()           // sin(P)
-R.array().cos()           // cos(P)
-R.array().pow(s)          // P .^ s
-R.array().square()        // P .^ 2
-R.array().cube()          // P .^ 3
-R.cwiseSqrt()             // sqrt(P)
-R.array().sqrt()          // sqrt(P)
-R.array().exp()           // exp(P)
-R.array().log()           // log(P)
-R.cwiseMax(P)             // max(R, P)
-R.array().max(P.array())  // max(R, P)
-R.cwiseMin(P)             // min(R, P)
-R.array().min(P.array())  // min(R, P)
-R.cwiseAbs()              // abs(P)
-R.array().abs()           // abs(P)
-R.cwiseAbs2()             // abs(P.^2)
-R.array().abs2()          // abs(P.^2)
-(R.array() &lt; s).select(P,Q);  // (R &lt; s ? P : Q)
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E5%8C%96%E7%AE%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵化简</h2>
-<pre class="line-numbers"><code class="language-cpp">// Reductions.
-int r, c;
-// Eigen                  // Matlab
-R.minCoeff()              // min(R(:))
-R.maxCoeff()              // max(R(:))
-s = R.minCoeff(&amp;r, &amp;c)    // [s, i] = min(R(:)); [r, c] = ind2sub(size(R), i);
-s = R.maxCoeff(&amp;r, &amp;c)    // [s, i] = max(R(:)); [r, c] = ind2sub(size(R), i);
-R.sum()                   // sum(R(:))
-R.colwise().sum()         // sum(R)
-R.rowwise().sum()         // sum(R, 2) or sum(R')'
-R.prod()                  // prod(R(:))
-R.colwise().prod()        // prod(R)
-R.rowwise().prod()        // prod(R, 2) or prod(R')'
-R.trace()                 // trace(R)
-R.all()                   // all(R(:))
-R.colwise().all()         // all(R)
-R.rowwise().all()         // all(R, 2)
-R.any()                   // any(R(:))
-R.colwise().any()         // any(R)
-R.rowwise().any()         // any(R, 2)
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E7%82%B9%E4%B9%98%E4%B8%8E%E8%A7%84%E8%8C%83%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵点乘与规范化</h2>
-<pre class="line-numbers"><code class="language-cpp">// Dot products, norms, etc.
-// Eigen                  // Matlab
-x.norm()                  // norm(x).    Note that norm(R) doesn't work in Eigen.
-x.squaredNorm()           // dot(x, x)   Note the equivalence is not true for complex
-x.dot(y)                  // dot(x, y)
-x.cross(y)                // cross(x, y) Requires #include &lt;Eigen/Geometry&gt;
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵类型转换</h2>
-<pre class="line-numbers"><code class="language-cpp">//// Type conversion
-// Eigen                           // Matlab
-A.cast&lt;double&gt;();                  // double(A)
-A.cast&lt;float&gt;();                   // single(A)
-A.cast&lt;int&gt;();                     // int32(A)
-A.real();                          // real(A)
-A.imag();                          // imag(A)
-// if the original type equals destination type, no work is done
-</code></pre>
-<h2><a id="%E7%9F%A9%E9%98%B5%E7%89%B9%E5%BE%81%E5%80%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>矩阵特征值</h2>
-<pre class="line-numbers"><code class="language-cpp">// Eigenvalue problems
-// Eigen                          // Matlab
-A.eigenvalues();                  // eig(A);
-EigenSolver&lt;Matrix3d&gt; eig(A);     // [vec val] = eig(A)
-eig.eigenvalues();                // diag(val)
-eig.eigenvectors();               // vec
-// For self-adjoint matrices use SelfAdjointEigenSolver&lt;&gt;
-</code></pre>
-<h2><a id="%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84ax-b" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>求解线性方程组\(Ax=b\)</h2>
-<pre class="line-numbers"><code class="language-cpp">// Solve Ax = b. Result stored in x. Matlab: x = A \ b.
-x = A.ldlt().solve(b));  // A sym. p.s.d.    #include &lt;Eigen/Cholesky&gt;
-x = A.llt() .solve(b));  // A sym. p.d.      #include &lt;Eigen/Cholesky&gt;
-x = A.lu()  .solve(b));  // Stable and fast. #include &lt;Eigen/LU&gt;
-x = A.qr()  .solve(b));  // No pivoting.     #include &lt;Eigen/QR&gt;
-x = A.svd() .solve(b));  // Stable, slowest. #include &lt;Eigen/SVD&gt;
-// .ldlt() -&gt; .matrixL() and .matrixD()
-// .llt()  -&gt; .matrixL()
-// .lu()   -&gt; .matrixL() and .matrixU()
-// .qr()   -&gt; .matrixQ() and .matrixR()
-// .svd()  -&gt; .matrixU(), .singularValues(), and .matrixV()
-</code></pre>
-<h2><a id="%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考来源</h2>
-<p><a href="https://www.cnblogs.com/rainbow70626/p/8819119.html">C++矩阵库 Eigen 简介</a></p>
 
 ]]></content>
   </entry>

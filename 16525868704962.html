@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        Simulation-based Security - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+    	<style type="text/css">
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: bold;
+        font-weight: 700;
+        src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+	    </style>
+
+    <style>
+        body, html {
+            /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
+            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+            /* font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+        p, ul, ol, li, table{
+            /* font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+            /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
+            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+        }
+        *{
+            width: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%B0%8F%E6%8A%80%E5%B7%A7.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>小技巧(8)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(5)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(9)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16525868704962.html" title="Simulation-based Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Simulation-based Security</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16524092173945.html" title="Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16519051511907.html" title="Secure Evaluation of Quantized Neural Networks" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Secure Evaluation of Quantized Neural Networks</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: Blazing Fast Privacy-preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: Blazing Fast Privacy-preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">应用技巧</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <blockquote>
+<p>本文译自Daniel Escudero的文章An Introduction to Secret-Sharing-Based Secure Multiparty Computation, 原文链接: <a href="https://eprint.iacr.org/2022/062">https://eprint.iacr.org/2022/062</a></p>
+</blockquote>
+<h2><a id="%E8%83%8C%E6%99%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>背景</h2>
+<p>现代密码学的主要成就之一在于适当地将一些结构形式化, 如加密或数字签名, 从而使严格的数学推理可以应用于这些结构. 这样一来, 就可以实现具体的保障和不同概念之间的关系, “可证明安全”的想法便是一个例子.</p>
+<p>安全多方计算在80年代末作为一项有趣的研究任务出现, 它有许多潜在的应用, 并涉及非常有趣的技术. 然而, 过了近十年后, 才出现了更多关于安全多方计算的正式理论, 从而能够对该领域进行更严格的处理. 安全多方计算任务的“数学框架”不是平凡的, 这无疑是对其本身的贡献.</p>
+<h2><a id="%E6%A6%82%E8%A7%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>概览</h2>
+<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
+<p>将敌手不学习某些数据的想法形式化在密码学中很常见, 因为它已经出现在诸如加密方案等结构中, 这些结构是用基于游戏的安全证明(Game-based Security)形式化的. 简而言之, 基于游戏的安全考虑了这样的场景: 敌手与系统交互, 试图区分某些打算隐藏的数据, 而安全证明的形式化要求没有敌手能以高概率在这个“游戏”中获胜. 然而, MPC设定中的主要挑战是, 敌手确实获得了一些打算隐藏的数据, 即计算的输出. 此外, 另一个主要的复杂性在于安全多方计算是一个分布式应用, 涉及各方之间按照某种特定的模式通信. 敌手可以看到在协议执行过程中与腐化方交互的所有信息, 当敌手是主动的时候, 它甚至有能力修改腐化方的行为. 这些复杂的问题给广泛用于密码学的简单的基于游戏的安全证明定义的使用带来了障碍.</p>
+<p>解决上述复杂问题的关键是考虑一个理想世界(Ideal world), 它能捕捉到所需的交互属性, 并以某种方式要求实际协议执行的现实世界(Real world)与理想世界不可区分. 通常情况下, 理想世界包含各方将他们的输入发送给可信第三方, 后者计算函数并返回结果, 而且仅返回结果给各方. 现在, 为了说明这两个世界是不可区分的, 一个自然的做法是说明敌手不能区分现实世界和理想世界. 然而, 这种方式是注定会失败的, 因为从敌手的视角来看, 这两个世界可以很平凡地区分开来: 在现实世界中, 信息在所有参与方中相互传递, 有多个通信轮次, 且没有可信方, 而在理想世界中, 有一个可信第三方, 只是接收输入和发送输出. 这两个世界看起来完全不同, 所以敌手可以轻松区分这两个世界.</p>
+<p>这就是模拟的概念的作用. 在现实世界中, 敌手腐化了某些参与方集合的子集, 与诚实方交互, 并在执行结束时得到一个结果. 在理想世界中, 敌手不会直接与可信方交互, 相反, 当诚实方与可信第三方交互时, 敌手与一些“虚拟”的诚实方交互, 这些虚拟诚实方与真实诚实方不同, 不能接触到对敌手隐藏的输入. 这些虚拟诚实方由一个模拟器(Simulator)协调, 该模拟器也控制着理想世界中的腐化方, 发送输入并接收来自可信方的输出. 如此一来, 模拟器就有效充当了一个接口, 是敌手能够与理想世界中的可信第三方进行交互, 同时拥有等同于现实世界中的交互.</p>
+<p>为了证明一个给定的安全多方计算协议时安全的, 需要定义一个模拟器, 作为上述的接口, 其证明安全的方式是说明现实世界(敌手与持有真实输入的真实诚实方交互的世界)与理想世界(敌手与模拟器控制的虚拟诚实方交互的世界)是不可区分的. 需要注意的是, 为了“愚弄”敌手, 模拟器所依靠的唯一能力是对接收输入并只显示输出的可信第三方的访问. 因此, 从直觉上来说, 这意味着敌手在现实世界中的经验可以通过只接触可信第三方来“重现”(recreated), 从哲学的角度来看, 这体现了敌手与现实世界中的诚实方交互之后, 只学习计算的输出这一核心思想.</p>
+<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
+<h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BB%A3%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式代理</h2>
+<p>我们首先考虑参与安全多方计算协议形式化的所有不同实体机器安全性. 我们的出发点是交互式代理(Interactive agent)的概念, 在直观层面上, 它是一个接收和发送消息、持有内部状态并进行计算的计算设备. 例如, 安全多方计算协议中的各方都是交互式代理, 但在这些想法被形式化的框架中, 还有其他几个交互式代理出现. 交互式代理可以通过交互式图灵机的方式被形式化. 这只是传统的图灵机(或算法), 除了进行计算外, 还可以向某些通信端口发送和接收数据, 这些端口可被看成是计算机总线或信道.</p>
+<p>现在我们描述出现在UC框架中的不同的交互式代理. 正如我们已经提到的, 第一个自然的交互代理是各个参与方, 它们是进行计算的实际设备, 但还有其他几个交互代理, 例如模拟器或“可信第三方”出现. 我们下面分别进行讨论.</p>
+<ul>
+<li>参与方(Parties)</li>
+</ul>
+<p>参与方\(P_1,P_2,\cdots,P_n\)构成了交互代理的第一个自然例子. 每个参与方\(P_i\)有一定的计算输入, 根据协议的指示进行, 执行本地计算, 并根据需要向其他各方发送/接收数据. 在执行结束时, 每一方\(P_i\)都会得到计算的结果.</p>
+<ul>
+<li>现实世界中的功能性(Functionalities in the real world)</li>
+</ul>
+<p>一个功能只是一个连接到参与方的交互代理. 它从那里接收信息, 执行本地计算, 维护内部状态, 并将消息发回给各方.</p>
+<p>尽管只有一种“类型”的功能, 但这些功能被用于两种不同的背景. 第一种情况是协议的实际执行发生在现实世界中, 在一个安全多方计算协议的执行中, 各个参与方可以使用某些“外部”资源, 这些资源可以在计算中帮助他们. 举例来说, 各方可以依靠可信第三方, 尽管它可能不会为各方计算整个所需的函数, 但可以提供某些帮助, 如分发一些密钥, 或者发送某些证书. 这可以被形式化为各方在执行当前协议期间的对话功能. 此外, 至关重要的是如果以后开发出另一个模拟该功能行为的协议, 那么各方可以把这个结构作为一个子程序, 整个结构仍然是安全的, 而不需要可信第三方来提供上述例子中的密钥或证书服务.</p>
+<p>此外, 到目前为止, 我们一直隐含地假设各方通过在两两之间通过设定特殊的端口进行相互通信. 然而, 既然我们已经引入了功能的概念, 就可以方便地将通信视为一种功能, 它从各方接收信息并向各方发送信息. 例如, 一个简单的点对点网络可被建模为一个功能, 其作用是: \(P_i\)发送一个类型为&quot;发送信息\(m\)给\(P_j\)&quot;的信息, 而该功能发送给\(P_j\)的信息为: “\(P_i\)发送信息\(m\)”. 虽然这种方法看起来是一种不必要的复杂化, 但它实际上发挥了重要的作用, 使各方之间的对话方式具有灵活性. 此外, 功能的一个重要的低层次细节是它们会向环境泄漏某些信息, 这可以用来模拟这样的一个事实: 在实际中, 敌手可能会看到某些元数据, 例如诚实方何时向另一个诚实方发送信息, 信息的大小等.</p>
+<ul>
+<li>理想世界中的功能性(Functionalities in the ideal world)</li>
+</ul>
+<p>使用功能的第二种情况是在理想世界中, 有一个可信第三方接收来自不同参与方的输入并返回计算的结果. 这正是一个功能, 正如上面所定义的, 它是一个交互式代理, 接收来自各方的输入, 执行某些内部计算并将结果发送给各方.</p>
+<p>在简单的情况下, 一个功能接收一个给定函数的输入, 在内部评估这个函数, 并将结果返回给各方. 然而, 功能的概念允许我们对更复杂的交互进行建模. 例如, 在非反应式计算(non-reactive computation)中, 它使各方能够获得部分结果并在之后继续进行计算. 这可以由一个功能来捕获, 这个功能接收各方的输入, 存储一些内部状态, 发送部分结果, 并按照各方的指示继续进行.</p>
+<ul>
+<li>敌手(Adversary)</li>
+</ul>
+<p>我们用\(\mathcal A\)来表示敌手, 它被建模为另一个交互代理, 它有与每个腐化方通信的端口. 如果腐化是被动的, 这些端口被用来通知敌手关于腐化方的内部状态, 包括它们收到的信息. 另一方面, 如果腐化是主动的, 这些端口则被用来“完全控制”各腐化方.</p>
+<ul>
+<li>环境(Environment)</li>
+</ul>
+<p>这个实体在基于模拟的安全概念中起着至关重要的作用. 直观地说, 环境负责区分现实世界和理想世界. 正如前面提到的, 敌手不能区分理想世界和现实世界是不够的. 其主要原因是, 如果我们简单地要求敌手不能区分两个世界, 那么即使来自诚实方的输入受到保护, 也可能出现诚实方没有收到计算的正确输出的情况, 这也是一个重要的问题. 这是有可能发生的, 因为为了“愚弄”敌手, 模拟器只需要向敌手创造一个看起来类似的交互, 但它可能是现实世界中的诚实方最终计算出与现实世界中完全不同的结果, 而在理想世界中它们获得了正确的结果. 由于敌手看不到这些只属于诚实方的输出, 所以这两个世界仍将不可区分.</p>
+<p>为了解决这个问题, 不可区分是通过考虑计算的输入和输出来定义的. 这是通过考虑另一个代理—环境, 通常用\(\mathcal Z\)表示, 它指示各方使用哪些输入, 并从每一方收到它们在所考虑的世界中获得的结果(在理想世界中对应于计算的正确结果, 而在现实世界中是各方在执行给定协议时计算的结果)来正式确定的. 在这种新的考虑下, 如果没有环境可以区分现实世界和理想世界, 那么就可以说一个协议是安全的. 需要注意的是, 这尤其意味着敌手不能区分这两个世界, 因为否则敌手可以告知环境当前正在执行哪个世界, 但是即使这两个执行对敌手来说是不可区分的, 环境仍然可以利用它提供给计算的输入和收到的输出来试图进行区分. 如果即使如此之后, 两个执行仍然无法区分, 则是因为不仅分布对敌手来说是相似的, 而且现实世界中的输出也遵循与理想世界中的输入相同的分布, 这恰恰对应于计算的正确结果.</p>
+<p>在UC模型中, 环境和敌手本质上是“一体”的, 其模型是: 这两个代理有一个共享的端口, 使环境能够完全控制敌手, 这与敌手在主动腐化情况下能够完全控制诚实方的方式基本相同. 鉴于这两个实体, 也包括腐化方, 在本文中, 我们将环境、敌手和腐化方合并, 不明确地使用环境/敌手这个术语来指代所产生的交互代理. 这个实体负责: (1) 扮演腐化方的角色; (2) 向诚实参与方发送输入并接收来自诚实方的输出.</p>
+<ul>
+<li>模拟器(Simulator)</li>
+</ul>
+<p>正如前面所说的, 模拟器负责充当理想世界中敌手和所需功能之间的“接口”. 这是通过一个交互式代理来实现的, 它通过与现实世界中的腐化方相同的端口连接到理想世界中的敌手/环境, 同时也“代表”腐化方连接到考虑中的功能. 这样一来, 模拟器就可以向功能发送输入并接收输出, 这就构成了模拟器的主要工具, 以创造一个与现实世界的环境不可区分的场景.</p>
+<h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式系统</h2>
+<p>一个交互式系统(Interactive Systems)是交互式代理的集合. 例如, 各参与方的集合就是一个交互式系统, 我们将其称为协议. 首先回顾一些重要概念.</p>
+<ul>
+<li>开放/封闭端口(Open/closed ports)</li>
+</ul>
+<p>通信端口是一个“信道”, 不同的交互式代理可以访问, 以便发送和接收信息. 例如, 每方都有与协议执行中使用的功能共享的端口, 这使得它们能够向/从它发送和接收信息. 一个交互式系统作为一个交互式代理的集合, 包含几个端口, 其中许多将涉及至少两个交互式代理, 如每一方和一个功能之间使用的端口. 然而, 在一个交互式系统中, 有些端口可能只涉及一个交互式代理, 例如, 环境向诚实方发送输入并接收输出, 另外他可以向腐化方发送指令并接收信息, 这意味着各方有与环境通信的端口. 鉴于此, 在像协议这样不包含环境的交互式系统中, 这些端口只涉及一个交互代理(换而言之, 这些端口是“开放的”). 协议中的其他开放端口是各方用来与不同的功能进行通信的端口.</p>
+<p>至少涉及两个交互式代理的端口被称为封闭端口(closed ports), 而只涉及一个交互式代理的端口被称为开放端口(open ports).</p>
+<ul>
+<li>开放式/封闭式交互系统(Open/closed interactive systems)</li>
+</ul>
+<p>一个具有开放端口的交互式系统被称为开放式交互系统, 而一个只有封闭端口的交互系统被称为封闭式交互系统. 例如, 一个协议是一个开放式交互系统, 鉴于它有对应于环境和各方之间的交互以及参与方和现实世界中使用的不同功能之间的开放端口.</p>
+<p>开放式交互系统原则上不能运行, 因为它们可能缺失了某些应写入开放端口的数据. 例如, 一个协议不能被运行, 因为它至少缺失了参与方可以用来通信的功能, 而且它也缺失了(由环境)提供给开放端口的所要使用的输入(另外, 环境也负责安排协议本身的执行). 另一方面, 如果我们考虑一个更大的交互式系统, 有协议(各参与方的集合)、要使用的不同功能和环境组成, 则我们可以得到一个封闭的交互式系统. 这个系统可以被运行, 因为环境现在可以向参与方提供输入, 执行协议, 并获得结果(事实上, 可以多次这样做).</p>
+<ul>
+<li>交互式系统的组成(Composition of interactive systems)</li>
+</ul>
+<p>给定两个交互式系统\(\mathcal I_1\)和\(\mathcal I_2\), 通过考虑参与这两个集合的所有交互代理的集合, 或者说\(\mathcal I_1\)和\(\mathcal I_2\)的集合的联合, 就有可能从这两个系统中得到一个更大的系统, 这表示为\(\mathcal I=\mathcal I_1\diamondsuit\mathcal I_2\). 例如, 我们上面考虑的由\(\mathcal Z\diamondsuit \Pi\diamondsuit (\mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell)\)给定的封闭式系统, 其中\(\Pi\)表示所考虑的协议, \(\mathcal F_1,\cdots,\mathcal F_\ell\)表示协议执行中使用的各种功能.</p>
+<h3><a id="uc%E6%A1%86%E6%9E%B6%E4%B8%AD%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>UC框架中的交互式系统</h3>
+<p>我们已经讨论了一个重要的交互式系统, 即协议, 它只是参与方的集合. 现在我们考虑UC框架中的两个主要交互系统: 现实世界和理想世界. 回顾一下, 给定协议的实际执行发生在现实世界中, 而各方利用可信第三方以功能为模型安全地计算函数发生在理想世界中. 这些想法很容易通过交互式系统的概念形式化.</p>
+<ul>
+<li>
+<p>现实世界(Real world): 直观地说, 现实世界是安全多方计算协议实际执行的地方. 我们通过下面的交互式系统来正式说明这一点. 令\(\Pi=\{P_1,\cdots,P_n\}\)是协议, \(\mathcal F_1,\cdots,\mathcal F_\ell\)表示协议执行时使用的各种功能. 现实世界是被定义为由\(\mathrm{Real}:=\Pi\diamondsuit (\mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell)\)给出的交互式系统. 注意, 这是一个开放式系统, 因为它需要环境提供输入并安排协议的执行.</p>
+</li>
+<li>
+<p>理想世界(Ideal world): 在高层次上, 我们认为理想世界是各方将他们的输入发送到一个可信第三方, 然后接收输出. 这必须被细化为包含一个模拟器\(\mathcal S\), 作为敌手/环境和可信第三方之间的接口.</p>
+<p>令\(\mathcal F\)是模拟要安全进行的预期计算的功能(即可信第三方), \(\mathcal S\)是一个模拟器. 理想世界被定义为有\(\mathrm{Ideal}:=\mathcal S\diamondsuit\mathcal F\)给出的交互式系统. 这也是一个开放的系统, 事实上它具有与交互式系统\(\mathrm{Real}\)相同的开放端口: 模拟器包含开放的端口供环境连接, 就像它与现实世界中的腐化方连接一样, 而功能\(\mathcal F\)具有开放的端口供环境向诚实方提供输入和接收输出.</p>
+</li>
+</ul>
+<p>特别地, 交互式系统\(\mathcal Z\diamondsuit \mathrm{Real}\)和\(\mathcal Z\diamondsuit \mathrm{Ideal}\)都是封闭的.</p>
+<h3><a id="%E5%8F%82%E6%95%B0%E5%8C%96%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参数化的交互式系统</h3>
+<p>一些交互式代理(进而, 交互式系统)可以包含几个可调整的外部参数. 例如, 一个协议通常允许在不同的代数结构上进行计算(例如, 大小不同的域), 或者一个功能可以根据它所接收的信息长度来进行参数化, 这只是一些例子. 这些都是外部参数, 意味着它们必须在考虑执行这些交互式代理之前被设定. 为了说明问题, 它们可以被认为是类似于编译程序语言中的编译时参数.</p>
+<p>一个非常重要的外部参数是安全参数(Security parameter). 直观地说, 它是一个自然数, 随着它的增大, 协议变得“更安全”. 在所考虑的各种相互作用的代理所拥有的所有不同的外部参数中, 我们明确提出的是安全参数, 表示为\(\kappa\). 为了明确这一点, 我们有时可以写成\(\mathcal I(\kappa)\), 其中\(\mathcal I\)是以\(\kappa\)为参数的交互式系统/代理.</p>
+<h2><a id="%E5%AE%89%E5%85%A8%E6%80%A7%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全性定义</h2>
+<p>在定义了我们框架中所涉及的不同的交互式代理之后, 我们现在把注意力转移到定义安全性上. 正如我们已经提到的, 这将通过要求没有环境可以区分现实和理想的执行来实现. 在本节中, 我们将更详细地定义“不可区分性”.</p>
+<p>首先, 我们提出可忽略函数的定义.</p>
+<p><strong>定义1</strong>(可忽略函数, Negligible functions): 一个函数\(\mu:\mathbb N\mapsto[0,\infty)\)是可忽略的, 如果对所有\(c\in\mathbb N\), 存在\(\kappa_c\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_c\), 都有\(\mu(\kappa)\leq\kappa^{-c}\). 或者说, \(\mu\)是可忽略的, 如果对所有多项式\(p(X)\), 存在\(\kappa_{p(X)}\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_{p(X)}\), 都有\(\mu(\kappa)\leq p(\kappa)\).</p>
+<p>可忽略函数的一个例子是\(\mu(\kappa)=2^{-\kappa}\). 直观地说, 一个可忽略函数是其逆函数渐进增长速度比任何可能的多项式都快. 这些函数在整个密码学中被广泛用于表示非常小的量.</p>
+<p>我们需要注意的第二个问题是, 我们包含了环境的额外语义概念. 这个交互式代理负责区分现实和理想执行, 它通过与这些世界中的任何一个进行交互并输出一个比特\(0\)或者\(1\), 代表环境认为它在与哪个世界进行交互. 正如我们将看到的, 这些比特和两个世界之间的分配是不相关的. 每当环境\(\mathcal Z\)与一个交互式系统\(\mathcal I\)进行交互, 并输出\(b\)时, 我们用\(b\leftarrow\mathcal Z\diamondsuit \mathcal I\)来表示. 请注意, 这是一个随机变量, 因为\(\mathcal Z\)所进行的整个计算是潜在随机的.</p>
+<p>下面我们考虑协议\(\Pi\)被用于安全地计算一个功能\(\mathcal F\), 同时利用功能\(\mathcal F_1,\cdots,\mathcal F_\ell\). 以下的所有概念都是针对一个给定的敌手结构而设定的, 敌手结构决定了可能被腐化的集合.</p>
+<h3><a id="%E5%AE%8C%E7%BE%8E%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>完美安全性</h3>
+<p>首先, 我们定义完美安全的概念, 它反映了一个协议即使在无限计算资源的环境/敌手的情况下仍然不会被攻破.</p>
+<p><strong>定义2</strong>(完美安全性, Perfect Security) 我们称协议\(\Pi\)在具有完美安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果存在一个模拟器\(\mathcal S\)使得对任意环境\(\mathcal Z\)和对所有\(\kappa\in\mathbb N\), 都有</p>
+\[\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)],
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>让我们详细分析一下上述定义, 首先, 完美安全的协议通常不依赖参数\(\kappa\), 所以我们可以把它从定义中删除(为了在下面的描述其他安全概念方面保持符号的某些“统一性”, 它被包括在内). 上面的安全定义指出, 必须存在一个模拟器\(\mathcal S\), 使\(\mathcal Z\)在与系统\(\mathrm{Real}\)交互时输出\(1\), 其概率与\(\mathcal Z\)在与系统\(\mathrm{Ideal}\)交互时输出\(1\)的概率完全相同. 这恰恰意味着\(\mathcal Z\)不能区分这两个世界, 因为如果它可以, 则它可选择只在现实世界输出\(1\), 而在理想世界输出\(0\), 如此\(\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]=1\), 且\(\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]=0\).</p>
+<p>需要注意的是这里输出\(1\)没有什么特殊之处, 同样的定义也适用于输出\(0\), 因为\(\mathrm{Pr}[0\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]=1-\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]\), \(\mathrm{Pr}[0\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]=1-\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]\). 下面介绍的其他安全概念亦是如此.</p>
+<p>通常定义\(\mathcal Z\)的统计优势(Statistical advantage)为$|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|$. 它本质上是衡量\(\mathcal Z\)在现实世界和理想世界之间的区分程度. 容易看出, 在完美安全设定下, 任何环境的优势都是0.</p>
+<h3><a id="%E7%BB%9F%E8%AE%A1%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>统计安全性</h3>
+<p>现在我们考虑一个更灵活的定义—统计安全性, 它允许细微的区分优势. 在这里, 我们必须稍微限制一下定义2中的环境, 它没有任何限制. 在这种情况下, 我们必须假设, 尽管\(\mathcal Z\)在计算上可能具有无限资源, 但它只会对\(\mathrm{Real}\)或者\(\mathrm{Ideal}\)进行多项式次数的“调用”. 否则, 统计安全性无法实现, 因为通过与两个世界中的一个世界进行超多项式次数的交互, 可以任意提高区分两个世界的概率.</p>
+<p><strong>定义3</strong>(统计安全性, Statistical Security) 我们称协议\(\Pi\)在具有统计安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果存在一个可忽略的函数\(\mu(\kappa)\), 使得对任意环境\(\mathcal Z\), 有</p>
+\[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq \mu(\kappa),
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>在这种情况下, \(\mathcal Z\)可能能够“稍微”区分这两个世界, 这反映在\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]\)和\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]\)可能不想等的情况下. 事实上, 可能的情况是, 对于\(\kappa\)的某些值, 环境可能会很好地区分这两个世界(例如, 对于\(\kappa\)的某些值可能发生\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=1\), \(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]=0\)). 然而, 统计安全性要求随着\(\kappa\)的增长, 这种区分优势以一个良好的速度缩小. 例如, 若\(\mu(\kappa)=2^{-k}\), 则选择\(\kappa=1\)是不合适的, 因为这意味着环境区分两个世界的优势有\(1/2\), 但如果\(\kappa=40\), 则优势就减少到了\(2^{-40}\), 这更能被接受. 事实上, 在设计统计安全的协议时, \(2^{-40}\)是一个非常常见的目标值.</p>
+<h3><a id="%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>计算安全性</h3>
+<p>最后, 我们考虑关于安全多方计算协议的“最弱”的安全概念. 在这种情况下, 环境有一个细微的区分优势, 但这只在环境是计算上有界的情况下才成立, 也就是说, 它在多项式时间内运行. 就实际意义而言, 鉴于在实际的MPC部署中, 所有参与方都将使用有界的计算资源, 这个概念已经足够好了. 此外, 一些安全多方计算场景不允许使用前面的任何概念, 而需要计算安全.</p>
+<p><strong>定义4</strong>(计算安全性, Computational Security) 我们称协议\(\Pi\)在具有计算安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果对任意有效的环境\(\mathcal Z\), 都存在一个可忽略函数\(\mu_\mathcal Z(\kappa)\), 使得</p>
+\[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq\mu_\mathcal Z(\kappa),
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>计算安全性定义中的有效环境从高层次上来说是相对于它的参数以多项式时间运行. 一般而言, 给定的环境, 任何交互式代理与其他代理交换信息, 可以对这些代理进行“调用”. 更多细节可参考文献[2].</p>
+<p>计算安全与统计安全不同的是在试图区分现实世界和理想世界时, 并没有固定一个可忽略函数\(\mu(\kappa)\)来限定每个可能的环境\(\mathcal Z\)的优势. 这在一般情况下是不可能实现的, 因为可能有一系列的环境\(\mathcal Z_1,\mathcal Z_2,\cdots\), 每个\(\mathcal Z_c\)的运行时间为多项式的\(\kappa^c\), 所以对于一个固定的\(\kappa_0\), 这些环境的运行时间\(\kappa_0^1,\kappa_0^2,\cdots\)是无界的. 因此, 只要有足够的运行时间, 就有可能打破对\(\mu(\kappa_0)\)的优势的固定约束.</p>
+<p>因此, 最好的希望是对于每个单一的环境\(\mathcal Z\), 其区分优势是以一个与该环境有关的可忽略的函数\(\mu_\mathcal Z(\kappa)\)为上界. 可以这样理解, 考虑对协议的最有效的已知攻击, 从中推导出一个环境\(\mathcal Z\), 确定相关的可忽略函数\(\mu_\mathcal Z(\kappa)\), 并选择\(\kappa\)使这个环境的优势低于某些特定的阈值(例如\(2^{-80}\)). 鉴于我们以上的观察, 可能会出现这样的情况, 即选择的\(\kappa\)不足以确保其他环境的低区分优势, 但至少它排除了目前已知的最佳环境.</p>
+<p>在本文中, 即使我们考虑到只有计算安全可以实现的环境, 我们在实际的安全证明中只处理完美安全和统计安全. 这是因为, 对于不允许这种类型安全的环境, 我们考虑了一个离线/在线范式(offline-online paradigm), 在某些功能的帮助下, 可使计算具有完美安全和统计安全.</p>
+<h2><a id="%E7%BB%84%E5%90%88%E5%AE%9A%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>组合定理</h2>
+<p>考虑一个协议\(\Pi_\mathcal F\)在一些其他功能\(\mathcal R\)的帮助下(即在\(\mathcal R\)-混合模型下)安全地实例化了功能\(\mathcal F\). 在现实世界中, \(\mathcal R\)充当了某种可信第三方, 各方可以在它的协助下完成安全计算\(\mathcal F\)的任务. 然而, 在实践中这个\(\mathcal R\)必须以某种方式实例化. 例如, 如果\(\mathcal R\)是代表点对点的加密和认证信道, 则必须执行类似于TLS这样的协议来建立这些信道. 从形式上看, 这意味着可能在某个\(\mathcal T\)-混合模型中使用了一个实例化\(\mathcal R\)的新协议\(\Pi_\mathcal R\), 一个自然的问题是: 新协议可以实现什么类型的正式安全保证? 对于“新协议”, 我们指的是协议\(\Pi_\mathcal F\), 但通过协议\(\Pi_\mathcal R\)的执行来取代与功能\(\mathcal F_\mathcal R\)的交互, 而协议\(\Pi_\mathcal R\)则将\(\mathcal F_\mathcal R\)的功能实例化.</p>
+<p>UC框架(通用可组合框架, Universal-composability framework)的核心结果准确地说是产生的组合协议继承了所涉及的两个协议\(\Pi_\mathcal F\)和\(\Pi_\mathcal R\)的属性. 特别地, 这个协议仍然是\(\mathcal F\)的实例化, 但它不是在\(\mathcal R\)-混合模型中进行, 而是在\(\mathcal T\)-混合模型中进行, 这是协议\(\Pi_\mathcal R\)所需要的功能. 通常情况下, \(\mathcal T\)比\(\mathcal R\)要简单得多, 这意味着在安全实例化\(\mathcal F\)方面已经取得了进展.</p>
+<p>在详细讨论组合定理之前, 我们先讨论上述结果的高层次描述的某些影响. 首先, 组合定理使得高度复杂的协议模块化描述成为可能, 它将协议分解成若干个片段, 然后分别证明每个片段的安全性. 例如, 在一个庞大而复杂的协议\(\Pi\)中, 可能会出现某些片段或模式在协议执行的几个地方重复出现的情况. 这一部分可以作为一个协议\(\Pi'\)独立出来, 实例化某些功能\(\mathcal R\), 而协议\(\Pi\)有可能以一种更简单的方式来表达这个功能. 现在为了证明安全性, 我们不需要提供大的“单体”协议\(\Pi\)的证明, 而是可以证明比它简单的在\(\mathcal R\)-混合模型中实例化了所需功能的变体, 然后我们可以只关注证明协议\(\Pi'\)确实实例化了\(\mathcal R\). 为了说明问题, 可以把上述方法看作是把编程语言中的复杂函数分割成对其他函数进行调用的更简单结构. 这种方法可以实现清晰和模块化的证明和协议描述, 可以说这是使安全多方计算领域的研究如此丰富和富有成效的关键因素之一.</p>
+<p>组合定理在实践中非常有用, 通常安全多方计算协议被部署在大型复杂的分布式系统中, 这些系统可能同时运行许多其他协议以实现其他任务. 例如, 必须协商密钥, 必须对随机值进行采样, 必须提供输入等等. 组合定理确保了即使几个协议同时执行, 只要其中每个协议都能被证明是安全的, 那么所产生的新协议组也是安全的. 这是一个重要的观察结果, 相比于其他形式化的模型, 例如不接受这种灵活的并发组合的独立模型来说, UC框架更具有优势.</p>
+<ul>
+<li>组合协议</li>
+</ul>
+<p>为了正确地阐述组合定理, 清楚明确地定义所涉及的不同交互式代理和系统是非常重要的.</p>
+<p>考虑协议\(\Pi_\mathcal F=\{P_1,\cdots,P_n\}\)在\(\mathcal R\)-混合模型中实例化了一个功能\(\mathcal F\), 并考虑另一个有不同参与方\(\{Q_1,\cdots,Q_n\}\)的协议\(\Pi_\mathcal R\)在\(\mathcal T\)-混合模型中实例化了功能\(\mathcal R\). 将协议\(\Pi_\mathcal F\)和\(\Pi_\mathcal R\)组合起来成为交互式系统, 用\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)来表示.</p>
+<p>为了使这一概念更有意义, 回顾一下各方\(Q_1,\cdots,Q_n\)有与环境\(\mathcal Z\)通信的端口, 而\(P_1,\cdots,P_n\)有与功能\(\mathcal R\)通信的端口. 这些端口是相同的: 从\(P_i\)发给\(\mathcal R\)的信息被来自环境的\(Q_i\)接收, 反之亦然. 这样一来, 交互式系统\(\{P_i,Q_i\}\)就像是单个参与方, 与环境(通过\(P_i\)的端口)和功能\(\mathcal T\)(通过\(Q_i\)的端口)进行交互. 有了这个新的解释, 我们看到两个“兼容”的组成又是一个协议, 其中新参与方可能是交互式系统, 其行为就像是一个交互式代理. 更多细节参考文献[2]的第4.2.7节.</p>
+<ul>
+<li>组合定理</li>
+</ul>
+<p><strong>定理</strong>(Composition Theorem): 令\(\Pi_\mathcal F\)是在\(\mathcal R\)-混合模型中实例化功能\(\mathcal F\)的协议, 具有完美/统计/计算安全性, 设\(\Pi_\mathcal R\)是在\(\mathcal T\)-混合模型中实例化功能\(\mathcal R\)的协议, 具有相同的安全性类型, 则组合协议\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)以同样的安全性类型在\(\mathcal T\)-混合模型中安全地实例化功能\(\mathcal F\).</p>
+<p>完整的定理证明参考文献[2].</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <!-- <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div> -->
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    Simulation-based Security-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/05/15 11:54 上午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">Simulation-based Security</h1>
+    <div class="text-muted small"><em>2022/05/15 11:54 上午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <blockquote>
+<p>本文译自Daniel Escudero的文章An Introduction to Secret-Sharing-Based Secure Multiparty Computation, 原文链接: <a href="https://eprint.iacr.org/2022/062">https://eprint.iacr.org/2022/062</a></p>
+</blockquote>
+<h2><a id="%E8%83%8C%E6%99%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>背景</h2>
+<p>现代密码学的主要成就之一在于适当地将一些结构形式化, 如加密或数字签名, 从而使严格的数学推理可以应用于这些结构. 这样一来, 就可以实现具体的保障和不同概念之间的关系, “可证明安全”的想法便是一个例子.</p>
+<p>安全多方计算在80年代末作为一项有趣的研究任务出现, 它有许多潜在的应用, 并涉及非常有趣的技术. 然而, 过了近十年后, 才出现了更多关于安全多方计算的正式理论, 从而能够对该领域进行更严格的处理. 安全多方计算任务的“数学框架”不是平凡的, 这无疑是对其本身的贡献.</p>
+<h2><a id="%E6%A6%82%E8%A7%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>概览</h2>
+<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
+<p>将敌手不学习某些数据的想法形式化在密码学中很常见, 因为它已经出现在诸如加密方案等结构中, 这些结构是用基于游戏的安全证明(Game-based Security)形式化的. 简而言之, 基于游戏的安全考虑了这样的场景: 敌手与系统交互, 试图区分某些打算隐藏的数据, 而安全证明的形式化要求没有敌手能以高概率在这个“游戏”中获胜. 然而, MPC设定中的主要挑战是, 敌手确实获得了一些打算隐藏的数据, 即计算的输出. 此外, 另一个主要的复杂性在于安全多方计算是一个分布式应用, 涉及各方之间按照某种特定的模式通信. 敌手可以看到在协议执行过程中与腐化方交互的所有信息, 当敌手是主动的时候, 它甚至有能力修改腐化方的行为. 这些复杂的问题给广泛用于密码学的简单的基于游戏的安全证明定义的使用带来了障碍.</p>
+<p>解决上述复杂问题的关键是考虑一个理想世界(Ideal world), 它能捕捉到所需的交互属性, 并以某种方式要求实际协议执行的现实世界(Real world)与理想世界不可区分. 通常情况下, 理想世界包含各方将他们的输入发送给可信第三方, 后者计算函数并返回结果, 而且仅返回结果给各方. 现在, 为了说明这两个世界是不可区分的, 一个自然的做法是说明敌手不能区分现实世界和理想世界. 然而, 这种方式是注定会失败的, 因为从敌手的视角来看, 这两个世界可以很平凡地区分开来: 在现实世界中, 信息在所有参与方中相互传递, 有多个通信轮次, 且没有可信方, 而在理想世界中, 有一个可信第三方, 只是接收输入和发送输出. 这两个世界看起来完全不同, 所以敌手可以轻松区分这两个世界.</p>
+<p>这就是模拟的概念的作用. 在现实世界中, 敌手腐化了某些参与方集合的子集, 与诚实方交互, 并在执行结束时得到一个结果. 在理想世界中, 敌手不会直接与可信方交互, 相反, 当诚实方与可信第三方交互时, 敌手与一些“虚拟”的诚实方交互, 这些虚拟诚实方与真实诚实方不同, 不能接触到对敌手隐藏的输入. 这些虚拟诚实方由一个模拟器(Simulator)协调, 该模拟器也控制着理想世界中的腐化方, 发送输入并接收来自可信方的输出. 如此一来, 模拟器就有效充当了一个接口, 是敌手能够与理想世界中的可信第三方进行交互, 同时拥有等同于现实世界中的交互.</p>
+<p>为了证明一个给定的安全多方计算协议时安全的, 需要定义一个模拟器, 作为上述的接口, 其证明安全的方式是说明现实世界(敌手与持有真实输入的真实诚实方交互的世界)与理想世界(敌手与模拟器控制的虚拟诚实方交互的世界)是不可区分的. 需要注意的是, 为了“愚弄”敌手, 模拟器所依靠的唯一能力是对接收输入并只显示输出的可信第三方的访问. 因此, 从直觉上来说, 这意味着敌手在现实世界中的经验可以通过只接触可信第三方来“重现”(recreated), 从哲学的角度来看, 这体现了敌手与现实世界中的诚实方交互之后, 只学习计算的输出这一核心思想.</p>
+<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
+<h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BB%A3%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式代理</h2>
+<p>我们首先考虑参与安全多方计算协议形式化的所有不同实体机器安全性. 我们的出发点是交互式代理(Interactive agent)的概念, 在直观层面上, 它是一个接收和发送消息、持有内部状态并进行计算的计算设备. 例如, 安全多方计算协议中的各方都是交互式代理, 但在这些想法被形式化的框架中, 还有其他几个交互式代理出现. 交互式代理可以通过交互式图灵机的方式被形式化. 这只是传统的图灵机(或算法), 除了进行计算外, 还可以向某些通信端口发送和接收数据, 这些端口可被看成是计算机总线或信道.</p>
+<p>现在我们描述出现在UC框架中的不同的交互式代理. 正如我们已经提到的, 第一个自然的交互代理是各个参与方, 它们是进行计算的实际设备, 但还有其他几个交互代理, 例如模拟器或“可信第三方”出现. 我们下面分别进行讨论.</p>
+<ul>
+<li>参与方(Parties)</li>
+</ul>
+<p>参与方\(P_1,P_2,\cdots,P_n\)构成了交互代理的第一个自然例子. 每个参与方\(P_i\)有一定的计算输入, 根据协议的指示进行, 执行本地计算, 并根据需要向其他各方发送/接收数据. 在执行结束时, 每一方\(P_i\)都会得到计算的结果.</p>
+<ul>
+<li>现实世界中的功能性(Functionalities in the real world)</li>
+</ul>
+<p>一个功能只是一个连接到参与方的交互代理. 它从那里接收信息, 执行本地计算, 维护内部状态, 并将消息发回给各方.</p>
+<p>尽管只有一种“类型”的功能, 但这些功能被用于两种不同的背景. 第一种情况是协议的实际执行发生在现实世界中, 在一个安全多方计算协议的执行中, 各个参与方可以使用某些“外部”资源, 这些资源可以在计算中帮助他们. 举例来说, 各方可以依靠可信第三方, 尽管它可能不会为各方计算整个所需的函数, 但可以提供某些帮助, 如分发一些密钥, 或者发送某些证书. 这可以被形式化为各方在执行当前协议期间的对话功能. 此外, 至关重要的是如果以后开发出另一个模拟该功能行为的协议, 那么各方可以把这个结构作为一个子程序, 整个结构仍然是安全的, 而不需要可信第三方来提供上述例子中的密钥或证书服务.</p>
+<p>此外, 到目前为止, 我们一直隐含地假设各方通过在两两之间通过设定特殊的端口进行相互通信. 然而, 既然我们已经引入了功能的概念, 就可以方便地将通信视为一种功能, 它从各方接收信息并向各方发送信息. 例如, 一个简单的点对点网络可被建模为一个功能, 其作用是: \(P_i\)发送一个类型为&quot;发送信息\(m\)给\(P_j\)&quot;的信息, 而该功能发送给\(P_j\)的信息为: “\(P_i\)发送信息\(m\)”. 虽然这种方法看起来是一种不必要的复杂化, 但它实际上发挥了重要的作用, 使各方之间的对话方式具有灵活性. 此外, 功能的一个重要的低层次细节是它们会向环境泄漏某些信息, 这可以用来模拟这样的一个事实: 在实际中, 敌手可能会看到某些元数据, 例如诚实方何时向另一个诚实方发送信息, 信息的大小等.</p>
+<ul>
+<li>理想世界中的功能性(Functionalities in the ideal world)</li>
+</ul>
+<p>使用功能的第二种情况是在理想世界中, 有一个可信第三方接收来自不同参与方的输入并返回计算的结果. 这正是一个功能, 正如上面所定义的, 它是一个交互式代理, 接收来自各方的输入, 执行某些内部计算并将结果发送给各方.</p>
+<p>在简单的情况下, 一个功能接收一个给定函数的输入, 在内部评估这个函数, 并将结果返回给各方. 然而, 功能的概念允许我们对更复杂的交互进行建模. 例如, 在非反应式计算(non-reactive computation)中, 它使各方能够获得部分结果并在之后继续进行计算. 这可以由一个功能来捕获, 这个功能接收各方的输入, 存储一些内部状态, 发送部分结果, 并按照各方的指示继续进行.</p>
+<ul>
+<li>敌手(Adversary)</li>
+</ul>
+<p>我们用\(\mathcal A\)来表示敌手, 它被建模为另一个交互代理, 它有与每个腐化方通信的端口. 如果腐化是被动的, 这些端口被用来通知敌手关于腐化方的内部状态, 包括它们收到的信息. 另一方面, 如果腐化是主动的, 这些端口则被用来“完全控制”各腐化方.</p>
+<ul>
+<li>环境(Environment)</li>
+</ul>
+<p>这个实体在基于模拟的安全概念中起着至关重要的作用. 直观地说, 环境负责区分现实世界和理想世界. 正如前面提到的, 敌手不能区分理想世界和现实世界是不够的. 其主要原因是, 如果我们简单地要求敌手不能区分两个世界, 那么即使来自诚实方的输入受到保护, 也可能出现诚实方没有收到计算的正确输出的情况, 这也是一个重要的问题. 这是有可能发生的, 因为为了“愚弄”敌手, 模拟器只需要向敌手创造一个看起来类似的交互, 但它可能是现实世界中的诚实方最终计算出与现实世界中完全不同的结果, 而在理想世界中它们获得了正确的结果. 由于敌手看不到这些只属于诚实方的输出, 所以这两个世界仍将不可区分.</p>
+<p>为了解决这个问题, 不可区分是通过考虑计算的输入和输出来定义的. 这是通过考虑另一个代理—环境, 通常用\(\mathcal Z\)表示, 它指示各方使用哪些输入, 并从每一方收到它们在所考虑的世界中获得的结果(在理想世界中对应于计算的正确结果, 而在现实世界中是各方在执行给定协议时计算的结果)来正式确定的. 在这种新的考虑下, 如果没有环境可以区分现实世界和理想世界, 那么就可以说一个协议是安全的. 需要注意的是, 这尤其意味着敌手不能区分这两个世界, 因为否则敌手可以告知环境当前正在执行哪个世界, 但是即使这两个执行对敌手来说是不可区分的, 环境仍然可以利用它提供给计算的输入和收到的输出来试图进行区分. 如果即使如此之后, 两个执行仍然无法区分, 则是因为不仅分布对敌手来说是相似的, 而且现实世界中的输出也遵循与理想世界中的输入相同的分布, 这恰恰对应于计算的正确结果.</p>
+<p>在UC模型中, 环境和敌手本质上是“一体”的, 其模型是: 这两个代理有一个共享的端口, 使环境能够完全控制敌手, 这与敌手在主动腐化情况下能够完全控制诚实方的方式基本相同. 鉴于这两个实体, 也包括腐化方, 在本文中, 我们将环境、敌手和腐化方合并, 不明确地使用环境/敌手这个术语来指代所产生的交互代理. 这个实体负责: (1) 扮演腐化方的角色; (2) 向诚实参与方发送输入并接收来自诚实方的输出.</p>
+<ul>
+<li>模拟器(Simulator)</li>
+</ul>
+<p>正如前面所说的, 模拟器负责充当理想世界中敌手和所需功能之间的“接口”. 这是通过一个交互式代理来实现的, 它通过与现实世界中的腐化方相同的端口连接到理想世界中的敌手/环境, 同时也“代表”腐化方连接到考虑中的功能. 这样一来, 模拟器就可以向功能发送输入并接收输出, 这就构成了模拟器的主要工具, 以创造一个与现实世界的环境不可区分的场景.</p>
+<h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式系统</h2>
+<p>一个交互式系统(Interactive Systems)是交互式代理的集合. 例如, 各参与方的集合就是一个交互式系统, 我们将其称为协议. 首先回顾一些重要概念.</p>
+<ul>
+<li>开放/封闭端口(Open/closed ports)</li>
+</ul>
+<p>通信端口是一个“信道”, 不同的交互式代理可以访问, 以便发送和接收信息. 例如, 每方都有与协议执行中使用的功能共享的端口, 这使得它们能够向/从它发送和接收信息. 一个交互式系统作为一个交互式代理的集合, 包含几个端口, 其中许多将涉及至少两个交互式代理, 如每一方和一个功能之间使用的端口. 然而, 在一个交互式系统中, 有些端口可能只涉及一个交互式代理, 例如, 环境向诚实方发送输入并接收输出, 另外他可以向腐化方发送指令并接收信息, 这意味着各方有与环境通信的端口. 鉴于此, 在像协议这样不包含环境的交互式系统中, 这些端口只涉及一个交互代理(换而言之, 这些端口是“开放的”). 协议中的其他开放端口是各方用来与不同的功能进行通信的端口.</p>
+<p>至少涉及两个交互式代理的端口被称为封闭端口(closed ports), 而只涉及一个交互式代理的端口被称为开放端口(open ports).</p>
+<ul>
+<li>开放式/封闭式交互系统(Open/closed interactive systems)</li>
+</ul>
+<p>一个具有开放端口的交互式系统被称为开放式交互系统, 而一个只有封闭端口的交互系统被称为封闭式交互系统. 例如, 一个协议是一个开放式交互系统, 鉴于它有对应于环境和各方之间的交互以及参与方和现实世界中使用的不同功能之间的开放端口.</p>
+<p>开放式交互系统原则上不能运行, 因为它们可能缺失了某些应写入开放端口的数据. 例如, 一个协议不能被运行, 因为它至少缺失了参与方可以用来通信的功能, 而且它也缺失了(由环境)提供给开放端口的所要使用的输入(另外, 环境也负责安排协议本身的执行). 另一方面, 如果我们考虑一个更大的交互式系统, 有协议(各参与方的集合)、要使用的不同功能和环境组成, 则我们可以得到一个封闭的交互式系统. 这个系统可以被运行, 因为环境现在可以向参与方提供输入, 执行协议, 并获得结果(事实上, 可以多次这样做).</p>
+<ul>
+<li>交互式系统的组成(Composition of interactive systems)</li>
+</ul>
+<p>给定两个交互式系统\(\mathcal I_1\)和\(\mathcal I_2\), 通过考虑参与这两个集合的所有交互代理的集合, 或者说\(\mathcal I_1\)和\(\mathcal I_2\)的集合的联合, 就有可能从这两个系统中得到一个更大的系统, 这表示为\(\mathcal I=\mathcal I_1\diamondsuit\mathcal I_2\). 例如, 我们上面考虑的由\(\mathcal Z\diamondsuit \Pi\diamondsuit (\mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell)\)给定的封闭式系统, 其中\(\Pi\)表示所考虑的协议, \(\mathcal F_1,\cdots,\mathcal F_\ell\)表示协议执行中使用的各种功能.</p>
+<h3><a id="uc%E6%A1%86%E6%9E%B6%E4%B8%AD%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>UC框架中的交互式系统</h3>
+<p>我们已经讨论了一个重要的交互式系统, 即协议, 它只是参与方的集合. 现在我们考虑UC框架中的两个主要交互系统: 现实世界和理想世界. 回顾一下, 给定协议的实际执行发生在现实世界中, 而各方利用可信第三方以功能为模型安全地计算函数发生在理想世界中. 这些想法很容易通过交互式系统的概念形式化.</p>
+<ul>
+<li>
+<p>现实世界(Real world): 直观地说, 现实世界是安全多方计算协议实际执行的地方. 我们通过下面的交互式系统来正式说明这一点. 令\(\Pi=\{P_1,\cdots,P_n\}\)是协议, \(\mathcal F_1,\cdots,\mathcal F_\ell\)表示协议执行时使用的各种功能. 现实世界是被定义为由\(\mathrm{Real}:=\Pi\diamondsuit (\mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell)\)给出的交互式系统. 注意, 这是一个开放式系统, 因为它需要环境提供输入并安排协议的执行.</p>
+</li>
+<li>
+<p>理想世界(Ideal world): 在高层次上, 我们认为理想世界是各方将他们的输入发送到一个可信第三方, 然后接收输出. 这必须被细化为包含一个模拟器\(\mathcal S\), 作为敌手/环境和可信第三方之间的接口.</p>
+<p>令\(\mathcal F\)是模拟要安全进行的预期计算的功能(即可信第三方), \(\mathcal S\)是一个模拟器. 理想世界被定义为有\(\mathrm{Ideal}:=\mathcal S\diamondsuit\mathcal F\)给出的交互式系统. 这也是一个开放的系统, 事实上它具有与交互式系统\(\mathrm{Real}\)相同的开放端口: 模拟器包含开放的端口供环境连接, 就像它与现实世界中的腐化方连接一样, 而功能\(\mathcal F\)具有开放的端口供环境向诚实方提供输入和接收输出.</p>
+</li>
+</ul>
+<p>特别地, 交互式系统\(\mathcal Z\diamondsuit \mathrm{Real}\)和\(\mathcal Z\diamondsuit \mathrm{Ideal}\)都是封闭的.</p>
+<h3><a id="%E5%8F%82%E6%95%B0%E5%8C%96%E7%9A%84%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参数化的交互式系统</h3>
+<p>一些交互式代理(进而, 交互式系统)可以包含几个可调整的外部参数. 例如, 一个协议通常允许在不同的代数结构上进行计算(例如, 大小不同的域), 或者一个功能可以根据它所接收的信息长度来进行参数化, 这只是一些例子. 这些都是外部参数, 意味着它们必须在考虑执行这些交互式代理之前被设定. 为了说明问题, 它们可以被认为是类似于编译程序语言中的编译时参数.</p>
+<p>一个非常重要的外部参数是安全参数(Security parameter). 直观地说, 它是一个自然数, 随着它的增大, 协议变得“更安全”. 在所考虑的各种相互作用的代理所拥有的所有不同的外部参数中, 我们明确提出的是安全参数, 表示为\(\kappa\). 为了明确这一点, 我们有时可以写成\(\mathcal I(\kappa)\), 其中\(\mathcal I\)是以\(\kappa\)为参数的交互式系统/代理.</p>
+<h2><a id="%E5%AE%89%E5%85%A8%E6%80%A7%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全性定义</h2>
+<p>在定义了我们框架中所涉及的不同的交互式代理之后, 我们现在把注意力转移到定义安全性上. 正如我们已经提到的, 这将通过要求没有环境可以区分现实和理想的执行来实现. 在本节中, 我们将更详细地定义“不可区分性”.</p>
+<p>首先, 我们提出可忽略函数的定义.</p>
+<p><strong>定义1</strong>(可忽略函数, Negligible functions): 一个函数\(\mu:\mathbb N\mapsto[0,\infty)\)是可忽略的, 如果对所有\(c\in\mathbb N\), 存在\(\kappa_c\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_c\), 都有\(\mu(\kappa)\leq\kappa^{-c}\). 或者说, \(\mu\)是可忽略的, 如果对所有多项式\(p(X)\), 存在\(\kappa_{p(X)}\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_{p(X)}\), 都有\(\mu(\kappa)\leq p(\kappa)\).</p>
+<p>可忽略函数的一个例子是\(\mu(\kappa)=2^{-\kappa}\). 直观地说, 一个可忽略函数是其逆函数渐进增长速度比任何可能的多项式都快. 这些函数在整个密码学中被广泛用于表示非常小的量.</p>
+<p>我们需要注意的第二个问题是, 我们包含了环境的额外语义概念. 这个交互式代理负责区分现实和理想执行, 它通过与这些世界中的任何一个进行交互并输出一个比特\(0\)或者\(1\), 代表环境认为它在与哪个世界进行交互. 正如我们将看到的, 这些比特和两个世界之间的分配是不相关的. 每当环境\(\mathcal Z\)与一个交互式系统\(\mathcal I\)进行交互, 并输出\(b\)时, 我们用\(b\leftarrow\mathcal Z\diamondsuit \mathcal I\)来表示. 请注意, 这是一个随机变量, 因为\(\mathcal Z\)所进行的整个计算是潜在随机的.</p>
+<p>下面我们考虑协议\(\Pi\)被用于安全地计算一个功能\(\mathcal F\), 同时利用功能\(\mathcal F_1,\cdots,\mathcal F_\ell\). 以下的所有概念都是针对一个给定的敌手结构而设定的, 敌手结构决定了可能被腐化的集合.</p>
+<h3><a id="%E5%AE%8C%E7%BE%8E%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>完美安全性</h3>
+<p>首先, 我们定义完美安全的概念, 它反映了一个协议即使在无限计算资源的环境/敌手的情况下仍然不会被攻破.</p>
+<p><strong>定义2</strong>(完美安全性, Perfect Security) 我们称协议\(\Pi\)在具有完美安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果存在一个模拟器\(\mathcal S\)使得对任意环境\(\mathcal Z\)和对所有\(\kappa\in\mathbb N\), 都有</p>
+\[\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)],
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>让我们详细分析一下上述定义, 首先, 完美安全的协议通常不依赖参数\(\kappa\), 所以我们可以把它从定义中删除(为了在下面的描述其他安全概念方面保持符号的某些“统一性”, 它被包括在内). 上面的安全定义指出, 必须存在一个模拟器\(\mathcal S\), 使\(\mathcal Z\)在与系统\(\mathrm{Real}\)交互时输出\(1\), 其概率与\(\mathcal Z\)在与系统\(\mathrm{Ideal}\)交互时输出\(1\)的概率完全相同. 这恰恰意味着\(\mathcal Z\)不能区分这两个世界, 因为如果它可以, 则它可选择只在现实世界输出\(1\), 而在理想世界输出\(0\), 如此\(\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]=1\), 且\(\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]=0\).</p>
+<p>需要注意的是这里输出\(1\)没有什么特殊之处, 同样的定义也适用于输出\(0\), 因为\(\mathrm{Pr}[0\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]=1-\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Real}]\), \(\mathrm{Pr}[0\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]=1-\mathrm{Pr}[1\leftarrow\mathcal Z\diamondsuit \mathrm{Ideal}]\). 下面介绍的其他安全概念亦是如此.</p>
+<p>通常定义\(\mathcal Z\)的统计优势(Statistical advantage)为$|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|$. 它本质上是衡量\(\mathcal Z\)在现实世界和理想世界之间的区分程度. 容易看出, 在完美安全设定下, 任何环境的优势都是0.</p>
+<h3><a id="%E7%BB%9F%E8%AE%A1%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>统计安全性</h3>
+<p>现在我们考虑一个更灵活的定义—统计安全性, 它允许细微的区分优势. 在这里, 我们必须稍微限制一下定义2中的环境, 它没有任何限制. 在这种情况下, 我们必须假设, 尽管\(\mathcal Z\)在计算上可能具有无限资源, 但它只会对\(\mathrm{Real}\)或者\(\mathrm{Ideal}\)进行多项式次数的“调用”. 否则, 统计安全性无法实现, 因为通过与两个世界中的一个世界进行超多项式次数的交互, 可以任意提高区分两个世界的概率.</p>
+<p><strong>定义3</strong>(统计安全性, Statistical Security) 我们称协议\(\Pi\)在具有统计安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果存在一个可忽略的函数\(\mu(\kappa)\), 使得对任意环境\(\mathcal Z\), 有</p>
+\[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq \mu(\kappa),
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>在这种情况下, \(\mathcal Z\)可能能够“稍微”区分这两个世界, 这反映在\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]\)和\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]\)可能不想等的情况下. 事实上, 可能的情况是, 对于\(\kappa\)的某些值, 环境可能会很好地区分这两个世界(例如, 对于\(\kappa\)的某些值可能发生\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=1\), \(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]=0\)). 然而, 统计安全性要求随着\(\kappa\)的增长, 这种区分优势以一个良好的速度缩小. 例如, 若\(\mu(\kappa)=2^{-k}\), 则选择\(\kappa=1\)是不合适的, 因为这意味着环境区分两个世界的优势有\(1/2\), 但如果\(\kappa=40\), 则优势就减少到了\(2^{-40}\), 这更能被接受. 事实上, 在设计统计安全的协议时, \(2^{-40}\)是一个非常常见的目标值.</p>
+<h3><a id="%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>计算安全性</h3>
+<p>最后, 我们考虑关于安全多方计算协议的“最弱”的安全概念. 在这种情况下, 环境有一个细微的区分优势, 但这只在环境是计算上有界的情况下才成立, 也就是说, 它在多项式时间内运行. 就实际意义而言, 鉴于在实际的MPC部署中, 所有参与方都将使用有界的计算资源, 这个概念已经足够好了. 此外, 一些安全多方计算场景不允许使用前面的任何概念, 而需要计算安全.</p>
+<p><strong>定义4</strong>(计算安全性, Computational Security) 我们称协议\(\Pi\)在具有计算安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果对任意有效的环境\(\mathcal Z\), 都存在一个可忽略函数\(\mu_\mathcal Z(\kappa)\), 使得</p>
+\[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq\mu_\mathcal Z(\kappa),
+\]
+<p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
+<p>计算安全性定义中的有效环境从高层次上来说是相对于它的参数以多项式时间运行. 一般而言, 给定的环境, 任何交互式代理与其他代理交换信息, 可以对这些代理进行“调用”. 更多细节可参考文献[2].</p>
+<p>计算安全与统计安全不同的是在试图区分现实世界和理想世界时, 并没有固定一个可忽略函数\(\mu(\kappa)\)来限定每个可能的环境\(\mathcal Z\)的优势. 这在一般情况下是不可能实现的, 因为可能有一系列的环境\(\mathcal Z_1,\mathcal Z_2,\cdots\), 每个\(\mathcal Z_c\)的运行时间为多项式的\(\kappa^c\), 所以对于一个固定的\(\kappa_0\), 这些环境的运行时间\(\kappa_0^1,\kappa_0^2,\cdots\)是无界的. 因此, 只要有足够的运行时间, 就有可能打破对\(\mu(\kappa_0)\)的优势的固定约束.</p>
+<p>因此, 最好的希望是对于每个单一的环境\(\mathcal Z\), 其区分优势是以一个与该环境有关的可忽略的函数\(\mu_\mathcal Z(\kappa)\)为上界. 可以这样理解, 考虑对协议的最有效的已知攻击, 从中推导出一个环境\(\mathcal Z\), 确定相关的可忽略函数\(\mu_\mathcal Z(\kappa)\), 并选择\(\kappa\)使这个环境的优势低于某些特定的阈值(例如\(2^{-80}\)). 鉴于我们以上的观察, 可能会出现这样的情况, 即选择的\(\kappa\)不足以确保其他环境的低区分优势, 但至少它排除了目前已知的最佳环境.</p>
+<p>在本文中, 即使我们考虑到只有计算安全可以实现的环境, 我们在实际的安全证明中只处理完美安全和统计安全. 这是因为, 对于不允许这种类型安全的环境, 我们考虑了一个离线/在线范式(offline-online paradigm), 在某些功能的帮助下, 可使计算具有完美安全和统计安全.</p>
+<h2><a id="%E7%BB%84%E5%90%88%E5%AE%9A%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>组合定理</h2>
+<p>考虑一个协议\(\Pi_\mathcal F\)在一些其他功能\(\mathcal R\)的帮助下(即在\(\mathcal R\)-混合模型下)安全地实例化了功能\(\mathcal F\). 在现实世界中, \(\mathcal R\)充当了某种可信第三方, 各方可以在它的协助下完成安全计算\(\mathcal F\)的任务. 然而, 在实践中这个\(\mathcal R\)必须以某种方式实例化. 例如, 如果\(\mathcal R\)是代表点对点的加密和认证信道, 则必须执行类似于TLS这样的协议来建立这些信道. 从形式上看, 这意味着可能在某个\(\mathcal T\)-混合模型中使用了一个实例化\(\mathcal R\)的新协议\(\Pi_\mathcal R\), 一个自然的问题是: 新协议可以实现什么类型的正式安全保证? 对于“新协议”, 我们指的是协议\(\Pi_\mathcal F\), 但通过协议\(\Pi_\mathcal R\)的执行来取代与功能\(\mathcal F_\mathcal R\)的交互, 而协议\(\Pi_\mathcal R\)则将\(\mathcal F_\mathcal R\)的功能实例化.</p>
+<p>UC框架(通用可组合框架, Universal-composability framework)的核心结果准确地说是产生的组合协议继承了所涉及的两个协议\(\Pi_\mathcal F\)和\(\Pi_\mathcal R\)的属性. 特别地, 这个协议仍然是\(\mathcal F\)的实例化, 但它不是在\(\mathcal R\)-混合模型中进行, 而是在\(\mathcal T\)-混合模型中进行, 这是协议\(\Pi_\mathcal R\)所需要的功能. 通常情况下, \(\mathcal T\)比\(\mathcal R\)要简单得多, 这意味着在安全实例化\(\mathcal F\)方面已经取得了进展.</p>
+<p>在详细讨论组合定理之前, 我们先讨论上述结果的高层次描述的某些影响. 首先, 组合定理使得高度复杂的协议模块化描述成为可能, 它将协议分解成若干个片段, 然后分别证明每个片段的安全性. 例如, 在一个庞大而复杂的协议\(\Pi\)中, 可能会出现某些片段或模式在协议执行的几个地方重复出现的情况. 这一部分可以作为一个协议\(\Pi'\)独立出来, 实例化某些功能\(\mathcal R\), 而协议\(\Pi\)有可能以一种更简单的方式来表达这个功能. 现在为了证明安全性, 我们不需要提供大的“单体”协议\(\Pi\)的证明, 而是可以证明比它简单的在\(\mathcal R\)-混合模型中实例化了所需功能的变体, 然后我们可以只关注证明协议\(\Pi'\)确实实例化了\(\mathcal R\). 为了说明问题, 可以把上述方法看作是把编程语言中的复杂函数分割成对其他函数进行调用的更简单结构. 这种方法可以实现清晰和模块化的证明和协议描述, 可以说这是使安全多方计算领域的研究如此丰富和富有成效的关键因素之一.</p>
+<p>组合定理在实践中非常有用, 通常安全多方计算协议被部署在大型复杂的分布式系统中, 这些系统可能同时运行许多其他协议以实现其他任务. 例如, 必须协商密钥, 必须对随机值进行采样, 必须提供输入等等. 组合定理确保了即使几个协议同时执行, 只要其中每个协议都能被证明是安全的, 那么所产生的新协议组也是安全的. 这是一个重要的观察结果, 相比于其他形式化的模型, 例如不接受这种灵活的并发组合的独立模型来说, UC框架更具有优势.</p>
+<ul>
+<li>组合协议</li>
+</ul>
+<p>为了正确地阐述组合定理, 清楚明确地定义所涉及的不同交互式代理和系统是非常重要的.</p>
+<p>考虑协议\(\Pi_\mathcal F=\{P_1,\cdots,P_n\}\)在\(\mathcal R\)-混合模型中实例化了一个功能\(\mathcal F\), 并考虑另一个有不同参与方\(\{Q_1,\cdots,Q_n\}\)的协议\(\Pi_\mathcal R\)在\(\mathcal T\)-混合模型中实例化了功能\(\mathcal R\). 将协议\(\Pi_\mathcal F\)和\(\Pi_\mathcal R\)组合起来成为交互式系统, 用\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)来表示.</p>
+<p>为了使这一概念更有意义, 回顾一下各方\(Q_1,\cdots,Q_n\)有与环境\(\mathcal Z\)通信的端口, 而\(P_1,\cdots,P_n\)有与功能\(\mathcal R\)通信的端口. 这些端口是相同的: 从\(P_i\)发给\(\mathcal R\)的信息被来自环境的\(Q_i\)接收, 反之亦然. 这样一来, 交互式系统\(\{P_i,Q_i\}\)就像是单个参与方, 与环境(通过\(P_i\)的端口)和功能\(\mathcal T\)(通过\(Q_i\)的端口)进行交互. 有了这个新的解释, 我们看到两个“兼容”的组成又是一个协议, 其中新参与方可能是交互式系统, 其行为就像是一个交互式代理. 更多细节参考文献[2]的第4.2.7节.</p>
+<ul>
+<li>组合定理</li>
+</ul>
+<p><strong>定理</strong>(Composition Theorem): 令\(\Pi_\mathcal F\)是在\(\mathcal R\)-混合模型中实例化功能\(\mathcal F\)的协议, 具有完美/统计/计算安全性, 设\(\Pi_\mathcal R\)是在\(\mathcal T\)-混合模型中实例化功能\(\mathcal R\)的协议, 具有相同的安全性类型, 则组合协议\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)以同样的安全性类型在\(\mathcal T\)-混合模型中安全地实例化功能\(\mathcal F\).</p>
+<p>完整的定理证明参考文献[2].</p>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">Simulation-based Security</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16525868704962.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-05-15T11:54:30+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://gitee.com/hongtu1993/mao-mweb-theme" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto", "margin": "10px 0px 10px 0px !important", padding: "5px 5px 5px 5px !important" }, ".MathJax": { padding: "2px 2px 2px 2px !important" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
+<!-- <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> -->
+
+<!-- <script type="text/x-mathjax-config">MathJax.Hub.Config({
+jax: ['input/TeX','output/HTML-CSS'], TeX: { equationNumbers: { autoNumber: "AMS" } }});</script> -->
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>
