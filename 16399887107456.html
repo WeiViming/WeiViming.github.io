@@ -493,16 +493,16 @@
 <h3><a id="%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88dnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>深度神经网络（DNN）</h3>
 <h4><a id="%E6%BF%80%E6%B4%BB%E5%B1%82%EF%BC%88activation-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活层（Activation layer）</h4>
 <p>如图1所示，激活层（Activation layer）决定是否激活数据(值1)或不激活(值0)。激活层是对卷积层的输出进行数学处理的非线性函数。有几种众所周知的激活函数，例如整流线单元(RELU)、Sigmoid和tanh。由于这些函数是非线性的，如果我们使用这些函数来计算HE加密的数据，复杂度会变得非常高。因此，我们需要找到一个只包含乘法和加法的替换函数。替换函数将在稍后讨论。</p>
-<img src="https://s2.loli.net/2021/12/20/zpASvuPJocTL5QO.png" alt="image-20211220095201520" style="zoom:50%;" />
+<img src="media/16399887107456/16528740468494.png" alt="image-20211220095201520" style="zoom:50%;" />
 <h4><a id="%E6%B1%A0%E5%8C%96%E5%B1%82%EF%BC%88pooling-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>池化层（Pooling layer）</h4>
 <p>如图2所示，池化层（Pooling layer）是一个采样层，其目的是减小数据的大小。共有两种池：最大池和平均池。在HE中，我们不能使用最大池函数，因为我们不能搜索加密数据的最大值。因此，平均池是实施HE的解决方案。平均池计算值的总和，因此这里只有加法运算，可以用于加密的数据。</p>
-<img src="https://s2.loli.net/2021/12/20/dW5GugVCxZ2iS3J.png" alt="image-20211220095442467" style="zoom:50%;" />
+<img src="media/16399887107456/16528740456444.png" alt="image-20211220095442467" style="zoom:50%;" />
 <h4><a id="%E5%85%A8%E8%BF%9E%E9%80%9A%E5%B1%82%EF%BC%88fully-connected-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>全连通层（Fully connected layer）</h4>
 <p>全连通层（Fully connected layer）如图3所示。这一层中的每个神经元都与上一层神经元相连，因此称为全连通层。该连接表示特征的权重，就像一个完整的图形。这一层的运算是上一层的输出神经元的值与神经元的权值的点积，这个函数类似于神经网络中的隐含层。只有由乘法和加法函数组成的点积函数，所以我们可以在加密数据上使用HE。</p>
-<img src="https://s2.loli.net/2021/12/20/R1SoPbz2JUt4nIL.png" alt="image-20211220095728617" style="zoom:50%;" />
+<img src="media/16399887107456/16528740458248.png" alt="image-20211220095728617" style="zoom:50%;" />
 <h4><a id="%E4%B8%A2%E5%BC%83%E5%B1%82%EF%BC%88dropout-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>丢弃层（Dropout layer）</h4>
 <p>如图4所示，丢弃层（Dropout layer）是为解决过拟合问题而创建的层。有时，当我们训练机器学习模型时，对于某些数据分类结果会太好，表现出对训练集的偏向。这种情况并不好，导致测试周期出现巨大误差。丢弃层在训练过程中会丢弃随机数据，并将数据设置为零。通过在训练期间反复这样做，我们可以防止在训练阶段过拟合。</p>
-<img src="https://s2.loli.net/2021/12/20/DsONEaWAfdUntem.png" alt="image-20211220100449253" style="zoom:50%;" />
+<img src="media/16399887107456/16528740455451.png" alt="image-20211220100449253" style="zoom:50%;" />
 <h3><a id="%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88cnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>卷积神经网络（CNN）</h3>
 <p>CNN是一类DNN，通常用于图像分类。CNN的特点是卷积层，其目的是学习从数据集中提取的特征。卷积层的大小为\(n\times n\)，我们将其与相邻的值进行点积，以便进行卷积。因此，卷积层中只有加法和乘法。我们不需要修改这一层，因为它可以用于同态加密的HE数据。</p>
 <h3><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%94%B9%E5%8A%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护环境下的神经网络改动</h3>
@@ -514,9 +514,9 @@
 <p>该体系结构是由Liu等人提出的，以替换池化层。他们以更大的步幅利用卷积层来代替池化层。他们在全连通层和ReLU之间使用BN层。通过这样做，数据的深度保持不变，但是维数降低了。</p>
 <h2><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8A%80%E6%9C%AF%E7%8E%B0%E7%8A%B6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护深度学习技术现状</h2>
 <p>在这一部分中，我们将讨论当前PPDL技术的发展现状，将PPDL方法分为三类：基于HE的PPDL、基于MPC的PPDL和基于差分隐私的PPDL。图5显示了据我们所知隐私保护方法的分类。方法分为经典PPDL和混合PPDL。经典隐私保护方法不包含任何深度学习技术，而混合PPDL是经典隐私保护方法与深度学习的结合。由于传统的隐私保护技术已经过时，本文主要研究混合PPDL技术。</p>
-<img src="https://s2.loli.net/2021/12/20/KhFsbTCywB2g95n.png" alt="image-20211220105252874" style="zoom:50%;" />
+<img src="media/16399887107456/16528740457240.png" alt="image-20211220105252874" style="zoom:50%;" />
 <p>为了比较每篇调查论文的性能，我们使用了准确率、运行时间、数据传输、客户端隐私(PoC)和模型隐私(PoM)等五个指标。图6显示了本文中调查的PPDL的度量标准。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。我们测量了每种方法的准确率、运行时间和数据传输的平均值。然后，我们将平均值作为标准。如果精度值高于平均值，则表明该方法的精度较好。此外，如果运行时间和数据传输量低于平均值，则表明该方法的运行时间和数据传输量较好。我们采用各自论文中的比较数据，因为我们认为这是可能达到的最好结果。我们不会重新执行他们的代码，因为并不是所有的代码都是公开的。本文的重点是将经典隐私保护与各种深度学习实践相结合的混合PPDL方法。</p>
-<img src="https://s2.loli.net/2021/12/20/GV9ct2TKJhIdrof.png" alt="image-20211220105355222" style="zoom:50%;" />
+<img src="media/16399887107456/16528740456219.png" alt="image-20211220105355222" style="zoom:50%;" />
 <h3><a id="%E5%9F%BA%E4%BA%8Ehe%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于HE的隐私保护深度学习</h3>
 <p>在本节中，我们将讨论利用HE来确保数据私密性的PPDL方法。</p>
 <h4><a id="ml-confidential" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML Confidential</h4>
@@ -885,16 +885,16 @@
 <h3><a id="%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88dnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>深度神经网络（DNN）</h3>
 <h4><a id="%E6%BF%80%E6%B4%BB%E5%B1%82%EF%BC%88activation-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活层（Activation layer）</h4>
 <p>如图1所示，激活层（Activation layer）决定是否激活数据(值1)或不激活(值0)。激活层是对卷积层的输出进行数学处理的非线性函数。有几种众所周知的激活函数，例如整流线单元(RELU)、Sigmoid和tanh。由于这些函数是非线性的，如果我们使用这些函数来计算HE加密的数据，复杂度会变得非常高。因此，我们需要找到一个只包含乘法和加法的替换函数。替换函数将在稍后讨论。</p>
-<img src="https://s2.loli.net/2021/12/20/zpASvuPJocTL5QO.png" alt="image-20211220095201520" style="zoom:50%;" />
+<img src="media/16399887107456/16528740468494.png" alt="image-20211220095201520" style="zoom:50%;" />
 <h4><a id="%E6%B1%A0%E5%8C%96%E5%B1%82%EF%BC%88pooling-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>池化层（Pooling layer）</h4>
 <p>如图2所示，池化层（Pooling layer）是一个采样层，其目的是减小数据的大小。共有两种池：最大池和平均池。在HE中，我们不能使用最大池函数，因为我们不能搜索加密数据的最大值。因此，平均池是实施HE的解决方案。平均池计算值的总和，因此这里只有加法运算，可以用于加密的数据。</p>
-<img src="https://s2.loli.net/2021/12/20/dW5GugVCxZ2iS3J.png" alt="image-20211220095442467" style="zoom:50%;" />
+<img src="media/16399887107456/16528740456444.png" alt="image-20211220095442467" style="zoom:50%;" />
 <h4><a id="%E5%85%A8%E8%BF%9E%E9%80%9A%E5%B1%82%EF%BC%88fully-connected-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>全连通层（Fully connected layer）</h4>
 <p>全连通层（Fully connected layer）如图3所示。这一层中的每个神经元都与上一层神经元相连，因此称为全连通层。该连接表示特征的权重，就像一个完整的图形。这一层的运算是上一层的输出神经元的值与神经元的权值的点积，这个函数类似于神经网络中的隐含层。只有由乘法和加法函数组成的点积函数，所以我们可以在加密数据上使用HE。</p>
-<img src="https://s2.loli.net/2021/12/20/R1SoPbz2JUt4nIL.png" alt="image-20211220095728617" style="zoom:50%;" />
+<img src="media/16399887107456/16528740458248.png" alt="image-20211220095728617" style="zoom:50%;" />
 <h4><a id="%E4%B8%A2%E5%BC%83%E5%B1%82%EF%BC%88dropout-layer%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>丢弃层（Dropout layer）</h4>
 <p>如图4所示，丢弃层（Dropout layer）是为解决过拟合问题而创建的层。有时，当我们训练机器学习模型时，对于某些数据分类结果会太好，表现出对训练集的偏向。这种情况并不好，导致测试周期出现巨大误差。丢弃层在训练过程中会丢弃随机数据，并将数据设置为零。通过在训练期间反复这样做，我们可以防止在训练阶段过拟合。</p>
-<img src="https://s2.loli.net/2021/12/20/DsONEaWAfdUntem.png" alt="image-20211220100449253" style="zoom:50%;" />
+<img src="media/16399887107456/16528740455451.png" alt="image-20211220100449253" style="zoom:50%;" />
 <h3><a id="%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88cnn%EF%BC%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>卷积神经网络（CNN）</h3>
 <p>CNN是一类DNN，通常用于图像分类。CNN的特点是卷积层，其目的是学习从数据集中提取的特征。卷积层的大小为\(n\times n\)，我们将其与相邻的值进行点积，以便进行卷积。因此，卷积层中只有加法和乘法。我们不需要修改这一层，因为它可以用于同态加密的HE数据。</p>
 <h3><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%94%B9%E5%8A%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护环境下的神经网络改动</h3>
@@ -906,9 +906,9 @@
 <p>该体系结构是由Liu等人提出的，以替换池化层。他们以更大的步幅利用卷积层来代替池化层。他们在全连通层和ReLU之间使用BN层。通过这样做，数据的深度保持不变，但是维数降低了。</p>
 <h2><a id="%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8A%80%E6%9C%AF%E7%8E%B0%E7%8A%B6" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>隐私保护深度学习技术现状</h2>
 <p>在这一部分中，我们将讨论当前PPDL技术的发展现状，将PPDL方法分为三类：基于HE的PPDL、基于MPC的PPDL和基于差分隐私的PPDL。图5显示了据我们所知隐私保护方法的分类。方法分为经典PPDL和混合PPDL。经典隐私保护方法不包含任何深度学习技术，而混合PPDL是经典隐私保护方法与深度学习的结合。由于传统的隐私保护技术已经过时，本文主要研究混合PPDL技术。</p>
-<img src="https://s2.loli.net/2021/12/20/KhFsbTCywB2g95n.png" alt="image-20211220105252874" style="zoom:50%;" />
+<img src="media/16399887107456/16528740457240.png" alt="image-20211220105252874" style="zoom:50%;" />
 <p>为了比较每篇调查论文的性能，我们使用了准确率、运行时间、数据传输、客户端隐私(PoC)和模型隐私(PoM)等五个指标。图6显示了本文中调查的PPDL的度量标准。准确率是指PPDL模型预测的正确率。运行时间是模型进行加密、将数据从客户端发送到服务器、进行分类处理所需的时间。数据传输（通信量）是从客户端传输到服务器的数据量。PoC意味着服务器或任何其他方都不知道客户端数据。PoM意味着客户端或任何其他方都不知道服务器中的模型分类器。我们测量了每种方法的准确率、运行时间和数据传输的平均值。然后，我们将平均值作为标准。如果精度值高于平均值，则表明该方法的精度较好。此外，如果运行时间和数据传输量低于平均值，则表明该方法的运行时间和数据传输量较好。我们采用各自论文中的比较数据，因为我们认为这是可能达到的最好结果。我们不会重新执行他们的代码，因为并不是所有的代码都是公开的。本文的重点是将经典隐私保护与各种深度学习实践相结合的混合PPDL方法。</p>
-<img src="https://s2.loli.net/2021/12/20/GV9ct2TKJhIdrof.png" alt="image-20211220105355222" style="zoom:50%;" />
+<img src="media/16399887107456/16528740456219.png" alt="image-20211220105355222" style="zoom:50%;" />
 <h3><a id="%E5%9F%BA%E4%BA%8Ehe%E7%9A%84%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基于HE的隐私保护深度学习</h3>
 <p>在本节中，我们将讨论利用HE来确保数据私密性的PPDL方法。</p>
 <h4><a id="ml-confidential" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML Confidential</h4>

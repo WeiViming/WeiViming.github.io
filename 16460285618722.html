@@ -484,7 +484,7 @@
 <li>通过使用VOLE类型OT协议, 在已知最高有效位的前提下, Cheetah实现了更高效的截断协议.</li>
 </ul>
 <p>Cheetah与最先进的2PC协议复杂度比较如表1.</p>
-<img src="https://s2.loli.net/2022/02/28/F5MzDK4uHUXfsYg.png" alt="image-20220224205920181" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986320.png" alt="image-20220224205920181" style="zoom:50%;" />
 <h2><a id="%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>预备知识</h2>
 <h3><a id="%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>威胁模型</h3>
 <p>Cheetah是半诚实两方计算设定下构造的. 两方分别为Alice(作为Server)和Bob(作为Client). 在安全推理中, Alice持有DNN, Bob持有神经网络的输入, 如图像. 协议允许Bob获得神经网络架构信息和推理输出, 而Alice根据应用场景的不同要么没有输出, 要么得到安全推理结果.</p>
@@ -562,9 +562,9 @@
 <blockquote>
 <p>SIMD中把一系列数通过CRT打包(pack)到多项式中, 使一次多项式乘法计算可以完成多次明文乘法, 而Cheetah中则直接把这些数写在多项式系数上, 虽然这样做会导致不能通过一次多项式乘法完成多次明文乘法(多项式相乘后系数会变乱), 但刚好能做卷积, 如图3. (感谢洪澄老师的说明)</p>
 </blockquote>
-<img src="https://s2.loli.net/2022/02/28/ZRygtVlv3AOqWHi.png" alt="image-20220224202332806" style="zoom:33%;" />
+<img src="media/16460285618722/16528725986353.png" alt="image-20220224202332806" style="zoom:33%;" />
 <p>若\(n_on_i&gt;N\), 则将权重矩阵切分为\(\bar{n}_o\times\bar{n}_i\)子矩阵, 使得\(\bar{n}_o\bar{n}_i\leq N\), 这里\(\bar{n}_o\)和\(\bar{n}_i\)是只要满足约束, 可自由选取的公开参数. 若\(n_i\nmid\bar{n}_i\)或\(n_o\nmid\bar{n}_o\), 则通过Zero padding用0补足, 从而将\(n_o\times n_i\)矩阵乘法转化为更小的\(\bar{n}_o\times\bar{n}_i\)矩阵乘法. 具体协议如图2.</p>
-<img src="https://s2.loli.net/2022/02/28/2owEumNpGk5TUY6.png" alt="image-20220224205031777" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986393.png" alt="image-20220224205031777" style="zoom:50%;" />
 <p>复杂度分析: Bob加密并发送了\(n_i'\)个RLWE密文给Alice. Alice计算了\(n_o'n_i'=O(n_on_i/N)\)个同态乘法和加法. Alice发送\(n_o\)个LWE密文给Bob解密. 可通过优化压缩通信量为\(O((n_o+n_o'N)\log_2q)\)比特.</p>
 <h3><a id="%E5%8D%B7%E7%A7%AF%E5%B1%82conv%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>卷积层(CONV层)</h3>
 <p>\(\mathbb F\)上的二维步幅卷积\(\mathsf{Conv2D}(\mathbf T,\mathbf K;s)\)作用在一个步幅为\(s&gt;0\)、核为四维张量\(\mathbf K\in\mathbb F^{M\times C\times h\times h}\)的三维张量\(\mathbf T\in\mathbb F^{C\times H\times W}\)上, 生成三维张量\(\mathbf T'\in\mathbb F^{M\times H'\times W'}\), 其中\(H'=\lfloor(H-h+s)/s\rfloor, W'=\lfloor(W-h+s)/s\rfloor\), \(M\)表示卷积中使用的核数, \(h\)表示核的尺寸. 从数学的观点来看, 二维步幅卷积可以看作对输出张量\(\mathbf T'\)的每个位置\((c',i',j')\)计算权重和:</p>
@@ -576,15 +576,15 @@
 \hat{k}=\pi_\mathrm{conv}^w(\mathbf K)~\mathrm{使得}~\hat{k}[O-c'CHW-cHW-lW-l']=\mathbf K[c',c,l,l'],\tag{5}
 \]
 <p>其中\(O=HW(MC-1)+W(h-1)+h-1\), 且\(\hat{t}\)和\(\hat{k}\)的所有其他系数设为0. 则多项式的乘积\(\hat{t}\cdot\hat{k}\in\mathbb A_{N,p}\)的某些系数直接给出了二维卷积的结果. 类似于FC, Alice需要使用抽取函数保护可能的泄漏. 具体协议见图4.</p>
-<img src="https://s2.loli.net/2022/02/28/c9k4uLC6h8mgvS7.png" alt="image-20220225093248907" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986448.png" alt="image-20220225093248907" style="zoom:50%;" />
 <p><strong>性质2</strong>: 给定两个多项式\(\hat{t}=\pi_\mathrm{conv}^i(\mathbf T), \hat{k}=\pi_\mathrm{conv}^w(\mathbf K)\in\mathbb A_{N,p}\), 卷积公式(2)可以通过环\(\mathbb A_{N,p}\)上的多项式乘积\(\hat{t}'=\hat{t}\cdot\hat{k}\)来求解, 即对\(\mathbf T'\)的所有位置\((c',i',j')\), \(\mathbf T'[c',i',j']=\hat{t}'[O-c'CHW+i'sW+j's]\), 其中\(O=HW(MC-1)+W(h-1)+h-1\).</p>
 <p>现在考虑大张量情况下的一般情形, 主要做法与FC类似, 仍是需要将大的输入张量和核切分为更小的子块使之适合\(\mathbb A_{N,p}\)上的多项式运算, 并对边缘块不足的部分通过Zero padding用零补足.</p>
 <p>首先将切分窗口\((M,C,H,W)\)轴坐标分别定义为可自由选择的\(M_w,C_w,H_w,W_w\), 但需满足约束条件: \(0&lt;M_w\leq M\), \(0&lt;C_w\leq C\), \(h\leq H_w\leq H\), \(h\leq W_w\leq W\), \(M_wC_wH_wW_w\leq N\). 本文中为了最小化Bob发送的密文数量, 选取\(H_w,W_w\)使得乘积\(\lceil\frac{C}{\lfloor N/(H_wW_w)\rfloor}\rceil\cdot\lceil\frac{H-h+1}{H_w-h+1}\rceil\cdot\lceil\frac{W-h+1}{W_w+h-1}\rceil\)最小化, 此时\(C_w=\min(C,\lfloor N/(H_wW_w)\rfloor)\), \(M_w=\min(M,\lfloor N/(C_wH_wW_w)\rfloor)\).</p>
 <p>由于沿\(M\)轴上的卷积独立于每个子核, 因而可以将\(M\)轴切分为\(d_M=\lceil\frac{M}{M_w}\rceil\)个组, 每个组包含\(M_w\)个子核. 类似地, 沿\(C\)轴上的卷积需要额外的加法, 而同态运算支持加法, 因此我们也可以安全无重叠地沿着\(C\)轴进行切分.</p>
 <p>当\(h&gt;1\)时, 需要额外关注\(H\)轴和\(W\)轴的切分, 以确保步幅窗口不会切分到两个邻近的分区中. 本文中分别将\(H\)轴切分为\(d_H=\lceil\frac{H-h+1}{H_w-h+1}\rceil\)块, 将\(W\)轴切分为\(d_W=\lceil\frac{W-h+1}{W_w-h+1}\rceil\)块. 对于子块\(\alpha\in[[d_H]],\beta\in[[d_W]]\), 包含了\(\mathbf T\)从第\(\alpha(H_w-h+1)\)行开始的\(H_w\)的连续行, 从第\(\beta(W_w-h+1)\)列开始的\(W_w\)的连续列. 举例如图5所示, 当\(h&gt;1\)时, 相邻块存在重叠, 虚线部分是Zero padding.</p>
-<img src="https://s2.loli.net/2022/02/28/PNmLUiJSTVI6ncq.png" alt="image-20220225112619578" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986498.png" alt="image-20220225112619578" style="zoom:50%;" />
 <p>整个卷积层的安全协议完整版如下图11.</p>
-<img src="https://s2.loli.net/2022/02/28/QDKZLTV1weR5WGM.png" alt="image-20220225141352247" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986552.png" alt="image-20220225141352247" style="zoom:50%;" />
 <p>复杂度分析: Bob发送了\(O(CHW/N)\)个RLWE密文给Alice, 大约\(O(2CHW\log_2q)\)比特. Alice计算了\(O(MCHW/N)\)个同态加法和乘法, 并发送\(O(\frac{M}{M_w}H'W')\)个LWE密文给Bob解密. 整个协议的计算复杂度与核大小\(h\)无关.</p>
 <h3><a id="%E6%89%B9%E6%A0%87%E5%87%86%E5%8C%96%E5%B1%82bn%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>批标准化层(BN层)</h3>
 <p>在DNN中, BN层\(\mathsf{BN}(\mathbf{T};\alpha,\beta)\)取三维张量\(\mathbf T\in\mathbb F^{C\times H\times W}\)为输入, 参数\(\mu\in\mathbb F^C\)是缩放向量, \(\theta\in\mathbb F^C\)是移位向量, 输出相同形状的三维张量\(\mathbf{T}'\). 对于所有的\(c\in[[C]],i\in[[H]],j\in[[W]]\),</p>
@@ -600,16 +600,16 @@
 \[\hat{t}'[cCHW+cHW+iH+j]=\mathbf T[c,i,j]\alpha[c].
 \]
 <p>当\(C^2HW&gt;N\), 类似于上面的方法, 将\(\mathbf T\)切分成形状为\(C_w\times H_w\times W_w\)的子块, 使得\(C_w^2H_wW_w\leq N\). 由于每个通道在BN计算中都是独立进行的, 因此可以将两个映射直接应用于\(\mathbf T\)的子块. 整个协议如下图6:</p>
-<img src="https://s2.loli.net/2022/02/28/2abwvf7Y9NQLkpj.png" alt="image-20220225172349412" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986608.png" alt="image-20220225172349412" style="zoom:50%;" />
 <p>复杂度分析: Bob加密并发送\(O(CHW/N)\)个RLWE密文给Alice. Alice进行\(O(CHW/N)\)次同态运算. 最后, Alice发送\(O(CHW)\)个LWE密文给Bob解密.</p>
 <h2><a id="%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%842pc%E4%BC%98%E5%8C%96%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>非线性函数的2PC优化协议</h2>
 <p>CrypTFlow2中对非线性计算协议大量应用了IKNP类型OT扩展协议, Cheetah中则使用VOLE类型OT扩展协议来简化和优化CrypTFlow2的非线性计算协议.</p>
 <p>本文主要使用\(\binom{2}{1}-\mathtt{OT}_\ell\), \(\binom{2}{1}-\mathtt{COT}_\ell\)和\(\binom{n}{1}-\mathtt{OT}_\ell\). 由于使用的是VOLE类型OT扩展协议, 因此其调用\(\binom{2}{1}-\mathtt{ROT}_\lambda\)的均摊通信开销几乎为零. 它与CryptTFlow2的对比如下表2, 当\(n\)和消息长度\(\ell\)很小时, 本文的方案有明显优势, 对所有神经网络安全推理中的协议均如此(通常\(n\leq16,\ell\leq 2\)).</p>
-<img src="https://s2.loli.net/2022/02/28/sLDHdC7iEzMVwb4.png" alt="image-20220225202618987" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986660.png" alt="image-20220225202618987" style="zoom:50%;" />
 <h3><a id="%E7%99%BE%E4%B8%87%E5%AF%8C%E7%BF%81%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>百万富翁协议</h3>
 <p>百万富翁协议即比较协议, 几乎是所有非线性层的核心组件, 如ReLU、截断和池化. Cheetah中的比较协议与CrypTFlow2的主要不同之处在于底层的\(\mathcal F_\mathrm{AND}\)使用VOLE类型OT扩展协议实现而不是IKNP类型OT扩展协议.</p>
 <p>设\(x,y\in\{0,1\}^\ell\), \(\mathcal F_\mathrm{AND}\)是取\(x\)和\(y\)的布尔份额为输入并输出\(x\wedge y\)的布尔份额的功能函数, 协议如图12.</p>
-<img src="https://s2.loli.net/2022/02/28/gEWwS1JkpYfF4zG.png" alt="image-20220225220955682" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986735.png" alt="image-20220225220955682" style="zoom:50%;" />
 <p>首先回顾CrypTFlow2中的比较协议,</p>
 <ol>
 <li>每方将各自的\(\ell\)比特输入分解为\(m\)比特小块. 设\(x_j\)和\(y_j\)分别代表\(P_0\)和\(P_1\)的第\(j\)小块. 两方调用两次\(\binom{2^m}{1}-\mathtt{OT}_1\)分别计算\(\mathtt{lt}_j=\mathbf 1\{x_j&lt;y_j\}\)和\(\mathtt{eq}_j=\mathbf 1\{x_j=y_j\}\).</li>
@@ -617,7 +617,7 @@
 </ol>
 <p>关于CrypTFlow2中的比较协议更详细的解读可以参考知乎中科院大神@酸菜鱼 的<a href="https://zhuanlan.zhihu.com/p/468777277">这篇解读文章</a>.</p>
 <p>CrypTFlow2中对步骤2提出了多种优化方案以分析\(\mathcal F_\mathrm{AND}\)在IKNP类型OT扩展协议的效率, 例如使用\(\binom{16}{1}-\mathtt{OT}_2\)生成两个Beaver三元组和\(\binom{8}{1}-\mathtt{OT}_2\)生成关联元组. 然而在Cheetah中, 则使用更高效的\(\binom{2}{1}-\mathtt{ROT}_1\)生成Beaver三元组. 尽管如此, CrypTFlow2在步骤1中分成\(m\)比特块求值的方案极大地减少了直接对逐比特生成的深度为\(\log\ell\)的二叉树进行求值的原始方案所使用AND门数量, 表3对三种方案的通信复杂度进行了比较.</p>
-<img src="https://s2.loli.net/2022/02/28/CqaVQTxb742iDJB.png" alt="image-20220227120140958" style="zoom:40%;" />
+<img src="media/16460285618722/16528725986812.png" alt="image-20220227120140958" style="zoom:40%;" />
 <p>下文中, 设\((\langle m\rangle_2^A,\langle m\rangle_2^B)=\mathsf{Mill}^\ell(x,y)\)代表百万富翁协议, 其中Alice输入为\(x\), Bob输入为\(y\), 得到\(\langle m\rangle_2^A\oplus\langle m\rangle_2^B=\mathbf 1\{x&gt;y\}\)的布尔分享份额.</p>
 <h3><a id="%E8%BF%91%E4%BC%BC%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>近似截断</h3>
 <p>在定点数计算中, 截断是乘法计算后的必要步骤.</p>
@@ -625,12 +625,12 @@
 <p>DELPHI<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>、ABY3、SecureML中使用的本地截断的误差来源有两个: 一是当秘密份额之和溢出时造成极大的误差; 二是以1/2的概率造成最后一比特误差. CrypTFlow2中以繁重、faithful截断协议来约束这两种情况. 但本文通过实验发现, 在实际应用中, 当\(\ell\leq 64\)时, 前者造成极大误差这个概率是不可忽略的, 而最后一比特造成的误差实际上不会影响机器学习预测模型的质量<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>. 由于这个原因, 可以移除最后一比特误差的约束来构造更简洁轻量的截断协议, 从而显著降低通信和计算开销.</p>
 <p><strong>性质3</strong>: 给定无符号\(\ell\)比特整数\(x\)和它的算术分享份额\(x_0\)和\(x_1\), 定义\(w=\mathbf 1\{x_0+x_1&gt;2^\ell-1\}\). 设\(c\)是一比特整数0或1, 有\((x_0\gg f)+(x_1\gg f)-w\cdot 2^\ell=(x\gg f)-c\).</p>
 <p>性质3中的\(w\)取值与\(x_0+x_1&gt;_?2^\ell-1\)相关, 是导致本地截断出现大误差的原因. 设\(\mathcal F_\mathrm{B2A}^{2^f}\)表示将\(x\in\{0,1\}\)的布尔共享份额转化为在\(\mathbb Z_{2^f}\)上的\(x\)的算术共享份额, 可通过VOLE类型OT协议实例化的\(\binom{2}{1}-\mathtt{COT}_f\)来构造具体协议(与CrypTFlow2的B2A协议相同, 只是OT类型不同, 如下图13). 如此可构造一比特近似截断协议如下图8.</p>
-<p><img src="https://s2.loli.net/2022/02/28/pC3fEtSimR6dXZB.png" alt="Cheetah138" /></p>
+<p><img src="media/16460285618722/16528725986291.png" alt="Cheetah138" /></p>
 <h4><a id="%E5%B7%B2%E7%9F%A5%E7%AC%A6%E5%8F%B7%E4%BD%8D%E7%9A%84%E8%BF%91%E4%BC%BC%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>已知符号位的近似截断</h4>
 <p>当输入的符号位/最高位(MSB)已知时, 可以构造更高效的2PC截断协议. 设已知输入为正, 即其最高位为0, 则\(w\)的计算可以只调用一次\(\binom{2}{1}-\mathtt{OT}_1\)完成, 而不需要借助百万富翁协议, 此时\(w=\mathtt{msb}(\langle x\rangle^A)\vee\mathtt{msb}(\langle x\rangle^B)\), 如此可构造图9的协议. 类似地, 当最高位为1时, \(w=\mathtt{msb}(\langle x\rangle^A)\wedge\mathtt{msb}(\langle x\rangle^B)\).</p>
-<img src="https://s2.loli.net/2022/02/28/1WqTpxOQj7eGJsR.png" alt="image-20220227202321566" style="zoom:40%;" />
+<img src="media/16460285618722/16528725986887.png" alt="image-20220227202321566" style="zoom:40%;" />
 <p>通信复杂度分析: 比起CrypTFlow2, Cheetah通信开销更小, 如下表所示.</p>
-<img src="https://s2.loli.net/2022/02/28/gwQ3soHMpeSX1PC.png" alt="image-20220227203333646" style="zoom:40%;" />
+<img src="media/16460285618722/16528725986956.png" alt="image-20220227203333646" style="zoom:40%;" />
 <h2><a id="%E4%BC%98%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>优化</h2>
 <h3><a id="%E8%AE%A1%E7%AE%97%E4%BC%98%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>计算优化</h3>
 <p>通常BN层放在CONV层或FC层后面. BN融合技术可以将BN操作并入CONV层中, 成为新CONV层, 相比先CONV后BN, 可大大减少计算量. 由于Alice已知BN层和CONV层的权重, 因此可以通过BN融合(fusion)技术来减少\(\mathsf{HomBN}\)的计算. 此外, 通过使用BN融合技术, 还可以节省一个深度的定点数乘法从而减少截断的计算.</p>
@@ -645,16 +645,16 @@
 <p>实验环境: 阿里云ecs.c7.2xlarge, 2.70GHz处理器, 16GB RAM.</p>
 <p>实验部分主要与CrypTFlow2的\(SCI_\mathsf{HE}\)开源库进行对比. 实验数据中的通信量是指Alice和Bob的所有信息发送量, 时间是指不同网络设置(LAN/WAN)下的端到端时间, 但两者都不包括一次性设定(如密钥生成和Base-OT)的通信量和时间.</p>
 <p><strong>线性协议对比</strong>: 计算快约1.3~20倍, 通信开销低1.5~2倍.</p>
-<img src="https://s2.loli.net/2022/02/28/WtBhfPUlv2mjuX6.png" alt="image-20220228102647861" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987019.png" alt="image-20220228102647861" style="zoom:33%;" />
 <p><strong>非线性函数对比</strong>: 单线程下, 本文的所有非线性协议通信开销低10倍以上.</p>
-<img src="https://s2.loli.net/2022/02/28/i7xatdv5BF9zcCJ.png" alt="image-20220228104153836" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987083.png" alt="image-20220228104153836" style="zoom:33%;" />
 <p><strong>与DELPHI<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>对比</strong>: Cheetah计算快1个量级, 通信低2个量级.</p>
-<img src="https://s2.loli.net/2022/02/28/VzLfDp7wSsMIFON.png" alt="image-20220228112416461" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987143.png" alt="image-20220228112416461" style="zoom:33%;" />
 <p><strong>与CrypTFlow2对比</strong>: 即使在WAN环境下, Cheetah求解SqueezeNet, ResNet50, DenseNet121耗时不到3分钟. 端到端时间方面, Cheetah比\(SCI_\mathsf{HE}\)快2~5倍.</p>
 <p><strong>与SecureQ8<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>对比</strong>: 文章还引入了3PC推理框架SecureQ8进行了对比, LAN下SecureQ8比Cheetah快3~4倍, 但WAN下由于通信较少, Cheetah比SecureQ8快2~3倍.</p>
-<img src="https://s2.loli.net/2022/02/28/ufqcYS7GzMIJRat.png" alt="image-20220228112818099" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987200.png" alt="image-20220228112818099" style="zoom:33%;" />
 <p>文章还对近似截断协议的有效性进行了实验, 结果发现对于所有实验图片, Cheetah输出标签向量几乎与\(SCI_\mathsf{HE}\)相同, 定点数计算的预测准确度也与相应的浮点数计算的预测准确度相匹配, 因此对2PC-NN来说, Cheetah是有效的.</p>
-<img src="https://s2.loli.net/2022/02/28/pxoAvwajXE1kgI2.png" alt="image-20220228124532463" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987255.png" alt="image-20220228124532463" style="zoom:33%;" />
 <h2><a id="%E6%80%BB%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结</h2>
 <p>Cheetah提供了一个高度优化的2PC-NN推理架构, WAN设定下, 在不到2.5分钟的时间内对ResNet50模型进行安全推理, 消耗2.3GB的通信量, 非常高效, 适合大规模神经网络训练推理, 是目前最好的2PC-NN工作之一.</p>
 <p>总体而言, 本文的亮点有以下几点:</p>
@@ -811,7 +811,7 @@
 <li>通过使用VOLE类型OT协议, 在已知最高有效位的前提下, Cheetah实现了更高效的截断协议.</li>
 </ul>
 <p>Cheetah与最先进的2PC协议复杂度比较如表1.</p>
-<img src="https://s2.loli.net/2022/02/28/F5MzDK4uHUXfsYg.png" alt="image-20220224205920181" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986320.png" alt="image-20220224205920181" style="zoom:50%;" />
 <h2><a id="%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>预备知识</h2>
 <h3><a id="%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>威胁模型</h3>
 <p>Cheetah是半诚实两方计算设定下构造的. 两方分别为Alice(作为Server)和Bob(作为Client). 在安全推理中, Alice持有DNN, Bob持有神经网络的输入, 如图像. 协议允许Bob获得神经网络架构信息和推理输出, 而Alice根据应用场景的不同要么没有输出, 要么得到安全推理结果.</p>
@@ -889,9 +889,9 @@
 <blockquote>
 <p>SIMD中把一系列数通过CRT打包(pack)到多项式中, 使一次多项式乘法计算可以完成多次明文乘法, 而Cheetah中则直接把这些数写在多项式系数上, 虽然这样做会导致不能通过一次多项式乘法完成多次明文乘法(多项式相乘后系数会变乱), 但刚好能做卷积, 如图3. (感谢洪澄老师的说明)</p>
 </blockquote>
-<img src="https://s2.loli.net/2022/02/28/ZRygtVlv3AOqWHi.png" alt="image-20220224202332806" style="zoom:33%;" />
+<img src="media/16460285618722/16528725986353.png" alt="image-20220224202332806" style="zoom:33%;" />
 <p>若\(n_on_i&gt;N\), 则将权重矩阵切分为\(\bar{n}_o\times\bar{n}_i\)子矩阵, 使得\(\bar{n}_o\bar{n}_i\leq N\), 这里\(\bar{n}_o\)和\(\bar{n}_i\)是只要满足约束, 可自由选取的公开参数. 若\(n_i\nmid\bar{n}_i\)或\(n_o\nmid\bar{n}_o\), 则通过Zero padding用0补足, 从而将\(n_o\times n_i\)矩阵乘法转化为更小的\(\bar{n}_o\times\bar{n}_i\)矩阵乘法. 具体协议如图2.</p>
-<img src="https://s2.loli.net/2022/02/28/2owEumNpGk5TUY6.png" alt="image-20220224205031777" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986393.png" alt="image-20220224205031777" style="zoom:50%;" />
 <p>复杂度分析: Bob加密并发送了\(n_i'\)个RLWE密文给Alice. Alice计算了\(n_o'n_i'=O(n_on_i/N)\)个同态乘法和加法. Alice发送\(n_o\)个LWE密文给Bob解密. 可通过优化压缩通信量为\(O((n_o+n_o'N)\log_2q)\)比特.</p>
 <h3><a id="%E5%8D%B7%E7%A7%AF%E5%B1%82conv%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>卷积层(CONV层)</h3>
 <p>\(\mathbb F\)上的二维步幅卷积\(\mathsf{Conv2D}(\mathbf T,\mathbf K;s)\)作用在一个步幅为\(s&gt;0\)、核为四维张量\(\mathbf K\in\mathbb F^{M\times C\times h\times h}\)的三维张量\(\mathbf T\in\mathbb F^{C\times H\times W}\)上, 生成三维张量\(\mathbf T'\in\mathbb F^{M\times H'\times W'}\), 其中\(H'=\lfloor(H-h+s)/s\rfloor, W'=\lfloor(W-h+s)/s\rfloor\), \(M\)表示卷积中使用的核数, \(h\)表示核的尺寸. 从数学的观点来看, 二维步幅卷积可以看作对输出张量\(\mathbf T'\)的每个位置\((c',i',j')\)计算权重和:</p>
@@ -903,15 +903,15 @@
 \hat{k}=\pi_\mathrm{conv}^w(\mathbf K)~\mathrm{使得}~\hat{k}[O-c'CHW-cHW-lW-l']=\mathbf K[c',c,l,l'],\tag{5}
 \]
 <p>其中\(O=HW(MC-1)+W(h-1)+h-1\), 且\(\hat{t}\)和\(\hat{k}\)的所有其他系数设为0. 则多项式的乘积\(\hat{t}\cdot\hat{k}\in\mathbb A_{N,p}\)的某些系数直接给出了二维卷积的结果. 类似于FC, Alice需要使用抽取函数保护可能的泄漏. 具体协议见图4.</p>
-<img src="https://s2.loli.net/2022/02/28/c9k4uLC6h8mgvS7.png" alt="image-20220225093248907" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986448.png" alt="image-20220225093248907" style="zoom:50%;" />
 <p><strong>性质2</strong>: 给定两个多项式\(\hat{t}=\pi_\mathrm{conv}^i(\mathbf T), \hat{k}=\pi_\mathrm{conv}^w(\mathbf K)\in\mathbb A_{N,p}\), 卷积公式(2)可以通过环\(\mathbb A_{N,p}\)上的多项式乘积\(\hat{t}'=\hat{t}\cdot\hat{k}\)来求解, 即对\(\mathbf T'\)的所有位置\((c',i',j')\), \(\mathbf T'[c',i',j']=\hat{t}'[O-c'CHW+i'sW+j's]\), 其中\(O=HW(MC-1)+W(h-1)+h-1\).</p>
 <p>现在考虑大张量情况下的一般情形, 主要做法与FC类似, 仍是需要将大的输入张量和核切分为更小的子块使之适合\(\mathbb A_{N,p}\)上的多项式运算, 并对边缘块不足的部分通过Zero padding用零补足.</p>
 <p>首先将切分窗口\((M,C,H,W)\)轴坐标分别定义为可自由选择的\(M_w,C_w,H_w,W_w\), 但需满足约束条件: \(0&lt;M_w\leq M\), \(0&lt;C_w\leq C\), \(h\leq H_w\leq H\), \(h\leq W_w\leq W\), \(M_wC_wH_wW_w\leq N\). 本文中为了最小化Bob发送的密文数量, 选取\(H_w,W_w\)使得乘积\(\lceil\frac{C}{\lfloor N/(H_wW_w)\rfloor}\rceil\cdot\lceil\frac{H-h+1}{H_w-h+1}\rceil\cdot\lceil\frac{W-h+1}{W_w+h-1}\rceil\)最小化, 此时\(C_w=\min(C,\lfloor N/(H_wW_w)\rfloor)\), \(M_w=\min(M,\lfloor N/(C_wH_wW_w)\rfloor)\).</p>
 <p>由于沿\(M\)轴上的卷积独立于每个子核, 因而可以将\(M\)轴切分为\(d_M=\lceil\frac{M}{M_w}\rceil\)个组, 每个组包含\(M_w\)个子核. 类似地, 沿\(C\)轴上的卷积需要额外的加法, 而同态运算支持加法, 因此我们也可以安全无重叠地沿着\(C\)轴进行切分.</p>
 <p>当\(h&gt;1\)时, 需要额外关注\(H\)轴和\(W\)轴的切分, 以确保步幅窗口不会切分到两个邻近的分区中. 本文中分别将\(H\)轴切分为\(d_H=\lceil\frac{H-h+1}{H_w-h+1}\rceil\)块, 将\(W\)轴切分为\(d_W=\lceil\frac{W-h+1}{W_w-h+1}\rceil\)块. 对于子块\(\alpha\in[[d_H]],\beta\in[[d_W]]\), 包含了\(\mathbf T\)从第\(\alpha(H_w-h+1)\)行开始的\(H_w\)的连续行, 从第\(\beta(W_w-h+1)\)列开始的\(W_w\)的连续列. 举例如图5所示, 当\(h&gt;1\)时, 相邻块存在重叠, 虚线部分是Zero padding.</p>
-<img src="https://s2.loli.net/2022/02/28/PNmLUiJSTVI6ncq.png" alt="image-20220225112619578" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986498.png" alt="image-20220225112619578" style="zoom:50%;" />
 <p>整个卷积层的安全协议完整版如下图11.</p>
-<img src="https://s2.loli.net/2022/02/28/QDKZLTV1weR5WGM.png" alt="image-20220225141352247" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986552.png" alt="image-20220225141352247" style="zoom:50%;" />
 <p>复杂度分析: Bob发送了\(O(CHW/N)\)个RLWE密文给Alice, 大约\(O(2CHW\log_2q)\)比特. Alice计算了\(O(MCHW/N)\)个同态加法和乘法, 并发送\(O(\frac{M}{M_w}H'W')\)个LWE密文给Bob解密. 整个协议的计算复杂度与核大小\(h\)无关.</p>
 <h3><a id="%E6%89%B9%E6%A0%87%E5%87%86%E5%8C%96%E5%B1%82bn%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>批标准化层(BN层)</h3>
 <p>在DNN中, BN层\(\mathsf{BN}(\mathbf{T};\alpha,\beta)\)取三维张量\(\mathbf T\in\mathbb F^{C\times H\times W}\)为输入, 参数\(\mu\in\mathbb F^C\)是缩放向量, \(\theta\in\mathbb F^C\)是移位向量, 输出相同形状的三维张量\(\mathbf{T}'\). 对于所有的\(c\in[[C]],i\in[[H]],j\in[[W]]\),</p>
@@ -927,16 +927,16 @@
 \[\hat{t}'[cCHW+cHW+iH+j]=\mathbf T[c,i,j]\alpha[c].
 \]
 <p>当\(C^2HW&gt;N\), 类似于上面的方法, 将\(\mathbf T\)切分成形状为\(C_w\times H_w\times W_w\)的子块, 使得\(C_w^2H_wW_w\leq N\). 由于每个通道在BN计算中都是独立进行的, 因此可以将两个映射直接应用于\(\mathbf T\)的子块. 整个协议如下图6:</p>
-<img src="https://s2.loli.net/2022/02/28/2abwvf7Y9NQLkpj.png" alt="image-20220225172349412" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986608.png" alt="image-20220225172349412" style="zoom:50%;" />
 <p>复杂度分析: Bob加密并发送\(O(CHW/N)\)个RLWE密文给Alice. Alice进行\(O(CHW/N)\)次同态运算. 最后, Alice发送\(O(CHW)\)个LWE密文给Bob解密.</p>
 <h2><a id="%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%842pc%E4%BC%98%E5%8C%96%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>非线性函数的2PC优化协议</h2>
 <p>CrypTFlow2中对非线性计算协议大量应用了IKNP类型OT扩展协议, Cheetah中则使用VOLE类型OT扩展协议来简化和优化CrypTFlow2的非线性计算协议.</p>
 <p>本文主要使用\(\binom{2}{1}-\mathtt{OT}_\ell\), \(\binom{2}{1}-\mathtt{COT}_\ell\)和\(\binom{n}{1}-\mathtt{OT}_\ell\). 由于使用的是VOLE类型OT扩展协议, 因此其调用\(\binom{2}{1}-\mathtt{ROT}_\lambda\)的均摊通信开销几乎为零. 它与CryptTFlow2的对比如下表2, 当\(n\)和消息长度\(\ell\)很小时, 本文的方案有明显优势, 对所有神经网络安全推理中的协议均如此(通常\(n\leq16,\ell\leq 2\)).</p>
-<img src="https://s2.loli.net/2022/02/28/sLDHdC7iEzMVwb4.png" alt="image-20220225202618987" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986660.png" alt="image-20220225202618987" style="zoom:50%;" />
 <h3><a id="%E7%99%BE%E4%B8%87%E5%AF%8C%E7%BF%81%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>百万富翁协议</h3>
 <p>百万富翁协议即比较协议, 几乎是所有非线性层的核心组件, 如ReLU、截断和池化. Cheetah中的比较协议与CrypTFlow2的主要不同之处在于底层的\(\mathcal F_\mathrm{AND}\)使用VOLE类型OT扩展协议实现而不是IKNP类型OT扩展协议.</p>
 <p>设\(x,y\in\{0,1\}^\ell\), \(\mathcal F_\mathrm{AND}\)是取\(x\)和\(y\)的布尔份额为输入并输出\(x\wedge y\)的布尔份额的功能函数, 协议如图12.</p>
-<img src="https://s2.loli.net/2022/02/28/gEWwS1JkpYfF4zG.png" alt="image-20220225220955682" style="zoom:50%;" />
+<img src="media/16460285618722/16528725986735.png" alt="image-20220225220955682" style="zoom:50%;" />
 <p>首先回顾CrypTFlow2中的比较协议,</p>
 <ol>
 <li>每方将各自的\(\ell\)比特输入分解为\(m\)比特小块. 设\(x_j\)和\(y_j\)分别代表\(P_0\)和\(P_1\)的第\(j\)小块. 两方调用两次\(\binom{2^m}{1}-\mathtt{OT}_1\)分别计算\(\mathtt{lt}_j=\mathbf 1\{x_j&lt;y_j\}\)和\(\mathtt{eq}_j=\mathbf 1\{x_j=y_j\}\).</li>
@@ -944,7 +944,7 @@
 </ol>
 <p>关于CrypTFlow2中的比较协议更详细的解读可以参考知乎中科院大神@酸菜鱼 的<a href="https://zhuanlan.zhihu.com/p/468777277">这篇解读文章</a>.</p>
 <p>CrypTFlow2中对步骤2提出了多种优化方案以分析\(\mathcal F_\mathrm{AND}\)在IKNP类型OT扩展协议的效率, 例如使用\(\binom{16}{1}-\mathtt{OT}_2\)生成两个Beaver三元组和\(\binom{8}{1}-\mathtt{OT}_2\)生成关联元组. 然而在Cheetah中, 则使用更高效的\(\binom{2}{1}-\mathtt{ROT}_1\)生成Beaver三元组. 尽管如此, CrypTFlow2在步骤1中分成\(m\)比特块求值的方案极大地减少了直接对逐比特生成的深度为\(\log\ell\)的二叉树进行求值的原始方案所使用AND门数量, 表3对三种方案的通信复杂度进行了比较.</p>
-<img src="https://s2.loli.net/2022/02/28/CqaVQTxb742iDJB.png" alt="image-20220227120140958" style="zoom:40%;" />
+<img src="media/16460285618722/16528725986812.png" alt="image-20220227120140958" style="zoom:40%;" />
 <p>下文中, 设\((\langle m\rangle_2^A,\langle m\rangle_2^B)=\mathsf{Mill}^\ell(x,y)\)代表百万富翁协议, 其中Alice输入为\(x\), Bob输入为\(y\), 得到\(\langle m\rangle_2^A\oplus\langle m\rangle_2^B=\mathbf 1\{x&gt;y\}\)的布尔分享份额.</p>
 <h3><a id="%E8%BF%91%E4%BC%BC%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>近似截断</h3>
 <p>在定点数计算中, 截断是乘法计算后的必要步骤.</p>
@@ -952,12 +952,12 @@
 <p>DELPHI<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>、ABY3、SecureML中使用的本地截断的误差来源有两个: 一是当秘密份额之和溢出时造成极大的误差; 二是以1/2的概率造成最后一比特误差. CrypTFlow2中以繁重、faithful截断协议来约束这两种情况. 但本文通过实验发现, 在实际应用中, 当\(\ell\leq 64\)时, 前者造成极大误差这个概率是不可忽略的, 而最后一比特造成的误差实际上不会影响机器学习预测模型的质量<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>. 由于这个原因, 可以移除最后一比特误差的约束来构造更简洁轻量的截断协议, 从而显著降低通信和计算开销.</p>
 <p><strong>性质3</strong>: 给定无符号\(\ell\)比特整数\(x\)和它的算术分享份额\(x_0\)和\(x_1\), 定义\(w=\mathbf 1\{x_0+x_1&gt;2^\ell-1\}\). 设\(c\)是一比特整数0或1, 有\((x_0\gg f)+(x_1\gg f)-w\cdot 2^\ell=(x\gg f)-c\).</p>
 <p>性质3中的\(w\)取值与\(x_0+x_1&gt;_?2^\ell-1\)相关, 是导致本地截断出现大误差的原因. 设\(\mathcal F_\mathrm{B2A}^{2^f}\)表示将\(x\in\{0,1\}\)的布尔共享份额转化为在\(\mathbb Z_{2^f}\)上的\(x\)的算术共享份额, 可通过VOLE类型OT协议实例化的\(\binom{2}{1}-\mathtt{COT}_f\)来构造具体协议(与CrypTFlow2的B2A协议相同, 只是OT类型不同, 如下图13). 如此可构造一比特近似截断协议如下图8.</p>
-<p><img src="https://s2.loli.net/2022/02/28/pC3fEtSimR6dXZB.png" alt="Cheetah138" /></p>
+<p><img src="media/16460285618722/16528725986291.png" alt="Cheetah138" /></p>
 <h4><a id="%E5%B7%B2%E7%9F%A5%E7%AC%A6%E5%8F%B7%E4%BD%8D%E7%9A%84%E8%BF%91%E4%BC%BC%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>已知符号位的近似截断</h4>
 <p>当输入的符号位/最高位(MSB)已知时, 可以构造更高效的2PC截断协议. 设已知输入为正, 即其最高位为0, 则\(w\)的计算可以只调用一次\(\binom{2}{1}-\mathtt{OT}_1\)完成, 而不需要借助百万富翁协议, 此时\(w=\mathtt{msb}(\langle x\rangle^A)\vee\mathtt{msb}(\langle x\rangle^B)\), 如此可构造图9的协议. 类似地, 当最高位为1时, \(w=\mathtt{msb}(\langle x\rangle^A)\wedge\mathtt{msb}(\langle x\rangle^B)\).</p>
-<img src="https://s2.loli.net/2022/02/28/1WqTpxOQj7eGJsR.png" alt="image-20220227202321566" style="zoom:40%;" />
+<img src="media/16460285618722/16528725986887.png" alt="image-20220227202321566" style="zoom:40%;" />
 <p>通信复杂度分析: 比起CrypTFlow2, Cheetah通信开销更小, 如下表所示.</p>
-<img src="https://s2.loli.net/2022/02/28/gwQ3soHMpeSX1PC.png" alt="image-20220227203333646" style="zoom:40%;" />
+<img src="media/16460285618722/16528725986956.png" alt="image-20220227203333646" style="zoom:40%;" />
 <h2><a id="%E4%BC%98%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>优化</h2>
 <h3><a id="%E8%AE%A1%E7%AE%97%E4%BC%98%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>计算优化</h3>
 <p>通常BN层放在CONV层或FC层后面. BN融合技术可以将BN操作并入CONV层中, 成为新CONV层, 相比先CONV后BN, 可大大减少计算量. 由于Alice已知BN层和CONV层的权重, 因此可以通过BN融合(fusion)技术来减少\(\mathsf{HomBN}\)的计算. 此外, 通过使用BN融合技术, 还可以节省一个深度的定点数乘法从而减少截断的计算.</p>
@@ -972,16 +972,16 @@
 <p>实验环境: 阿里云ecs.c7.2xlarge, 2.70GHz处理器, 16GB RAM.</p>
 <p>实验部分主要与CrypTFlow2的\(SCI_\mathsf{HE}\)开源库进行对比. 实验数据中的通信量是指Alice和Bob的所有信息发送量, 时间是指不同网络设置(LAN/WAN)下的端到端时间, 但两者都不包括一次性设定(如密钥生成和Base-OT)的通信量和时间.</p>
 <p><strong>线性协议对比</strong>: 计算快约1.3~20倍, 通信开销低1.5~2倍.</p>
-<img src="https://s2.loli.net/2022/02/28/WtBhfPUlv2mjuX6.png" alt="image-20220228102647861" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987019.png" alt="image-20220228102647861" style="zoom:33%;" />
 <p><strong>非线性函数对比</strong>: 单线程下, 本文的所有非线性协议通信开销低10倍以上.</p>
-<img src="https://s2.loli.net/2022/02/28/i7xatdv5BF9zcCJ.png" alt="image-20220228104153836" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987083.png" alt="image-20220228104153836" style="zoom:33%;" />
 <p><strong>与DELPHI<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>对比</strong>: Cheetah计算快1个量级, 通信低2个量级.</p>
-<img src="https://s2.loli.net/2022/02/28/VzLfDp7wSsMIFON.png" alt="image-20220228112416461" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987143.png" alt="image-20220228112416461" style="zoom:33%;" />
 <p><strong>与CrypTFlow2对比</strong>: 即使在WAN环境下, Cheetah求解SqueezeNet, ResNet50, DenseNet121耗时不到3分钟. 端到端时间方面, Cheetah比\(SCI_\mathsf{HE}\)快2~5倍.</p>
 <p><strong>与SecureQ8<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>对比</strong>: 文章还引入了3PC推理框架SecureQ8进行了对比, LAN下SecureQ8比Cheetah快3~4倍, 但WAN下由于通信较少, Cheetah比SecureQ8快2~3倍.</p>
-<img src="https://s2.loli.net/2022/02/28/ufqcYS7GzMIJRat.png" alt="image-20220228112818099" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987200.png" alt="image-20220228112818099" style="zoom:33%;" />
 <p>文章还对近似截断协议的有效性进行了实验, 结果发现对于所有实验图片, Cheetah输出标签向量几乎与\(SCI_\mathsf{HE}\)相同, 定点数计算的预测准确度也与相应的浮点数计算的预测准确度相匹配, 因此对2PC-NN来说, Cheetah是有效的.</p>
-<img src="https://s2.loli.net/2022/02/28/pxoAvwajXE1kgI2.png" alt="image-20220228124532463" style="zoom:33%;" />
+<img src="media/16460285618722/16528725987255.png" alt="image-20220228124532463" style="zoom:33%;" />
 <h2><a id="%E6%80%BB%E7%BB%93" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>总结</h2>
 <p>Cheetah提供了一个高度优化的2PC-NN推理架构, WAN设定下, 在不到2.5分钟的时间内对ResNet50模型进行安全推理, 消耗2.3GB的通信量, 非常高效, 适合大规模神经网络训练推理, 是目前最好的2PC-NN工作之一.</p>
 <p>总体而言, 本文的亮点有以下几点:</p>
