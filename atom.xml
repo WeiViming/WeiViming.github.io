@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-05-18T19:42:28+08:00</updated>
+  <updated>2022-05-20T19:00:16+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -96,7 +96,20 @@
 <p>一个非常重要的外部参数是安全参数(Security parameter). 直观地说, 它是一个自然数, 随着它的增大, 协议变得“更安全”. 在所考虑的各种相互作用的代理所拥有的所有不同的外部参数中, 我们明确提出的是安全参数, 表示为\(\kappa\). 为了明确这一点, 我们有时可以写成\(\mathcal I(\kappa)\), 其中\(\mathcal I\)是以\(\kappa\)为参数的交互式系统/代理.</p>
 <h2><a id="%E5%AE%89%E5%85%A8%E6%80%A7%E5%AE%9A%E4%B9%89" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全性定义</h2>
 <p>在定义了我们框架中所涉及的不同的交互式代理之后, 我们现在把注意力转移到定义安全性上. 正如我们已经提到的, 这将通过要求没有环境可以区分现实和理想的执行来实现. 在本节中, 我们将更详细地定义“不可区分性”.</p>
-<p>首先, 我们提出可忽略函数的定义.</p>
+<p>在安全多方计算协议的安全性定义中经常可看到三种安全性来刻画隐私保证: 完美安全性(Perfect security)、统计安全性(Statistical security)和计算安全性(Computational security). 它们都用于描述现实世界中的协议执行逼近于理想世界中的可信第三方的程度, 是对敌手能力的约束.</p>
+<ul>
+<li>
+<p><strong>完美安全性</strong>: 在这种情况下, 现实和理想执行具有完全相同的分布. 因此, 从敌手的角度来看, 无法从协议执行中获得任何关于诚实参与方的输入. 这与敌手所拥有的计算资源无关, 即协议能抵抗无限计算能力的敌手.</p>
+</li>
+<li>
+<p><strong>统计安全性</strong>: 这是一个稍弱的概念, 也被称为无条件安全. 在这里, 现实世界和理想世界的分布在统计学意义上是接近的, 即现实世界和理想世界的分布可能不同, 但非常接近. 更确切地说, 通过控制给定结构的某些参数, 有可能将这两个分布之间的差距减小到任意程度.</p>
+</li>
+<li>
+<p><strong>计算安全性</strong>: 在实际应用中, 通常将安全性限制在只针对有效的敌手, 即计算资源有限的敌手. 这里的有效敌手指以多项式时间运行的算法. 在一个计算安全的协议中, 来自真实世界和理想世界的分布是不可区分的. 只要敌手计算能力不是无限的, 就足以满足实际应用.</p>
+</li>
+</ul>
+<p>完美安全性和统计安全性统称为信息论安全性(Information-theoretic security). 满足信息论安全的协议比计算安全的协议更高效, 因为它们通常更简单, 而且不依赖于某些特定的计算困难问题的参数. 但是, 信息论安全性并非总是可以实现的.</p>
+<p>为了正式定义以上安全性, 我们首先提出可忽略函数的定义.</p>
 <p><strong>定义1</strong>(可忽略函数, Negligible functions): 一个函数\(\mu:\mathbb N\mapsto[0,\infty)\)是可忽略的, 如果对所有\(c\in\mathbb N\), 存在\(\kappa_c\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_c\), 都有\(\mu(\kappa)\leq\kappa^{-c}\). 或者说, \(\mu\)是可忽略的, 如果对所有多项式\(p(X)\), 存在\(\kappa_{p(X)}\in\mathbb N\), 使得对所有\(\kappa\geq\kappa_{p(X)}\), 都有\(\mu(\kappa)\leq p(\kappa)\).</p>
 <p>可忽略函数的一个例子是\(\mu(\kappa)=2^{-\kappa}\). 直观地说, 一个可忽略函数是其逆函数渐进增长速度比任何可能的多项式都快. 这些函数在整个密码学中被广泛用于表示非常小的量.</p>
 <p>我们需要注意的第二个问题是, 我们包含了环境的额外语义概念. 这个交互式代理负责区分现实和理想执行, 它通过与这些世界中的任何一个进行交互并输出一个比特\(0\)或者\(1\), 代表环境认为它在与哪个世界进行交互. 正如我们将看到的, 这些比特和两个世界之间的分配是不相关的. 每当环境\(\mathcal Z\)与一个交互式系统\(\mathcal I\)进行交互, 并输出\(b\)时, 我们用\(b\leftarrow\mathcal Z\diamondsuit \mathcal I\)来表示. 请注意, 这是一个随机变量, 因为\(\mathcal Z\)所进行的整个计算是潜在随机的.</p>
@@ -116,9 +129,9 @@
 \[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq \mu(\kappa),
 \]
 <p>其中, \(\mathrm{Real}=\Pi\diamondsuit \mathcal F_1\diamondsuit \cdots\diamondsuit \mathcal F_\ell\), \(\mathrm{Ideal}=\mathcal S\diamondsuit \mathcal F\).</p>
-<p>在这种情况下, \(\mathcal Z\)可能能够“稍微”区分这两个世界, 这反映在\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]\)和\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]\)可能不想等的情况下. 事实上, 可能的情况是, 对于\(\kappa\)的某些值, 环境可能会很好地区分这两个世界(例如, 对于\(\kappa\)的某些值可能发生\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=1\), \(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]=0\)). 然而, 统计安全性要求随着\(\kappa\)的增长, 这种区分优势以一个良好的速度缩小. 例如, 若\(\mu(\kappa)=2^{-k}\), 则选择\(\kappa=1\)是不合适的, 因为这意味着环境区分两个世界的优势有\(1/2\), 但如果\(\kappa=40\), 则优势就减少到了\(2^{-40}\), 这更能被接受. 事实上, 在设计统计安全的协议时, \(2^{-40}\)是一个非常常见的目标值.</p>
+<p>在这种情况下, \(\mathcal Z\)可能能够“稍微”区分这两个世界, 这反映在\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]\)和\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]\)可能不想等的情况下. 事实上, 可能的情况是, 对于\(\kappa\)的某些值, 环境可能会很好地区分这两个世界(例如, 对于\(\kappa\)的某些值可能发生\(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]=1\), \(\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]=0\)). 然而, 统计安全性要求随着\(\kappa\)的增长, 这种区分优势以一个良好的速度缩小. 例如, 若\(\mu(\kappa)=2^{-\kappa}\), 则选择\(\kappa=1\)是不合适的, 因为这意味着环境区分两个世界的优势有\(1/2\), 但如果\(\kappa=40\), 则优势就减少到了\(2^{-40}\), 这更能被接受. 事实上, 在设计统计安全的协议时, \(2^{-40}\)是一个非常常见的目标值.</p>
 <h3><a id="%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>计算安全性</h3>
-<p>最后, 我们考虑关于安全多方计算协议的“最弱”的安全概念. 在这种情况下, 环境有一个细微的区分优势, 但这只在环境是计算上有界的情况下才成立, 也就是说, 它在多项式时间内运行. 就实际意义而言, 鉴于在实际的MPC部署中, 所有参与方都将使用有界的计算资源, 这个概念已经足够好了. 此外, 一些安全多方计算场景不允许使用前面的任何概念, 而需要计算安全.</p>
+<p>最后, 我们考虑关于安全多方计算协议的“最弱”的安全概念. 在这种情况下, 环境有一个细微的区分优势, 但这只在环境是计算能力有限的情况下才成立, 也就是说, 它在多项式时间内运行. 就实际意义而言, 鉴于在实际的MPC部署中, 所有参与方都将使用有限的计算资源, 这个概念已经足够好了. 此外, 一些安全多方计算场景不允许使用前面的任何概念, 而需要计算安全.</p>
 <p><strong>定义4</strong>(计算安全性, Computational Security) 我们称协议\(\Pi\)在具有计算安全性的\((\mathcal F_1,\cdots,\mathcal F_\ell)\)-混合模型中安全地实例化了功能\(\mathcal F\), 如果对任意有效的环境\(\mathcal Z\), 都存在一个可忽略函数\(\mu_\mathcal Z(\kappa)\), 使得</p>
 \[|\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Real})(\kappa)]-\mathrm{Pr}[1\leftarrow(\mathcal Z\diamondsuit \mathrm{Ideal})(\kappa)]|\leq\mu_\mathcal Z(\kappa),
 \]
@@ -3840,7 +3853,7 @@ $
 这两种构造方式各有优劣, 通常构造协议时需要根据实际情况来作出取舍。</p>
 <p>此外, 多方计算协议的安全性也是一个要点。</p>
 <p>由于多方计算的诸多概念较难梳理, 因此本人基于个人所了解的一些多方计算技术要点, 描绘了如下思维导图。理解如有不对之处, 可以知乎联系我: @云中雨雾。</p>
-<p><img src="media/16377612600578/16526053508741.png" alt="MPC Protocol" /></p>
+<p><img src="media/16377612600578/16526053508742.png" alt="MPC Protocol" /></p>
 
 ]]></content>
   </entry>
