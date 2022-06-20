@@ -185,7 +185,7 @@
                             <li class="sidenav-item">
                                 <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
                                     <i class="sidenav-icon ion ion-ios-bookmark"></i>
-                                    <div>隐私保护机器学习(9)</div>
+                                    <div>隐私保护机器学习(10)</div>
                                 </a>
                             </li>
                             
@@ -262,6 +262,12 @@
                         <li class="sidenav-header small font-weight-semibold">密码之路</li>
 
 
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
+                            </a>
+                        </li>
                         
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16525868704962.html" title="Simulation-based Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
@@ -484,7 +490,7 @@
 <h3><a id="point-and-permute" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Point-and-permute</h3>
 <p>下面介绍由Beaver等人在1990年提出的Point-and-permute技术<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>, 可以让Evaluator根据得到的加密标签直接获知应该解密哪一个密文获得正确的标签, 既不需要试解密, 也不需要再做密文扩展. 如下图所示, Point-and-permute的主要思想是在每个线路标签上附一个随机颜色比特(color bit, 或称为置换比特permutation bit), 图中分别用红色和蓝色指代不同的颜色比特, 然后根据加密标签的颜色比特来排列密文的位置. 需要注意的一点是, 每条线路颜色比特与加密标签所对应的真值之间的关系是随机的, 两者并无直接关系, 例如, 输入线路上的红色比特在\(A_0\)上对应于输入真值为0, 但\(B_1\)上对应的则是1.</p>
 <img src="https://s2.loli.net/2022/04/14/stq142CDIzOi8QF.png" alt="PP" />
-<p>下图中的混淆真值表是根据输入线路的颜色比特来排列的, 代表了不同的密文相应的位置. 通常将输入标签的最后一比特设置为颜色比特. 这样一来, Evaluator可以通过观察输入线路标签的颜色比特便可获知他该解密哪个密文得到正确的标签. 例如, 假设Evaluator获得的加密标签分别为\(A_1, B_1\), 分别对应的颜色比特为蓝色、红色, 于是Evaluator直接解密第三个密文即可得到正确的标签. 如果存在一个随机预言机\(\mathsf H\), 则我们可以使用简单的一次加密来执行混淆电路的加密, 即\(\mathbb{E}_{A,B}(C)=\mathsf H(A,B)\oplus C\). 在实际应用中, \(\mathsf H\)可以使用AES来实例化. 通过Point-and-permute方案, 可以将Evaluator的解密计算量降低4倍.</p>
+<p>下图中的混淆真值表是根据输入线路的颜色比特来排列的, 代表了不同的密文相应的位置. 通常将输入标签的最后一比特设置为颜色比特. 这样一来, Evaluator可以通过观察输入线路标签的颜色比特便可获知他该解密哪个密文得到正确的标签. 例如, 假设Evaluator获得的加密标签分别为\(A_1, B_1\), 分别对应的颜色比特为蓝色、红色, 于是Evaluator直接解密第三个密文即可得到正确的标签. 如果存在一个随机预言机\(\mathsf H\), 则我们可以使用简单的一次加密来执行混淆电路的加密, 即\(\mathbb{E}_{A,B}(C)=\mathsf H(A,B)\oplus C\). 在实际应用中, \(\mathsf H\)可以使用固定密钥AES(fixed-key AES)来实例化. 通过Point-and-permute方案, 可以将Evaluator的解密计算量降低4倍.</p>
 <img src="https://s2.loli.net/2022/04/14/dfJhte81qvbryla.png" />
 <h3><a id="garbled-row-reduction-3" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Garbled Row Reduction 3</h3>
 <p>之前的描述中, 我们总是假设Garbler在每条线路上的两个标签都是随机选取的. 1999年, Naor等人的工作中<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>考虑了这样一个技巧: 不再随机选取输出线路的两个加密标签, 而是选取合适的输出线路加密标签使得混淆表的第一个密文(取决于颜色比特和门函数)总为特殊值\(0^n\), 而另一个加密标签仍然随机选取. 例如, 在下图中, 混淆表的第一行为\(\mathsf{H}(A_0,B_1)\oplus C_1\), 则直接取\(C_1=\mathsf{H}(A_0,B_1)\)即可使得混淆表的第一行密文为零串\(0^n\). 这样Garbler就不再需要发送第一个密文了, 从而将Garbler在每个门的密文发送的数量从4个减少为3个, Evaluator可以&quot;重构&quot;出第一个密文, 然后正常解密即可得到正确的标签. 通常把这种技术记为GRR3. 第一个密文取特殊值并不会影响混淆电路的安全性, 这是因为Evaluator无法有效区分剩下的三个密文到底是针对真值0的加密标签还是1的加密标签.</p>
@@ -702,7 +708,7 @@
 <h3><a id="point-and-permute" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Point-and-permute</h3>
 <p>下面介绍由Beaver等人在1990年提出的Point-and-permute技术<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>, 可以让Evaluator根据得到的加密标签直接获知应该解密哪一个密文获得正确的标签, 既不需要试解密, 也不需要再做密文扩展. 如下图所示, Point-and-permute的主要思想是在每个线路标签上附一个随机颜色比特(color bit, 或称为置换比特permutation bit), 图中分别用红色和蓝色指代不同的颜色比特, 然后根据加密标签的颜色比特来排列密文的位置. 需要注意的一点是, 每条线路颜色比特与加密标签所对应的真值之间的关系是随机的, 两者并无直接关系, 例如, 输入线路上的红色比特在\(A_0\)上对应于输入真值为0, 但\(B_1\)上对应的则是1.</p>
 <img src="https://s2.loli.net/2022/04/14/stq142CDIzOi8QF.png" alt="PP" />
-<p>下图中的混淆真值表是根据输入线路的颜色比特来排列的, 代表了不同的密文相应的位置. 通常将输入标签的最后一比特设置为颜色比特. 这样一来, Evaluator可以通过观察输入线路标签的颜色比特便可获知他该解密哪个密文得到正确的标签. 例如, 假设Evaluator获得的加密标签分别为\(A_1, B_1\), 分别对应的颜色比特为蓝色、红色, 于是Evaluator直接解密第三个密文即可得到正确的标签. 如果存在一个随机预言机\(\mathsf H\), 则我们可以使用简单的一次加密来执行混淆电路的加密, 即\(\mathbb{E}_{A,B}(C)=\mathsf H(A,B)\oplus C\). 在实际应用中, \(\mathsf H\)可以使用AES来实例化. 通过Point-and-permute方案, 可以将Evaluator的解密计算量降低4倍.</p>
+<p>下图中的混淆真值表是根据输入线路的颜色比特来排列的, 代表了不同的密文相应的位置. 通常将输入标签的最后一比特设置为颜色比特. 这样一来, Evaluator可以通过观察输入线路标签的颜色比特便可获知他该解密哪个密文得到正确的标签. 例如, 假设Evaluator获得的加密标签分别为\(A_1, B_1\), 分别对应的颜色比特为蓝色、红色, 于是Evaluator直接解密第三个密文即可得到正确的标签. 如果存在一个随机预言机\(\mathsf H\), 则我们可以使用简单的一次加密来执行混淆电路的加密, 即\(\mathbb{E}_{A,B}(C)=\mathsf H(A,B)\oplus C\). 在实际应用中, \(\mathsf H\)可以使用固定密钥AES(fixed-key AES)来实例化. 通过Point-and-permute方案, 可以将Evaluator的解密计算量降低4倍.</p>
 <img src="https://s2.loli.net/2022/04/14/dfJhte81qvbryla.png" />
 <h3><a id="garbled-row-reduction-3" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Garbled Row Reduction 3</h3>
 <p>之前的描述中, 我们总是假设Garbler在每条线路上的两个标签都是随机选取的. 1999年, Naor等人的工作中<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>考虑了这样一个技巧: 不再随机选取输出线路的两个加密标签, 而是选取合适的输出线路加密标签使得混淆表的第一个密文(取决于颜色比特和门函数)总为特殊值\(0^n\), 而另一个加密标签仍然随机选取. 例如, 在下图中, 混淆表的第一行为\(\mathsf{H}(A_0,B_1)\oplus C_1\), 则直接取\(C_1=\mathsf{H}(A_0,B_1)\)即可使得混淆表的第一行密文为零串\(0^n\). 这样Garbler就不再需要发送第一个密文了, 从而将Garbler在每个门的密文发送的数量从4个减少为3个, Evaluator可以&quot;重构&quot;出第一个密文, 然后正常解密即可得到正确的标签. 通常把这种技术记为GRR3. 第一个密文取特殊值并不会影响混淆电路的安全性, 这是因为Evaluator无法有效区分剩下的三个密文到底是针对真值0的加密标签还是1的加密标签.</p>
