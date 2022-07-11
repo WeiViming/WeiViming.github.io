@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-06-26T14:27:28+08:00</updated>
+  <updated>2022-07-11T11:46:07+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -29,14 +29,14 @@
 <p>内积计算的通信开销与向量长度无关：对于长度为\(n\)的两个向量进行内积计算，通常的做法是分开计算\(n \)次定点乘法截断再求和，如此消耗\(n\)个截断对，通信量 \(O(n)\)，本文基于RSS的特性提出了改进方案，使得内积计算只需1个截断对，同时通信量变为 \(O(1) \)。</p>
 </li>
 <li>
-<p>Arithmetic / Binary / Yao sharing之间的相互转换</p>
+<p>Arithmetic / Binary / Yao shares之间的相互转换</p>
 </li>
 <li>
 <p>基于分段多项式的激活函数近似计算</p>
 </li>
 </ul>
 <h2><a id="%E4%B8%BB%E8%A6%81%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>主要协议</h2>
-<p>设秘密\(x\)的RSS形式为\(\langle x\rangle=(x_1,x_2,x_3)\)，其中\(P_i\)的份额表示为\((x_i,x_{(i~\bmod~{3})+1})\)，\(i\in\{1,2,3\}\)。基本算子参考原文，这里不做介绍。  \(\newcommand{\RSS}[1]{\langle #1 \rangle}\)</p>
+<p>设秘密\(x\)的RSS形式为\([\![ x]\!]=(x_1,x_2,x_3)\)，其中\(P_i\)的份额表示为\((x_i,x_{(i~\bmod~{3})+1})\)，\(i\in\{1,2,3\}\)。基本算子参考原文，这里不做介绍。  \(\newcommand{\RSS}[1]{[\![ #1 ]\!]}\)</p>
 <h3><a id="%E4%B8%89%E6%96%B9%E5%AE%9A%E7%82%B9%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>三方定点截断</h3>
 <p>定点数乘法计算后需要进行截断，SecureML中的本地截断方案不能用于3PC中，可转化为2PC下来做，即ABY3中的第一种截断方案。下面只介绍第二种。</p>
 <p>对于要进行截断\(d\)位的份额\(\RSS{x'}\), 基本步骤是先计算3-out-of-3 Additive sharing，再转化为2-out-of-3 Replicated sharing。ABY3将这两个步骤进行合并，从而减少一轮在线通信。步骤如下：</p>
@@ -49,10 +49,10 @@
 <p>这种截断方案在最低位至多存在1比特误差。</p>
 <h3><a id="%E5%86%85%E7%A7%AF%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>内积计算</h3>
 <p>内积计算作为机器学习中常见运算之一，构造通信与长度无关的内积计算协议至关重要，此外，矩阵乘法计算也可以转化为内积计算。给定长度为\(n\)的两个向量\(\RSS{\vec{x}}\)，\(\RSS{\vec{y}}\)，计算\(\RSS{\vec{x}\cdot\vec{y}}=\sum_{i=1}^n\RSS{x_i}\RSS{y_i}\)，这里的\(x_i\)表示向量\(\vec{x}\)的第\(i\)个分量。如果将\(n\)个乘法分开计算则需要通信\(n\)次，通信量\(O(n)\)，ABY3优化为如下过程：</p>
-\[\langle{\vec x}\rangle\cdot\langle{\vec y}\rangle:=\mathsf{reveal}((\sum_{i=1}^n\langle{x_i}\rangle\langle{y_i}\rangle)+\langle{r'}\rangle)/2^d-\langle{r}\rangle
+\[[\![{\vec x}]\!]\cdot[\![{\vec y}]\!]:=\mathsf{reveal}((\sum_{i=1}^n[\![{x_i}]\!]\cdot[\![{y_i}]\!])+[\![{r'}]\!])/2^d-[\![{r}]\!]
 \]
 <p>简而言之，是将所有乘法项计算结果求和，通过随机数茫化并打开，最后减掉随机数份额。如此只需通信\(1\)次，通信量\(O(1)\)，效率提升了\(n\)倍。此外，由于只截断了一次，因此相比分开截断，ABY3的做法更精确。</p>
-<h3><a id="aby-share%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>A/B/Y share的相互转换</h3>
+<h3><a id="aby-shares%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>A/B/Y shares的相互转换</h3>
 <ul>
 <li>
 <p>A2B比特分解(bit decomposition)：给定\(\RSS{x}^A\)，计算\(\RSS{\vec{x}}^B\)，满足\(x=\sum_{i=0}^{k-1}2^i\cdot x[i]\)，其中\(x[i]\in\{0,1\}\)是\(\vec{x}\)的第\(i\)分量。思路是先将\(\RSS{x}^A=(x_1,x_2,x_3)\)作为3PC的布尔加法电路输入计算和，电路结果即为所求。ABY3中基于FA和PPA对电路进行了优化，使得通信轮次降为\(1+\log k\)。</p>
@@ -89,38 +89,20 @@
 <li>
 <p>首先构造三方OT协议，三方分别为Sender，Receiver，Helper，其中Helper已知Receiver的选择比特\(c\)，定义三方OT的功能为\(((m_0,m_1),c,c)\rightarrow(\perp,m_c,\perp)\)，协议过程如下：</p>
 <ol>
-<li>
-<p>Sender和Helper随机生成\(w_0,w_1\leftarrow\{0,1\}^\kappa\)；</p>
-</li>
-<li>
-<p>Sender发送\(m_0\oplus w_0\)，\(m_1\oplus w_1\)给Receiver；</p>
-</li>
-<li>
-<p>Helper发送\(w_c\)给Receiver，则后者可以计算\(m_c=(m_c\oplus w_c)\oplus w_c\)。</p>
-</li>
+<li>Sender和Helper随机生成\(w_0,w_1\leftarrow\{0,1\}^\kappa\)；</li>
+<li>Sender发送\(m_0\oplus w_0\)，\(m_1\oplus w_1\)给Receiver；</li>
+<li>Helper发送\(w_c\)给Receiver，则后者可以计算\(m_c=(m_c\oplus w_c)\oplus w_c\)。</li>
 </ol>
 </li>
 <li>
 <p>然后考虑计算\(a\RSS{b}^B=\RSS{ab}^A\)，其中\(a\in\mathbb{Z}_{2^k}\)是公开值，\(b\in\{0,1\}\)，计算过程如下：</p>
 <ol>
-<li>
-<p>\(P_1\)和\(P_3\)本地采样\(c_1\leftarrow\mathbb{Z}_{2^k}\)，\(P_2\)和\(P_3\)本地采样\(c_3\leftarrow\mathbb{Z}_{2^k}\)；</p>
-</li>
-<li>
-<p>\(P_3\)作为Sender，定义两个消息\(m_i:=(i\oplus b_1\oplus b_3)a-c_1-c_3\)，其中\(i\in\{0,1\}\)；</p>
-</li>
-<li>
-<p>\(P_2\)作为Receiver，选择比特为\(b_2\)；</p>
-</li>
-<li>
-<p>\(P_1\)作为Helper，已知\(b_2\)，通过三方OT协议，将掩码发给\(P_2\)；</p>
-</li>
-<li>
-<p>\(P_2\)计算\(c_2=m_{b_2}=(b_2\oplus b_1\oplus b_3)a-c_1-c_3=ba-c_1-c_3\)；</p>
-</li>
-<li>
-<p>\(P_2\)将\(c_2\)发给\(P_1\)，以保持2-out-of-3 RSS语义。</p>
-</li>
+<li>\(P_1\)和\(P_3\)本地采样\(c_1\leftarrow\mathbb{Z}_{2^k}\)，\(P_2\)和\(P_3\)本地采样\(c_3\leftarrow\mathbb{Z}_{2^k}\)；</li>
+<li>\(P_3\)作为Sender，定义两个消息\(m_i:=(i\oplus b_1\oplus b_3)a-c_1-c_3\)，其中\(i\in\{0,1\}\)；</li>
+<li>\(P_2\)作为Receiver，选择比特为\(b_2\)；</li>
+<li>\(P_1\)作为Helper，已知\(b_2\)，通过三方OT协议，将掩码发给\(P_2\)；</li>
+<li>\(P_2\)计算\(c_2=m_{b_2}=(b_2\oplus b_1\oplus b_3)a-c_1-c_3=ba-c_1-c_3\)；</li>
+<li>\(P_2\)将\(c_2\)发给\(P_1\)，以保持2-out-of-3 RSS语义。</li>
 </ol>
 <p>以上需要2轮通信，\(4k\)比特的通信量。为减少通信轮数，可并行一次三方OT，\(P_3\)作为Sender发送\(m_0,m_1\)，而\(P_1\)作为Receiver输入\({b_2}\)，从而在1轮中让\(P_1\)得到\(m_{b_2}=c_2\)，如此需要\(6k\)比特通信量。</p>
 </li>
@@ -133,7 +115,7 @@
 <p>不同转换协议的理论开销如下：</p>
 <p><img src="media/16562245505906/16562247265259.png" alt="image-20210708205512619" /></p>
 <h3><a id="%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>非线性激活函数的近似计算</h3>
-<p>ABY3中基于\(a\RSS{b}^B=\RSS{ab}^A\)和\(\RSS{a}^A\RSS{b}^B=\RSS{ab}^A\)，通过分段多项式来近似计算非线性激活函数。</p>
+<p>ABY3中基于\(a[\![ b]\!]^B=[\![ ab]\!]^A\)和\([\![ a]\!]^A[\![ b]\!]^B=[\![ ab]\!]^A\)，通过分段多项式来近似计算非线性激活函数。</p>
 <p>令\(f_1,\cdots,f_m\)是系数公开的多项式, 且\(-\infty=c_0&lt;c_1&lt;\dots&lt;c_{m-1}&lt;c_m=\infty\), 使得</p>
 \[f(x)=\begin{aligned}
 \begin{cases}
@@ -149,7 +131,7 @@ f_m(x), &amp;c_{m-1}\leq x
 <li>若使用bit extraction，则需要\(O(\log k)\)轮交互，\(O(k)\)比特通信量；</li>
 <li>若使用比较混淆电路，则只需\(1\)轮交互，但通信量变为\(O(k\kappa)\)比特。</li>
 </ul>
-<p>对于每个\(f_i\)的计算，\(f_i(\RSS{x})=a_{i,j}\RSS{x}^j+\cdots+a_{i,1}\RSS{x}+a_{i,0}\), 其中\(a_{i,l}\)是公开常数。当多项式次数\(j=0\)时，计算\(b_if_i(\RSS{x})\)的计算可优化为计算\(a_{i,0}\RSS{b_i}^B\)。当\(f_i\)系数是整数时，可以本地计算\(\RSS{x}^l,a_{i,l}\RSS{x}^l\)。当\(f_i\)系数是非零小数时，需要先进行截断。给定\(\RSS{x}\)，只需计算一次\(\RSS{x}^j,\cdots,\RSS{x}^2\)，用于\(f_1,\cdots,f_m\)，这部分计算可以与\(b_1,\cdots,b_m\)的计算并行。</p>
+<p>对于每个\(f_i\)的计算，\(f_i([\![ x]\!])=a_{i,j}[\![ x]\!]^j+\cdots+a_{i,1}[\![ x]\!]+a_{i,0}\), 其中\(a_{i,l}\)是公开常数。当多项式次数\(j=0\)时，计算\(b_if_i([\![ x]\!])\)的计算可优化为计算\(a_{i,0}[\![ b_i]\!]^B\)。当\(f_i\)系数是整数时，可以本地计算\([\![ x]\!]^l,a_{i,l}[\![ x]\!]^l\)。当\(f_i\)系数是非零小数时，需要先进行截断。给定\([\![ x]\!]\)，只需计算一次\([\![ x]\!]^j,\cdots,[\![ x]\!]^2\)，用于\(f_1,\cdots,f_m\)，这部分计算可以与\(b_1,\cdots,b_m\)的计算并行。</p>
 <p>常见的非线性激活函数计算方式如下：</p>
 <ul>
 <li>
@@ -161,7 +143,7 @@ f_m(x), &amp;c_{m-1}\leq x
 </ul>
 <h2><a id="%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>逻辑回归</h2>
 <p>逻辑回归的安全训练关键在于每轮更新权重如下：</p>
-\[\mathbf{w}:=\mathbf{w}-\alpha\frac{1}{\beta}\mathbf X_j^T\times(f(\mathbf{X}_j\times\mathbf w)-\mathbf{Y}_j)\tag{1}
+\[\mathbf{w}:=\mathbf{w}-\alpha\frac{1}{\beta}\mathbf X_j^T\times(f(\mathbf{X}_j\times\mathbf w)-\mathbf{Y}_j)
 \]
 <p>其中，\(f\)是Sigmoid函数的分段函数近似。</p>
 <p>若进行安全预测，则只需计算\(f(\mathbf{X}\times \mathbf w)\)；若进行安全训练，参考SecureML的相关步骤，具体算法总结如下：</p>
@@ -186,306 +168,6 @@ f_m(x), &amp;c_{m-1}\leq x
 <p>[1] P. Mohassel and P. Rindal, “ABY3: A mixed protocol framework for machine learning,” in ACM CCS 2018, D. Lie, M. Mannan, M. Backes, and X. Wang, Eds. ACM Press, Oct. 2018, pp. 35–52.</p>
 <p>[2] P. Mohassel, M. Rosulek, and Y. Zhang. Fast and secure three-party computation: The garbled circuit approach. pages 591–602. 2015.</p>
 <p>[3] P. Mohassel and Y. Zhang. Secureml: A system for scalable privacy-preserving machine learning. In 2017 IEEE Symposium on Security and Privacy, SP 2017, San Jose, CA, USA, May 22-26, 2017, pages 19–38. IEEE Computer Society, 2017.</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tetrad: Actively Secure 4PC for Secure Training and Inference]]></title>
-    <link href="https://weiviming.github.io/16553844634309.html"/>
-    <updated>2022-06-16T21:01:03+08:00</updated>
-    <id>https://weiviming.github.io/16553844634309.html</id>
-    <content type="html"><![CDATA[
-<blockquote>
-<p>今天给大家带来的是发表于NDSS'22上的一篇文章 Tetrad: Actively Secure 4PC for Secure Training and Inference, 原文链接: <a href="https://arxiv.org/pdf/2106.02850.pdf">https://arxiv.org/pdf/2106.02850.pdf</a></p>
-</blockquote>
-<h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
-<p>本文在诚实大多数假设下提出了一个环上抵抗1个恶意敌手的四方计算框架Tetrad, 所提出的两种变体Tetrad, Tetrad-R可以分别达到公平性(Fairness)和输出可达性(Guaranteed output delivery, GOD)/鲁棒性(Robustness). Tetard通过改进Trident的方案实现Fairness, 实现Fairness的乘法协议只需通信5个环元素. 而Tetrad-R实现GOD几乎是免费的, 通过改进SWIFT和Fantastic Four的方案实现GOD. 这两种变体的其他亮点有: (a)无开销的概率截断; (b)多输入乘法协议; (c)通过专用的混淆电路, 支持算术/布尔计算域之间的相互转换, 可同时用于安全训练和安全推理. 实验部分, 在LeNet, VGG16等DNN中进行了性能测试, 发现Tetrad在ML训练速度提高了6倍, 在ML推理中速度提高了5倍. Tetrad在实际部署中所需的货币成本也比Trident低6倍.</p>
-<h3><a id="main-contributions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main Contributions</h3>
-<p>与Trident相比, Tetrad的公平乘法协议只需通信5个环元素(Trident需要6个), 而鲁棒乘法协议的实现在均摊意义下几乎是免费的(在二次幂环\(\mathbb Z_{2^{64}}\), 统计安全参数为\(40\)的情况下, 计算一个包含\(2^{20}\)个乘法的电路, 平均每个乘法仅需通信0.027bits). Tetrad的其他亮点包括:</p>
-<ol>
-<li>通过并行化来支持按需计算, 这在依赖于函数的预处理模型中通常是不可能的;</li>
-<li>首次在公平性和输出可达性的前提下实现无开销的概率截断;</li>
-<li>可以一个在线通信轮次内计算3输入和4输入的乘法, 与2输入乘法相同, 而以往的方案需要两个轮次;</li>
-<li>大多数基于MPC的PPML框架中的大部分计算都在算术世界和布尔世界中完成的, 而混淆世界仅用于在算术/布尔世界中代价高昂的非线性算子的计算(如SoftMax), 然后需要将混淆输出再转换回其他两个世界, 为了进一步优化这个过程, 本文提出了4PC混合协议框架, 可在计算域与专用的基于混淆电路的端到端转换协议, 使混淆世界的输出直接变为其他世界的输出, 从而减少所需的通信量和轮数.</li>
-</ol>
-<p>本文与其他现有的3PC, 4PC主动安全的框架对比如下:</p>
-<img src="media/16553844634309/16553848135376.png" alt="image-20220406200000091" style="zoom:50%;" />
-<h2><a id="preliminaries-and-definitions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preliminaries and Definitions</h2>
-<p>服务器代理模式, 四方诚实大多数假设下的安全外包计算, 静态主动敌手至多腐化1个服务器(服务器即为MPC协议的参与方). 参与方之间共享一次分享密钥用于非交互地生成相关随机性.</p>
-<ol>
-<li>
-<p>安全训练: 数据所有者将数据通过秘密共享外包给服务器, 由服务器进行MPC训练模型, 最后向数据所有者重构经过训练的模型.</p>
-</li>
-<li>
-<p>安全推理: 模型所有者在服务器之间秘密共享一个预先训练的模型, 客户端在服务器之间秘密共享其查询, 服务器通过MPC进行安全推理, 并将输出重构给客户端.</p>
-</li>
-</ol>
-<p>所涉及的计算域为算术环和布尔环\(\mathbb Z_{2^{\ell}}=\mathbb Z_{2^{64}}\), \(\mathbb Z_2\). 所有浮点数都表示为\(\ell=64\)比特定点数, 精度\(x=13\)比特, 整数部分为\(\ell-x-1=40\)比特.</p>
-<h3><a id="sharing-semantics" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sharing Semantics</h3>
-<p>本文中根据实际参与方的不同, 使用了四种分享语义: 两方下的ASS\([\cdot]\), 三方下的ASS\((\cdot)\), 三方下的RSS\(\langle \cdot\rangle\)和四方下的RSS+mask\([[\cdot]]\). 秘密\(v\in\mathbb Z_{2^\ell}\)在\((4,1)\)RSS下的其中三个份额\(\lambda_v^1,\lambda_v^2,\lambda_v^3\)可以在预处理阶段生成, 而第四个份额取决于\(v\)的值, 因此由在线阶段生成. \(\lambda_v=\lambda_v^1+\lambda_v^2+\lambda_v^3\)作为掩码, 掩盖值为\(m_v=v+\lambda_v\). Tetrad中的\(v\)的不同秘密共享语义下参与方拥有的份额可表示为下表, 其中\(v=v_1+v_2(+v_3)\), \(v=m_v+\lambda_v\). 使用的三种中间分享语义\([\cdot],(\cdot),\langle\cdot\rangle\)都是线性的, 因此线性算子的安全计算是不需要交互的. 将四方分成两个集合: 计算集合\(\mathcal E=\{P_1,P_2\}\), 这里的参与方被分配了计算任务, 在整个在线阶段中都是活动的; 帮助集合\(\mathcal D=\{P_0,P_3\}\)用于辅助\(\mathcal E\)进行验证, 只在计算接近尾声的阶段才活动.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center"></th>
-<th style="text-align: center">\(P_0\)</th>
-<th style="text-align: center">\(P_1\)</th>
-<th style="text-align: center">\(P_2\)</th>
-<th style="text-align: center">\(P_3\)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center">\([\cdot]\)-sharing</td>
-<td style="text-align: center">—</td>
-<td style="text-align: center">\(v^1\)</td>
-<td style="text-align: center">\(v^2\)</td>
-<td style="text-align: center">—</td>
-</tr>
-<tr>
-<td style="text-align: center">\((\cdot)\)-sharing</td>
-<td style="text-align: center">—</td>
-<td style="text-align: center">\(v^1\)</td>
-<td style="text-align: center">\(v^2\)</td>
-<td style="text-align: center">\(v^3\)</td>
-</tr>
-<tr>
-<td style="text-align: center">\(\langle\cdot\rangle\)-sharing</td>
-<td style="text-align: center">—</td>
-<td style="text-align: center">\((v^1,v^3)\)</td>
-<td style="text-align: center">\((v^2,v^3)\)</td>
-<td style="text-align: center">\((v^1,v^2)\)</td>
-</tr>
-<tr>
-<td style="text-align: center">\([[\cdot]]\)-sharing</td>
-<td style="text-align: center">\((\lambda_v^1,\lambda_v^2,\lambda_v^3)\)</td>
-<td style="text-align: center">\((m_v,\lambda_v^1,\lambda_v^3)\)</td>
-<td style="text-align: center">\((m_v,\lambda_v^2,\lambda_v^3)\)</td>
-<td style="text-align: center">\((m_v,\lambda_v^2,\lambda_v^3)\)</td>
-</tr>
-</tbody>
-</table>
-<p>一些符号: \(\gamma_{a_1\cdots a_n}=\prod_{i=1}^n\lambda_{a_i}, m_{a_1\cdots a_n}=\prod_{i=1}^nm_{a_i}\). \([[\cdot]]^\mathbf B\)表示布尔份额, \([[\cdot]]^\mathbf G\)表示混淆份额, 没有上标表示算术份额.</p>
-<h2><a id="4pc-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4PC Protocol</h2>
-<h3><a id="primitives" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Primitives</h3>
-<ul>
-<li>
-<p>Joint-Send/jsnd: 允许\(P_i,P_j\)将信息转发给\(P_k\)进行验证, 当传递的信息不一致时输出\(\mathtt{abort}\). 具体做法是, \(P_i\)发送\(v\), \(P_j\)发送\(\mathsf H(v)\), \(P_k\)使用Hash验证\(v\)的结果是否为\(P_j\)发送的信息\(\mathsf H(v)\), 若一致则接受, 否则发出中止信号\(\mathtt{abort}\). 为均摊开销, Hash的结果可以在协议结束后将信息组合在一起发送一次来均摊通信开销.</p>
-</li>
-<li>
-<p>Joint-Send for robust protocols: 为实现鲁棒性, Tetrad同时借鉴了Fantastic Four和SWIFT的做法: 当\(P_k\)发现信息不一致时, 会建立一个至多有两方的参与方集合, 其中必有一个参与方是被敌手腐化的, 这意味着剩下的两方都是诚实的, 因此让其中一方作为TTP(\(\mathsf P_\mathsf{TP}\)​)进行相关明文计算.  jsnd包含两个阶段: 发送阶段(send)和验证阶段(verify). 验证阶段只在协议结束后执行一次以均摊通信开销. 具体协议过程如下, 均摊的通信开销为\(\ell\)比特, 2轮.</p>
-</li>
-</ul>
-<img src="media/16553844634309/16553848135395.png" alt="image-20220407110842191" style="zoom:50%;" />
-<ul>
-<li>Sharing: \(\Pi_\mathsf{Sh}\)协议允许\(P_i\)生成\(v\)的\([[\cdot]]\)份额. 具体协议见图1, 当参与方发现接收到的信息不一致时, 根据公平性和鲁棒性的要求, 具体处理方式略有不同, 参与方输出\(\mathtt{abort}\)以实现公平性, 参与方使用一个默认值以实现鲁棒性. 在线阶段均摊通信开销: 至多\(3\ell\)比特, 1轮.</li>
-</ul>
-<img src="media/16553844634309/16553848135426.png" alt="image-20220126210603681" style="zoom: 50%;" />
-<ul>
-<li>
-<p>Joint Sharing: \(\Pi_\mathsf{JSh}\)协议允许\(P_i,P_j\)联合生成\(v\)的\([[\cdot]]\)份额, 与\(\Pi_\mathsf{Sh}\)不同的是, 在线阶段的最后部分需要调用jsnd发送\(m_v\)给\(P_1,P_2,P_3\). 特别地, 若\(P_0\)与另一方联合生成\(v\)的\([[\cdot]]\)份额, 则可以进一步优化通信, 具体来说,</p>
-<ul>
-<li>\((P_0,P_1)\):  \(\mathcal P\backslash\{P_2\}\)选取\(\lambda_v^1\in_R\mathbb Z_{2^\ell}\); 令\(\lambda_v^2=m_v=0\); \(P_0,P_1\)调用jsnd发送\(\lambda_v^3=-v-\lambda_v^1\)给\(P_2\).</li>
-<li>\((P_0,P_2)\):  \(\mathcal P\backslash\{P_3\}\)选取\(\lambda_v^3\in_R\mathbb Z_{2^\ell}\); 令\(\lambda_v^1=m_v=0\); \(P_0,P_2\)调用jsnd发送\(\lambda_v^2=-v-\lambda_v^3\)给\(P_3\).</li>
-<li>\((P_0,P_3)\):  \(\mathcal P\backslash\{P_1\}\)选取\(\lambda_v^2\in_R\mathbb Z_{2^\ell}\); 令\(\lambda_v^3=m_v=0\); \(P_0,P_3\)调用jsnd发送\(\lambda_v^1=-v-\lambda_v^2\)给\(P_1\).</li>
-</ul>
-</li>
-<li>
-<p>Reconstruction: \(\Pi_\mathsf{Rec}\)协议输入\([[v]]\), 参与方得到\(v\). 因为一个参与方缺失的份额都由其余三方持有, 三方中任意两方通过jsnd发送所需份额即可重构秘密\(v\). 具体协议过程如下, 在线阶段均摊通信开销为\(4\ell\)比特, 1轮.</p>
-</li>
-</ul>
-<img src="media/16553844634309/16553848135456.png" alt="image-20220407111530823" style="zoom:50%;" />
-<ul>
-<li>
-<p>\(\mathcal{F}_\mathsf{zero}\) - 生成0的ASS份额(Zero sharing): 对于\(i\in\{1,2,3\}\), 使\(P_0,P_i\)得到\(Z_i\), 满足\(Z_1+Z_2+Z_3=0\). 与ABY3一样, 可以通过预分享密钥结合PRF来生成. 对\(j\in\{1,2,3\}\), \(\mathcal P\backslash\{P_j\}\)通过预分享密钥和PRF选取随机\(r_j\), 份额定义为\(Z_1=r_3-r_2\), \(Z_2=r_1-r_3\), \(Z_3=r_2-r_1\).</p>
-</li>
-<li>
-<p>Multiplication \(\Pi_\mathsf{MulR}\): 给定\(\langle a\rangle,\langle b\rangle\), 生成\(\langle z\rangle\), 其中\(z=xy\), \(P_0\)有明文的\(a,b\). 原理与ABY3中的RSS乘法一致, 结合zero sharing即可计算, 而resharing则通过调用jsnd来实现. 协议过程如下:</p>
-</li>
-</ul>
-<img src="media/16553844634309/16553848135485.png" alt="image-20220404205938015" style="zoom:50%;" />
-<h3><a id="multiplication-in-tetrad" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiplication in Tetrad</h3>
-<p>给定\(a,b\)的份额\([[a]],[[b]]\), 计算\(z=ab\)的份额\([[z]]\). 协议设计使得\(P_0,P_3\)在预处理阶段得到\(r\)的茫化值\(r\), \(P_1,P_2\)在在线阶段得到\(z\)的茫化值\(z-r\), 然后参与方通过执行\(\Pi_\mathsf{Jsh}\)生成这些值的\([[\cdot]]\)份额, 最后本地计算\([[z-r]]+[[r]]\)得到输出.</p>
-<p>(1) 在线阶段: 因为</p>
-\[\begin{aligned}
-z-r&amp;=ab-r=(m_a-\lambda_a)(m_b-\lambda_b)-r\\
-&amp;=m_{ab}-m_a\lambda_b-m_b\lambda_a+\gamma_{ab}-r.
-\end{aligned}\tag{1}
-\]
-<p>在等式\((1)\)中, \(P_1,P_2\)可以本地计算\(m_{ab}\), 关键在于如何计算\(y=(z-r)-m_{ab}=-m_a\lambda_{b}-m_b\lambda_a+\gamma_{ab}-r\). 设\(y=y_1+y_2+y_3\), 其中\(y_1,y_2\)由\(P_1,P_2\)分别计算, 而\(y_3\)由\(P_1,P_2\)共同计算如下:</p>
-\[\begin{aligned}
-P_1&amp;:y_1=-\lambda_{a}^1m_b-\lambda_{b}^1m_a+[\gamma_{ab}-r]_1\\
-P_2&amp;:y_2=-\lambda_{a}^2m_b-\lambda_{b}^2m_a+[\gamma_{ab}-r]_2\\
-P_1,P_2&amp;:y_3=-\lambda_{a}^3m_b-\lambda_{b}^3m_a.
-\end{aligned}\tag{2}
-\]
-<p>预处理阶段使得\(P_1,P_2\)收到\(\gamma_{ab}-r\)的\([\cdot]\)份额. \(P_1,P_2\)互相交换缺失的份额重构\(y\), 随后可以重构\(z-r\).</p>
-<p>(2) 验证阶段: 为了确保在线阶段交换的值的正确性, 为此可以通过\(P_3\)来辅助验证. 具体而言, 让\(P_3\)得到\(y_1+y_2+s\), 其中\(s\)是\(P_0,P_1,P_2\)都已知的随机掩码. 为此, \(P_3\)需要在预处理阶段得到\(\gamma_{xy}+s\). 这里的掩码\(s\)用于茫化\(\gamma_{ab}\)防止泄漏给\(P_3\). \(P_3\)计算\(\mathcal H(y_1+y_2+s)\)并发送给\(P_1,P_2\), 若不一致则输出\(\mathtt{abort}\).</p>
-<p>(3) 预处理阶段: 参与方需要在预处理阶段得到如下值: (i) \(P_1,P_2\)需得到\([\gamma_{ab}-r]\); (ii) \(P_0,P_3\)需得到\(r\); (iii) \(P_3\)需得到\(\gamma_{ab}+s\).</p>
-<p>对于(i)和(ii), 令\(\gamma_{ab}=\gamma_{ab}^1+\gamma_{ab}^2+\gamma_{ab}^3\), 其中\(P_0\)和\(P_i\)可计算\(\gamma_{ab}^i\). 对\(P_1,P_2\), 为了组成\((\gamma_{ab}-r)\)的加法份额, 定义\(\gamma_{ab}-r=\gamma_{ab}^1+\gamma_{ab}^2+[\gamma_{ab}^3-r]\). 此时\(P_0,P_3\)不随机选取\(r\), 而是让\(P_0,P_3\)先连同\(P_j\)选取\(\gamma_{ab}^3-r\)的份额\(u^j\), \(j\in\{1,2\}\), 然后\(P_0,P_3\)计算\(r=\gamma_{ab}^3-u^1-u^2\). 注意到如此计算的\(r\)仍是均匀随机的, 因为\(u^1,u^2\)的选取是均匀随机的.</p>
-<p>对于(iii), \(P_3\)需要得到\(w=\gamma_{ab}^1+\gamma_{ab}^2+s\). 为此, \(P_0,P_1,P_2\)选取\(s_1,s_2\), 并设\(s=s_1+s_2\). 对\(i\in\{1,2\}\), \(P_0,P_i\)调用jsnd发送\(\gamma_{ab}^i+s_i\)给\(P_3\), 这需要通信2个元素. 作为优化, 可让\(P_0\)发送\(w\)给\(P_3\). 若\(P_0\)是恶意的, 则可能发送错误的\(w\)给\(P_3\). 然而, 在这种情况下, 在线阶段\(P_1,P_2,P_3\)都将是诚实方, 因为\(P_1,P_2\)在计算中不需要\(w\), 而错误的\(w\)在验证阶段会被发现.</p>
-<p>(4) 截断: 设需要截断的值为\(z\), 本文中的方法与ABY3的方法类似, 只是在本文的秘密共享语义下无需额外的通信开销. 在ABY3中, 首先预处理阶段生成截断对\((r,r^t)\), 其中\(r^t\)是随机值\(r\)截断后的结果. 然后在在线阶段重构\(z-r\), 并计算\(z^t=(z-r)^t+r^t\). 本文中的处理方式如下: \(P_1,P_2\)在在线阶段本地截断\((z-r)\), 并生成\([[(z-r)^t]]\). 类似地, \(P_0,P_3\)在预处理阶段截断\(r\)并生成\([[r^t]]\). 最后本地计算\([[z^t]]=[[(z-r)^t]]+[[r^t]]\).</p>
-<p>(5) 标量积: 本地计算, 给定常数\(\alpha\)和\([[v]]\), 计算\(\alpha v=\beta^1+\beta^2\), 其中\(\beta^1=\alpha(m_v-\lambda^3_v)\), \(\beta^2=\alpha(-\lambda_v^1-\lambda^2_v)\). 然而, 在定点表示形式下, 输出需要进行截断. 为此, \(P_1,P_2\)截断\(\beta^1\)并执行\(\Pi_\mathsf{JSh}\), \(P_0,P_3\)截断\(\beta^2\)并执行\(\Pi_\mathsf{JSh}\)即可.</p>
-<p>完整的乘法协议过程如下, 实现公平性预处理阶段需要\(2\ell\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮. 实现鲁棒性预处理阶段需要\(2\ell\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
-<img src="media/16553844634309/16553848135520.png" alt="image-20220405095527234" style="zoom:50%;" />
-<h3><a id="achieving-fairness" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achieving Fairness</h3>
-<p>Tetrad实现公平性的思路与Trident相同. 输出重构之前, 需要确保在验证阶段过后所有诚实方都没有中止协议(alive). 为此, 所有参与方维护一个比特(aliveness bit)\(b\), 初始化为\(b=\mathtt{continue}\). 若验证阶段某个参与方验证失败, 则设定\(b=\mathtt{abort}\). 重构的第一轮, 参与方互相交换他们的\(b\), 并接受其中占大多数的那个值. 因为仅有一个腐化方, 因此可以保证所有诚实方的\(b\)都一致. 若\(b=\mathtt{continue}\), 则参与方互相交换他们所缺失的份额并接受其中占大多数的那个值. 作为优化, 可让两方发送重构所需的份额, 而第三方发送该份额对应的哈希值检验一致性.</p>
-<h3><a id="achieving-robustness" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achieving Robustness</h3>
-<p>为了将安全性扩展到鲁棒性的Tetrad-R, 需要额外对乘法的预处理阶段进行验证. 此外, 重构协议与实现公平性的类似, 只是不需要再进行aliveness check, 因为恶意行为将导致识别出一个诚实方\(P_\mathsf{TP}\)进行明文计算.</p>
-<p>乘法协议\(\Pi_\mathsf{Mult}\)修改如下: 首先将\(\Pi_\mathsf{JSh}\)替换为鲁棒版本, 这确保了传递的信息的正确性, 或者识别出一个参与方集合, 其中一方是腐化方. 接下来, 为了确保预处理阶段\(P_0\)发送的\(w\)的正确性, 引入下图4的协议\(\Pi_\mathsf{VrfyP0}\). 若该协议失败, 则参与方在预处理阶段识别出一个诚实方\(P_\mathsf{TP}\). 最后, 在线阶段若出现\(\mathtt{abort}\)的情况, 则\(P_0\)将被认定为\(P_\mathsf{TP}\). 因为\(P_0\)不参与乘法在线阶段的计算, 且预处理阶段的发送的信息可通过\(\Pi_\mathsf{VrfyP0}\)验证, 因此这样做是安全的.</p>
-<p>现在说明在预处理阶段如何验证\(P_0\)的发送的信息\(w\)的正确性. 在乘法协议\(\Pi_\mathsf{Mult}\)中, \(P_0\)计算并发送\(w=\gamma_{ab}^1+\gamma_{ab}^2+s_1+s_2\)给\(P_3\), 其中\(P_0,P_1,P_2\)已知明文的\(s_1,s_2\). 注意到对\(w^1=\gamma_{ab}^1+s_1\)和\(w^2=\gamma_{ab}^2+s_2\), \(w=w^1+w^2\). \(P_0\)连同\(P_1,P_2,P_3\)分别拥有\(w^1,w^2\)和\(w\). 所以, 检验\(w\)的正确性, 可简化为验证\(w\overset{?}{=}w^1+w^2\)是否成立. 为了对所有\(M\)个乘法电路门验证这条关系, 即\(\{w_j\overset{?}{=}w_j^1+w_j^2\}_{j\in[M]}\), 一种方式是计算随机线性组合并验证总和的关系式. 当在\(\mathbb{F}_p\)上计算时, 这种方案有$1/|\mathbb F_p|$的错误概率, 其中$|\mathbb F_p|$是\(\mathbb F_p\)的大小. 然而, 这种方案不能直接在环上进行, 因为环上并非所有的元都有逆元. 具体而言, 恶意行为可通过检验的概率至多为\(1/2\). 为了降低恶意行为通过检验的概率, 可将检验重复\(\kappa\)次, 从而将概率降为\(1/2^\kappa\). 作为优化, 可选取\(\{0,1\}\)的随机组合验证. 如此, 对于一次检验, 参与方只需要使用预分享密钥选取\(M\)比特的二进制字符串. 完整的验证协议如下:</p>
-<img src="media/16553844634309/16553848145181.png" alt="image-20220405151225897" style="zoom:50%;" />
-<p>若在预处理阶段生成了\(\mathtt{abort}\)信号, 则鲁棒协议还可以进一步优化. 具体来说, 中止信号要么来自jsnd的验证阶段, 要么来自\(\Pi_\mathsf{VrfyP0}\)的输出. 当检测到恶意行为时, 发现腐化方的方法是: 参与方首先广播他们在密钥设置阶段建立的预分享密钥, 然后重新计算所有预处理数据并验证所传输的数据来找出腐化方. 这里泄漏预分享密钥不会泄漏输入, 因为预处理数据与输入无关. 在找出腐化方后做法与Fantastic Four相同, 将腐化方从计算中剔除, 然后执行半诚实安全的三方计算协议完成计算任务, 实现GOD.</p>
-<h3><a id="supporting-on-demand-computations" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supporting On-demand Computations</h3>
-<p>由于按需计算时底层函数是未知的, 因此无法进行预处理. 在Tetrad中, 通过将预处理阶段转移到在线阶段执行来支持按需计算, 同时仍保持相同的通信开销, 此时的在线阶段变为4PC计算. 与上面的\(\Pi_\mathsf{Mult}\)不同之处在于: 按需计算的乘法协议\(\Pi_\mathsf{Mult}^\mathsf{NoPre}\)将\(\Pi_\mathsf{Mult}\)的预处理阶段中的第1-3步直接移到在线阶段, 第4步直接移到验证阶段. 具体协议过程如下,</p>
-<img src="media/16553844634309/16553848143405.png" alt="TETRAD14" style="zoom:50%;" />
-<h2><a id="mixed-protocol-framework" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mixed Protocol Framework</h2>
-<p>在本文中, 混淆电路被用于对某些函数进行中间评估, 其中函数的输入输出均为\([[\cdot]]\)-shared或\([[\cdot]]^\mathbf G\)形式. 为此, Tetrad中设计了形式为x-Garbled-x的端到端转换, 其中x可为Arithmetic或者Boolean. 与Trident类似, 本文通过三方混淆电路方案设计了一个实现公平性的混淆世界, 并进一步扩展实现鲁棒性, 而不会增加开销. 利用混淆者诚实占大多数的性质和jsnd, 只需要半诚实的GC计算即可达到主动安全. 本文与Trident相比的结果如下, 端到端转换的在线轮次可以进一步减少到1, 但代价是并行计算中需要再传递一个额外的GC, 记此为2GC变体.</p>
-<img src="media/16553844634309/16553848142225.png" alt="image-20220520173629040" style="zoom:50%;" />
-<h3><a id="gc-for-mixed-protocol-framework" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>GC for Mixed Protocol Framework</h3>
-<p>2GC变体有两个并行执行实例, 每个执行包含3个混淆方和1个评估方. 两个独立的执行中\(P_1,P_2\)分别作为评估方, \(\Phi_1=\{P_0,P_2,P_3\}\), \(\Phi_2=\{P_0,P_1,P_3\}\)分别作为混淆方.</p>
-<p>混淆评估分为三个阶段: 输入阶段、评估阶段、输出阶段. 输入阶段为GC的每个输入传输相应的密钥给评估方. 其输入形式为\([[\cdot]]^\mathbf B\)份额. 由于在每个混淆实例中函数输入的每个份额都被两个混淆方所持有, 因此可以通过jsnd来确保传输了正确的密钥. 评估阶段包含GC传输和GC评估. 最后在输出阶段, 评估方得到编码输出.</p>
-<ul>
-<li>
-<p>输入阶段: 给定函数输入\(x\)的秘密份额形式\([[x]]^\mathbf B\), 布尔值\(m_x,\alpha_x,\lambda_x^3\), 其中\(\alpha_x=\lambda_x^1\oplus\lambda_x^2\)和\(x=m_x\oplus\alpha_x\oplus\lambda_x^3\), 作为混淆计算的新输入, 为这些值生成\([[\cdot]]^\mathbf{G}\)形式的混淆份额. \([[\cdot]]^\mathbf B\)的语义确保在每个混淆实例中有两个混淆方持有\((m_x,\alpha_x,\lambda_x^3)\). 面向份额的密钥要么调用jsnd正确地发送给了评估方, 要么检测出不一致. 这种密钥交付实质上为这三个值的每一个生成了\([[\cdot]]^\mathbf G\)-sharing, 从而让GC评估. 因此, 输入阶段的目标是对于要通过GC评估的函数的每个输入\(x\)建立组合份额\([[x]]^\mathbf C=([[m_x]]^\mathbf G,[[\alpha_x]]^\mathbf G,[[\lambda_x^3]]^\mathbf G)\). 下面先讨论\([[\cdot]]^\mathbf G\)-sharing的语义, 然后说明生成\([[\cdot]]^\mathbf C\)-sharing的步骤.</p>
-</li>
-<li>
-<p>混淆份额语义: 秘密\(v\)在\(\mathcal P\)中是\([[\cdot]]^\mathbf G\)-shared, 若\(P_i\in\{P_0,P_3\}\)拥有\([[v]]_i^\mathbf G=(K_v^{0,1},K_v^{0,2})\), \(P_1\)拥有\([[v]]_1^\mathbf G=(K_v^{v,1},K_v^{0,2})\), \(P_2\)拥有\([[v]]_2^\mathbf G=(K_v^{0,1},K_v^{v,2})\). 这里, 对\(j\in\{1,2\}\), \(K_v^{v,j}=K_v^{0,j}\oplus v\Delta^j\), \(\Delta^j\)是\(\Phi_j\)中的混淆方已知的信息, 代表最后一比特为1的全局偏移量且电路中的每根导线都相同. \(x\in\mathbb Z_2\)被称为\([[\cdot]]^\mathbf C\)-shared (compound shared), 若来自\((m_x,\alpha_x,\lambda_x^3)\)的每个值, 都通过上述\([[\cdot]]\)-shared定义. 记\([[x]]^\mathbf C=([[m_x]]^\mathbf G,[[\alpha_x]]^\mathbf G,[[\lambda_x^3]]^\mathbf G)\).</p>
-</li>
-<li>
-<p>生成\([[v]]^\mathbf G\)和\([[x]]^\mathbf C\): 下图中的协议\(\Pi_\mathsf{Sh}^\mathbf G(\mathcal P,v)\)可以生成\([[v]]^\mathbf G\), 在每个混淆实例中两个混淆方持有\(v\), 处理方式如下: 考虑第一个混淆实例, 评估方为\(P_1\), 混淆方\(P_k,P_l\)持有\(v\). \(\Phi_1\)中的混淆方生成\(\{K_v^{b,1}\}_{b\in\{0,1\}}\)代表导线\(w\)上\(b\)的密钥, 遵循free-XOR技术. \(P_k,P_l\)调用jsnd发送\(K_v^{v,1}\)给\(P_1\). 第二个混淆的实例类似处理, 最后\(\Phi_2\)中的混淆方生成\(\{K_v^{b,2}\}_{b\in\{0,1\}}\), \(P_2\)持有\(K_v^{v,2}\). 如此, \(P_s\in\mathcal P\)拥有的\([[v]]_s^\mathbf G\)定义为\([[v]]_0^\mathbf G=[[v]]_3^\mathbf G=(K_v^{0,1},K_v^{0,2})\), \([[v]]_1^\mathbf G=(K_v^{v,1},K_v^{0,2})\), \([[v]]_2^\mathbf{G}=(K_v^{0,1},K_v^{v,2})\).</p>
-<p>为了生成\([[x]]^\mathbf C\), 给定\([[x]]^\mathbf B\), 需要生成\(([[m_x]]^\mathbf G,[[\alpha_x]]^\mathbf G,[[\lambda_x^3]]^\mathbf G)\). 为此, 可以对每个\(m_x,\alpha_x,\lambda_x^3\)调用\(\Pi_\mathsf{Sh}^\mathbf G\).</p>
-</li>
-</ul>
-<img src="media/16553844634309/16553848144397.png" alt="image-20220405205838741" style="zoom:50%;" />
-<h3><a id="2gc-variant" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2GC Variant</h3>
-<h4><a id="evaluation-phase" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Evaluation phase</h4>
-<p>令所要评估的函数为\(f(x)\), 函数输入为\([[\cdot]]^\mathbf C\), 即计算\(f(m_x,\alpha_x,\lambda_x^3)\). 令\(\mathsf{GC}_j\)表示\(\Phi_j\)发送给\(P_j\in\{P_1,P_2\}\)的混淆电路. 为了减少通信轮次, 在\([[x]]^\mathbf C\)生成期间, 发送\(\mathsf{GC}_j\)的同时也进行密钥传输, 其中\(\{P_0,P_3\}\)通过jsnd发送\(\mathsf{GC}_j\)给\(P_j\). 在收到\(\mathsf{GC}\)后, 评估方对相应的混淆电路进行求值得到输出对应的密钥\(z\)的份额\([[z]]^\mathbf G\).</p>
-<h4><a id="output-phase" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Output phase</h4>
-<p>输出阶段的目标是从\([[z]]^\mathbf G\)计算并输出\(z\). 为了向\(P_j\in\{P_1,P_2\}\)重构\(z\), \(\Phi_j\)中两个混淆方发送解码信息\(p^j=\mathsf{LSB}(K_z^{0,j})\)给\(P_j\). 若收到的信息一致, 则\(P_j\)使用收到的\(p^j\)重构\(z=p^j\oplus q^j\), 其中\(q^j=\mathsf{LSB}(K_z^{z,j})\); 否则\(P_j\)中止. 为了向混淆方\(P_g\in\{P_0,P_3\}\)重构\(z\), 评估方\(P_1\)发送\(q^1=\mathsf{LSB}(K_z^{z,1})\)和\(\mathcal H=\mathsf{H}(K_z^{z,1})\)给\(P_g\), 其中\(\mathsf{H}\)是一个抗碰撞哈希函数. 若混淆方从\(P_1\)收到的\((q^1,\mathcal H)\)满足存在\(K\in\{K_z^{0,1},K_z^{1,1}\}\), 使得\(q^1=\mathsf{LSB}(K)\), 且\(\mathsf{H}(K)=\mathcal H\), 则使用\(q^1\)重构\(z=p^1\oplus q^1\); 否则混淆方中止计算. 注意由于混淆方案的可靠性, 腐化的评估方\(P_1\)不能通过发送并非输出的密钥来欺骗\(\{P_0,P_3\}\)中的混淆方. 重构是轻量级的, 对于混淆方需要单轮, 而对评估方的重构可以与密钥传输同时进行, 不会产生额外的通信轮次. 具体协议如下:</p>
-<img src="media/16553844634309/16553848150080.png" alt="image-20220521210830257" style="zoom:50%;" />
-<h4><a id="optimizations" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimizations</h4>
-<p>当部署到混合框架中时, 预处理阶段传输(通信密集的)GC, 并生成独立于输入\(x\)的\(\alpha_x,\lambda_x^3\)的\([[\cdot]]^\mathbf{G}\)份额. 因此, 在线阶段非常轻量级, 且仅需1轮生成\(x\)的\([[\cdot]]^\mathbf{G}\)份额中的\(m_x\). 由于评估是本地计算, 评估方在1轮结束时得到GC输出的\([[\cdot]]^\mathbf G\)份额.</p>
-<h4><a id="security" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Security</h4>
-<ul>
-<li>Fairness: 首先确认所有参与方都仍在参与协议, 若是, 则按图19中的协议进行公平重构计算, 但主要的不同是: 对于向评估方的重构, 所有三个混淆方发送各自解码信息给评估方. 评估方选择出现最多的值进行重构; 对于向混淆方\(P_0,P_3\)的重构, 评估方发送输出密钥的最低位及其哈希值给混淆方, 由于至少存在一个评估方是诚实的, 因此混淆方将保持一致.</li>
-<li>GOD: 与Fairness最主要的不同是, 使用了鲁棒的jsnd原语来保证当检测到恶意行为时识别出一个诚实方进行相关计算并向所有参与方输出计算结果.</li>
-</ul>
-<h3><a id="1gc-variant" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>1GC Variant</h3>
-<p>1GC变体的输入\(x=x_1\oplus x_2\oplus x_3\), 其中份额\(x_1=m_x\oplus\lambda_x^2\), \(x_2=\lambda_x^3\)和\(x_3=\lambda_x^1\), 定义\([[x]]^\mathbf B\)为\(m_x\), \(\lambda_x^1\), \(\lambda_x^2\), \(\lambda_x^3\). GC的密钥由三个混淆方\(P_0,P_2,P_3\)选取, 其中\(P_0\), \(P_3\)生产并通过jsnd发送GC给求值方\(P_1\), \(P_2\)负责辅助密钥传输. 具体来说, \(P_0\)和\(P_3\)在混淆之前, 将共同输入\(x_3\)硬编码到电路中. 如此只需要对输入\(x_1,x_2\)进行密钥传输. 混淆方\(P_0,P_2,P_3\)按照与2GC中类似的过程为输入生成密钥, 然后, \(P_2,P_3\)通过jsnd发送\(x_1\)给\(P_1\), 同时混淆方\(P_0,P_2\)通过jsnd发送\(x_2\)的密钥给\(P_1\).</p>
-<p>评估阶段和输出重构阶段和2GC变体类似, 只是1GC变体仅有一个混淆实例. 在混合协议框架中, 必须向\(P_1,P_2\)重构输出. 向\(P_1\)的重构不会产生额外的通信轮次, 因为解码信息的发送可与密钥传输同时进行. 在2GC变体中, 向\(P_2\)的重构类似于向\(P_1\)的重构, 而在1GC变体中需要额外通信一轮, 因为\(P_2\)不再是求值方.</p>
-<ul>
-<li>Fairness: 为了实现公平重构协议, 参与方首先需要进行一次aliveness check. 然后按照如下方法重构\(z\). 首先, \(P_1\)发送\(q=\mathsf{LSB}(K_z^z)\)和\(\mathcal H=\mathsf{H}(K_z^z)\)给\(P_g\in\Phi_1\). 若混淆方从\(P_1\)处收到了一致的\((q,\mathcal H)\), 满足存在\(K\in\{K_z^{0},K_z^{1}\}\), 使得\(q=\mathsf{LSB}(K)\), 且\(\mathsf{H}(K)=\mathcal H\), 则使用\(q\)计算\(z\), 并发送\(z\)给与其协作的混淆方. 否则混淆方接受从协作混淆方收到的\(z\)作为输出. 由此混淆方对输出的进一步传播可以确保所有各方都保持一致. 如果混淆方接收到输出, 则对\(P_1\)进行\(z\)的重构. 为此, 所有接收输出的混淆方将解码信息发给\(P_1\), \(P_1\)选择多数值来重构\(z\).</li>
-<li>GOD: 为实现鲁棒性, 与公平协议的主要不同如下: 首先, 需要使用鲁棒的jsnd. 其次, 在输入共享协议中, 只有混淆方\(P_0\)有\(x_1\), 腐化的\(P_0\)可能不会向\(P_1\)提供正确的密钥(作为承诺的打开信息发送). 为了确保达到鲁棒性, 如果\(P_1\)未能从\(P_0\)收到正确的密钥, 则让\(P_1\)发送不一致比特给所有参与方. 所有参与方交换该不一致比特, 并接受其中的多数值. 若所有参与方都确认了存在不一致, 则确定\(P_0,P_1\)中存在腐化方, 令\(P_2\)作为TTP进行剩下的计算. 为了确保鲁棒重构, 采用以下方法: 观察到只要\(P_1\)是诚实的, 公平的重构就提供了鲁棒性. 如果没有混淆方获得公平协议中输出, 则可以确认\(P_1\)是腐化方, 在这种情况下, 各方选取\(P_0\)作为TTP进行相关计算并重构输出实现鲁棒性.</li>
-</ul>
-<h3><a id="conversions-involving-garbled-world" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conversions involving Garbled World</h3>
-<p>假设需用GC计算函数\(f\), 输入为\(x,y\in\mathbb Z_{2^\ell}\), 输出为\(f(x,y)\). 描述的所有转换均适用于2GC变体. 对于Fairness和Robustness变体, 转换是通用的, 其中的安全性来自于底层密码原语的安全性.</p>
-<ul>
-<li>Case I: Boolean-Garbled-Boolean. GC的输入为\([[x]]^\mathbf B,[[y]]^\mathbf B\), 参与方调用\(\Pi_\mathsf{Sh}^\mathbf G\)生成\([[x]]^\mathbf C, [[y]]^\mathbf C\). 此外, 参与方\(P_0,P_3\)采样\(R\in\mathbb Z_{2^\ell}\)茫化函数输出\(f(x,y)\), 生成\([[R]]^\mathbf B\)和\([[R]]^\mathbf G\). 混淆方\(P_g\in\{P_0,P_2,P_3\}\)混淆计算\(z=f(x,y)\oplus R\)的电路, 发送GC及其解码信息给评估方\(P_1\). 如此也对评估方\(P_2\)进行类似的步骤. 经过GC评估和输出解码后, 评估方可以得到\(z=f(x,y)\oplus R\), 并调用\(\Pi_\mathsf{JSh}^\mathbf B\)生成\([[z]]^\mathbf B\). 最后参与方计算\([[f(x,y)]]^\mathbf B=[[z]]^\mathbf B\oplus[[R]]^\mathbf B\).</li>
-<li>Case II: Boolean-Garbled-Arithmetic. 与Case I类似, 除了电路计算的是\(z=f(x,y)+ R\). \(z\)的布尔份额替换为算术份额\([[z]]\), 最后计算\([[f(x,y)]]=[[z]]-[[R]]\).</li>
-<li>Case III &amp; IV: Arithmetic-Garbled-Arithmetic, Arithmetic-Garbled-Boolean. 要计算的函数\(f(x,y)\)修改为\(f'(m_x,\alpha_x,\lambda_x^3,m_y,\alpha_y,\lambda_y^3)=f(m_x-\alpha_x-\lambda_x^3,m_y-\alpha_y-\lambda_y^3)\), 其中输入\(x,y\)被替换为\(\{m_x,\alpha_x,\lambda_x^3\}\), \(\{m_y,\alpha_y,\lambda_y^3\}\), \(\alpha_x=\lambda_x^1+\lambda_x^2\)和\(\alpha_y=\lambda_y^1+\lambda_y^2\). 输入的份额可由\(\Pi_\mathsf{Sh}^\mathbf G\)生成, 其余计算步骤同Case I和Case II, 取决于输出的份额形式.</li>
-</ul>
-<p>以上2GC变体转换通信量和通信轮次与Trident的相应方案理论对比:</p>
-<img src="media/16553844634309/16553848142865.png" alt="image-20220406195314456" style="zoom:50%;" />
-<h3><a id="other-conversions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other Conversions</h3>
-<ul>
-<li>Arithmetic to Boolean (<strong>A2B</strong>): \([[v]]\rightarrow[[v]]^\mathbf B\). 因为\(v=v_1+v_2\), \(P_1,P_2\)可计算\(v_1=m_v-\lambda_v^3\), \(P_0,P_3\)可计算\(v_2=-(\lambda_v^1+\lambda_v^2)\). 因此, \([[v]]^\mathbf B=[[v_1]]^\mathbf B+[[v_2]]^\mathbf B\), 其中\([[v_2]]^\mathbf B\)可在预处理阶段生成, \([[v_1]]^\mathbf B\)可在在线阶段通过参与方执行\(\Pi_\mathsf{JSh}^\mathbf B\)生成. 完整的A2B协议过程如下:</li>
-</ul>
-<img src="media/16553844634309/16553848140996.png" alt="image-20220406093942463" style="zoom:50%;" />
-<ul>
-<li>Boolean to Arithmetic (<strong>B2A</strong>): \([[v]]^\mathbf B\rightarrow[[v]]\). 利用如下关系式</li>
-</ul>
-\[
-  v=\sum_{i=0}^{\ell-1}2^iv_i=\sum_{i=0}^{\ell-1}2^i(\lambda_{v_i}\oplus m_{v_i})=\sum_{i=0}^{\ell-1}2^i\left({m_v}_i^\mathsf R+{\lambda_v}_i^\mathsf R(1-2{m_v}_i^\mathsf R)\right).
-  
-\]
-<p>其中, \({\lambda_v}_i^\mathsf R, {m_v}_i^\mathsf R\)分别表示环\(\mathbb Z_{2^\ell}\)上的比特\({\lambda_v}_i, {m_v}_i\)的算术值. 计算中需要借助\(\Pi_\mathsf{bit2A}\)协议, 完整的B2A协议过程如下:</p>
-<img src="media/16553844634309/16553848147988.png" alt="image-20220406094209368" style="zoom:50%;" />
-<ul>
-<li>
-<p>Bit to Arithmetic (<strong>Bit2A</strong>): 给定比特\(b\)的布尔份额\([[b]]^\mathbf B\), \(\Pi_\mathsf{bit2A}\)计算其算术份额\([[b]]\). 设\(b^\mathsf R\)表示\(b\in\{0,1\}\)在算术环\(\mathbb Z_{2^\ell}\)的值, 则对于\(b=b_1\oplus b_2\), \(b^\mathsf R=(b_1^\mathsf R-b_2^\mathsf R)^2\). 令\(b_1=m_b\oplus\lambda_v^3\), \(b_2=\lambda_v^1\oplus\lambda_v^2\). 为计算\([[b]]\), 可让一对参与方执行\(\Pi_\mathsf{JSh}\)生成对应于\(b_1^\mathsf R\)和\(b_2^\mathsf R\)的算术份额, 然后调用一次\(\Pi_\mathsf{Mult}\), 输入\(x=y=b_1^\mathsf R-b_2^\mathsf R\)来计算\(b^\mathsf R\).</p>
-<p>可以通过Trident和SWIFT中的方法进一步权衡预处理阶段的通信和计算开销. 计算原理如下:</p>
-</li>
-</ul>
-\[
-  b^\mathsf R=(m_b\oplus\lambda_b)^\mathsf R=m_b^\mathsf R+\lambda_b^\mathsf R-2m_b^\mathsf R\lambda_b^\mathsf R=m_b^\mathsf R+(\lambda_b^\mathsf R)(1-2m_b^\mathsf R)
-  
-\]
-<p>具体协议过程如下, 预处理阶段需要\(3\ell+1\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
-  <img src="media/16553844634309/16553848156426.png" alt="image-20220406160848869" style="zoom:50%;" />
-<h2><a id="building-blocks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks</h2>
-<h3><a id="dot-product" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dot Product</h3>
-<p>给定长度为\(d\)的向量份额\([[\vec{\mathbf a}]],[[\vec{\mathbf b}]]\), \(\Pi_\mathsf{dotp}\)计算\([[z]]\), 使得\(z=(\vec{\mathbf a}\odot\vec{\mathbf b})^t\)(截断)或者\(z=\vec{\mathbf a}\odot\vec{\mathbf b}\)(不截断). 整体思路与SWIFT和Trident类似, 先对\(d\)个乘法项的部分份额求和, 然后进行一次通信. 此外, 矩阵乘法可以看成点积协议的扩展形式, 卷积计算可以简化为矩阵乘法计算(参考SecureNN), 因此计算方式与之类似. 完整的点积计算协议如下, 预处理阶段需要\(2\ell\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
-<img src="media/16553844634309/16553848151304.png" alt="image-20220406103954198" style="zoom:50%;" />
-<h3><a id="multi-input-multiplication" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multi-input Multiplication</h3>
-<p>多输入乘法计算的方法与ABY2.0相同. 例如, 考虑3输入乘法计算, 给定\([[a]],[[b]],[[c]]\), 计算\([[z]]\), 其中\(z=abc\). 计算原理与2输入乘法协议类似:</p>
-\[\begin{aligned}
-z-r&amp;=abc-r=(m_a-\lambda_a)(m_b-\lambda_b)(m_c-\lambda_c)-r\\
-&amp;=m_{abc}-m_{ac}\lambda_b-m_{bc}\lambda_a-m_{ab}\lambda_c+m_a\gamma_{bc}+m_b\gamma_{ac}+m_c\gamma_{ab}-\gamma_{abc}-r.
-\end{aligned}
-\]
-<p>类似于2输入乘法公平计算协议(图3), \(P_1,P_2\)需要在预处理阶段生成交叉项\(\gamma_{ab},\gamma_{ac},\gamma_{bc},\gamma_{abc}\)的加法份额, 不能本地计算的\(\gamma\)相关项可由\(P_0,P_3\)计算并分享给\(P_1,P_2\). 与\(\Pi_\mathsf{Mult}\)相比, 在线阶段的通信量不变, 但预处理阶段的通信量变为9个环元素. 完整的3输入乘法公平计算协议如下, 预处理阶段需要\(9\ell\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮. 类似地可以定义4输入乘法计算协议.</p>
-<img src="media/16553844634309/16553848148949.png" alt="Tetrad15" style="zoom:50%;" />
-<h3><a id="secure-comparison" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Comparison</h3>
-<p>给定\([[a]],[[b]]\), 比较协议计算\(a&gt;b\), 即通过\(\Pi_\mathsf{bitext}\)抽取\(v=a-b\)的最高有效位, 然后利用关系\((a&gt;b)=1\oplus\mathsf{MSB}(v)\)求解. 而\(\Pi_\mathsf{bitext}\)有两种方案:</p>
-<ul>
-<li>ABY3中通信量优化的Parallel prefix adder (PPA);</li>
-<li>ABY2.0中通信轮次优化的比特抽取电路.</li>
-</ul>
-<p>由于\(v=m_v-\lambda_v=(m_v-\lambda_v^3)+(-\lambda_v^1-\lambda_v^2)\), 在预处理阶段\(P_0,P_3\)执行\(\Pi_\mathsf{JSh}^\mathbf B(-\lambda_v^1-\lambda_v^2)\rightarrow[[-\lambda_v^1-\lambda_v^2]]^\mathbf B\), 在线阶段\(P_0,P_3\)执行\(\Pi_\mathsf{JSh}^\mathbf B(m_v-\lambda_v^3)\rightarrow[[m_v-\lambda_v^3]]^\mathbf B\).</p>
-<h3><a id="bit-injection" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bit Injection</h3>
-<p>给定比特\(b\)的布尔份额\([[b]]^\mathbf B\), \(v\in\mathbb Z_{2^\ell}\)的算术份额\([[v]]\), \(\Pi_\mathsf{bitInj}\)计算\([[bv]]\). 类似于\(\Pi_\mathsf{bit2A}\), 计算原理如下:</p>
-\[\begin{aligned}
-(bv)^\mathsf R&amp;=(m_b\oplus\lambda_b)^\mathsf R(m_v-\lambda_v)\\
-&amp;=(m_b^\mathsf R+(\lambda_b^\mathsf R)(1-2m_b^\mathsf R))(m_v-\lambda_v)\\
-&amp;=m_b^\mathsf Rm_v-m_b^\mathsf R\lambda_v+(2m_b^\mathsf R-1)((\lambda_b^\mathsf R)\lambda_v-m_v(\lambda_b^\mathsf R)).
-\end{aligned}
-\]
-<p>预处理阶段需\(6\ell+1\)比特通信量, 在线阶段需\(3\ell\)比特通信量, 1轮.</p>
-<h3><a id="oblivious-selection" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Oblivious Selection</h3>
-<p>与不经意传输类似, 给定\([[x_0]]\), \([[x_1]]\)和\([[b]]^\mathbf B\), 不经意选取协议\(\Pi_\mathsf{obv}\)可让参与方生成\(z=x_b\)的\([[\cdot]]\)份额\([[z]]\). 计算原理在于利用关系式\(z=b(x_1-x_0)+x_0\),  其中\([[b(x_1-x_0)]]\)可以通过\(\Pi_\mathsf{bitInj}\)来计算.</p>
-<h3><a id="piece-wise-polynomial" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Piece-wise Polynomial</h3>
-<p>与ABY3类似, 非线性的激活函数计算可通过分段多项式近似计算, 而分段多项式计算可看成是由一系列常数公开多项式\(f_1,\cdots,f_m\)和\(c_1&lt;\cdots&lt;c_m\)组成的, 使得</p>
-\[f(y)=
-\begin{cases}
-0,&amp;y&lt;c_1\\
-f_1,&amp;c_1\leq y&lt;c_2\\
-\cdots\\
-f_m,&amp;c_m\leq y
-\end{cases}
-\]
-<p>则有\(f(y)=\sum_{i=1}^mb_i\cdot(f_i-f_{i-1})\), 其中\(f_0=0\), \(f_m=1\), 对于\(i\in\{1,\cdots,m\}\), 若\(y\geq c_i\), 则\(b_i=1\), 否则\(b_i=0\). 因此可以通过安全比较协议和\(\Pi_\mathsf{bitInj}\)来计算. 在线阶段若对每个\(b_i\cdot(f_i-f_{i-1})\)调用\(\Pi_\mathsf{JSh}\), 则需要调用\(m\)次, 可以首先计算\(f(y)\)的加法份额, 然后调用\(\Pi_\mathsf{JSh}\)一次从而独立于\(m\)来优化通信. 具体协议过程如下, 预处理阶段需要\(m(6\ell+1)\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
-<img src="media/16553844634309/16553848148549.png" alt="image-20220406201023942" style="zoom:50%;" />
-<ul>
-<li>ReLU函数: \(\mathsf{ReLU}(v)=\begin{cases} 0,&amp; v&lt;0\\ v, &amp;0\leq v \end{cases}\)</li>
-<li>Sigmoid函数: 与SecureML一致, \(\mathsf{Sig}(v)=\begin{cases}0,&amp; v&lt;-1/2\\ v+1/2,&amp;-1/2\leq v\leq 1/2\\ 1,&amp;1/2&lt;v \end{cases}\)</li>
-</ul>
-<h3><a id="argmin-argmax" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ArgMin / ArgMax</h3>
-<p>给定长度为\(m\)的向量\(\vec{\mathbf x}=(x_1,\cdots,x_m)\)的\([[\cdot]]\)-sharing, \(\Pi_\mathsf{argmin}\)计算最小元素所在的索引, 输出长度为\(m\)的one-hot比特向量\(\vec{\mathbf b}\)的\([[\cdot]]^\mathbf B\)-shared, 其中最小元素所在索引置为1, 其余为0. 本文中使用的是Damgård等人在S&amp;P'19提出的基于二叉树的方法通过分组比较和递归的方式来计算\(\vec{\mathbf x}\)中的最小元素, 并同时更新\(\vec{\mathbf b}\). 首先将\(\vec{\mathbf b}\)的每个比特都初始化为1. 通过将\(\vec{\mathbf x}\)的元素进行分组, 逐对进行安全比较得出最小值所在位置, 并更新另一个位置的值为0. 如此递归最后只有整个向量中的最小值所在位置仍为1, 其余为0. 类似的思想可以用于\(\Pi_\mathsf{argmax}\)求最大值所在的索引. 完整的协议过程如下:</p>
-<img src="media/16553844634309/16553848149026.png" alt="image-20220406201642426" style="zoom:50%;" />
-<h2><a id="implementation-and-benchmarking" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation and Benchmarking</h2>
-<p>实验部分只针对实现公平性的方案, 不考虑鲁棒性, 因为后者使用了鲁棒的联合发送原语(jsnd)且预处理阶段最后进行一次性验证, 相比前者, 后者开销更小.</p>
-<p>实验相关基准含义如下:</p>
-<img src="media/16553844634309/16553848150574.png" alt="image-20220406205748028" style="zoom:50%;" />
-<h3><a id="ml-training" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML Training</h3>
-<img src="media/16553844634309/16553848156754.png" alt="image-20220406205916881" style="zoom:50%;" />
-<img src="media/16553844634309/16553848153745.png" alt="image-20220406205955926" style="zoom:50%;" />
-<img src="media/16553844634309/16553848153620.png" alt="image-20220406210030027" style="zoom:50%;" />
-<h3><a id="ml-inference" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML Inference</h3>
-<img src="media/16553844634309/16553848153437.png" alt="image-20220406210649109" style="zoom:50%;" />
-<img src="media/16553844634309/16553848151901.png" alt="image-20220406210716274" style="zoom:50%;" />
-<img src="media/16553844634309/16553848153998.png" alt="image-20220406212626585" style="zoom:50%;" />
-<h2><a id="conclusions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h2>
-<p>Tetrad是一个遵循离线-在线范式的主动安全的4PC机器学习框架, 分别实现了Fairness和GOD, 所使用的底层秘密共享语义和Trident框架基本相同, 主要的不同点在于四方份额分布以及在不同阶段中所起的作用, 协议设计在原理上并没有太大差别, 所构造协议的通信效率有所改进. Trident实现Fairness的核心思想则与Trident相同, 由于四方中只有一个腐化方, 因此验证阶段可以使其他诚实方达成一致的继续/中止信号. Tetrad实现GOD的核心思想结合了FALSH、SWIFT的思想, 通过Robust Joint-Send原语发现恶意行为后选出某个诚实方作为TTP进行明文计算, 此时不考虑对诚实方保持隐私, 因此Tetrad并不满足FaF安全性(Friends-and-Foes Security, CRYPTO'20).</p>
-<h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
-<p>[1] M. Byali, H. Chaudhari, A. Patra, and A. Suresh, “FLASH: Fast and robust framework for privacy-preserving machine learning,” PoPETs, vol. 2020, no. 2, pp. 459–480, Apr. 2020.</p>
-<p>[2] H. Chaudhari, R. Rachuri, and A. Suresh, “Trident: Efficient 4PC framework for privacy preserving machine learning,” in NDSS 2020. The Internet Society, Feb. 2020.</p>
-<p>[3] P. Mohassel and P. Rindal, “ABY3: A mixed protocol framework for machine learning,” in ACM CCS 2018, D. Lie, M. Mannan, M. Backes, and X. Wang, Eds. ACM Press, Oct. 2018, pp. 35–52.</p>
-<p>[4] S. Wagh, D. Gupta, and N. Chandran, “SecureNN: 3-party secure computation for neural network training,” PoPETs, vol. 2019, no. 3, pp. 26–49, Jul. 2019.</p>
-<p>[5] N. Koti, M. Pancholi, A. Patra, and A. Suresh, “SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning,” in USENIX Security’21, 2021.</p>
-<p>[6] I.Damga ̊rd,D.Escudero,T.K.Frederiksen,M.Keller,P.Scholl,and N. Volgushev, “New primitives for actively-secure MPC over rings with applications to private machine learning,” in 2019 IEEE Symposium on Security and Privacy. IEEE Computer Society Press, May 2019, pp. 1102–1120.</p>
-<p>[7] A. Patra, T. Schneider, A. Suresh, and H. Yalame, “ABY2.0: Improved Mixed-Protocol Secure Two-Party Computation,” in USENIX Security’21, 2021.</p>
-<p>[8] A. Dalskov, D. Escudero, and M. Keller, “Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security,” in USENIX Security’21, 2021.</p>
 
 ]]></content>
   </entry>
@@ -687,7 +369,7 @@ f_m,&amp;c_m\leq y
 <ul>
 <li>\([\cdot]\)-sharing: \(P_1,P_2,P_3\)三方下的加法秘密共享(ASS), \(P_i\)的份额为\([v]_{P_i}=v_i\), 满足\(v=v_1+v_2+v_3\).</li>
 <li>\(\langle\cdot\rangle\)-sharing: \(P_1,P_2,P_3\)三方下的复制秘密共享(RSS), \(P_1\)的份额为\(\langle v\rangle_{P_1}=(v_2,v_3)\), \(P_2\)的份额为\(\langle v\rangle_{P_2}=(v_3,v_1)\), \(P_3\)的份额为\(\langle v\rangle_{P_3}=(v_1,v_2)\), 满足\(v=v_1+v_2+v_3\).</li>
-<li>\([[\cdot]]\)-sharing: \(P_0,P_1,P_2,P_3\)四方下的秘密共享, 存在\(\lambda_v,m_v\in\mathbb Z_{2^\ell}\), 使得\(m_v=v+\lambda_v\), 其中\(\lambda_v\)通过\(\langle\cdot\rangle\)-sharing共享, \(P_1,P_2,P_3\)则有明文形式的\(m_v\). 最终\(P_0\)的份额为\([[v]]_{P_0}=(\lambda_{v,1},\lambda_{v,2},\lambda_{v,3})\), \(P_1\)的份额为\([[v]]_{P_1}=(m_v,\lambda_{v,2},\lambda_{v,3})\), \(P_2\)的份额为\([[v]]_{P_2}=(m_v,\lambda_{v,3},\lambda_{v,1})\), \(P_3\)的份额为\([[v]]_{P_3}=(m_v,\lambda_{v,1},\lambda_{v,2})\). 记\([[v]]=(m_v,\langle \lambda_v\rangle)\)为\(v\)的\([[\cdot]]\)份额.</li>
+<li>\([\![\cdot]\!]\)-sharing: \(P_0,P_1,P_2,P_3\)四方下的秘密共享, 存在\(\lambda_v,m_v\in\mathbb Z_{2^\ell}\), 使得\(m_v=v+\lambda_v\), 其中\(\lambda_v\)通过\(\langle\cdot\rangle\)-sharing共享, \(P_1,P_2,P_3\)则有明文形式的\(m_v\). 最终\(P_0\)的份额为\([\![v]\!]_{P_0}=(\lambda_{v,1},\lambda_{v,2},\lambda_{v,3})\), \(P_1\)的份额为\([\![v]\!]_{P_1}=(m_v,\lambda_{v,2},\lambda_{v,3})\), \(P_2\)的份额为\([\![v]\!]_{P_2}=(m_v,\lambda_{v,3},\lambda_{v,1})\), \(P_3\)的份额为\([\![v]\!]_{P_3}=(m_v,\lambda_{v,1},\lambda_{v,2})\). 记\([\![v]\!]=(m_v,\langle \lambda_v\rangle)\)为\(v\)的\([\![\cdot]\!]\)份额.</li>
 </ul>
 <p>不同秘密共享下各参与方份额总结如下:</p>
 <table>
@@ -716,7 +398,7 @@ f_m,&amp;c_m\leq y
 <td style="text-align: center">\((v_1,v_2)\)</td>
 </tr>
 <tr>
-<td style="text-align: center">\([[\cdot]]\)-sharing</td>
+<td style="text-align: center">\([\![\cdot]\!]\)-sharing</td>
 <td style="text-align: center">\((\lambda_{v,1},\lambda_{v,2},\lambda_{{v,3}})\)</td>
 <td style="text-align: center">\((m_v,\lambda_{v,2},\lambda_{v,3})\)</td>
 <td style="text-align: center">\((m_v,\lambda_{v,3},\lambda_{v,1})\)</td>
@@ -727,7 +409,7 @@ f_m,&amp;c_m\leq y
 <p>以上秘密共享方案都满足线性性, 因此计算线性算子不需要交互.</p>
 <h3><a id="building-blocks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks</h3>
 <ul>
-<li>秘密分发协议\(\Pi_\mathsf{Sh}(P_i,v)\): 允许\(P_i\)分发他拥有的秘密\(v\), 使得参与方得到\([[v]]\). 离线阶段不需要通信, 在线阶段需要1轮, \(3\ell\)比特均摊通信量. 具体协议过程如下:</li>
+<li>秘密分发协议\(\Pi_\mathsf{Sh}(P_i,v)\): 允许\(P_i\)分发他拥有的秘密\(v\), 使得参与方得到\([\![v]\!]\). 离线阶段不需要通信, 在线阶段需要1轮, \(3\ell\)比特均摊通信量. 具体协议过程如下:</li>
 </ul>
 <img src="media/16524092173945/16524092992486.png" alt="image-20220331170244609" style="zoom:50%;" />
 <ul>
@@ -735,11 +417,11 @@ f_m,&amp;c_m\leq y
 </ul>
 <img src="media/16524092173945/16524092992517.png" alt="image-20220331170943882" style="zoom:50%;" />
 <ul>
-<li>秘密重构协议\(\Pi_\mathsf{Rec}(\mathcal P,[[v]])\): 给定\([[v]]\), \(\mathcal P\)中的参与方重构\(v\). 每个参与方从另一方接收所缺失的份额并从第三方接收该缺失份额的哈希值以验证一致性. 在线阶段需要1轮, \(4\ell\)比特均摊通信量. 具体协议过程如下:</li>
+<li>秘密重构协议\(\Pi_\mathsf{Rec}(\mathcal P,[\![v]\!])\): 给定\([\![v]\!]\), \(\mathcal P\)中的参与方重构\(v\). 每个参与方从另一方接收所缺失的份额并从第三方接收该缺失份额的哈希值以验证一致性. 在线阶段需要1轮, \(4\ell\)比特均摊通信量. 具体协议过程如下:</li>
 </ul>
 <img src="media/16524092173945/16524092992546.png" alt="image-20220331171802084" style="zoom:50%;" />
 <h3><a id="states-of-4pc-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>States of 4PC Protocol</h3>
-<p>4PC协议可分为输入共享(Input Sharing)、求值(Evaluation)、输出重构(Output Reconstruction)三个阶段. 输入共享阶段主要是通过秘密分发协议\(\Pi_\mathsf{Sh}\)来执行, 输出重构阶段主要是通过秘密重构协议\(\Pi_\mathsf{Rec}\)来执行, 下面主要介绍求值阶段, 因为加法门可以本地计算, 因此这里仅介绍计算乘法门的协议\(\Pi_\mathsf{Mult}\), 即给定\([[x]], [[y]]\), 安全计算\([[z]]\), 其中\(z=xy\).</p>
+<p>4PC协议可分为输入共享(Input Sharing)、求值(Evaluation)、输出重构(Output Reconstruction)三个阶段. 输入共享阶段主要是通过秘密分发协议\(\Pi_\mathsf{Sh}\)来执行, 输出重构阶段主要是通过秘密重构协议\(\Pi_\mathsf{Rec}\)来执行, 下面主要介绍求值阶段, 因为加法门可以本地计算, 因此这里仅介绍计算乘法门的协议\(\Pi_\mathsf{Mult}\), 即给定\([\![x]\!], [\![y]\!]\), 安全计算\([\![z]\!]\), 其中\(z=xy\).</p>
 <p>离线阶段的主要任务是让\(P_1,P_2,P_3\)生成\(\gamma_{xy}=\lambda_x\lambda_y\)的RSS份额\(\langle \gamma_{xy}\rangle\). 首先\(P_1,P_2,P_3\)本地计算\([\gamma_{xy}]\), 然后通过resharing交换份额得到\(\langle \gamma_{xy}\rangle\). 在交换\(\gamma_{xy}\)的份额之前, 为防止泄漏, 参与方需要在份额上加入Zero sharing的份额. 此外, \(P_0\)辅助其他参与方验证收到的份额的正确性. 在线阶段的目标是计算\(m_z\), 因为</p>
 \[\begin{aligned}
   m_z&amp;=z+\lambda_z=xy+\lambda_z=(m_x-\lambda_x)(m_y-\lambda_y)+\lambda_z\\
@@ -757,33 +439,33 @@ f_m,&amp;c_m\leq y
 <p>对于混淆世界, 将3PC的MRZ协议(CCS'15)扩展到4PC. 在4PC下, \(P_1,P_2,P_3\)作为混淆方, \(P_0\)作为求值方. 作为优化, \(P_0\)可以只分享他的输入给\(P_1,P_2\), 而不是所有方. 对于交叉检验, \(P_1\)发送混淆电路给\(P_0\), 同时\(P_2\)发送与之相对应的哈希值给\(P_0\). 同时方案整合了Free-XOR、half-gate、fixed-key AES garbling技术. 本文提供了单比特的协议, 可以通过并行\(\ell\)次来支持\(\ell\)比特的值.</p>
 <ul>
 <li>
-<p>秘密共享语义: 对于比特\(v\), \([[v]]^\mathbf G\)被定义为\([[v]]_{P_i}^\mathbf G=K_v^0\in\{0,1\}^\kappa\), \(i\in\{1,2,3\}\), 和\([[v]]_{P_0}^\mathbf G=K_v^v=K_v^0\oplus vR\), 其中\(\kappa\)是计算安全参数, \(R\)是由\(P_1,P_2,P_3\)通过预分享随机性生成的最后一比特(最低位)为1的全局偏移量, 且\(R\)是所有\([[\cdot]]^\mathbf G\)-sharing中共有的. 容易证明, \(\mathsf{LSB}([[v]]_{P_i}^\mathbf G)\oplus\mathsf{LSB}([[v]]_{P_0}^\mathbf G)=v\). 简单起见, 当\(v\in\mathbb Z_{2^\ell}\)时, 用\([[v]]^\mathbf G\)表示\(v\)的每个比特的\([[\cdot]]^\mathbf G\)份额的集合.</p>
+<p>秘密共享语义: 对于比特\(v\), \([\![v]\!]^\mathbf G\)被定义为\([\![v]\!]_{P_i}^\mathbf G=K_v^0\in\{0,1\}^\kappa\), \(i\in\{1,2,3\}\), 和\([\![v]\!]_{P_0}^\mathbf G=K_v^v=K_v^0\oplus vR\), 其中\(\kappa\)是计算安全参数, \(R\)是由\(P_1,P_2,P_3\)通过预分享随机性生成的最后一比特(最低位)为1的全局偏移量, 且\(R\)是所有\([\![\cdot]\!]^\mathbf G\)-sharing中共有的. 容易证明, \(\mathsf{LSB}([\![v]\!]_{P_i}^\mathbf G)\oplus\mathsf{LSB}([\![v]\!]_{P_0}^\mathbf G)=v\). 简单起见, 当\(v\in\mathbb Z_{2^\ell}\)时, 用\([\![v]\!]^\mathbf G\)表示\(v\)的每个比特的\([\![\cdot]\!]^\mathbf G\)份额的集合.</p>
 </li>
 <li>
-<p>输入共享: 输入共享协议\(\Pi_\mathsf{Sh}^\mathbf{G}(P_i,v)\)使得\(P_i\)生成\([[v]]^\mathbf{G}\). 在协议中, \(P_0\)需要确保得到正确的\(K_v^v\). 为此, 需要让混淆方向\(P_0\)承诺混淆电路的密钥, 然后\(P_0\)通过交叉验证所收到的承诺来验证正确性. 具体过程如下:</p>
+<p>输入共享: 输入共享协议\(\Pi_\mathsf{Sh}^\mathbf{G}(P_i,v)\)使得\(P_i\)生成\([\![v]\!]^\mathbf{G}\). 在协议中, \(P_0\)需要确保得到正确的\(K_v^v\). 为此, 需要让混淆方向\(P_0\)承诺混淆电路的密钥, 然后\(P_0\)通过交叉验证所收到的承诺来验证正确性. 具体过程如下:</p>
 </li>
 </ul>
 <img src="media/16524092173945/16524092992677.png" alt="image-20220401113704731" style="zoom:50%;" />
-<p>若\(P_i=P_0\), 则\(P_0\)采样随机比特\(v_1\), 计算\(v_2=v\oplus v_1\), 分别发送\(v_1,v_2\)给\(P_1,P_2\). 然后参与方分别执行\(\Pi_\mathsf{Sh}^\mathbf G(P_1,v_1)\)和\(\Pi_\mathsf{Sh}^\mathbf G(P_2,v_2)\), 分别得到\([[v_1]]^\mathbf G\)和\([[v_2]]^\mathbf G\). 然后参与方通过free-XOR技术本地计算\([[v]]^\mathbf G=[[v_1]]^\mathbf G\oplus[[v_2]]^\mathbf G\). 此时承诺的密钥不需要置换, 因为\(P_0\)已知\(v_1\)和\(v_2\). 作为优化, \([[v_1]]^\mathbf G\)的计算可以转移到离线阶段.</p>
+<p>若\(P_i=P_0\), 则\(P_0\)采样随机比特\(v_1\), 计算\(v_2=v\oplus v_1\), 分别发送\(v_1,v_2\)给\(P_1,P_2\). 然后参与方分别执行\(\Pi_\mathsf{Sh}^\mathbf G(P_1,v_1)\)和\(\Pi_\mathsf{Sh}^\mathbf G(P_2,v_2)\), 分别得到\([\![v_1]\!]^\mathbf G\)和\([\![v_2]\!]^\mathbf G\). 然后参与方通过free-XOR技术本地计算\([\![v]\!]^\mathbf G=[\![v_1]\!]^\mathbf G\oplus[\![v_2]\!]^\mathbf G\). 此时承诺的密钥不需要置换, 因为\(P_0\)已知\(v_1\)和\(v_2\). 作为优化, \([\![v_1]\!]^\mathbf G\)的计算可以转移到离线阶段.</p>
 <ul>
 <li>
 <p>输出重构: 若\(P_i=P_0\), 则\(P_1,P_2\)发送他们份额的最后一比特给\(P_i\), 然后\(P_i\)验证所收到的值是否相同. 若\(P_i\)是其中一个混淆方, 则\(P_0\)发送它的份额为\(P_i\). 由于底层混淆电路的可靠性(authenticity), 腐化的\(P_0\)不能发送错误的份额给\(P_i\). 若面向\(P_i\in\{P_1,P_2,P_3\}\)有多个重构, 则\(P_0\)可以发送它份额的最后一比特连同所有相应份额的哈希值.</p>
 </li>
 <li>
-<p>基本算子: 设\(u,v\in\{0,1\}\)通过\([[\cdot]]^\mathbf G\)-sharing秘密共享, \(P_1,P_2,P_3\)持有份额\((K_u^0\oplus uR,K_v^0\oplus vR)\). 令\(c\)表示输出.</p>
+<p>基本算子: 设\(u,v\in\{0,1\}\)通过\([\![\cdot]\!]^\mathbf G\)-sharing秘密共享, \(P_1,P_2,P_3\)持有份额\((K_u^0\oplus uR,K_v^0\oplus vR)\). 令\(c\)表示输出.</p>
 <ul>
-<li>XOR: 参与方本地计算\([[c]]^\mathbf G=[[u]]^\mathbf G\oplus[[v]]^\mathbf G\);</li>
-<li>AND: 离线阶段, \(P_1,P_2,P_3\)采样随机\(K_c^0\in\{0,1\}^\kappa\), 计算\(K_c^1=K_c^0\oplus R\), 然后构造AND门的混淆表. \(P_1\)发送混淆表给\(P_0\), 同时\(P_2\)发送表的哈希值给\(P_0\). 在线阶段, \(P_0\)对电路进行求值, 得到\([[c]]_{P_0}^\mathbf G=K_c^c\). 对\(i\in\{1,2,3\}\), \(P_i\)设定\([[c]]_{P_i}^\mathbf G=K_c^0\).</li>
+<li>XOR: 参与方本地计算\([\![c]\!]^\mathbf G=[\![u]\!]^\mathbf G\oplus[\![v]\!]^\mathbf G\);</li>
+<li>AND: 离线阶段, \(P_1,P_2,P_3\)采样随机\(K_c^0\in\{0,1\}^\kappa\), 计算\(K_c^1=K_c^0\oplus R\), 然后构造AND门的混淆表. \(P_1\)发送混淆表给\(P_0\), 同时\(P_2\)发送表的哈希值给\(P_0\). 在线阶段, \(P_0\)对电路进行求值, 得到\([\![c]\!]_{P_0}^\mathbf G=K_c^c\). 对\(i\in\{1,2,3\}\), \(P_i\)设定\([\![c]\!]_{P_i}^\mathbf G=K_c^0\).</li>
 </ul>
 </li>
 </ul>
 <h3><a id="building-blocks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks</h3>
 <ul>
-<li>可验证的算术/布尔份额: 协议\(\Pi_\mathsf{vSh}\)允许\(P_i,P_j\)以可验证的方式生成\([[v]]\). 简单来说, \(P_i\)执行\(\Pi_\mathsf{Sh}(P_i,v)\), 同时\(P_j\)发送\(\mathsf{H}(m_v)\)给\(P_1,P_2,P_3\)辅助验证. 具体过程如下图7, 离线阶段不需要交互, 在线阶段需1轮, 至多\(2\ell\)比特均摊通信量. 若\(P_1,P_2,P_3\)都已知\(v\), 则可令\(\lambda_{v,1}=\lambda_{v,2}=\lambda_{v,3}=0\)和\(m_v=v\), 从而让参与方不需要交互即可生成\([[v]]\).</li>
+<li>可验证的算术/布尔份额: 协议\(\Pi_\mathsf{vSh}\)允许\(P_i,P_j\)以可验证的方式生成\([\![v]\!]\). 简单来说, \(P_i\)执行\(\Pi_\mathsf{Sh}(P_i,v)\), 同时\(P_j\)发送\(\mathsf{H}(m_v)\)给\(P_1,P_2,P_3\)辅助验证. 具体过程如下图7, 离线阶段不需要交互, 在线阶段需1轮, 至多\(2\ell\)比特均摊通信量. 若\(P_1,P_2,P_3\)都已知\(v\), 则可令\(\lambda_{v,1}=\lambda_{v,2}=\lambda_{v,3}=0\)和\(m_v=v\), 从而让参与方不需要交互即可生成\([\![v]\!]\).</li>
 </ul>
 <img src="media/16524092173945/16524092992727.png" alt="image-20220401154559068" style="zoom:50%;" />
 <ul>
-<li>可验证的Garbled Sharing: 协议\(\Pi_\mathsf{vSh}^\mathbf G(P_i,P_j,v)\)允许\(P_i,P_j\)以可验证的方式生成\([[v]]^\mathbf G\). 当\(P_i,P_j\)都是混淆方时, 其中一方可以发送密钥, 同时另一方发送相对应的哈希值以检测一致性. 若\(P_j=P_0\), 则\(P_1,P_2\)依序发送密钥的承诺给\(P_0\). 此外, \(P_i\)发送实际密钥的解承诺给\(P_0\). 具体协议过程如下图, 离线阶段不需要交互, 在线阶段需要1轮, 均摊通信量为\(\kappa\)比特.</li>
+<li>可验证的Garbled Sharing: 协议\(\Pi_\mathsf{vSh}^\mathbf G(P_i,P_j,v)\)允许\(P_i,P_j\)以可验证的方式生成\([\![v]\!]^\mathbf G\). 当\(P_i,P_j\)都是混淆方时, 其中一方可以发送密钥, 同时另一方发送相对应的哈希值以检测一致性. 若\(P_j=P_0\), 则\(P_1,P_2\)依序发送密钥的承诺给\(P_0\). 此外, \(P_i\)发送实际密钥的解承诺给\(P_0\). 具体协议过程如下图, 离线阶段不需要交互, 在线阶段需要1轮, 均摊通信量为\(\kappa\)比特.</li>
 </ul>
 <img src="media/16524092173945/16524092992779.png" alt="image-20220401163115929" style="zoom:50%;" />
 <ul>
@@ -792,7 +474,7 @@ f_m,&amp;c_m\leq y
 <img src="media/16524092173945/16524092992841.png" alt="TRIDENT9" style="zoom:50%;" />
 <h3><a id="sharing-conversions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sharing Conversions</h3>
 <ul>
-<li>Garbled to Boolean Sharing (<strong>G2B</strong>): 离线阶段, \(P_1,P_2\)首先使用预共享随机性生成随机值\(r\), 然后分别生成\([[r]]^\mathbf G,[[r]]^\mathbf B\). 此外, 他们还通信计算两比特XOR的混淆电路及其解码信息给\(P_0\). 在线阶段, \(P_0\)进行求值得到\(v\oplus r\), 并发送结果及其相应密钥的哈希值给\(P_3\). 混淆电路的可靠性保证了腐化的\(P_0\)不能发送错误的比特, 因为它无法猜中与之对应的密钥. 具体转换过程如下:</li>
+<li>Garbled to Boolean Sharing (<strong>G2B</strong>): 离线阶段, \(P_1,P_2\)首先使用预共享随机性生成随机值\(r\), 然后分别生成\([\![r]\!]^\mathbf G,[\![r]\!]^\mathbf B\). 此外, 他们还通信计算两比特XOR的混淆电路及其解码信息给\(P_0\). 在线阶段, \(P_0\)进行求值得到\(v\oplus r\), 并发送结果及其相应密钥的哈希值给\(P_3\). 混淆电路的可靠性保证了腐化的\(P_0\)不能发送错误的比特, 因为它无法猜中与之对应的密钥. 具体转换过程如下:</li>
 </ul>
 <img src="media/16524092173945/16524092992909.png" alt="image-20220401173812263" style="zoom:50%;" />
 <ul>
@@ -804,15 +486,15 @@ f_m,&amp;c_m\leq y
 </ul>
 <img src="media/16524092173945/16524093000056.png" alt="image-20220401203633114" style="zoom:50%;" />
 <ul>
-<li>Arithmetic to Garbled Sharing (<strong>A2G</strong>): 类似于B2G, \(v=(m_v-\lambda_{v,1})-(\lambda_{v,2}+\lambda_{v,3})\), 参与方调用\(\Pi_\mathsf{vSh}^\mathbf G\)可验证地生成\(x=(m_v-\lambda_{v,1})\)和\(y=(\lambda_{v,2}+\lambda_{v,3})\)的混淆份额\([[x]]^\mathbf G,[[y]]^\mathbf G\). 在线阶段, 参与方对混淆减法电路进行求值得到\(v=x-y\)的份额. 具体转换过程如下:</li>
+<li>Arithmetic to Garbled Sharing (<strong>A2G</strong>): 类似于B2G, \(v=(m_v-\lambda_{v,1})-(\lambda_{v,2}+\lambda_{v,3})\), 参与方调用\(\Pi_\mathsf{vSh}^\mathbf G\)可验证地生成\(x=(m_v-\lambda_{v,1})\)和\(y=(\lambda_{v,2}+\lambda_{v,3})\)的混淆份额\([\![x]\!]^\mathbf G,[\![y]\!]^\mathbf G\). 在线阶段, 参与方对混淆减法电路进行求值得到\(v=x-y\)的份额. 具体转换过程如下:</li>
 </ul>
 <img src="media/16524092173945/16524092993034.png" alt="TRIDENT13" style="zoom:50%;" />
 <ul>
-<li>Arithmetic to Boolean Sharing (<strong>A2B</strong>): 类似于A2G, 主要的不同之处是参与方生成\(x=(m_v-\lambda_{v,1})\)和\(y=(\lambda_{v,2}+\lambda_{v,3})\)的布尔份额\([[x]]^\mathbf B,[[y]]^\mathbf B\), 并对比布尔减法电路进行求值计算\(v=x-y\)的布尔份额\([[v]]^\mathbf B\). 具体转换过程如下:</li>
+<li>Arithmetic to Boolean Sharing (<strong>A2B</strong>): 类似于A2G, 主要的不同之处是参与方生成\(x=(m_v-\lambda_{v,1})\)和\(y=(\lambda_{v,2}+\lambda_{v,3})\)的布尔份额\([\![x]\!]^\mathbf B,[\![y]\!]^\mathbf B\), 并对比布尔减法电路进行求值计算\(v=x-y\)的布尔份额\([\![v]\!]^\mathbf B\). 具体转换过程如下:</li>
 </ul>
 <img src="media/16524092173945/16524093002671.png" alt="image-20220401214226880" style="zoom:50%;" />
 <ul>
-<li>Bit to Arithmetic Sharing (<strong>Bit2A</strong>): 计算\([[b]]^\mathbf B\rightarrow[[b]]\). 设\(u,v\)分别表示在环\(\mathbb Z_{2^\ell}\)上的比特\(\lambda_{b},m_b\). 根据\(b=m_b\oplus\lambda_b=v+u-2vu\), \(P_0\)在离线阶段生成\(\langle u \rangle\). 为了确保份额的正确性, \(P_1,P_2,P_3\)检验是否满足等式\((\lambda_b\oplus r_b)'=u+r_b'-2ur_b'\), 其中\(a'\)表示比特\(a\)在环\(\mathbb Z_{2^\ell}\)上的对应值. 通过验证后, 参与方本地转换\(\langle u\rangle\)为\([[u]]\). 在在线阶段, 参与方计算\(u\)和\(v\)的秘密份额乘积\([[uv]]\), 然后本地计算\([[b]]=[[v]]+[[u]]-2[[uv]]\). 需要注意的是当执行\(\Pi_\mathsf{Sh}(P_1,P_2,P_3,v)\)时, \(\lambda_v=0\), 所以计算乘法时不需要\(\gamma_{uv}\)的份额. 具体转换过程如下:</li>
+<li>Bit to Arithmetic Sharing (<strong>Bit2A</strong>): 计算\([\![b]\!]^\mathbf B\rightarrow[\![b]\!]\). 设\(u,v\)分别表示在环\(\mathbb Z_{2^\ell}\)上的比特\(\lambda_{b},m_b\). 根据\(b=m_b\oplus\lambda_b=v+u-2vu\), \(P_0\)在离线阶段生成\(\langle u \rangle\). 为了确保份额的正确性, \(P_1,P_2,P_3\)检验是否满足等式\((\lambda_b\oplus r_b)'=u+r_b'-2ur_b'\), 其中\(a'\)表示比特\(a\)在环\(\mathbb Z_{2^\ell}\)上的对应值. 通过验证后, 参与方本地转换\(\langle u\rangle\)为\([\![u]\!]\). 在在线阶段, 参与方计算\(u\)和\(v\)的秘密份额乘积\([\![uv]\!]\), 然后本地计算\([\![b]\!]=[\![v]\!]+[\![u]\!]-2[\![uv]\!]\). 需要注意的是当执行\(\Pi_\mathsf{Sh}(P_1,P_2,P_3,v)\)时, \(\lambda_v=0\), 所以计算乘法时不需要\(\gamma_{uv}\)的份额. 具体转换过程如下:</li>
 </ul>
 <img src="media/16524092173945/16524092993092.png" alt="TRIDENT15" style="zoom:50%;" />
 <ul>
@@ -824,8 +506,8 @@ f_m,&amp;c_m\leq y
 <img src="media/16524092173945/16524092993157.png" alt="image-20220403092405398" style="zoom:50%;" />
 <ul>
 <li>
-<p>Bit Injection (<strong>BitInj</strong>): 计算\([[b]]^\mathbf B[[v]]\rightarrow[[bv]]\). 在环\(\mathbb Z_{2^\ell}\)上, 令\(y_1=\lambda_b\), \(y_2=\lambda_b\lambda_v\). 类似地, 令\(x_0=m_bm_v\),\(x_1=m_b\),\(x_2=m_v-2m_vm_b\),\(x_3=2m_b-1\), 则\(b\cdot v=(m_b\oplus\lambda_b)(m_v-\lambda_v)=x_0-x_1y_1+x_2y_2+x_3y_3\).</p>
-<p>在离线阶段, \(P_0\)生成\(\lambda_{b}'\)和\(\lambda_b\lambda_v\), 其中\(\lambda_{b}'\)表示环\(\mathbb Z_{2^\ell}\)上的比特. 检验\(\langle\lambda_b'\rangle\)的方法与\(\Pi_\mathsf{Bit2A}\)相同, 检验\(\langle\lambda_b\lambda _v\rangle\)的方法是计算\(\Pi_\mathsf{BitInj}\). 在线阶段, 参与方通过执行\(\Pi_\mathsf{vSh}\)本地计算\([b\cdot v]\), 最后参与方本地累加份额得到\([[b\cdot v]]\). 具体转换过程如下:</p>
+<p>Bit Injection (<strong>BitInj</strong>): 计算\([\![b]\!]^\mathbf B[\![v]\!]\rightarrow[\![bv]\!]\). 在环\(\mathbb Z_{2^\ell}\)上, 令\(y_1=\lambda_b\), \(y_2=\lambda_b\lambda_v\). 类似地, 令\(x_0=m_bm_v\),\(x_1=m_b\),\(x_2=m_v-2m_vm_b\),\(x_3=2m_b-1\), 则\(b\cdot v=(m_b\oplus\lambda_b)(m_v-\lambda_v)=x_0-x_1y_1+x_2y_2+x_3y_3\).</p>
+<p>在离线阶段, \(P_0\)生成\(\lambda_{b}'\)和\(\lambda_b\lambda_v\), 其中\(\lambda_{b}'\)表示环\(\mathbb Z_{2^\ell}\)上的比特. 检验\(\langle\lambda_b'\rangle\)的方法与\(\Pi_\mathsf{Bit2A}\)相同, 检验\(\langle\lambda_b\lambda _v\rangle\)的方法是计算\(\Pi_\mathsf{BitInj}\). 在线阶段, 参与方通过执行\(\Pi_\mathsf{vSh}\)本地计算\([b\cdot v]\), 最后参与方本地累加份额得到\([\![b\cdot v]\!]\). 具体转换过程如下:</p>
 </li>
 </ul>
 <img src="media/16524092173945/16524093003347.png" alt="TRIDENT17" style="zoom:50%;" />
@@ -834,9 +516,9 @@ f_m,&amp;c_m\leq y
 <h2><a id="privacy-preserving-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Preserving Machine Learning</h2>
 <p>使用\(\mathbb Z_{2^\ell}\)上的有符号补码(signed two's compliment)来表示运算中涉及的十进制数, 其中最高位(MSB)是符号位, 最后\(d\)位表示小数部分.</p>
 <h3><a id="sharing-truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sharing Truncation</h3>
-<p>与ABY3的概率截断方法类似: 首先生成随机截断对\((r,r^t)\), 其中\(r^t\)是\(r\)的截断值, 则\(z\)的截断值\(z^t\)可以通过首先恢复\(z-r\)再截断为\((z-r)^t\), 最后加上\(r^t\)得到, 即\(z^t=(z-r)^t+r^t\). 不同之处在于本文没有使用任何布尔电路, 从而将离线阶段轮复杂度改进为常数轮. 首先参与方非交互地生成\(\langle r\rangle\), 使得\(P_0\)得到\(r\). 然后\(P_0\)生成\([[r^t]]\), \(P_1,P_2,P_3\)利用关系\(r=2^dr^t+r_d\)(带余除法)来验证\(P_0\)所生成的份额正确性, 其中\(r_d\)表示\(r\)的最后\(d\)比特. 具体份额截断协议如下:</p>
+<p>与ABY3的概率截断方法类似: 首先生成随机截断对\((r,r^t)\), 其中\(r^t\)是\(r\)的截断值, 则\(z\)的截断值\(z^t\)可以通过首先恢复\(z-r\)再截断为\((z-r)^t\), 最后加上\(r^t\)得到, 即\(z^t=(z-r)^t+r^t\). 不同之处在于本文没有使用任何布尔电路, 从而将离线阶段轮复杂度改进为常数轮. 首先参与方非交互地生成\(\langle r\rangle\), 使得\(P_0\)得到\(r\). 然后\(P_0\)生成\([\![r^t]\!]\), \(P_1,P_2,P_3\)利用关系\(r=2^dr^t+r_d\)(带余除法)来验证\(P_0\)所生成的份额正确性, 其中\(r_d\)表示\(r\)的最后\(d\)比特. 具体份额截断协议如下:</p>
 <img src="media/16524092173945/16524092993289.png" alt="TRIDENT18" style="zoom:50%;" />
-<p>正确性: 协议\(\Pi_\mathsf{MultTr}\)的离线阶段, 若腐化\(P_0\)生成了错误的\([[r^t]]\)份额, 则\(P_1,P_2,P_3\)中止.</p>
+<p>正确性: 协议\(\Pi_\mathsf{MultTr}\)的离线阶段, 若腐化\(P_0\)生成了错误的\([\![r^t]\!]\)份额, 则\(P_1,P_2,P_3\)中止.</p>
 <p>证明: 只需证明\(m_1+m_2=c\), 其中\(m_1=r_2-2^dr_2^t-r_{d,2}+c\), \(m_2=(r_1+r_3)-2^d(r_1^t+r_3^t)-(r_{d,1}+r_{d,3})\). 注意到\(r=2^dr^t+r_d\), 所以有</p>
 \[\begin{aligned}
 m_1+m_2&amp;=(r_2-2^dr_2^t-r_{d,2}+c)+((r_1+r_3)-2^d(r_1^t+r_3^t)-(r_{d,1}+r_{d,3}))\\
@@ -848,7 +530,7 @@ m_1+m_2&amp;=(r_2-2^dr_2^t-r_{d,2}+c)+((r_1+r_3)-2^d(r_1^t+r_3^t)-(r_{d,1}+r_{d,
 <p>给定\(x,y\)的算术共享份额, 计算\(x&lt;_?y\)的布尔共享份额. 在定点表示形式下, 最简单的方式是计算最高位\(\mathsf{MSB}(x-y)\). 为此可以通过构造比特抽取协议\(\Pi_\mathsf{BitExt}\)来完成. 本文中的比特抽取协议与ABY3类似. \(P_0,P_3\)离线阶段生成\(y=\lambda_{v,1}+\lambda_{v,2}\)的布尔份额, \(P_1,P_2\)在在线阶段生成\(x=m_v-\lambda_{v,3}\)的布尔份额. 然后参与方使用ABY3的优化的Parallel Prefix Adder (PPA)进行求值计算得到最高位的布尔份额.</p>
 <h3><a id="activation-functions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activation Functions</h3>
 <ul>
-<li>ReLU: \(\mathsf{relu}(v)=\mathsf{max}(0,v)=(1\oplus b)v\), 其中比特\(b=1\Leftrightarrow v&lt;0\). 因此参与方首先调用\(\Pi_\mathsf{BitExt}\)得到\([[b]]^\mathbf B\), 本地计算\([[1\oplus b]]^\mathbf B\). 最后调用\(\Pi_\mathsf{BitInj}\)计算\([[1\oplus b]]^\mathbf B\cdot[[v]]\).</li>
+<li>ReLU: \(\mathsf{relu}(v)=\mathsf{max}(0,v)=(1\oplus b)v\), 其中比特\(b=1\Leftrightarrow v&lt;0\). 因此参与方首先调用\(\Pi_\mathsf{BitExt}\)得到\([\![b]\!]^\mathbf B\), 本地计算\([\![1\oplus b]\!]^\mathbf B\). 最后调用\(\Pi_\mathsf{BitInj}\)计算\([\![1\oplus b]\!]^\mathbf B\cdot[\![v]\!]\).</li>
 <li>Sigmoid: 使用SecureML中的分段近似函数来计算Sigmoid函数. 此时\(\mathsf{sig}(v)=(1\oplus{b}_1)b_2(v+1/2)+(1\oplus{b}_2)\), 其中\(v+1/2&lt;0\Leftrightarrow b_1=1\), \(v-1/2&lt;0\Leftrightarrow b_2=1\). 类似于计算ReLU的方法进行求解, 但需要额外调用一次\(\Pi_\mathsf{BitExt}\), \(\Pi^\mathbf B_\mathsf{Mult}\)和\(\Pi_\mathsf{BitInj}\).</li>
 <li>Softmax: 使用SecureML中提出的变体来近似: \(\mathsf{smx}(u_i)=\frac{\mathsf{relu}(u_i)}{\sum_{j=1}^{n_f}\mathsf{relu}(u_j)}\). 除法则通过A2G和除法混淆电路来计算.</li>
 </ul>
@@ -1058,28 +740,28 @@ m_1+m_2&amp;=(r_2-2^dr_2^t-r_{d,2}+c)+((r_1+r_3)-2^d(r_1^t+r_3^t)-(r_{d,1}+r_{d,
 <ul>
 <li>\([\cdot]\)秘密共享: 秘密\(v\)在\(P_1\)和\(P_2\)两方下的加法秘密共享, \(P_1\)有\([v]_1\), \(P_2\)有\([v]_2\), 使得\(v=[v]_1+[v]_2\).</li>
 <li>\(\langle\cdot\rangle\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)存在\([\lambda_v]_1,[\lambda_v]_2\in\mathbb Z_{2^\ell}\), 使得\(\lambda_v=[\lambda_v]_1+[\lambda_v]_2\), (2)\(P_0\)的份额为\(([\lambda_v]_1,[\lambda_v]_2)\), \(P_1\)的份额为\(([\lambda_v]_1,v+\lambda_v)\), \(P_2\)的份额为\(([\lambda_v]_2,v+\lambda_v)\).</li>
-<li>\([[\cdot]]\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)\(v\)在\(\langle\cdot\rangle\)秘密共享, 即\(P_0\)有\(([\alpha_v]_1,[\alpha_v]_2)\), \(P_1\)有\(([\alpha_v]_1,\beta_v)\), \(P_2\)有\(([\alpha_v]_2,\beta_v)\), 其中\(\beta_v=v+\alpha_v\), \(\alpha_v=[\alpha_v]_1+[\alpha_v]_2\), (2) 存在\(\gamma_v\in\mathbb Z_{2^\ell}\), 使得\(P_1,P_2\)有\(\gamma_v\), 同时\(P_0\)有\(\beta_v+\gamma_v\).</li>
+<li>\([\![\cdot]\!]\)秘密共享: 秘密\(v\)在三方下的秘密共享, (1)\(v\)在\(\langle\cdot\rangle\)秘密共享, 即\(P_0\)有\(([\alpha_v]_1,[\alpha_v]_2)\), \(P_1\)有\(([\alpha_v]_1,\beta_v)\), \(P_2\)有\(([\alpha_v]_2,\beta_v)\), 其中\(\beta_v=v+\alpha_v\), \(\alpha_v=[\alpha_v]_1+[\alpha_v]_2\), (2) 存在\(\gamma_v\in\mathbb Z_{2^\ell}\), 使得\(P_1,P_2\)有\(\gamma_v\), 同时\(P_0\)有\(\beta_v+\gamma_v\).</li>
 </ul>
 <p>以上三种秘密共享可以总结为</p>
 <img src="media/16477900515975/16528738411288.png" alt="image-20220319195925412" style="zoom:50%;" />
 <p>由于三种秘密共享方案都是线性的, 因此加法和标量积的计算不需要交互. 此外, 容易看出任意两方通过交换对方所缺失的份额都可以重构出原始秘密\(v\).</p>
 <h2><a id="%E5%9F%BA%E6%9C%AC%E5%8D%8F%E8%AE%AE%E6%9E%84%E9%80%A0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>基本协议构造</h2>
 <h3><a id="%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密共享协议</h3>
-<p>秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\): 允许\(P_i\)生成\(v\)的\([[\cdot]]\)份额. 总体思路是预处理阶段参与方使用预共享密钥生成部分份额, 然后在线阶段参与方发送没有的份额发送给其他两方参与方以满足秘密共享语义, 通过交换接收到的份额的hash值来判断两方收到的秘密份额是否一致, 若一致, 则参与方接受该份额, 否则直接中止协议(abort), 具体协议过程如下:</p>
+<p>秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\): 允许\(P_i\)生成\(v\)的\([\![\cdot]\!]\)份额. 总体思路是预处理阶段参与方使用预共享密钥生成部分份额, 然后在线阶段参与方发送没有的份额发送给其他两方参与方以满足秘密共享语义, 通过交换接收到的份额的hash值来判断两方收到的秘密份额是否一致, 若一致, 则参与方接受该份额, 否则直接中止协议(abort), 具体协议过程如下:</p>
 <img src="media/16477900515975/16528738368607.png" alt="image-20220319200924679" style="zoom:50%;" />
 <h3><a id="%E8%81%94%E5%90%88%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>联合共享协议</h3>
-<p>联合共享协议\(\Pi_\mathsf{jsh}(P_i,P_j,v)\): 允许两个参与方\(P_i,P_j\)联合生成他们的共同秘密\(v\)的\([[\cdot]]\)份额\([[v]]\). 总体思路是\(P_i\)执行秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\)生成\([[v]]\), \(P_j\)负责验证\(P_i\)生成的份额的正确性, 即发送份额的hash值给接收方进行验证一致性. 根据两方的不同可以分为三种情况, 具体协议过程如下:</p>
+<p>联合共享协议\(\Pi_\mathsf{jsh}(P_i,P_j,v)\): 允许两个参与方\(P_i,P_j\)联合生成他们的共同秘密\(v\)的\([\![\cdot]\!]\)份额\([\![v]\!]\). 总体思路是\(P_i\)执行秘密共享协议\(\Pi_\mathsf{sh}(P_i,v)\)生成\([\![v]\!]\), \(P_j\)负责验证\(P_i\)生成的份额的正确性, 即发送份额的hash值给接收方进行验证一致性. 根据两方的不同可以分为三种情况, 具体协议过程如下:</p>
 <img src="media/16477900515975/16528738368644.png" alt="image-20220319204146055" style="zoom:50%;" />
-<p>若预处理阶段\(P_i\)和\(P_j\)都知道\(v\), 则可以不需要交互生成\([[v]]\), 具体方法是将相应份额设定为下表形式, 由于联合共享中的两方都知道秘密, 而其中至少一方是诚实的, 因此这样做是安全的.</p>
+<p>若预处理阶段\(P_i\)和\(P_j\)都知道\(v\), 则可以不需要交互生成\([\![v]\!]\), 具体方法是将相应份额设定为下表形式, 由于联合共享中的两方都知道秘密, 而其中至少一方是诚实的, 因此这样做是安全的.</p>
 <img src="media/16477900515975/16528738365192.png" alt="image-20220319205207743" style="zoom:50%;" />
 <h3><a id="%E7%A7%98%E5%AF%86%E9%87%8D%E6%9E%84%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密重构协议</h3>
-<p>秘密重构协议\(\Pi_\mathsf{rec}(\mathcal P,[[v]])\): 允许\(\mathcal P\)中的参与方从\([[v]]\)中重构秘密\(v\). 一方发送所缺失的份额给另一方, 第三方发送份额的hash值进行验证一致性, 若验证通过则可以重构秘密\(v\). 具体协议过程如下图4所示.</p>
-<p>在外包场景中, 当要向用户\(P\)重构\(v\)时, \(P_0\)发送\(([[\alpha_v]]^\mathbf A, \mathsf{H}([[\alpha_v]]^\mathbf B))\), \(P_1\)发送\((\beta_v, \mathsf{H}([[\alpha_v]]^\mathbf A))\), \(P_2\)发送\(([[\alpha_v]]^\mathbf B, \mathsf{H}(\beta_v))\), \(P\)验证相应的hash值是否匹配, 若匹配则接受, 否则中止.</p>
+<p>秘密重构协议\(\Pi_\mathsf{rec}(\mathcal P,[\![v]\!])\): 允许\(\mathcal P\)中的参与方从\([\![v]\!]\)中重构秘密\(v\). 一方发送所缺失的份额给另一方, 第三方发送份额的hash值进行验证一致性, 若验证通过则可以重构秘密\(v\). 具体协议过程如下图4所示.</p>
+<p>在外包场景中, 当要向用户\(P\)重构\(v\)时, \(P_0\)发送\(([\![\alpha_v]\!]^\mathbf A, \mathsf{H}([\![\alpha_v]\!]^\mathbf B))\), \(P_1\)发送\((\beta_v, \mathsf{H}([\![\alpha_v]\!]^\mathbf A))\), \(P_2\)发送\(([\![\alpha_v]\!]^\mathbf B, \mathsf{H}(\beta_v))\), \(P\)验证相应的hash值是否匹配, 若匹配则接受, 否则中止.</p>
 <img src="media/16477900515975/16528738386599.png" alt="image-20220319210736130" style="zoom:50%;" />
-<p>公平重构协议\(\Pi_\mathsf{frec}(\mathcal P,[[v]])\): 确保参与方\(\mathcal P\)公平地重构秘密\(v\), 这意味着当腐化方获得\(v\)时保证诚实参与方也能得到相同的\(v\). 具体实现原理与ASTRA相同, 都是通过承诺来完成, 协议过程如下:</p>
+<p>公平重构协议\(\Pi_\mathsf{frec}(\mathcal P,[\![v]\!])\): 确保参与方\(\mathcal P\)公平地重构秘密\(v\), 这意味着当腐化方获得\(v\)时保证诚实参与方也能得到相同的\(v\). 具体实现原理与ASTRA相同, 都是通过承诺来完成, 协议过程如下:</p>
 <img src="media/16477900515975/16528738377399.png" alt="frecp" style="zoom:50%;" />
 <h3><a id="%E7%A7%98%E5%AF%86%E4%B9%98%E6%B3%95%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>秘密乘法协议</h3>
-<p>秘密乘法协议\(\Pi_\mathsf{mult}(\mathcal P,[[x]],[[y]])\): 允许\(\mathcal P\)计算\(z=xy\)的秘密份额\([[z]]\).</p>
+<p>秘密乘法协议\(\Pi_\mathsf{mult}(\mathcal P,[\![x]\!],[\![y]\!])\): 允许\(\mathcal P\)计算\(z=xy\)的秘密份额\([\![z]\!]\).</p>
 <p>为此, 先介绍半诚实安全模型下的秘密乘法协议: 在预处理阶段, \(P_0, P_1\)随机选取\([\alpha_z]_1\), \(P_0,P_2\)随机选取\([\alpha_z]_2\), \(P_1,P_2\)随机选取\(\gamma_z\). 然后\(P_0\)本地计算\(\Gamma_{xy}=\alpha_x\alpha_y\)并生成它在\(P_1,P_2\)之间的\([\cdot]\)份额. 因为</p>
 \[\begin{aligned}
 \beta_z&amp;=z+\alpha_z=xy+\alpha_z=(\beta_x-\alpha_x)(\beta_y-\alpha_y)+\alpha_z\\
@@ -1115,7 +797,7 @@ de&amp;=(\gamma_x-\alpha_x)(\gamma_y-\alpha_y)=\gamma_x\gamma_y-\gamma_x\alpha_y
 <p>如此, \(\chi\)的正确性规约到验证\((d,e,f)\)是否是一个Beaver triple. 这种方案还可以解决问题1, 因为当\(P_0\)是腐化方时, 实际上生成的是\(\Gamma_{xy}+\Delta\)的份额, 如此\(de=f+\Delta\neq f\).</p>
 <p>BLAZE中的乘法协议的预处理阶段使用了[1]中提出的\(\langle\cdot\rangle\)共享的恶意安全乘法协议\(\Pi_\mathsf{mulZK}\), 具体过程协议如下:</p>
 <img src="media/16477900515975/16528738373829.png" alt="image-20220320143006197" style="zoom:50%;" />
-<p>给定\([[x]],[[y]]\), 服务器按如下方法本地计算\(\langle d\rangle,\langle e\rangle\): 在执行协议\(\Pi_\mathsf{mulZK}(\mathcal P,d,e)\)时, \(P_0\)得到\(([\lambda_f]_1,[\lambda_f]_2)\), \(P_1\)得到\(([\lambda_f]_1,f+\lambda_f)\), \(P_2\)得到\(([\lambda_f]_2,f+\lambda_f)\). 然后服务器将\([\chi]\)映射为\([\lambda_f]\), 将\(\gamma_x\gamma_y+\chi\)映射为\(f+\lambda_f\), 并按如下提取所需值为:</p>
+<p>给定\([\![x]\!],[\![y]\!]\), 服务器按如下方法本地计算\(\langle d\rangle,\langle e\rangle\): 在执行协议\(\Pi_\mathsf{mulZK}(\mathcal P,d,e)\)时, \(P_0\)得到\(([\lambda_f]_1,[\lambda_f]_2)\), \(P_1\)得到\(([\lambda_f]_1,f+\lambda_f)\), \(P_2\)得到\(([\lambda_f]_2,f+\lambda_f)\). 然后服务器将\([\chi]\)映射为\([\lambda_f]\), 将\(\gamma_x\gamma_y+\chi\)映射为\(f+\lambda_f\), 并按如下提取所需值为:</p>
 \[[\chi]_1=[\lambda_f]_1 ,\quad [\chi]_2=[\lambda_f]_2\qquad\rightarrow\qquad \chi=[\lambda_f]_1+[\lambda_f]_2
 \]
 \[\gamma_x\gamma_y+\psi=f+\lambda_f\qquad \rightarrow \qquad \psi=f+\lambda_f-\gamma_x\gamma_y
@@ -1133,22 +815,22 @@ de&amp;=(\gamma_x-\alpha_x)(\gamma_y-\alpha_y)=\gamma_x\gamma_y-\gamma_x\alpha_y
 <p>由于只规约到单个乘法三元组的验证问题, 因此与ASTRA相比, BLAZE将预处理阶段的通信开销从ASTRA的21个环元素降低到3个环元素, 进一步提升了性能. 秘密乘法协议过程如下:</p>
 <img src="media/16477900515975/16528738372292.png" alt="Mult" style="zoom:50%;" />
 <h3><a id="%E6%AF%94%E7%89%B9%E6%8A%BD%E5%8F%96%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>比特抽取协议</h3>
-<p>比特抽取协议\(\Pi_\mathsf{bitext}(\mathcal P,[[v]])\): 给定算术份额\([[v]]\), 允许\(\mathcal P\)中的参与方计算\(v\)的最高有效位(符号位)的布尔共享份额\([[\cdot]]^\mathbf B\). 本文中通过混淆电路来构造常数轮的比特抽取协议.</p>
+<p>比特抽取协议\(\Pi_\mathsf{bitext}(\mathcal P,[\![v]\!])\): 给定算术份额\([\![v]\!]\), 允许\(\mathcal P\)中的参与方计算\(v\)的最高有效位(符号位)的布尔共享份额\([\![\cdot]\!]^\mathbf B\). 本文中通过混淆电路来构造常数轮的比特抽取协议.</p>
 <p>设\(GC=(u_1,u_2,u_3,u_4,u_5)\)代表输入为\(u_1,u_2,u_3\in\mathbb Z_{2^\ell},u_4,u_5\in\{0,1\}\), 输出为\(y=\mathsf{msb}(u_1-u_2-u_3)\oplus u_4\oplus u_5\)的混淆电路. 令\(u_1=\beta_v,u_2=[\alpha_v]_1,u_3=[\alpha_v]_2\), 使得\(u_1-u_2-u_3=v\). 令\(u_4=r_1,u_5=r_2\), 其中\(r_1\)代表\(P_0\)和\(P_1\)共同选取的随机比特, \(r_2\)代表\(P_0\)和\(P_2\)共同选取的随机比特. 具体协议过程如下:</p>
 <img src="media/16477900515975/16528738372258.png" alt="image-20220320145143810" style="zoom:50%;" />
 <h3><a id="%E6%AF%94%E7%89%B9%E8%BD%AC%E6%8D%A2%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>比特转换协议</h3>
-<p>比特转换协议Bit2A\(\Pi_\mathsf{bit2A}(\mathcal P,[[b]]^\mathbf B)\): 给定单个比特\(b\)的布尔份额\([[\cdot]]^\mathbf B\), 允许\(\mathcal P\)中的参与方得到\(b\)的算术共享份额\([[b]]^\mathbf A\). 记比特\(b\)在\(\mathbb Z_{2^\ell}\)上的值为\((b)^\mathbf A\). 设计思想是基于等式</p>
+<p>比特转换协议Bit2A\(\Pi_\mathsf{bit2A}(\mathcal P,[\![b]\!]^\mathbf B)\): 给定单个比特\(b\)的布尔份额\([\![\cdot]\!]^\mathbf B\), 允许\(\mathcal P\)中的参与方得到\(b\)的算术共享份额\([\![b]\!]^\mathbf A\). 记比特\(b\)在\(\mathbb Z_{2^\ell}\)上的值为\((b)^\mathbf A\). 设计思想是基于等式</p>
 \[(b)^\mathbf A=(\beta_b\oplus\alpha_b)^\mathbf A=(\beta_b)^\mathbf A+(\alpha_b)^\mathbf A-2(\beta_b)^\mathbf A(\alpha_b)^\mathbf A.
 \]
 <p>协议的具体过程如下:</p>
 <img src="media/16477900515975/16528738380452.png" alt="image-20220320155246874" style="zoom:50%;" />
 <h3><a id="%E7%82%B9%E7%A7%AF%E8%AE%A1%E7%AE%97%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>点积计算协议</h3>
-<p>点积计算协议\(\Pi_\mathsf{dotp}(\mathcal P,\{[[x_i]],[[y_i]]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([[\vec{x}]]\)和\([[\vec y]]\), 计算\(z=\vec{x}\odot\vec{y}\)的\([[\cdot]]\)份额.</p>
+<p>点积计算协议\(\Pi_\mathsf{dotp}(\mathcal P,\{[\![x_i]\!],[\![y_i]\!]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([\![\vec{x}]\!]\)和\([\![\vec y]\!]\), 计算\(z=\vec{x}\odot\vec{y}\)的\([\![\cdot]\!]\)份额.</p>
 <p>通常做法是调用\(n\)次乘法协议\(\Pi_\mathsf{mult}\), 第\(i\)次计算\(z_i=x_i\cdot y_i\)的份额, 最后本地累加即可, 如此通信量将与向量长度\(n\)线性相关.</p>
 <p>本文对点积优化的关键在于不再分开重构每个\(\beta_z^*\)来计算\(\beta_z\), \(P_1,P_2\)本地计算\([\beta_z]=[\beta_{z_1}]+\cdots+[\beta_{z_n}]\)并重构\(\beta_z\); 此外, 对每个\(z_i\), \(P_0\)可以把所有的\(\beta_{z_i}^*\)合并为单个\(\beta_z^*\), 从而发送单个\(\beta_z^*\)给\(P_1,P_2\)进行验证. 具体来说, \(P_0\)计算\(\beta_z^*=\sum_{i=1}^n\beta_z^*\)并发送它的Hash值给\(P_1\)和\(P_2\), 然后\(P_1\)和\(P_2\)可以交叉检验它与\(\beta_z-\sum_{i=1}^n(\beta_{x_i}\cdot\beta_{y_i}-\psi_i)\)的Hash值的一致性. 具体协议过程如下:</p>
 <img src="media/16477900515975/16528738384630.png" alt="image-20220320171631561" style="zoom:50%;" />
 <h3><a id="%E5%AE%9A%E7%82%B9%E6%88%AA%E6%96%AD%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>定点截断协议</h3>
-<p>当进行秘密乘法后精度将翻倍, 为防止多次乘法后造成溢出需要对每次乘法后的秘密份额进行截断. 设定点数精度为\(d\), 本文中的截断协议设计思路同ABY3, 但主要的不同在于预处理阶段随机截断对\((r,r^d)\)的生成方法不依赖于RCA: \(P_0,P_1\)随机选取\(R_1\in\mathbb Z_{2^\ell}\), \(P_0,P_2\)随机选取\(R_2\in\mathbb Z_{2^\ell}\), 然后\(P_0\)本地计算\(r=R_1+R_2\)并截断得到\(r^d\). 注意到\(r=2^dr^d+r_d\), 其中\(r_d\)表示\(r\)的后\(d\)个比特组成的环元素, 其他位置为零. 然后, \(P_0\)执行\(\Pi_\mathsf{sh}\)生成\([[r^d]]\). 为了验证\(P_0\)分享的份额的正确性, \(P_1,P_2\)计算\(a=(r-2^dr^d-r_d)\)的\([\cdot]\)份额, 给定\(([r],[[r^d]])\), 验证\(a=0\)是否成立. 具体协议过程如下:</p>
+<p>当进行秘密乘法后精度将翻倍, 为防止多次乘法后造成溢出需要对每次乘法后的秘密份额进行截断. 设定点数精度为\(d\), 本文中的截断协议设计思路同ABY3, 但主要的不同在于预处理阶段随机截断对\((r,r^d)\)的生成方法不依赖于RCA: \(P_0,P_1\)随机选取\(R_1\in\mathbb Z_{2^\ell}\), \(P_0,P_2\)随机选取\(R_2\in\mathbb Z_{2^\ell}\), 然后\(P_0\)本地计算\(r=R_1+R_2\)并截断得到\(r^d\). 注意到\(r=2^dr^d+r_d\), 其中\(r_d\)表示\(r\)的后\(d\)个比特组成的环元素, 其他位置为零. 然后, \(P_0\)执行\(\Pi_\mathsf{sh}\)生成\([\![r^d]\!]\). 为了验证\(P_0\)分享的份额的正确性, \(P_1,P_2\)计算\(a=(r-2^dr^d-r_d)\)的\([\cdot]\)份额, 给定\(([r],[\![r^d]\!])\), 验证\(a=0\)是否成立. 具体协议过程如下:</p>
 <img src="media/16477900515975/16528738379420.png" alt="image-20220320191700465" style="zoom:50%;" />
 <p>正确性: 只需说明\(u=v\), 其中\(u=[r]_1-2^d[r^d]_1-[r_d]_1\), \(v=2^d[r^d]_2+[r_d]_2-[r]_2\). 因为</p>
 \[\begin{aligned}
@@ -1159,16 +841,16 @@ u&amp;=v.
 \end{aligned}
 \]
 <h3><a id="%E7%82%B9%E7%A7%AF%E6%88%AA%E6%96%AD%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>点积截断协议</h3>
-<p>点积截断协议\(\Pi_\mathsf{dotpt}(\mathcal P,\{[[x_i]],[[y_i]]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([[\vec{x}]]\)和\([[\vec y]]\), 计算\(z=\vec{x}\odot\vec{y}\)截断后\(z^d\)的\([[\cdot]]\)份额.</p>
-<p>预处理阶段同\(\Pi_\mathsf{dotp}\), 参与方执行\(\Pi_\mathsf{trgen}\)生成截断对\((r,r^d)\). 在线阶段, \(P_1,P_2\)本地计算\((z-r)\)的\([\cdot]\)份额, 然后\(P_1,P_2\)本地截断\((z-r)\)得到\((z-r)^d\)并通过\(\Pi_\mathsf{jsh}\)协议生成\([[\cdot]]\)份额. 最后, 参与方本地计算\([[z]]=[[(z-r)^d]]+[[r^d]]\)并进行一致性验证. 这里为了确保计算的正确性, 与上述点积计算协议不同, \(P_0\)计算的部分被改为\((z-r)^*\)而不是\(\beta_z^*\).</p>
+<p>点积截断协议\(\Pi_\mathsf{dotpt}(\mathcal P,\{[\![x_i]\!],[\![y_i]\!]\}_{i\in[n]})\): 给定长度为\(n\)的向量份额\([\![\vec{x}]\!]\)和\([\![\vec y]\!]\), 计算\(z=\vec{x}\odot\vec{y}\)截断后\(z^d\)的\([\![\cdot]\!]\)份额.</p>
+<p>预处理阶段同\(\Pi_\mathsf{dotp}\), 参与方执行\(\Pi_\mathsf{trgen}\)生成截断对\((r,r^d)\). 在线阶段, \(P_1,P_2\)本地计算\((z-r)\)的\([\cdot]\)份额, 然后\(P_1,P_2\)本地截断\((z-r)\)得到\((z-r)^d\)并通过\(\Pi_\mathsf{jsh}\)协议生成\([\![\cdot]\!]\)份额. 最后, 参与方本地计算\([\![z]\!]=[\![(z-r)^d]\!]+[\![r^d]\!]\)并进行一致性验证. 这里为了确保计算的正确性, 与上述点积计算协议不同, \(P_0\)计算的部分被改为\((z-r)^*\)而不是\(\beta_z^*\).</p>
 <p>具体协议过程如下:</p>
 <img src="media/16477900515975/16528738403047.png" alt="BLAZEdotpt" style="zoom:50%;" />
 <h3><a id="%E5%AE%89%E5%85%A8%E6%AF%94%E8%BE%83%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>安全比较协议</h3>
-<p>给定\([[x]],[[y]]\), 安全比较协议计算\((x&lt;y)\)的真值, 即需要抽取\(v=x-y\)的符号位. 为此, 首先本地计算\([[v]]=[[x]]-[[y]]\), 然后使用\(\Pi_\mathsf{bitext}([[v]])\)抽取符号位的布尔份额. 如果需要算术份额, 则再调用\(\Pi_\mathsf{bit2A}\)进行比特转换即可.</p>
+<p>给定\([\![x]\!],[\![y]\!]\), 安全比较协议计算\((x&lt;y)\)的真值, 即需要抽取\(v=x-y\)的符号位. 为此, 首先本地计算\([\![v]\!]=[\![x]\!]-[\![y]\!]\), 然后使用\(\Pi_\mathsf{bitext}([\![v]\!])\)抽取符号位的布尔份额. 如果需要算术份额, 则再调用\(\Pi_\mathsf{bit2A}\)进行比特转换即可.</p>
 <h3><a id="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>激活函数协议</h3>
 <ol>
-<li>ReLU激活函数计算协议\(\Pi_\mathsf{relu}(\mathcal P, [[v]])\): 即计算\(\mathsf{relu}(v)=\mathsf{max}(0,v)=\bar{b}\cdot v\), 其中\(b=1\)当且仅当\(v&lt;0\), \(\bar{b}\)是\(b\)的补. 首先参与方执行\(\Pi_\mathsf{bitext}([[v]])\), 得到\([[b]]^\mathbf B\), 然后参与方通过设定\(\beta_{\bar b}=1\oplus\beta_b\), 本地计算\([[\bar b]]^\mathbf B\). 接着执行\(\Pi_\mathsf{bit2A}([[b]]^\mathbf B)\)生成\([[\bar b]]\). 最后, 通过\(\Pi_\mathsf{mult}\)计算\([[\bar bv]]\).</li>
-<li>Sigmoid激活函数计算协议\(\Pi_\mathsf{sig}(\mathcal P,[[v]])\): 同SecureML分段函数近似法, 将Sigmoid函数表示为\(\mathsf{sig}(v)=\bar{b}_1b_2(v+1/2)+\bar{b}_2\), 其中, 当\(v+1/2&lt;0\)时, \(b_1=1\); 当\(v-1/2&lt;0\)时, \(b_2=1\). 具体协议过程与\(\Pi_\mathsf{relu}\)协议类似.</li>
+<li>ReLU激活函数计算协议\(\Pi_\mathsf{relu}(\mathcal P, [\![v]\!])\): 即计算\(\mathsf{relu}(v)=\mathsf{max}(0,v)=\bar{b}\cdot v\), 其中\(b=1\)当且仅当\(v&lt;0\), \(\bar{b}\)是\(b\)的补. 首先参与方执行\(\Pi_\mathsf{bitext}([\![v]\!])\), 得到\([\![b]\!]^\mathbf B\), 然后参与方通过设定\(\beta_{\bar b}=1\oplus\beta_b\), 本地计算\([\![\bar b]\!]^\mathbf B\). 接着执行\(\Pi_\mathsf{bit2A}([\![b]\!]^\mathbf B)\)生成\([\![\bar b]\!]\). 最后, 通过\(\Pi_\mathsf{mult}\)计算\([\![\bar bv]\!]\).</li>
+<li>Sigmoid激活函数计算协议\(\Pi_\mathsf{sig}(\mathcal P,[\![v]\!])\): 同SecureML分段函数近似法, 将Sigmoid函数表示为\(\mathsf{sig}(v)=\bar{b}_1b_2(v+1/2)+\bar{b}_2\), 其中, 当\(v+1/2&lt;0\)时, \(b_1=1\); 当\(v-1/2&lt;0\)时, \(b_2=1\). 具体协议过程与\(\Pi_\mathsf{relu}\)协议类似.</li>
 </ol>
 <h2><a id="%E5%AE%9E%E9%AA%8C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>实验</h2>
 <p>本文主要以预处理阶段和在线阶段的吞吐量(throughput)为不同方案的对比基准. 下面仅提供部分实验截图.</p>
@@ -1458,7 +1140,7 @@ u&amp;=v.
 <ul>
 <li>\([\cdot]\)-sharing: 两方下的加法秘密共享, 秘密\(v=[v]_1+[v]_2\), \(P_s\)持有\([v]_s\), \(s\in\{1,2\}\).</li>
 <li>\(\langle\cdot\rangle\)-sharing: 三方下的复制秘密共享, 秘密\(v=v_0+v_1+v_2\), \(P_s\)拥有\((v_s,v_{(s+1)\%3}), s\in\{0,1,2\}\).</li>
-<li>\([[\cdot]]\)-sharing: 三方下的复制秘密共享, 设秘密为\(v\), \(P_1,P_2\)分别持有\(\alpha_v\in\mathbb Z_{2^\ell}\)的\([\cdot]\)份额, 存在\(\beta_v,\gamma_v\in\mathbb Z_{2^\ell}\), \(\beta_v=v+\alpha_v\), \(P_0\)持有\(([\alpha_v]_1,[\alpha_v]_2,\beta_v+\gamma_v)\), \(P_s\)持有\(([\alpha_v]_s,\beta_v,\gamma_v)\), 其中\(s\in\{1,2\}\). 在这个分享语义中, 任意一方无法重构\(v\), 但任意两方可以.</li>
+<li>\([\![\cdot]\!]\)-sharing: 三方下的复制秘密共享, 设秘密为\(v\), \(P_1,P_2\)分别持有\(\alpha_v\in\mathbb Z_{2^\ell}\)的\([\cdot]\)份额, 存在\(\beta_v,\gamma_v\in\mathbb Z_{2^\ell}\), \(\beta_v=v+\alpha_v\), \(P_0\)持有\(([\alpha_v]_1,[\alpha_v]_2,\beta_v+\gamma_v)\), \(P_s\)持有\(([\alpha_v]_s,\beta_v,\gamma_v)\), 其中\(s\in\{1,2\}\). 在这个分享语义中, 任意一方无法重构\(v\), 但任意两方可以.</li>
 </ul>
 <p>以上三种秘密共享方案都满足线性性, 因此, 它们的加法和常量积的计算是非交互的.</p>
 <h3><a id="joint-message-passing-primitive" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joint Message Passing primitive</h3>
@@ -1468,14 +1150,14 @@ u&amp;=v.
 <p><img src="media/16449265418549/16528739158576.png" alt="SWIFT12" /></p>
 <h3><a id="3pc-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3PC Protocols</h3>
 <h4><a id="sharing-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sharing Protocol</h4>
-<p>Sharing Protocol \(\Pi_{\mathsf{sh}}\): 允许\(P_i\)生成秘密\(v\)的\([[\cdot]]\)份额. 该协议预处理阶段不需交互, 在线阶段需要2轮通信, 均摊通信量为\(2\ell\)比特.</p>
+<p>Sharing Protocol \(\Pi_{\mathsf{sh}}\): 允许\(P_i\)生成秘密\(v\)的\([\![\cdot]\!]\)份额. 该协议预处理阶段不需交互, 在线阶段需要2轮通信, 均摊通信量为\(2\ell\)比特.</p>
 <h4><a id="joint-sharing-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joint Sharing Protocol</h4>
-<p>Joint Sharing Protocol \(\Pi_{\mathsf{jsh}}\): 允许\(P_i,P_j\)联合生成它们的共同秘密\(v\)的\([[\cdot]]\)份额. 该协议预处理阶段不许交互, 在线阶段需要1轮通信, 均摊通信量为\(\ell\)比特.</p>
+<p>Joint Sharing Protocol \(\Pi_{\mathsf{jsh}}\): 允许\(P_i,P_j\)联合生成它们的共同秘密\(v\)的\([\![\cdot]\!]\)份额. 该协议预处理阶段不许交互, 在线阶段需要1轮通信, 均摊通信量为\(\ell\)比特.</p>
 <p><img src="media/16449265418549/16528739158636.png" alt="SWIFT34" /></p>
 <p>特别地, 当\(P_i,P_j\)知道预处理阶段的\(v\)时, \(\Pi_\mathsf{jsh}\)可以不需要交互: \(\mathcal P\)随机采样\(r\in\mathbb Z_{2^\ell}\), 然后本地按照表2约定他们各自的份额.</p>
 <img src="media/16449265418549/16528739182396.png" alt="image-20211230145332669" style="zoom: 33%;" />
 <h4><a id="multiplication-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiplication Protocol</h4>
-<p>Multiplication Protocol \(\Pi_\mathsf{mult}\): 给定\([[x]],[[y]]\), 允许\(\mathcal P\)计算得到\(z=xy\)的份额\([[z]]\).</p>
+<p>Multiplication Protocol \(\Pi_\mathsf{mult}\): 给定\([\![x]\!],[\![y]\!]\), 允许\(\mathcal P\)计算得到\(z=xy\)的份额\([\![z]\!]\).</p>
 <p>首先给出半诚实安全下的乘法协议(与BLAZE相同): 在预处理阶段, \(P_0,P_1\)随机选取\([\alpha_z]_1\), \(P_0,P_2\)随机选取\([\alpha_z]_2\), \(P_1,P_2\)随机选取\(\gamma_z\). \(P_0\)本地计算\(\Gamma_{xy}=\alpha_x\alpha_y\), 并为\(P_1,P_2\)生成相同的\([\cdot]\)份额. 对于\(j\in{1,2}\), 在线阶段\(P_j\)本地计算\([\beta_z]_j=(j-1)\beta_x\beta_y-\beta_x[\alpha_y]_j-\beta_y[\alpha_x]_j+[\Gamma_{xy}]_j+[\alpha_{z}]_j\), 并互相交换重构\(\beta_z\). 然后\(P_1\)发送\(\beta_z+\gamma_z\)给\(P_0\), 完成半诚实安全的协议. 协议的正确性在于如下等式</p>
 \[\begin{aligned}
 xy=z=\beta_z-\alpha_z\Rightarrow\beta_z&amp;=z+\alpha_z=xy+\alpha_z=(\beta_x-\alpha_x)(\beta_y-\alpha_y)+\alpha_z\\
@@ -1531,29 +1213,29 @@ de&amp;=(\gamma_x+\alpha_x)(\gamma_y+\alpha_y)=\gamma_x\gamma_y+\gamma_x\alpha_y
 <p>完整的乘法协议见图5. 预处理阶段的均摊通信开销为1轮, \(3\ell\)比特, 在线阶段的均摊开销为\(3\ell\)比特.</p>
 <img src="media/16449265418549/16528739184752.png" alt="image-20220101170416469" style="zoom:50%;" />
 <h4><a id="reconstruction-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reconstruction Protocol</h4>
-<p>Reconstruction Protocol \(\Pi_\mathsf{rec}\): 允许服务器鲁棒地从份额\([[v]]\)重构秘密\(v\). 重构协议主要使用了承诺. 通信轮次为1, 通信量为\(6\ell\)比特.</p>
+<p>Reconstruction Protocol \(\Pi_\mathsf{rec}\): 允许服务器鲁棒地从份额\([\![v]\!]\)重构秘密\(v\). 重构协议主要使用了承诺. 通信轮次为1, 通信量为\(6\ell\)比特.</p>
 <img src="media/16449265418549/16528739181369.png" alt="image-20220101175841125" style="zoom:50%;" />
 <h4><a id="the-complete-3pc-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Complete 3PC Protocol</h4>
 <p>使用以上子协议实现GOD的3PC协议如下. 总的来说, 如果某个参与方存在任何恶意行为, 协议都能通过jmp选出一个TTP, 所有参与方将输入发给TTP进行明文计算. SWIFT证明的是标准的real-ideal world-based Security, 因为FaF安全的鲁棒3PC协议已经被证明是不可能实现的.</p>
 <img src="media/16449265418549/16528739184329.png" alt="image-20220101185340871" style="zoom:50%;" />
 <h3><a id="building-blocks-for-ppml-using-3pc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks for PPML using 3PC</h3>
 <h4><a id="input-sharing-and-output-reconstruction-in-soc-setting" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input Sharing and Output Reconstruction in SOC Setting</h4>
-<p>Input Sharing Protocol \(\Pi_\mathsf{sh}^\mathsf{SOC}\): 在SOC场景下允许用户三个服务器之间生成秘密输入\(v\)的\([[\cdot]]\)-sharing的份额.</p>
+<p>Input Sharing Protocol \(\Pi_\mathsf{sh}^\mathsf{SOC}\): 在SOC场景下允许用户三个服务器之间生成秘密输入\(v\)的\([\![\cdot]\!]\)-sharing的份额.</p>
 <p>Output Reconstruction Protocol \(\Pi_\mathsf{rec}^\mathsf{SOC}\): 在SOC场景下允许服务器向用户重构秘密\(v\).</p>
 <p>在以上协议中, 若某处确定了TTP, 则服务器将通知用户TTP身份, 用户将明文形式的输入发送给TTP进行计算函数输出, 然后将结果返回给用户.</p>
 <img src="media/16449265418549/16528739171012.png" alt="image-20220102112432092" style="zoom:50%;" />
 <h4><a id="msb-extraction" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>MSB Extraction</h4>
-<p>MSB Extraction Protocol \(\Pi_\mathsf{bitext}\): 给定\(v\)的算术分享\([[v]]\), 协议允许服务器计算\(v\)的最高有效位的布尔分享. SWIFT使用了ABY3的优化的2-输入并行前缀加法器布尔电路[optimized 2-input Parallel Prefix Adder (PPA) boolean circuit]. PPA电路由\(2\ell-2\)个AND门和\(\log\ell\)的乘法深度.</p>
-<p>令\(v_0=\beta_v,v_1=-[\alpha_v]_1, v_2=-[\alpha_v]_2\), 则\(v=v_0+v_1+v_2\). 服务器首先根据表4本地计算\(v_0,v_1,v_2\)的每个比特相应的布尔分享. ABY3中将\(v=v_0+v_1+v_2\)表示为\(v=2c+s\), 其中\(\mathsf{FA}(v_0[i],v_1[i],v_2[i])\rightarrow(c[i],s[i]), i\in\{0,1,\cdots,\ell-1\}\), 这里的\(\mathsf{FA}\)代表一个全加电路, \(s\)代表比特的和, \(c\)代表进位比特.  总之, 服务器并行运行\(\ell\)次\(\mathsf{FA}\)来计算\([[c]]^\mathsf B,[[s]]^\mathsf B\). \(\mathsf{FA}\)是独立运行的, 需要1轮通信, 使用优化后的FFA电路计算最终结果为\(\mathsf{msb}(2[[c]]^\mathsf B+[[s]]^\mathsf B)\).</p>
+<p>MSB Extraction Protocol \(\Pi_\mathsf{bitext}\): 给定\(v\)的算术分享\([\![v]\!]\), 协议允许服务器计算\(v\)的最高有效位的布尔分享. SWIFT使用了ABY3的优化的2-输入并行前缀加法器布尔电路[optimized 2-input Parallel Prefix Adder (PPA) boolean circuit]. PPA电路由\(2\ell-2\)个AND门和\(\log\ell\)的乘法深度.</p>
+<p>令\(v_0=\beta_v,v_1=-[\alpha_v]_1, v_2=-[\alpha_v]_2\), 则\(v=v_0+v_1+v_2\). 服务器首先根据表4本地计算\(v_0,v_1,v_2\)的每个比特相应的布尔分享. ABY3中将\(v=v_0+v_1+v_2\)表示为\(v=2c+s\), 其中\(\mathsf{FA}(v_0[i],v_1[i],v_2[i])\rightarrow(c[i],s[i]), i\in\{0,1,\cdots,\ell-1\}\), 这里的\(\mathsf{FA}\)代表一个全加电路, \(s\)代表比特的和, \(c\)代表进位比特.  总之, 服务器并行运行\(\ell\)次\(\mathsf{FA}\)来计算\([\![c]\!]^\mathsf B,[\![s]\!]^\mathsf B\). \(\mathsf{FA}\)是独立运行的, 需要1轮通信, 使用优化后的FFA电路计算最终结果为\(\mathsf{msb}(2[\![c]\!]^\mathsf B+[\![s]\!]^\mathsf B)\).</p>
 <p>\(\Pi_\mathsf{bitext}\)在预处理阶段需要的通信量为\(9\ell-6\)比特, 通信轮次为\(\log\ell+1\)轮, 在线阶段均摊通信量为\(9\ell-6\)比特.</p>
 <img src="media/16449265418549/16528739166900.png" alt="image-20220102132426325" style="zoom:50%;" />
 <h4><a id="bit-to-arithmetic-conversion" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bit to Arithmetic Conversion</h4>
-<p>Bit to Arithmetic Conversion Protocol \(\Pi_\mathsf{bit2A}\): 给定比特\(b\)的布尔分享\([[b]]^\mathsf B\), 该协议允许服务器计算算术分享\([[b^\mathsf R]]\). 和BLAZE一样, 原理是先在预处理阶段生成\(\alpha_b^\mathsf R=([\alpha_b]_1\oplus[\alpha_b]_2)^\mathsf R=[\alpha_b]_1^\mathsf R+[\alpha_b]_2^\mathsf R-2[\alpha_b]_1^\mathsf R[\alpha_b]_2^\mathsf R\), 然后在线阶段计算\(b^\mathsf R=(\beta_b\oplus\alpha_b)^\mathsf R=\beta_b^\mathsf R+\alpha_b^\mathsf R-2\beta_b^\mathsf R\alpha_b^\mathsf R\). 具体协议如下图. 该协议预处理阶段的均摊通信量为\(9\ell\)比特, 在线阶段需要1轮, \(4\ell\)比特通信量.</p>
+<p>Bit to Arithmetic Conversion Protocol \(\Pi_\mathsf{bit2A}\): 给定比特\(b\)的布尔分享\([\![b]\!]^\mathsf B\), 该协议允许服务器计算算术分享\([\![b^\mathsf R]\!]\). 和BLAZE一样, 原理是先在预处理阶段生成\(\alpha_b^\mathsf R=([\alpha_b]_1\oplus[\alpha_b]_2)^\mathsf R=[\alpha_b]_1^\mathsf R+[\alpha_b]_2^\mathsf R-2[\alpha_b]_1^\mathsf R[\alpha_b]_2^\mathsf R\), 然后在线阶段计算\(b^\mathsf R=(\beta_b\oplus\alpha_b)^\mathsf R=\beta_b^\mathsf R+\alpha_b^\mathsf R-2\beta_b^\mathsf R\alpha_b^\mathsf R\). 具体协议如下图. 该协议预处理阶段的均摊通信量为\(9\ell\)比特, 在线阶段需要1轮, \(4\ell\)比特通信量.</p>
 <img src="media/16449265418549/16528739173051.png" alt="image-20220102155339680" style="zoom: 33%;" />
 <h4><a id="bit-injection" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bit Injection</h4>
-<p>Bit Injection Protocol \(\Pi_\mathsf{BitInj}\): 给定比特\(b\)的二进制分享\([[b]]^\mathsf{B}\)和\(v\)的算术分享\([[v]]\), 该协议计算\([[bv]]\). 原理是先通过\(\Pi_\mathsf{Bit2A}\)将\([[b]]^\mathsf B\)转换为\([[b]]\), 然后再通过\(\Pi_\mathsf{mult}\)计算\([[bv]]=[[b]]\cdot[[v]]\). 预处理阶段均摊通信量为\(12\ell\)比特, 在线阶段需要2轮, 均摊通信量为\(7\ell\)比特.</p>
+<p>Bit Injection Protocol \(\Pi_\mathsf{BitInj}\): 给定比特\(b\)的二进制分享\([\![b]\!]^\mathsf{B}\)和\(v\)的算术分享\([\![v]\!]\), 该协议计算\([\![bv]\!]\). 原理是先通过\(\Pi_\mathsf{Bit2A}\)将\([\![b]\!]^\mathsf B\)转换为\([\![b]\!]\), 然后再通过\(\Pi_\mathsf{mult}\)计算\([\![bv]\!]=[\![b]\!]\cdot[\![v]\!]\). 预处理阶段均摊通信量为\(12\ell\)比特, 在线阶段需要2轮, 均摊通信量为\(7\ell\)比特.</p>
 <h4><a id="dot-product" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dot Product</h4>
-<p>Dot Product Protocol \(\Pi_\mathsf{dotp}\): 给定长度为\(n\)的向量\([[\vec{\mathbf{x}}]]\)和\([[\vec{\mathbf{y}}]]\), 协议允许服务器鲁棒地生成\(z=\vec{\mathbf{x}}\odot\vec{\mathbf{y}}\)的\([[\cdot]]\)-sharing份额\([[z]]\).  SWIFT中借鉴了BLAZE的方法, 使得协议在线阶段的通信量与向量长度\(n\)无关.</p>
+<p>Dot Product Protocol \(\Pi_\mathsf{dotp}\): 给定长度为\(n\)的向量\([\![\vec{\mathbf{x}}]\!]\)和\([\![\vec{\mathbf{y}}]\!]\), 协议允许服务器鲁棒地生成\(z=\vec{\mathbf{x}}\odot\vec{\mathbf{y}}\)的\([\![\cdot]\!]\)-sharing份额\([\![z]\!]\).  SWIFT中借鉴了BLAZE的方法, 使得协议在线阶段的通信量与向量长度\(n\)无关.</p>
 <p>\(z=\vec{\mathbf{x}}\odot\vec{\mathbf{y}}\)是形式为\(z_i=x_iy_i,i\in[n]\)的\(n\)个并行乘法, 再将结果累加在一起. 令\(\beta_z^*=\sum_{i=1}^n\beta_{z_i}^*\), 则</p>
 \[\beta_z^*=-\sum_{i=1}^n(\beta_{x_i}+\gamma_{x_i})\alpha_{y_i}-\sum_{i=1}^n(\beta_{y_i}+\gamma_{y_i})\alpha_{x_i}+\alpha_z+\chi,
 \]
@@ -1576,8 +1258,8 @@ f&amp;=\vec{\mathbf{d}}\odot\vec{\mathbf{e}}=\sum_{i=1}^nd_ie_i=\sum_{i=1}^n(\ga
 <p>对于图12的具体协议, SWIFT中通过半诚实点积协议进行实例化, 并在验证阶段验证正确性, 通过适当地设定验证阶段参数可以给出一个均摊通信成本与向量长度几乎无关的\(\Pi_\mathsf{dotpPre}\). 见文章的附录B.</p>
 <img src="media/16449265418549/16528739191826.png" alt="SWIFT1211" style="zoom: 33%;" />
 <h4><a id="truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Truncation</h4>
-<p>在定点数表示形式下进行乘法运算需要考虑截断问题, 设定点精度为\(d\). 与ABY3的截断方案类似, 服务器运行\(\Pi_\mathsf{trgen}\)协议生成截断对\(([r],[[r]]^d)\), 其中\(r\)是随机环元素, \(r^d\)是\(r\)的截断结果, 即\(r^d=r/2^d\). 给定\((r,r^d)\), 要截断的值\(v\), 截断结果表示为\(v^d=(v-r)^d+r^d\). 为了从\((r,r^d)\)的布尔分享中获得算术分享, 与ABY3需要多轮通信的方法不同, SWIFT中使用的是Trident中的方案, \(\Pi_\mathsf{trgen}\)实现布尔分享到算术分享的隐式转换只需2个点积运算的开销.</p>
-<p>下面介绍如何生成所需的截断对\(([r],[[r]]^d)\). \(P_0,P_1\)随机采样\(r_1\), \(P_0,P_2\)随机采样\(r_2\). 设\(r\)的第\(i\)比特表示为\(r[i], i\in\{0,\cdots,\ell-1\}\), 定义\(r[i]=r_1[i]\oplus r_2[i]\), 则\(r^d[i]=r_1[i+d]\oplus r_2[i+d], i\in\{0,\cdots,\ell-d-1\}\). 更进一步地, 有</p>
+<p>在定点数表示形式下进行乘法运算需要考虑截断问题, 设定点精度为\(d\). 与ABY3的截断方案类似, 服务器运行\(\Pi_\mathsf{trgen}\)协议生成截断对\(([r],[\![r]\!]^d)\), 其中\(r\)是随机环元素, \(r^d\)是\(r\)的截断结果, 即\(r^d=r/2^d\). 给定\((r,r^d)\), 要截断的值\(v\), 截断结果表示为\(v^d=(v-r)^d+r^d\). 为了从\((r,r^d)\)的布尔分享中获得算术分享, 与ABY3需要多轮通信的方法不同, SWIFT中使用的是Trident中的方案, \(\Pi_\mathsf{trgen}\)实现布尔分享到算术分享的隐式转换只需2个点积运算的开销.</p>
+<p>下面介绍如何生成所需的截断对\(([r],[\![r]\!]^d)\). \(P_0,P_1\)随机采样\(r_1\), \(P_0,P_2\)随机采样\(r_2\). 设\(r\)的第\(i\)比特表示为\(r[i], i\in\{0,\cdots,\ell-1\}\), 定义\(r[i]=r_1[i]\oplus r_2[i]\), 则\(r^d[i]=r_1[i+d]\oplus r_2[i+d], i\in\{0,\cdots,\ell-d-1\}\). 更进一步地, 有</p>
 \[\begin{aligned}
 r&amp;=\sum_{i=0}^{\ell-1}2^ir[i]=\sum_{i=0}^{\ell-1}2^i(r_1[i]\oplus r_2[i])\\
 &amp;=\sum_{i=0}^{\ell-1}2^i((r_1[i])^\mathsf R+(r_2[i])^\mathsf R-2(r_1[i])^\mathsf R\cdot(r_2[i])^\mathsf R)\\
@@ -1587,18 +1269,18 @@ r&amp;=\sum_{i=0}^{\ell-1}2^ir[i]=\sum_{i=0}^{\ell-1}2^i(r_1[i]\oplus r_2[i])\\
 <p>类似地, 对于\(r^d\), 有</p>
 \[r^d=\sum_{i=d}^{\ell-1}2^{i-d}((r_1[i])^\mathsf R+(r_2[i])^\mathsf R)-\sum_{i=d}^{\ell-1}(2^{i-d+1}(r_1[i])^\mathsf R)\cdot(r_2[i])^\mathsf R.
 \]
-<p>服务器通过表2的形式非交互生成\(r_1,r_2\)的每个比特的算术\([[\cdot]]\)份额. 然后执行两次\(\Pi_\mathsf{dotp}\)计算\(A=\sum_{i=d}^{\ell-1}(2^{i-d+1}(r_1[i])^\mathsf R)\cdot(r_2[i])^\mathsf R\)的份额\([[A]]\)和\(B=\sum_{i=0}^{\ell-1}(2^{i+1}(r_1[i])^\mathsf R)\cdot(r_2[i])^\mathsf R\)的份额\([[B]]\). 然后服务器各自根据以上两条等式本地计算\((r,r^d)\)的\([[\cdot]]\)份额.</p>
-<p>然而服务器需要的并非\([[r]]\)份额而是\([r]\)份额. 将\([[r]]\)份额本地转换为\([r]\)份额的方式如下: 设\((\alpha_r,\beta_r,\gamma_r)\)是\([[r]]\)份额的相应参数. 因为\(P_0\)知道明文的\(r\)和\(\alpha_r\), 因此可以本地计算\(\beta_r=r+\alpha_r\). 然后\(P_0,P_1\)令\([r]_1=-[\alpha_r]_1\), \(P_0,P_2\)令\([r]_2=\beta-[\alpha_r]_2\).</p>
+<p>服务器通过表2的形式非交互生成\(r_1,r_2\)的每个比特的算术\([\![\cdot]\!]\)份额. 然后执行两次\(\Pi_\mathsf{dotp}\)计算\(A=\sum_{i=d}^{\ell-1}(2^{i-d+1}(r_1[i])^\mathsf R)\cdot(r_2[i])^\mathsf R\)的份额\([\![A]\!]\)和\(B=\sum_{i=0}^{\ell-1}(2^{i+1}(r_1[i])^\mathsf R)\cdot(r_2[i])^\mathsf R\)的份额\([\![B]\!]\). 然后服务器各自根据以上两条等式本地计算\((r,r^d)\)的\([\![\cdot]\!]\)份额.</p>
+<p>然而服务器需要的并非\([\![r]\!]\)份额而是\([r]\)份额. 将\([\![r]\!]\)份额本地转换为\([r]\)份额的方式如下: 设\((\alpha_r,\beta_r,\gamma_r)\)是\([\![r]\!]\)份额的相应参数. 因为\(P_0\)知道明文的\(r\)和\(\alpha_r\), 因此可以本地计算\(\beta_r=r+\alpha_r\). 然后\(P_0,P_1\)令\([r]_1=-[\alpha_r]_1\), \(P_0,P_2\)令\([r]_2=\beta-[\alpha_r]_2\).</p>
 <p>整个\(\Pi_\mathsf{trgen}\)协议如下, 均摊通信量为\(12\ell\)比特.</p>
 <img src="media/16449265418549/16528739182478.png" alt="image-20220102220515639" style="zoom: 33%;" />
 <h4><a id="dot-product-with-truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dot Product with Truncation</h4>
-<p>Dot Product with Truncation Protocol \(\Pi_\mathsf{dotpt}\): 允许服务器对点积计算结果\([[z]]\)进行截断得到\([[z^d]]\).  SWIFT中使用了BLAZE中相应的优化方案. 预处理阶段的均摊通信量为\(15\ell\)比特, 在线阶段需要1轮, \(3\ell\)比特的均摊通信量.</p>
+<p>Dot Product with Truncation Protocol \(\Pi_\mathsf{dotpt}\): 允许服务器对点积计算结果\([\![z]\!]\)进行截断得到\([\![z^d]\!]\).  SWIFT中使用了BLAZE中相应的优化方案. 预处理阶段的均摊通信量为\(15\ell\)比特, 在线阶段需要1轮, \(3\ell\)比特的均摊通信量.</p>
 <img src="media/16449265418549/16528739189432.png" alt="image-20220103113826973" style="zoom: 33%;" />
 <h4><a id="secure-comparison" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Comparison</h4>
 <p>在FPA表示法下两数比较大小只需通过\(\Pi_\mathsf{bitext}\)协议提取两数差值的最高有效位.</p>
 <h4><a id="activation-functions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activation Functions</h4>
 <ul>
-<li>ReLU函数: \(\mathsf{relu}(v)=\mathsf{max}(0,v)=\bar{b}\cdot v\), 其中\(\bar b=0\Leftrightarrow b=1\Leftrightarrow v&lt;0\), 反之\(\bar b=1\Leftrightarrow b=0\Leftrightarrow v\geq 0\). 因此关键在于抽取\(v\)的符号位, 在\([[v]]\)形式下可以通过\(\Pi_\mathsf{bitext}\)协议生成\([[b]]^\mathsf B\). 而\([[\bar b]]^\mathsf B\)可以令\(\beta_\bar{b}=1\oplus\beta_b\)本地计算求得. 最后将\([[\bar{b}]]^\mathsf B,[[v]]\)作为输入执行一次\(\Pi_\mathsf{BitInj}\)协议即得. 预处理阶段均摊通信量为\(21\ell-6\)比特, 在线阶段需要\(\log \ell+3\)轮, 均摊通信量为\(16\ell-6\)比特.</li>
+<li>ReLU函数: \(\mathsf{relu}(v)=\mathsf{max}(0,v)=\bar{b}\cdot v\), 其中\(\bar b=0\Leftrightarrow b=1\Leftrightarrow v&lt;0\), 反之\(\bar b=1\Leftrightarrow b=0\Leftrightarrow v\geq 0\). 因此关键在于抽取\(v\)的符号位, 在\([\![v]\!]\)形式下可以通过\(\Pi_\mathsf{bitext}\)协议生成\([\![b]\!]^\mathsf B\). 而\([\![\bar b]\!]^\mathsf B\)可以令\(\beta_\bar{b}=1\oplus\beta_b\)本地计算求得. 最后将\([\![\bar{b}]\!]^\mathsf B,[\![v]\!]\)作为输入执行一次\(\Pi_\mathsf{BitInj}\)协议即得. 预处理阶段均摊通信量为\(21\ell-6\)比特, 在线阶段需要\(\log \ell+3\)轮, 均摊通信量为\(16\ell-6\)比特.</li>
 <li>Sigmoid函数: 与SecureML相同, SWIFT通过分段函数来替代Sigmoid函数, 此时\(\mathsf{sig}(v)=\bar{b}_1b_2(v+1/2)+\bar{b}_2\), 其中\(v+1/2&lt;0\Leftrightarrow b_1=1\), \(v-1/2&lt;0\Leftrightarrow b_2=1\). 通过ReLU函数的方法来求解. 预处理阶段均摊通信量为\(39\ell-9\)比特, 在线阶段需要\(\log\ell+4\)轮, 均摊通信量为\(29\ell-9\)比特.</li>
 </ul>
 <h4><a id="maxpool-matrix-operations-and-convolutions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maxpool, Matrix Operations and Convolutions</h4>
@@ -1610,7 +1292,7 @@ r&amp;=\sum_{i=0}^{\ell-1}2^ir[i]=\sum_{i=0}^{\ell-1}2^i(r_1[i]\oplus r_2[i])\\
 <h2><a id="robust-4pc-and-ppml" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Robust 4PC and PPML</h2>
 <p>SWIFT将3PC扩展到4PC, 不再需要调用广播, 点积计算与向量长度无关, 高效的主要原因是4PC的鲁棒JMP4原语\(\mathsf{jmp4}\). 由于4PC的实现原理多数与3PC类似, 因此下面除不同之处外, 不再展开.</p>
 <h3><a id="4pc-secret-sharing-semantics" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4PC Secret Sharing Semantics</h3>
-<p>扩展到4PC的\([[\cdot]]\)-sharing: 对于秘密\(v=\beta_v-[\alpha_v]_1-[\alpha_v]_2\), \(P_0\)的份额为\(([\alpha_v]_1,[\alpha_v]_2,\beta_v+\gamma_v)\), \(P_1\)的份额为\(([\alpha_v]_1,\beta_v,\gamma_v)\), \(P_2\)的份额为\(([\alpha_v]_2,\beta_v,\gamma_v)\), \(P_3\)的份额为\(([\alpha_v]_1,[\alpha_v]_2,\gamma_v)\). 易见, \(P_0,P_1,P_2\)的份额与3PC下的份额相同.</p>
+<p>扩展到4PC的\([\![\cdot]\!]\)-sharing: 对于秘密\(v=\beta_v-[\alpha_v]_1-[\alpha_v]_2\), \(P_0\)的份额为\(([\alpha_v]_1,[\alpha_v]_2,\beta_v+\gamma_v)\), \(P_1\)的份额为\(([\alpha_v]_1,\beta_v,\gamma_v)\), \(P_2\)的份额为\(([\alpha_v]_2,\beta_v,\gamma_v)\), \(P_3\)的份额为\(([\alpha_v]_1,[\alpha_v]_2,\gamma_v)\). 易见, \(P_0,P_1,P_2\)的份额与3PC下的份额相同.</p>
 <h3><a id="4pc-joint-message-passing-primitive" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4PC Joint Message Passing Primitive</h3>
 <p>\(\mathsf{jmp4}\)原语允许\(P_i,P_j\)发送消息对\((v,\mathsf{H}(v'))\)给\(P_k\), 当\(P_k\)收到的信息不一致时, 设定不一致标志比特为1, 将服务器\(P_l\)作为TTP再进行相关明文计算. 称\(P_i,P_j\)通过jmp4-send发送\(v\)给\(P_k\)是指调用\(\Pi_\mathsf{jmp4}(P_i,P_j,P_k,v,P_l)\). 该原语比FLASH提出的双向传输(bi-convery)方案快2倍. 具体协议见图16, 在线阶段需要1轮, 均摊通信量为\(\ell\)比特.</p>
 <img src="media/16449265418549/16528739191929.png" alt="SWIFT1516" style="zoom: 33%;" />
@@ -1619,29 +1301,29 @@ r&amp;=\sum_{i=0}^{\ell-1}2^ir[i]=\sum_{i=0}^{\ell-1}2^i(r_1[i]\oplus r_2[i])\\
 <p>Sharing Protocol \(\Pi_\mathsf{sh4}\): 在线阶段需要2轮, 当\(P_0,P_1,P_2\)分享秘密时, 均摊通信量为\(2\ell\)比特; 当\(P_3\)需要分享秘密时, 均摊通信量为\(3\ell\)比特.</p>
 <img src="media/16449265418549/16528739184435.png" alt="image-20220104150347285" style="zoom: 33%;" />
 <h4><a id="joint-sharing-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joint Sharing Protocol</h4>
-<p>Joint Sharing Protocol \(\Pi_\mathsf{jsh4}\): 允许服务器\((P_i,P_j)\)联合生成\([[v]]\), 其中\(v\)是\(P_i,P_j\)的共同秘密. 当发现信息存在不一致时, 将没有进行计算的那个服务器选为TTP. 在线阶段, 需要1轮, 当\((P_3,P_s), s\in\{0,1,2\}\)分享时, 均摊通信量为\(2\ell\)比特. 其他情况的均摊通信量为\(\ell\)比特.</p>
-<p>特别地, 若\(v\)是\(P_0,P_1,P_2\)的共同秘密, 那么不需交互即可生成\([[v]]\)份额: 令\([\alpha_v]_1=[\alpha_v]_2=\gamma_v=0, \beta_v=v\).</p>
+<p>Joint Sharing Protocol \(\Pi_\mathsf{jsh4}\): 允许服务器\((P_i,P_j)\)联合生成\([\![v]\!]\), 其中\(v\)是\(P_i,P_j\)的共同秘密. 当发现信息存在不一致时, 将没有进行计算的那个服务器选为TTP. 在线阶段, 需要1轮, 当\((P_3,P_s), s\in\{0,1,2\}\)分享时, 均摊通信量为\(2\ell\)比特. 其他情况的均摊通信量为\(\ell\)比特.</p>
+<p>特别地, 若\(v\)是\(P_0,P_1,P_2\)的共同秘密, 那么不需交互即可生成\([\![v]\!]\)份额: 令\([\alpha_v]_1=[\alpha_v]_2=\gamma_v=0, \beta_v=v\).</p>
 <p>若\(v\)是\(P_0,P_3\)的共同秘密, 那么可以只通信1个元素: \(P_0,P_1,P_3\)选取随机数\(r\), 令\([\alpha_v]=r\); \(P_0,P_3\)约定\([\alpha_v]_2=-(r+v)\), 然后jmp4-send发送\([\alpha_v]_2\)给\(P_2\).</p>
 <img src="media/16449265418549/16528739192017.png" alt="image-20220104162456328" style="zoom: 33%;" />
 <h4><a id="langle-cdot-rangle-sharing-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>\(\langle\cdot\rangle\)-sharing Protocol</h4>
 <p>某些情况下, \(P_3\)需要在预处理阶段生成\(v\)的\(\langle \cdot\rangle\)-sharing, 其中\(v=v_0+v_1+v_2\), \(P_0\)持有\((v_0,v_1)\), \(P_1\)持有\((v_1,v_2)\), \(P_2\)持有\((v_2,v_0)\), 而\(P_3\)则有\((v_0,v_1,v_2)\). 具体协议\(\Pi_\mathsf{ash4}\)如下图19, 需要2轮, 均摊通信量为\(2\ell\)比特.</p>
 <img src="media/16449265418549/16528739187498.png" alt="image-20220104172331359" style="zoom: 33%;" />
-<p>此外, 服务器可以本地将\(\langle v\rangle\)转换为\([[v]]\), 只需按照下表5的方式约定他们的份额即可. 此时, \([\alpha_v]_1=-v_1, [\alpha_v]_2=-v_0,\beta_v=v_2,\gamma_v=-v_2\).</p>
+<p>此外, 服务器可以本地将\(\langle v\rangle\)转换为\([\![v]\!]\), 只需按照下表5的方式约定他们的份额即可. 此时, \([\alpha_v]_1=-v_1, [\alpha_v]_2=-v_0,\beta_v=v_2,\gamma_v=-v_2\).</p>
 <img src="media/16449265418549/16528739186591.png" alt="image-20220104195728881" style="zoom: 33%;" />
 <h4><a id="multiplication-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiplication Protocol</h4>
-<p>4PC下\([[\cdot]]\)-sharing的乘法协议\(\Pi_\mathsf{mult4}\). 预处理阶段需要\(3\ell\)比特的均摊通信量, 在线阶段需要1轮, \(3\ell\)比特的均摊通信量.</p>
+<p>4PC下\([\![\cdot]\!]\)-sharing的乘法协议\(\Pi_\mathsf{mult4}\). 预处理阶段需要\(3\ell\)比特的均摊通信量, 在线阶段需要1轮, \(3\ell\)比特的均摊通信量.</p>
 <img src="media/16449265418549/16528739192958.png" alt="image-20220104193501814" style="zoom: 33%;" />
 <h4><a id="reconstruction-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reconstruction Protocol</h4>
-<p>4PC下给定\([[v]]\), 鲁棒地重构\(v\)的协议\(\Pi_\mathsf{rec4}\). 因为每个服务器都只缺少一个份额即可重构, 而该缺失份额其他三个服务器都有, 因此这三个服务器中的其中两个发送该缺失份额, 第三个发送该份额的Hash值以进行一致性检查. 与3PC下的乘法协议相比, 4PC下的乘法协议不需要使用承诺方案. 在线阶段需要1轮, 均摊通信量为\(8\ell\)比特.</p>
+<p>4PC下给定\([\![v]\!]\), 鲁棒地重构\(v\)的协议\(\Pi_\mathsf{rec4}\). 因为每个服务器都只缺少一个份额即可重构, 而该缺失份额其他三个服务器都有, 因此这三个服务器中的其中两个发送该缺失份额, 第三个发送该份额的Hash值以进行一致性检查. 与3PC下的乘法协议相比, 4PC下的乘法协议不需要使用承诺方案. 在线阶段需要1轮, 均摊通信量为\(8\ell\)比特.</p>
 <img src="media/16449265418549/16528739192594.png" alt="image-20220104195527019" style="zoom: 33%;" />
 <h3><a id="building-blocks-for-ppml-using-4pc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks for PPML using 4PC</h3>
 <h4><a id="input-sharing-and-output-reconstruction-in-soc-setting" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input Sharing and Output Reconstruction in SOC Setting</h4>
 <p>下面将SOC场景中的3PC的输入分享和输出重构协议扩展到4PC. 其核心在于使用了拜占庭协定(Byzantine agreement, BA).</p>
-<p>为了生成用户的输入\(v\)的\([[\cdot]]\)-sharing份额\([[v]]\), 用户从四个服务器中的三个中接收\([\alpha_v]_1,[\alpha_v]_2,\gamma_v\), 以及\(P_0,P_1,P_2\)共同选取的随机数\(r\), 接受其中大多数的那个\(r\). 用户本地计算\(u=v+[\alpha_v]_1+[\alpha_v]_2+\gamma_v+r\), 并发送\(u\)给所有服务器. 服务器执行两轮拜占庭协定接受\(u\)或者\(\perp\).</p>
+<p>为了生成用户的输入\(v\)的\([\![\cdot]\!]\)-sharing份额\([\![v]\!]\), 用户从四个服务器中的三个中接收\([\alpha_v]_1,[\alpha_v]_2,\gamma_v\), 以及\(P_0,P_1,P_2\)共同选取的随机数\(r\), 接受其中大多数的那个\(r\). 用户本地计算\(u=v+[\alpha_v]_1+[\alpha_v]_2+\gamma_v+r\), 并发送\(u\)给所有服务器. 服务器执行两轮拜占庭协定接受\(u\)或者\(\perp\).</p>
 <p>拜占庭协定过程如下: 设\(P_i\)接收到的来自用户的值为\(u_i\), 为达成协定, 服务器首先就\(P_i\)收到\(u_i\)达成一致, 为此, \(P_i\)首先发送\(u_i\)给所有服务器, 而这只需\(P_j\in\mathcal P\backslash P_i\)互相交换\(u_i\), 然后每个\(P_j\)从接收到的\(u_i\)的三个版本中选择最多的那个版本的\(u_i\)即可, 这由诚实大多数假设保证. 一旦协定完成, 每个服务器都将\(u_1,u_2,u_3,u_4\)中的占大多数的那个选为它们从用户接收到的值; 若没有任何一个出现占大多数, 那么就选择一个默认值.</p>
-<p>BA完成后, \(P_0\)从\(u\)中本地计算\(\beta_v+\gamma_v\), 同时\(P_1,P_2\)从\(u\)中本地计算\(\beta_v\). 对于\(v\)的重构, 服务器发送它们的\([[v]]\)份额给用户, 用户选取每个份额中的占大多数的值重构输出. 在任何情况下, 如果协议识别出了TTP, 则所有服务器发送它们的份额给TTP, 由TTP选取每个份额中的占大多数的值计算功能函数的输出, 并把输出发给用户.  用户也从所有服务器中接收TTP的身份, 并接受来自占大多数的TTP的输出.</p>
+<p>BA完成后, \(P_0\)从\(u\)中本地计算\(\beta_v+\gamma_v\), 同时\(P_1,P_2\)从\(u\)中本地计算\(\beta_v\). 对于\(v\)的重构, 服务器发送它们的\([\![v]\!]\)份额给用户, 用户选取每个份额中的占大多数的值重构输出. 在任何情况下, 如果协议识别出了TTP, 则所有服务器发送它们的份额给TTP, 由TTP选取每个份额中的占大多数的值计算功能函数的输出, 并把输出发给用户.  用户也从所有服务器中接收TTP的身份, 并接受来自占大多数的TTP的输出.</p>
 <h4><a id="bit-extraction-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bit Extraction Protocol</h4>
-<p>4PC下的比特抽取协议\(\Pi_\mathsf{bitext4}\): 为计算4PC下\([[v]]\)的最高有效位的布尔分享\([[\mathsf{msb}(v)]]^\mathsf B\), SWIFT仍使用了ABY3中优化的并行前缀加法器电路[Optimized Parallel Prefix Adder (PPA) circuit]方案. 因为\(v\)表示为\(v=\beta_v+(-\alpha_v)\), 因此该电路的两个输入分别为\(\beta_v, -\alpha_v\)的布尔分享\([[\beta_v]]^\mathsf B,[[-\alpha_v]]^\mathsf B\). \(P_1,P_2\)拥有\(\beta_v\), 可以通过\(\Pi_\mathsf{jsh4}\)协议生成\([[\beta_v]]^\mathsf B\). 同理, \(P_0,P_3\)生成\([[-\alpha_v]]^\mathsf B\). 于是通过优化的电路, 可计算出\([[\mathsf{msb}(v)]]^\mathsf B\). 该协议预处理阶段的均摊通信量为\(7\ell-6\)比特, 在线阶段需要1轮, 均摊通信量为\(7\ell-6\)比特.</p>
+<p>4PC下的比特抽取协议\(\Pi_\mathsf{bitext4}\): 为计算4PC下\([\![v]\!]\)的最高有效位的布尔分享\([\![\mathsf{msb}(v)]\!]^\mathsf B\), SWIFT仍使用了ABY3中优化的并行前缀加法器电路[Optimized Parallel Prefix Adder (PPA) circuit]方案. 因为\(v\)表示为\(v=\beta_v+(-\alpha_v)\), 因此该电路的两个输入分别为\(\beta_v, -\alpha_v\)的布尔分享\([\![\beta_v]\!]^\mathsf B,[\![-\alpha_v]\!]^\mathsf B\). \(P_1,P_2\)拥有\(\beta_v\), 可以通过\(\Pi_\mathsf{jsh4}\)协议生成\([\![\beta_v]\!]^\mathsf B\). 同理, \(P_0,P_3\)生成\([\![-\alpha_v]\!]^\mathsf B\). 于是通过优化的电路, 可计算出\([\![\mathsf{msb}(v)]\!]^\mathsf B\). 该协议预处理阶段的均摊通信量为\(7\ell-6\)比特, 在线阶段需要1轮, 均摊通信量为\(7\ell-6\)比特.</p>
 <h4><a id="bit2a-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bit2A Protocol</h4>
 <p>4PC下的布尔分享与算术分享转换协议\(\Pi_\mathsf{bit2A4}\), 与3PC下的相比, 4PC下的原理在于:</p>
 <p>设\(e=\alpha_b\oplus\gamma_b, c=\beta_b\oplus\gamma_b\), 则</p>
@@ -1650,8 +1332,8 @@ r&amp;=\sum_{i=0}^{\ell-1}2^ir[i]=\sum_{i=0}^{\ell-1}2^i(r_1[i]\oplus r_2[i])\\
 <p>\(\Pi_\mathsf{bit2A4}\)的预处理阶段均摊通信量为\(3\ell+4\)比特, 在线阶段需要1轮, 均摊通信量为\(3\ell\)比特.</p>
 <img src="media/16449265418549/16528739199718.png" alt="image-20220105193218898" style="zoom:50%;" />
 <h4><a id="bit-injection-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bit Injection Protocol</h4>
-<p>比特映射协议\(\Pi_\mathsf{bitinj4}\): 给定比特\(b\)的布尔分享\([[b]]^\mathsf B\)和\(v\in\mathbb Z_{2^\ell}\)的算术分享\([[v]]\), 计算\([[bv]]\).</p>
-<p>简单的方法是先把\([[b]]^\mathsf B\)通过\(\Pi_\mathsf{bit2A4}\)转化为\([[b]]\), 然后通过乘法协议\(\Pi_\mathsf{mul4}\)计算\([[bv]]\). 下面介绍一种减少预处理阶段和在线阶段通信量的方法.</p>
+<p>比特映射协议\(\Pi_\mathsf{bitinj4}\): 给定比特\(b\)的布尔分享\([\![b]\!]^\mathsf B\)和\(v\in\mathbb Z_{2^\ell}\)的算术分享\([\![v]\!]\), 计算\([\![bv]\!]\).</p>
+<p>简单的方法是先把\([\![b]\!]^\mathsf B\)通过\(\Pi_\mathsf{bit2A4}\)转化为\([\![b]\!]\), 然后通过乘法协议\(\Pi_\mathsf{mul4}\)计算\([\![bv]\!]\). 下面介绍一种减少预处理阶段和在线阶段通信量的方法.</p>
 <p>记\(z=b^\mathsf Rv\), 注意到</p>
 \[\begin{aligned}
 z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
@@ -1773,6 +1455,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/kelkar">Secure Poisson Regression, USENIX Security'22</a></li>
 <li><a href="https://eprint.iacr.org/2022/675">MPClan: Protocol Suite for Privacy-Conscious Computations, IACR ePrint'22</a></li>
 <li><a href="http://eprint.iacr.org/2022/207">LLAMA: A Low Latency Math Library for Secure Inference</a></li>
+<li><a href="https://eprint.iacr.org/2022/826">Pika: Secure Computation using Function Secret Sharing over Rings, PoPETs'22</a></li>
 </ul>
 <h1><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h1>
 <ul>
@@ -1810,10 +1493,14 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://link.springer.com/chapter/10.1007/978-3-540-88313-5_13">Sharemind: A framework for fast privacy-preserving computations, ESORICS'08</a></li>
 <li><a href="https://dl.acm.org/citation.cfm?id=2660366">Efficiently Verifiable Computation on Encrypted Data, CCS'14</a></li>
 <li><a href="https://dl.acm.org/doi/10.1145/3243734.3243837">Secure outsourced matrix computation and application to neural networks, CCS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/570">Fast large-scale honest-majority MPC for malicious adversaries, Crypto'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/474">Minimising communication in honest-majority MPC by batchwise multiplication verification, ACNS'18</a></li>
 <li><a href="https://dl.acm.org/doi/abs/10.1145/3292500.3330920">PrivPy: General and Scalable Privacy-Preserving Data Mining, KDD'19</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3319535.3339811">Two-thirds honest-majority MPC for malicious adversaries at almost the cost of semi-honest, CCS'19</a></li>
 <li><a href="https://dl.acm.org/doi/10.1145/3372297.3417872">MP-SPDZ: A Versatile Framework for Multi-Party Computation, CCS'20</a></li>
 <li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/poddar">Senate: A Maliciously-Secure MPC Platform for Collaborative Analytics, USENIX Security'20</a></li>
 <li><a href="https://eprint.iacr.org/2020/338.pdf">Improved primitives for mpc over mixed arithmetic-binary circuits, CRYPTO'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/134.pdf">Malicious Security Comes Free in Honest-Majority MPC, ePrint'20</a></li>
 <li><a href="https://eprint.iacr.org/2020/1137">MOTION - A Framework for Mixed-Protocol Multi-Party Computation, TOPS'21</a></li>
 <li><a href="https://eprint.iacr.org/2020/1225.pdf">ABY2.0: Improved Mixed-Protocol Secure Two-Party Computation, USENIX Security'21</a></li>
 <li><a href="https://encrypto.de/papers/PSSY21HOST.pdf">SynCirc: Efficient Synthesis of Depth-Optimized Circuits for Secure Computation, HOST'21</a></li>
@@ -1822,6 +1509,7 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://eprint.iacr.org/2021/833">ATLAS: Efficient and Scalable MPC in the Honest Majority Setting, CRYPTO'21</a></li>
 <li><a href="https://www.sciendo.com/article/10.2478/popets-2021-0073">Secure integer division with a private divisor, PoPETs'21</a></li>
 <li><a href="https://eprint.iacr.org/2022/623">Fast Fully Secure Multi-Party Computation over Any Ring with Two-Thirds Honest Majority, CCS'22</a></li>
+<li><a href="http://www.jcr.cacrnet.org.cn/CN/Y2022/V9/I3/379">简洁非交互零知识证明综述, 密码学报'22</a></li>
 </ul>
 <h1><a id="federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Federated Learning</h1>
 <h2><a id="communication-optimization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Optimization</h2>
@@ -1874,6 +1562,9 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://github.com/vernamlab/cuFHE">CUDA-accelerated Fully Homomorphic Encryption Library</a></li>
 <li><a href="https://github.com/facebookresearch/CrypTen">CrypTen: A framework for Privacy Preserving Machine Learning</a></li>
 <li><a href="https://github.com/tf-encrypted/tf-encrypted">tf-encrypted: A Framework for Machine Learning on Encrypted Data</a></li>
+<li><a href="https://github.com/Ye-D/PPML-Resource">ABY3: A Three Party MPC framework for Machine learning and Databases</a></li>
+<li><a href="https://www.win.tue.nl/~berry/mpyc/">MPyC: MPyC for Secure Multiparty Computation in Python</a></li>
+<li><a href="https://github.com/OpenMined/SyMPC">SyMPC: A SMPC companion library for Syft</a></li>
 <li><a href="https://sourceforge.net/projects/sharemind/">Sharemind</a></li>
 <li><a href="https://github.com/data61/python-paillier">PythonPaillier</a></li>
 <li><a href="https://github.com/OpenMined/TenSEAL">TenSEAL</a></li>
@@ -1890,10 +1581,8 @@ z&amp;=b^\mathsf Rv=(\alpha_b\oplus\beta_b)^\mathsf R(\beta_v-\alpha_v)\\
 <li><a href="https://github.com/anderspkd/SecureQ8">SecureQ8</a></li>
 <li><a href="https://github.com/mkskeller/mpc-benchmarks">mpc-benchmarks</a></li>
 <li><a href="https://github.com/mc2-project/muse">muse</a></li>
-<li><a href="https://github.com/Ye-D/PPML-Resource">ABY3: A Three Party MPC framework for Machine learning and Databases</a></li>
-<li><a href="https://www.win.tue.nl/~berry/mpyc/">MPyC: MPyC for Secure Multiparty Computation in Python</a></li>
-<li><a href="https://github.com/OpenMined/SyMPC">SyMPC: A SMPC companion library for Syft</a></li>
 <li><a href="https://github.com/primihub/primihub">Primihub</a></li>
+<li><a href="https://github.com/secretflow/secretflow">SecretFlow</a></li>
 </ul>
 <p>来源: <a href="https://github.com/WeiViming/PPML-Resource">Materials about Privacy-Preserving Machine Learning</a></p>
 
@@ -4931,6 +4620,178 @@ convert -append image1.png image2.png output.png
 <h2><a id="pdf%E8%BD%AC%E9%AB%98%E6%B8%85%E5%9B%BE%E7%89%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>pdf转高清图片</h2>
 <pre class="line-numbers"><code class="language-bash">magick convert -density 600 poster.pdf -quality 90 ./poster.png
 </code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security]]></title>
+    <link href="https://weiviming.github.io/16337773581295.html"/>
+    <updated>2021-10-09T19:02:38+08:00</updated>
+    <id>https://weiviming.github.io/16337773581295.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>今天给大家带来的是发表于<em>USENIX Security'21</em>的一篇文章<a href="https://www.usenix.org/system/files/sec21-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security</a>, 报告的slide见<a href="https://www.usenix.org/system/files/sec21_slides_dalskov.pdf">这里</a>.</p>
+</blockquote>
+<h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
+<p>本文介绍了一种诚实大多数的鲁棒四方计算协议, 具有主动安全性, 且不依赖于function-dependent preprocessing(预处理), 实现了输出可达性(Guaranteed output delivery, GOD), 同时保证协议中止同时确保任何一方不会得到超过输出的任何信息. 以往实现输出可达性采用的方案有SWIFT<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>, FLASH<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>, 让确定为诚实的参与方重构秘密并在明文下进行协议计算. 实验表明, 本文所提协议的效率接近于仅提供半诚实安全的三方诚实大多数计算协议, 这表明, 通过添加第四方是实现主动安全而不影响性能的有效方案.</p>
+<h2><a id="background" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background</h2>
+<p>当前最快的MPC协议仅提供了中止安全性. 传统的MLaaS架构缺乏隐私保护, 而客户端/服务器模型(client/server model)是MLaaS架构常用的隐私保护替代方案, 如果存在恶意的计算方导致中止计算, 那么用户将无法得到输出, 这对于MLaaS来说是不能接受的, 因此模型的鲁棒性非常重要. 这里的鲁棒性可以理解为, 协议为所有参与方提供输出可达性, 而不论敌手是否存在恶意行为. 考虑MLaaS架构中的两种鲁棒类型的外包计算:</p>
+<ul>
+<li>
+<p>传统鲁棒(traditional robustness)外包计算:  保证计算最后一定输出正确的结果. 考虑具体场景: 假设\(P_1,P_2,P_3,P_4\)四方进行MLaaS隐私计算, 其中一方是腐化方, 且协议是鲁棒的. 假设某次计算中\(P_2\)发现\(P_1\)和\(P_4\)的输入不一致, 意味着\(P_1\)和\(P_4\)中的某一方是恶意的, \(P_2\)广播该消息, 虽然鲁棒性要求计算不能中止,  但是有一点是所有计算方都可以肯定的: \(P_3\)肯定是诚实的, 则鲁棒性很容易达到, 为此所有参与方将他们的分享发给\(P_3\)重构输入, 然后再明文计算即可, 因此, 很容易实现输出可达性. 但这在现实中通常是不合理的, 因为\(P_3\)掌握了用户的所有输入, 而用户更希望数据在计算时始终保持隐私性.</p>
+</li>
+<li>
+<p>隐私鲁棒(private robustness)外包计算: 这种类型下的外包计算也可以保证计算最后输出正确的结果, 但不依赖于诚实方获得用户的隐私输入. 本文介绍了如何通过四方和三方协议之间的转换来达到这一点.</p>
+</li>
+</ul>
+<h3><a id="main-contributions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main Contributions</h3>
+<ol>
+<li>提出了\(\mathbb{Z}_{2^k}\)上抵抗一个腐化方的主动安全的四方计算协议, 在相同设定下与当前好的方案整体复杂性相同, 除了常数开销的设定外, 无需任何预处理. 此外, 本文的方案允许丢弃后面计算中不必要的中间信息.</li>
+<li>提出了\(\mathbb{Z}_{2^k}\)上抵抗一个腐化方的主动安全的三方计算协议, 虽然在线阶段的通信复杂度略高于当前最好的方案BLAZE<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>, 但总体复杂性低几个数量级, 主要原因是点积计算的通信量与输入的长度无关.</li>
+<li>通过训练MNIST, 进行了协议的基准测试, 并进一步考虑了定点精度的参数选取对训练准确度的影响.</li>
+<li>展示了如何在保持隐私性的同时使得四方协议具备鲁棒性.</li>
+</ol>
+<p>本文的所有协议在<a href="https://github.com/data61/MP-SPDZ">MP-SPDZ</a>中可用.</p>
+<h2><a id="secure-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Protocol</h2>
+<h3><a id="replicated-secret-sharing" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Replicated Secret Sharing</h3>
+<p>记四个参与方分别为\(P_i,P_j,P_g,P_h\), 其中\(i,j,g,h\in\{1,2,3,4\}\), 本文使用秘密共享方案是复制秘密共享(Replicated Secret Sharing). Dealer在四方下秘密共享秘密\(s\in\mathbb Z_{2^k}\)的方法(文章中的协议1), 如下图所示:</p>
+<p><img src="https://s2.loli.net/2022/04/15/jwsUL3xKEgNPCpB.png" alt="RSS" /></p>
+<ol>
+<li>
+<p>在\(\mathbb Z_{2^k}\)上选取三个随机数\(s_1,s_2,s_3\), 然后令\(s_4=s-(s_1+s_2+s_3)\);</p>
+</li>
+<li>
+<p>发送\(\{s_j\}_{j\neq i}\)给\(P_i\), 记秘密共享为\([s]\).</p>
+</li>
+</ol>
+<p>这意味着每方各持有的三个秘密分享, 且任意两方都可以恢复秘密\(s\). 由于该方案是线性的, 因此秘密分享形式下的加法和数乘都是无需交互, 这里不再介绍.</p>
+<h3><a id="joint-message-passing" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joint Message Passing</h3>
+<img align="right" src="https://s2.loli.net/2022/04/15/APO1GXmysih5wpW.png"  style="zoom:35%;" />
+<p>协议2用于当两方共有某个秘密需要发给第三方时, 进行的作弊识别检测. 假设\(x\)是\(P_i\)和\(P_j\)共有的信息, 需要发送给\(P_g\), 为此\(P_i\)发送\(x\), \(P_j\)发送\(H(x)\), 然后\(P_g\)检查从\(P_i\)收到的\(x\)的hash值是否与\(H(x)\)匹配, 若不匹配则发出中止信号\(err\)并指控\(P_i\)和\(P_j\), 参与方执行协议2, 输出最多两个参与方的集合, 其中一个参与方是恶意的.</p>
+<p>JMP根据参与方的行为, 分为以下几种情况:</p>
+<ol>
+<li>若\(P_h\)是恶意的, 则不会产生任何中止信号;</li>
+<li>若\(P_g\)是恶意的, 则\(P_g\)将错误地指控\(P_i,P_j\), 按照协议, \(P_g\)将广播\(P_i,P_j,c_i,c_j\). 若\(c_i=c_j\), 则参与方直接输出\(\{P_g\}\). 否则, 由于\(P_i\)和\(P_j\)都是诚实的, 则\(P_g\)广播的信息中必然有一项与\(P_i,P_j\)发送给它的信息不符合, 因此这两方之中必然有一方会指控\(P_g\), 例如\(P_i\)发出了指控, 此时参与方只需输出\(\{P_j,P_g\}\)组成的集合. 不管哪种情况, 输出的集合中都必然包含恶意方\(P_g\);</li>
+<li>若\(P_i\)是恶意的, \(P_i\)将发送错误的信息给\(P_g\), \(P_g\)作为诚实方发现从\(P_i\)和\(P_j\)收到的信息不一致, 将指控\(P_i\)和\(P_j\), 此时只有\(P_i\)会指控\(P_g\), 因为\(P_g\)正确地广播了\(P_j\)发送的值. 如果\(P_i\)指控了\(P_g\), 则参与方将\(\{P_i,P_g\}\)作为输出, 否则将\(\{P_i,P_j\}\)作为输出, 不管哪种情况都有\(P_i\)在集合中. \(P_j\)是恶意的情形与\(P_i\)类似.</li>
+</ol>
+<p>由于JMP仅是三方协议, 因此文章假定没有参与JMP的计算方总是诚实的.</p>
+<h3><a id="shared-input" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Shared Input</h3>
+<p>本节介绍秘密\(x\in\mathcal R\)如何在恶意安全下将\(x\)分享给各参与方, 使得各参与方获得\(x\)的份额\([x]\), 为此可以通过伪随机生成器\(\mathsf{PRG}\)来完成. 分两种情况:</p>
+<ol>
+<li>若有三个参与方\(P_i,P_j,P_h\)知道\(x\), 则不需要交互即可完成对\(x\)的秘密分享: 令\(x_i=x_j=x_h=0,x_g=x\)即可, 记为\([x]\leftarrow\mathsf{INPLocal}(x,P_i,P_j,P_h)\).</li>
+<li>若只有两个参与方知道\(x\), 则可以借助\(\mathsf{PRG}_k\)(伪随机生成器)来完成, 其中\(k\)是密钥. 具体方案如下图协议3. 这里的第3步需要调用JMP确保\(P_g\)获得的\(x_h\)与\(P_i, P_j\)计算得到的是一致的.</li>
+</ol>
+<img src="https://s2.loli.net/2022/04/15/r7jLhQCFmRo1Ag5.png" style="zoom:50%;" />
+<h3><a id="secure-multiplication" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Multiplication</h3>
+<p>为计算\(x,y\)秘密分享的乘法\(xy\), 为此, 按照秘密共享形式将\(xy\) 展开, 我们得到如下几项, 乘法的目标就是计算所有这些项的和. 其中\(x_iy_i\)这一类的项是参与方无需交互就能计算的, 因为只有\(P_i\)无法计算这一项, 为此令\(P_i\)的三个分享都为0, 其他参与方的其中一个分享为\(x_iy_i\), 其余为0即可. 因此关键在于计算交叉项之和(文章的协议3).</p>
+<p><img src="https://s2.loli.net/2022/04/15/ZOzTEKumb6jIk3U.png" alt="" /></p>
+<p>下面以\(z:=x_1y_2+y_1x_2\)为例, 这一项\(P_3,P_4\)可以本地计算得到, 问题转化为\(P_3, P_4\)已知秘密\(z\), 如何向\(P_1,P_2\)秘密分享\(z\), 为此可以借助\(\mathsf{PRG}_k\)(伪随机生成器), \(k\)是密钥. 假设\(P_2,P_3,P_4\)之间有预分享的密钥\(k\), 首先\(P_2,P_3,P_4\)计算随机数\(z_1=r=\mathsf{PRG}_k()\)作为其中一个分享, \(P_3,P_4\)设定另一个分享为\(z_2=z-r\), 然后\(P_1,P_2\)令\(z_3=z_4=0\), 接下来只需让\(P_3\)发送\(z_2\)给\(P_1\)即可完成交叉项秘密分享. 由于是恶意安全模型下, 需要确保参与方\(P_3\)发送给\(P_1\)的信息和\(P_4\)持有的都是\(z_2\), 为此需要进行三方作弊识别检测(文章的协议2, Joint Message Passing), 并使得\(P_1\)得到正确的\(z_2\). 其余交叉项情况类似, 因为一共有6个这样的交叉项求和, 因此, 计算一个秘密分享的乘法算子需要发送6个元素, 整个乘法算子的计算步骤见文章协议4. 文章指出, 本文的方案除了JMP部分的哈希函数和伪随机生成器的状态之外, 不需要保留任何后续计算不再需要的秘密分享, 不依赖于功能函数的预处理阶段.</p>
+<p><img src="https://s2.loli.net/2022/04/15/T1oXVC6rvxacNp5.png" alt="" /></p>
+<img src="https://s2.loli.net/2022/04/15/Xa35vMqj1nVmbiJ.png" style="zoom:50%;" />
+<h3><a id="probabilistic-truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Probabilistic Truncation</h3>
+<img align="right" src="https://s2.loli.net/2022/04/15/n3bzYMSNFDEpdh6.png" style="zoom:40%;" />
+<p>为了处理多方计算的定点算术(fixed-point arithmetic)问题, 本文将Dalskov等人<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>与SWIFT<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>的截断协议相结合给出概率截断的MPC协议(协议5).</p>
+<p>给定\(\mathbb Z_{2^k}\)上的秘密份额\([x]\)和定点精度\(m\), 截断协议的目标是获得份额\([y]\), 这里的\(y=\lfloor x/2^m\rfloor\), 这等价于获得\(y=\lfloor x/2^m\rceil\). 在概率截断中, 我们更关注\(\lfloor x/2^m\rceil\)的最佳近似(就近取整). 具体而言, \(y=\lfloor x/2^m\rceil+u\), 其中\(u\in\{0,1\}\)更偏向于正确结果\(\lfloor x/2^m\rceil\), 即若\(x/2^m\)更接近于\(\lceil x/2^m\rceil\), 则\(u=1\); 若\(x/2^m\)更接近于\(\lfloor x/2^m\rfloor\), 则\(u=0\). 换而言之, \(u=1\)的概率为\((x\bmod 2^m)/2^m\). 举个例子, 若\(x=7,m=2\), 此时正确的结果应为\(7/2^2=1.75\), 概率截断协议给出的可能结果为\(\lfloor 7/4\rfloor=1\), 或\(\lfloor7/4\rfloor+1=2\), 后者即\(u=1\)的概率为\((7\bmod 2^2)/2^2=0.75\), 刚好是正确结果的小数部分.</p>
+<p>为说明协议5的正确性, 令\(x\)是正数, 即\(\mathsf{MSB}(x)=0\), 则有\(0&lt;x&lt;2^{k-1}, x\bmod2^{k-1}=x\), 这意味着我们有: \(c=x+r\bmod2^k\), 这等价于\(c=x+r-2^ku\), 其中\(u\)是溢出标识比特, 即\(u=(x+r\geq _?2^k)\).  另一方面, 我们有\(c\bmod2^{k-1}=x\bmod2^{k-1}+r\bmod2^{k-1}\), 这等价于\(c\bmod 2^{k-1}=x\bmod2^{k-1}+r\bmod2^{k-1}-2^{k-1}b\), 其中\(b=(x\bmod2^{k-1}+r\bmod2^{k-1}\geq_?2^{k-1})\). 若记\(r_{k-1}=\mathsf{MSB}(r)\), 则可以证明\(u=b\cdot r_{k-1}\).</p>
+<p>根据带余除法, 有\(r=2^{k-1}\cdot r_{k-1}+(r\bmod2^{k-1})\), \(c=2^{k-1}\cdot \lfloor c/2^{k-1}\rfloor+(c\bmod2^{k-1})\), 记\(c''=\lfloor c/2^{k-1}\rfloor\), 利用性质: 若\(a,b\)是两个比特, 则有\(a\oplus b=a+b-2ab\). 我们有</p>
+\[\begin{aligned}
+2^{k-1}\cdot c''&amp;=c-(c\bmod2^{k-1})\\
+&amp;=(x+r-2^ku)-(x+(r\bmod2^{k-1})-2^{k-1}b)\\
+&amp;=2^{k-1}r_{k-1}+2^{k-1}b-2^k\cdot b\cdot r_{k-1}\\
+&amp;=2^{k-1}(r_{k-1}+b-2br_{k-1})\\
+&amp;=2^{k-1}(r_{k-1}\oplus b).
+\end{aligned}
+\]
+<p>故有\(c''=r_{k-1}\oplus b\), 于是\(b=c''\oplus r_{k-1}\).</p>
+<p>因为\(x\bmod2^{k-1}=x\), 则有\((c\bmod2^{k-1})=x+(r\bmod2^{k-1})-2^{k-1}b\), 两边除于\(2^m\)并下取整得</p>
+\[c'=\lfloor\frac{(c\bmod2^{k-1})}{2^m}\rfloor=\lfloor\dfrac{x+(r\bmod2^{k-1})}{2^m}\rfloor-2^{k-m-1}b,
+\]
+<p>其中</p>
+\[\lfloor\dfrac{x+(r\bmod2^{k-1})}{2^m}\rfloor=\lfloor \dfrac{x}{2^m}\rfloor+\lfloor\dfrac{(r\bmod2^{k-1})}{2^m}\rfloor+w, ~~~~w\in\{0,1\}.
+\]
+<p>而\(r'=\lfloor\dfrac{(r\bmod2^{k-1})}{2^m}\rfloor\), 于是协议5的第7步输出为</p>
+\[c'-r'+2^{k-m-1}b=\lfloor \dfrac{x}{2^m}\rfloor+w.
+\]
+<p>因此, \(w=1\)的概率等于\(\dfrac{x}{2^m}\)的小数部分, 即概率截断输出更倾向于\(\lfloor \dfrac{x}{2^m}\rceil\).</p>
+<h3><a id="random-bit-generation-for-4pc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random Bit Generation for 4PC</h3>
+<p>生成随机比特是多方计算中一个基础原语. 协议6给出了4PC下的具体方案, 总体思想是将参与方分为两组, 每组通过预分享的密钥生成随机比特, 然后再对其进行秘密分享, 通过比特运算与算术运算的关系来生成随机比特\(b\). 因为每组中至少有一个参与方是诚实的, 所以恶参与方可以在INP协议中检测出来, 因此可以保证\(b\)的正确性.</p>
+<img src="https://s2.loli.net/2022/04/15/rxVq6yEa7DcS42d.png" style="zoom:50%;" />
+<h3><a id="mix-circuit-computation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mix-Circuit Computation</h3>
+<p>比较和截断等非线性函数的计算通常在二进制计算(Binary computation)中更高效, 这反过来要求在算术运算(Arithmetic computation)和二进制运算中相互转换, 因为算术运算明显快于点积运算. 有两种方法来实现转换:</p>
+<ul>
+<li>对于某些秘密共享方案, 可以使用SPDZ, ABY, ABY3的B2A/A2B协议.</li>
+<li>使用Rotaru和Wood的double-authenticated bits(daBits)方案, 在两个计算域中共享随机比特份额, 这些随机比特可以盲化(mask)秘密值. 例如, 若\(x\)是计算中的一个比特, \(r\)是秘密随机比特, 在计算域中打开\(x\oplus r\)不会泄漏任何信息, 于是可以在另一个计算域中计算\(x=(x\oplus r)\oplus r\), 因为\(r\)在两个计算域中是通过构造来获得. 由于\(r\)的生成与秘密无关, 因此非常适合于offline-online范式的多方计算协议中.</li>
+</ul>
+<p>Escudero等人<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>将第二种方法从1比特扩展到了\(m\)比特, 提出了extended daBits(edaBits), 并介绍了如何在任意安全模型中生成edaBits. 本文提出了在复制秘密共享模数为二次幂的高效生成预处理edaBits的方案. 构造的关键在于将生成edaBits中的使用的溢出校正(overflow correction)与复制秘密共享的本地份额转换相结合, 文章称之为份额拆分(Share splitting). 具体方案如下图协议7, 其中\(x[j]\)表示\(x\)的第\(j\)比特. 协议7可以扩展到\(n\)方复制秘密共享中.</p>
+<p>协议8给出了高效生成edaBits的方法. edaBits是由\(\mathbb Z_{2^k}\)上秘密分享的随机值\([r]_{2^k}\)和它比特\(\{r[i]\}_{i=0}^{k-1}\)的二进制分享\([r]_2\)组成的对\(([r]_{2^k},[r]_2)\).若\(r\in\{0,1\}\)是均匀随机的, 则edaBits即为daBits. 通过daBits可以将\([b]_{2}\)转换为\([b]_{2^k}\): 参与方打开\(c\leftarrow[r]_2+[b]_2\), 然后计算\([b]_{2^k}=[r]_{2^k}+c-2\cdot c\cdot [r]_{2^k}\). 根据这个假设, 可以扩展生成\(m\)比特的edaBits.</p>
+<p><img src="https://s2.loli.net/2022/04/15/vHbJsPExAiYwTgQ.png" alt="" /></p>
+<h3><a id="3pc-with-malicious-security" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3PC with Malicious Security</h3>
+<img align="right"  src="https://s2.loli.net/2022/04/15/K6gX1Gk4sPF8xpb.png" style="zoom:30%;" >
+<p>本文实现鲁棒性依赖于三方计算. 与SPDZ类似, Abspoel等人的方案通过加入MAC到秘密份额中使得作弊可以被检测出来, 但他们的方案不支持连续计算, 因为它涉及验证正确性的最后检测阶段, 在此之前的一切都不被信任, 由于检测会泄漏某些防止作弊的秘密信息, 检测后无法进一步计算. 本文通过修改他们的验证协议, 通过献祭(sacrificing)在底层协议中的一个额外的秘密乘法, 使得这些秘密信息被隐藏起来, 以利于连续计算. 连续计算的好处是允许将秘密共享信息保存更长时间. 在实际操作方面, 检测协议将每个乘法的信息保留到检测阶段. 此外, 连续计算可以减少存储要求, 因为它允许定期检查, 从而删除中间信息.</p>
+<p>设\(\langle x\rangle=([x]_{2^{k+s}},[r\cdot x]_{2^{k+s}})\)是\(x\)的SPDZ份额, 其中\(r\in\mathbb{Z}_{2^s}\)是全局MAC密钥. 见协议9, 这里直接使用了基于RSS的在模数为二次幂上的Zero-check功能函数\(\mathcal F_\mathsf{CheckZero}\). 这里简单介绍一下协议9中的Zero-check的具体思路<sup class="footnote-ref"><a href="#fn6" id="fnref6">6</a></sup>, 设存在一个随机预言机\(\mathcal H\), 若\(\sum_{i}x_i=0\), 则\(x_{i-1}\equiv_{k+s} -(x_i+x_{i+1})\), 因此\(P_i\)发送\(z_i=\mathcal H(-(x_i+x_{i+1}))\)给\(P_{i+1}\), 而\(P_{i+1}\)和\(P_{i-1}\)都有\(x_{i-1}\), 因此\(P_{i+1}\)可以检测\(z_i=\mathcal H(x_{i-1})\)是否成立, 若不成立, 则直接输出中止(Abort).</p>
+<p>复杂度: 协议9底层协议中, 每个点积计算参与方需要发送\(k+s\)比特, 每个输入输入方需要发送\(2(k+s)\)比特. 因此在协议9中, 所有参与方的点积开销为\(6(k+s)\), 输入开销为\(3(k+s)\). 因此, 点积的开销与向量长度\(n\)无关.</p>
+</br >
+</br >
+</br >
+<h3><a id="random-bit-generation-for-2pc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random Bit Generation for 2PC</h3>
+<img align="right" src="https://s2.loli.net/2022/04/15/L2jf48wFimySR1b.png" style="zoom:30%;" >
+<p>这里考虑的是2PC的情况, 与上面的有所区别.</p>
+<p>生成具有半诚实安全性的随机比特的方法是两个不同参与方输入随机比特, 然后计算XOR即可.</p>
+<p>然而在恶意安全的情况下, 恶意参与方可能输入的\(b\)可能不是一个比特, 为此在不泄漏\(b\)的前提下, 可以通过计算\(b(1-b)=0\)是否成立来检测是否有\(b\in\{0,1\}\).  本文构造的随机比特生成协议也使用了这一原理, 见协议10. 如果\(b_i=0\), 则最后一步检测将成功. 不失一般性, 假设\(P_0\)是诚实的,  因为</p>
+\[b_i=b_i^0\oplus b_i^1=b_i^0+b_i^1-2\cdot b_i^0\cdot b_i^1=
+\begin{cases}
+b_i^1, &amp; b_i^0=0 \\
+1-b_i^1, &amp; b_i^0=1.
+\end{cases}
+\]
+<p>即, 无关\(b_i^0\),  \(b_i\in\{0,1\}\)当且仅当\(b_i^1\in\{0,1\}\). 这种方法排除了对\(b_i^0\)的选择失败攻击.</p>
+<h3><a id="communication-cost" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication Cost</h3>
+<p>本文的三方协议比其他工作慢一个数量级, 四方相差大约2倍.</p>
+<p><img src="https://s2.loli.net/2022/04/15/gBRnk7m3X2pqYhV.png" alt="" /></p>
+<h2><a id="privacy-robustness" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Robustness</h2>
+<p>Slide的这个图很容易理解文章隐私鲁棒性的实现思想, 现在来说明总体的转换思路, 参与方之间约定若JMP输出了恶意参与方的集合, 则优先将索引数小的那个参与方是恶意参与方, 排除该参与方再进行后续计算. 继续背景中的场景, 因为\(P_1\)和\(P_4\)其中必有一方是恶意的, 先假设\(P_1\)是恶意的, 即排除\(P_1\), 剩下的三方将输入的四方秘密分享转化为三方秘密分享, 然后使用中止安全(Security with abort)的三方协议进行隐私计算. 如果在计算中仍然出现了中止信号, 说明\(P_4\)是恶意的, 排除\(P_4\), 剩下的\(P_2,P_3\)使用被动安全的两方计算协议完成隐私计算, 此时可以引入诚实的\(P_1\)生成乘法三元组协助两方进行隐私计算. 这样既可以在不向计算方泄漏用户的隐私信息的前提下完成计算, 又提供了鲁棒性, 达到了预期目标. 文章的JMP协议给出了当出现中止信号时, 检测恶意参与方的方法.</p>
+<p><img src="https://s2.loli.net/2022/04/15/MlB5uvXO2wDy7ZT.png" alt="" /></p>
+<p>现在说明排除潜在的恶意参与方后, 如何实现份额转换.</p>
+<p>设\(x=x_1+x_2+x_3+x_4\), 参与方\(P_i\)拥有的份额为\(\{x_j\}_{j\neq i}\).</p>
+<ol>
+<li>四方份额转三方份额: 假设\(P_1\)被排除, 则进行如下转换: \(P_2,P_3\)定义\(x'=x_1+x_4\), \(P_4\)丢弃\(x_1\). 这样, \(P_2\)的持有的份额为\((x',x_3)\), \(P_3\)持有的份额为\((x_2,x')\), \(P_4\)的持有份额为\((x_2,x_3)\). 此后计算为恶意安全的三方计算.</li>
+<li>三方份额转两方份额: 假设\(P_4\)被排除, 则进行如下转换: \(P_2\)定义\(x''=x'+x_3\), \(P_3\)丢弃\(x'\). 这样, \(P_2\)的持有份额为\(x''\), \(P_3\)的持有份额为\(x_2\). 此后计算为半诚实安全的两方计算, 但可以引入诚实方生成乘法三元组协助两方进行计算.</li>
+</ol>
+<h2><a id="experiment" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Experiment</h2>
+<p>文章中的实验仅实现了中止安全性. 表2展示了不同安全模型下3层网络训练MNIST的计算开销和不同epoch下的模型准确率. 此外, 表3中可以看出文章所提出的半诚实安全的3PC和恶意安全的4PC开销基本相近.</p>
+<p><img src="https://s2.loli.net/2022/04/15/LerDZkw7tnKUTHQ.png" alt="" /></p>
+<h3><a id="the-impact-of-fixed-point-precision" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Impact of Fixed-Point Precision</h3>
+<p>MPC使用浮点算术(float-point arithmetic)通常可以获得更好的准确性, 但开销也相对较大, 因此通常MPC使用的是效率更高的定点算术(fixed-point arithmetic). 但定点算术的方法由于需要进行概率截断, 可能会导致模型的准确率下降, 先前的工作所选的参数在小型模型上具有较好的准确率, 但大多忽略了在大型模型中的准确性降低的程度. 文章分别对比了不同定点精度与计算域位长导致的准确率和效率之间差异. 结果见表5和表6.</p>
+<p>先前的工作大多要求概率截断中的精度比计算域最大长度\(k\)小得多, 误差概率为\(2^{\ell-k}\), 其中\(\ell\)是概率截断输入的长度. 表5表明这个概率大概为\(2^{-20}\). 为训练双层模型, 通常需要将每个数的误差概率限制为\(2^{-40}\).</p>
+<p>表6说明虽然低精度截断使得通信量节省了大约1/3, 但较大的模数使得双层模型训练的时间增加了1倍.</p>
+<p>此外, 文章还指出64比特模数和13比特定点精度不能满足大型模型训练要求, 表5双层模型定点精度为12时, 随着epoch增大, 模型的准确度反而下降.</p>
+<p><img src="https://s2.loli.net/2022/04/15/DYGjVrCN3eHh65W.png" alt="" /></p>
+<h2><a id="conclusion" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h2>
+<p>SWIFT中不考虑对诚实方保护输入的隐私性, 为此本文提出了Privacy robustness, 在不泄漏任何参与方输入隐私的前提下, 实现了输出可达性. 提出的协议不需要预处理阶段, 但安全性保证的前提是假设诚实方只存储预期信息, 即协议执行完后诚实方不能恢复隐私输入, 为此本文设计的协议不含让诚实参与方恢复信息的步骤. 如果诚实方长期存储所有的输入信息, 则本文提出的方案不适用, 安全性假设较强.</p>
+<h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p>Nishat Koti, Mahak Pancholi, Arpita Patra, and Ajith Suresh. Swift: Super-fast and robust privacy-preserving machine learning. Cryptology ePrint Archive, Report 2020/592, 2020. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2">
+<p>Byali, Megha et al. “FLASH: Fast and Robust Framework for Privacy-preserving Machine Learning.” <em>Proceedings on Privacy Enhancing Technologies</em> 2020 (2019): 459 - 480. <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn3">
+<p>Arpita Patra and Ajith Suresh. BLAZE: Blazing fast privacy-preserving machine learning. In NDSS 2020. The Internet Society, February 2020. <a href="#fnref3" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn4">
+<p>Anders P. K. Dalskov, Daniel Escudero, and Marcel Keller. Secure evaluation of quantized neural networks. PoPETs, 2020(4):355–375, October 2020. <a href="#fnref4" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn5">
+<p>Escudero, D., Ghosh, S., Keller, M., Rachuri, R. &amp; Scholl, P. Improved Primitives for MPC over Mixed Arithmetic-Binary Circuits. CRYPTO 2020. <a href="#fnref5" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn6">
+<p>Mark Abspoel, Anders Dalskov, Daniel Escudero, and Ariel Nof. An efficient passive-to-active compiler for honest-majority MPC over rings. Cryptology ePrint Archive, Report 2019/1298, 2019. <a href="#fnref6" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
 
 ]]></content>
   </entry>

@@ -185,7 +185,7 @@
                             <li class="sidenav-item">
                                 <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
                                     <i class="sidenav-icon ion ion-ios-bookmark"></i>
-                                    <div>隐私保护机器学习(11)</div>
+                                    <div>隐私保护机器学习(10)</div>
                                 </a>
                             </li>
                             
@@ -266,12 +266,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16562245505906.html" title="ABY3: A Mixed Protocol Framework for Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>ABY3: A Mixed Protocol Framework for Machine Learning</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
                             </a>
                         </li>
                         
@@ -488,14 +482,14 @@
 <p>内积计算的通信开销与向量长度无关：对于长度为\(n\)的两个向量进行内积计算，通常的做法是分开计算\(n \)次定点乘法截断再求和，如此消耗\(n\)个截断对，通信量 \(O(n)\)，本文基于RSS的特性提出了改进方案，使得内积计算只需1个截断对，同时通信量变为 \(O(1) \)。</p>
 </li>
 <li>
-<p>Arithmetic / Binary / Yao sharing之间的相互转换</p>
+<p>Arithmetic / Binary / Yao shares之间的相互转换</p>
 </li>
 <li>
 <p>基于分段多项式的激活函数近似计算</p>
 </li>
 </ul>
 <h2><a id="%E4%B8%BB%E8%A6%81%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>主要协议</h2>
-<p>设秘密\(x\)的RSS形式为\(\langle x\rangle=(x_1,x_2,x_3)\)，其中\(P_i\)的份额表示为\((x_i,x_{(i~\bmod~{3})+1})\)，\(i\in\{1,2,3\}\)。基本算子参考原文，这里不做介绍。  \(\newcommand{\RSS}[1]{\langle #1 \rangle}\)</p>
+<p>设秘密\(x\)的RSS形式为\([\![ x]\!]=(x_1,x_2,x_3)\)，其中\(P_i\)的份额表示为\((x_i,x_{(i~\bmod~{3})+1})\)，\(i\in\{1,2,3\}\)。基本算子参考原文，这里不做介绍。  \(\newcommand{\RSS}[1]{[\![ #1 ]\!]}\)</p>
 <h3><a id="%E4%B8%89%E6%96%B9%E5%AE%9A%E7%82%B9%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>三方定点截断</h3>
 <p>定点数乘法计算后需要进行截断，SecureML中的本地截断方案不能用于3PC中，可转化为2PC下来做，即ABY3中的第一种截断方案。下面只介绍第二种。</p>
 <p>对于要进行截断\(d\)位的份额\(\RSS{x'}\), 基本步骤是先计算3-out-of-3 Additive sharing，再转化为2-out-of-3 Replicated sharing。ABY3将这两个步骤进行合并，从而减少一轮在线通信。步骤如下：</p>
@@ -508,10 +502,10 @@
 <p>这种截断方案在最低位至多存在1比特误差。</p>
 <h3><a id="%E5%86%85%E7%A7%AF%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>内积计算</h3>
 <p>内积计算作为机器学习中常见运算之一，构造通信与长度无关的内积计算协议至关重要，此外，矩阵乘法计算也可以转化为内积计算。给定长度为\(n\)的两个向量\(\RSS{\vec{x}}\)，\(\RSS{\vec{y}}\)，计算\(\RSS{\vec{x}\cdot\vec{y}}=\sum_{i=1}^n\RSS{x_i}\RSS{y_i}\)，这里的\(x_i\)表示向量\(\vec{x}\)的第\(i\)个分量。如果将\(n\)个乘法分开计算则需要通信\(n\)次，通信量\(O(n)\)，ABY3优化为如下过程：</p>
-\[\langle{\vec x}\rangle\cdot\langle{\vec y}\rangle:=\mathsf{reveal}((\sum_{i=1}^n\langle{x_i}\rangle\langle{y_i}\rangle)+\langle{r'}\rangle)/2^d-\langle{r}\rangle
+\[[\![{\vec x}]\!]\cdot[\![{\vec y}]\!]:=\mathsf{reveal}((\sum_{i=1}^n[\![{x_i}]\!]\cdot[\![{y_i}]\!])+[\![{r'}]\!])/2^d-[\![{r}]\!]
 \]
 <p>简而言之，是将所有乘法项计算结果求和，通过随机数茫化并打开，最后减掉随机数份额。如此只需通信\(1\)次，通信量\(O(1)\)，效率提升了\(n\)倍。此外，由于只截断了一次，因此相比分开截断，ABY3的做法更精确。</p>
-<h3><a id="aby-share%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>A/B/Y share的相互转换</h3>
+<h3><a id="aby-shares%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>A/B/Y shares的相互转换</h3>
 <ul>
 <li>
 <p>A2B比特分解(bit decomposition)：给定\(\RSS{x}^A\)，计算\(\RSS{\vec{x}}^B\)，满足\(x=\sum_{i=0}^{k-1}2^i\cdot x[i]\)，其中\(x[i]\in\{0,1\}\)是\(\vec{x}\)的第\(i\)分量。思路是先将\(\RSS{x}^A=(x_1,x_2,x_3)\)作为3PC的布尔加法电路输入计算和，电路结果即为所求。ABY3中基于FA和PPA对电路进行了优化，使得通信轮次降为\(1+\log k\)。</p>
@@ -548,38 +542,20 @@
 <li>
 <p>首先构造三方OT协议，三方分别为Sender，Receiver，Helper，其中Helper已知Receiver的选择比特\(c\)，定义三方OT的功能为\(((m_0,m_1),c,c)\rightarrow(\perp,m_c,\perp)\)，协议过程如下：</p>
 <ol>
-<li>
-<p>Sender和Helper随机生成\(w_0,w_1\leftarrow\{0,1\}^\kappa\)；</p>
-</li>
-<li>
-<p>Sender发送\(m_0\oplus w_0\)，\(m_1\oplus w_1\)给Receiver；</p>
-</li>
-<li>
-<p>Helper发送\(w_c\)给Receiver，则后者可以计算\(m_c=(m_c\oplus w_c)\oplus w_c\)。</p>
-</li>
+<li>Sender和Helper随机生成\(w_0,w_1\leftarrow\{0,1\}^\kappa\)；</li>
+<li>Sender发送\(m_0\oplus w_0\)，\(m_1\oplus w_1\)给Receiver；</li>
+<li>Helper发送\(w_c\)给Receiver，则后者可以计算\(m_c=(m_c\oplus w_c)\oplus w_c\)。</li>
 </ol>
 </li>
 <li>
 <p>然后考虑计算\(a\RSS{b}^B=\RSS{ab}^A\)，其中\(a\in\mathbb{Z}_{2^k}\)是公开值，\(b\in\{0,1\}\)，计算过程如下：</p>
 <ol>
-<li>
-<p>\(P_1\)和\(P_3\)本地采样\(c_1\leftarrow\mathbb{Z}_{2^k}\)，\(P_2\)和\(P_3\)本地采样\(c_3\leftarrow\mathbb{Z}_{2^k}\)；</p>
-</li>
-<li>
-<p>\(P_3\)作为Sender，定义两个消息\(m_i:=(i\oplus b_1\oplus b_3)a-c_1-c_3\)，其中\(i\in\{0,1\}\)；</p>
-</li>
-<li>
-<p>\(P_2\)作为Receiver，选择比特为\(b_2\)；</p>
-</li>
-<li>
-<p>\(P_1\)作为Helper，已知\(b_2\)，通过三方OT协议，将掩码发给\(P_2\)；</p>
-</li>
-<li>
-<p>\(P_2\)计算\(c_2=m_{b_2}=(b_2\oplus b_1\oplus b_3)a-c_1-c_3=ba-c_1-c_3\)；</p>
-</li>
-<li>
-<p>\(P_2\)将\(c_2\)发给\(P_1\)，以保持2-out-of-3 RSS语义。</p>
-</li>
+<li>\(P_1\)和\(P_3\)本地采样\(c_1\leftarrow\mathbb{Z}_{2^k}\)，\(P_2\)和\(P_3\)本地采样\(c_3\leftarrow\mathbb{Z}_{2^k}\)；</li>
+<li>\(P_3\)作为Sender，定义两个消息\(m_i:=(i\oplus b_1\oplus b_3)a-c_1-c_3\)，其中\(i\in\{0,1\}\)；</li>
+<li>\(P_2\)作为Receiver，选择比特为\(b_2\)；</li>
+<li>\(P_1\)作为Helper，已知\(b_2\)，通过三方OT协议，将掩码发给\(P_2\)；</li>
+<li>\(P_2\)计算\(c_2=m_{b_2}=(b_2\oplus b_1\oplus b_3)a-c_1-c_3=ba-c_1-c_3\)；</li>
+<li>\(P_2\)将\(c_2\)发给\(P_1\)，以保持2-out-of-3 RSS语义。</li>
 </ol>
 <p>以上需要2轮通信，\(4k\)比特的通信量。为减少通信轮数，可并行一次三方OT，\(P_3\)作为Sender发送\(m_0,m_1\)，而\(P_1\)作为Receiver输入\({b_2}\)，从而在1轮中让\(P_1\)得到\(m_{b_2}=c_2\)，如此需要\(6k\)比特通信量。</p>
 </li>
@@ -592,7 +568,7 @@
 <p>不同转换协议的理论开销如下：</p>
 <p><img src="media/16562245505906/16562247265259.png" alt="image-20210708205512619" /></p>
 <h3><a id="%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>非线性激活函数的近似计算</h3>
-<p>ABY3中基于\(a\RSS{b}^B=\RSS{ab}^A\)和\(\RSS{a}^A\RSS{b}^B=\RSS{ab}^A\)，通过分段多项式来近似计算非线性激活函数。</p>
+<p>ABY3中基于\(a[\![ b]\!]^B=[\![ ab]\!]^A\)和\([\![ a]\!]^A[\![ b]\!]^B=[\![ ab]\!]^A\)，通过分段多项式来近似计算非线性激活函数。</p>
 <p>令\(f_1,\cdots,f_m\)是系数公开的多项式, 且\(-\infty=c_0&lt;c_1&lt;\dots&lt;c_{m-1}&lt;c_m=\infty\), 使得</p>
 \[f(x)=\begin{aligned}
 \begin{cases}
@@ -608,7 +584,7 @@ f_m(x), &amp;c_{m-1}\leq x
 <li>若使用bit extraction，则需要\(O(\log k)\)轮交互，\(O(k)\)比特通信量；</li>
 <li>若使用比较混淆电路，则只需\(1\)轮交互，但通信量变为\(O(k\kappa)\)比特。</li>
 </ul>
-<p>对于每个\(f_i\)的计算，\(f_i(\RSS{x})=a_{i,j}\RSS{x}^j+\cdots+a_{i,1}\RSS{x}+a_{i,0}\), 其中\(a_{i,l}\)是公开常数。当多项式次数\(j=0\)时，计算\(b_if_i(\RSS{x})\)的计算可优化为计算\(a_{i,0}\RSS{b_i}^B\)。当\(f_i\)系数是整数时，可以本地计算\(\RSS{x}^l,a_{i,l}\RSS{x}^l\)。当\(f_i\)系数是非零小数时，需要先进行截断。给定\(\RSS{x}\)，只需计算一次\(\RSS{x}^j,\cdots,\RSS{x}^2\)，用于\(f_1,\cdots,f_m\)，这部分计算可以与\(b_1,\cdots,b_m\)的计算并行。</p>
+<p>对于每个\(f_i\)的计算，\(f_i([\![ x]\!])=a_{i,j}[\![ x]\!]^j+\cdots+a_{i,1}[\![ x]\!]+a_{i,0}\), 其中\(a_{i,l}\)是公开常数。当多项式次数\(j=0\)时，计算\(b_if_i([\![ x]\!])\)的计算可优化为计算\(a_{i,0}[\![ b_i]\!]^B\)。当\(f_i\)系数是整数时，可以本地计算\([\![ x]\!]^l,a_{i,l}[\![ x]\!]^l\)。当\(f_i\)系数是非零小数时，需要先进行截断。给定\([\![ x]\!]\)，只需计算一次\([\![ x]\!]^j,\cdots,[\![ x]\!]^2\)，用于\(f_1,\cdots,f_m\)，这部分计算可以与\(b_1,\cdots,b_m\)的计算并行。</p>
 <p>常见的非线性激活函数计算方式如下：</p>
 <ul>
 <li>
@@ -620,7 +596,7 @@ f_m(x), &amp;c_{m-1}\leq x
 </ul>
 <h2><a id="%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>逻辑回归</h2>
 <p>逻辑回归的安全训练关键在于每轮更新权重如下：</p>
-\[\mathbf{w}:=\mathbf{w}-\alpha\frac{1}{\beta}\mathbf X_j^T\times(f(\mathbf{X}_j\times\mathbf w)-\mathbf{Y}_j)\tag{1}
+\[\mathbf{w}:=\mathbf{w}-\alpha\frac{1}{\beta}\mathbf X_j^T\times(f(\mathbf{X}_j\times\mathbf w)-\mathbf{Y}_j)
 \]
 <p>其中，\(f\)是Sigmoid函数的分段函数近似。</p>
 <p>若进行安全预测，则只需计算\(f(\mathbf{X}\times \mathbf w)\)；若进行安全训练，参考SecureML的相关步骤，具体算法总结如下：</p>
@@ -765,14 +741,14 @@ f_m(x), &amp;c_{m-1}\leq x
 <p>内积计算的通信开销与向量长度无关：对于长度为\(n\)的两个向量进行内积计算，通常的做法是分开计算\(n \)次定点乘法截断再求和，如此消耗\(n\)个截断对，通信量 \(O(n)\)，本文基于RSS的特性提出了改进方案，使得内积计算只需1个截断对，同时通信量变为 \(O(1) \)。</p>
 </li>
 <li>
-<p>Arithmetic / Binary / Yao sharing之间的相互转换</p>
+<p>Arithmetic / Binary / Yao shares之间的相互转换</p>
 </li>
 <li>
 <p>基于分段多项式的激活函数近似计算</p>
 </li>
 </ul>
 <h2><a id="%E4%B8%BB%E8%A6%81%E5%8D%8F%E8%AE%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>主要协议</h2>
-<p>设秘密\(x\)的RSS形式为\(\langle x\rangle=(x_1,x_2,x_3)\)，其中\(P_i\)的份额表示为\((x_i,x_{(i~\bmod~{3})+1})\)，\(i\in\{1,2,3\}\)。基本算子参考原文，这里不做介绍。  \(\newcommand{\RSS}[1]{\langle #1 \rangle}\)</p>
+<p>设秘密\(x\)的RSS形式为\([\![ x]\!]=(x_1,x_2,x_3)\)，其中\(P_i\)的份额表示为\((x_i,x_{(i~\bmod~{3})+1})\)，\(i\in\{1,2,3\}\)。基本算子参考原文，这里不做介绍。  \(\newcommand{\RSS}[1]{[\![ #1 ]\!]}\)</p>
 <h3><a id="%E4%B8%89%E6%96%B9%E5%AE%9A%E7%82%B9%E6%88%AA%E6%96%AD" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>三方定点截断</h3>
 <p>定点数乘法计算后需要进行截断，SecureML中的本地截断方案不能用于3PC中，可转化为2PC下来做，即ABY3中的第一种截断方案。下面只介绍第二种。</p>
 <p>对于要进行截断\(d\)位的份额\(\RSS{x'}\), 基本步骤是先计算3-out-of-3 Additive sharing，再转化为2-out-of-3 Replicated sharing。ABY3将这两个步骤进行合并，从而减少一轮在线通信。步骤如下：</p>
@@ -785,10 +761,10 @@ f_m(x), &amp;c_{m-1}\leq x
 <p>这种截断方案在最低位至多存在1比特误差。</p>
 <h3><a id="%E5%86%85%E7%A7%AF%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>内积计算</h3>
 <p>内积计算作为机器学习中常见运算之一，构造通信与长度无关的内积计算协议至关重要，此外，矩阵乘法计算也可以转化为内积计算。给定长度为\(n\)的两个向量\(\RSS{\vec{x}}\)，\(\RSS{\vec{y}}\)，计算\(\RSS{\vec{x}\cdot\vec{y}}=\sum_{i=1}^n\RSS{x_i}\RSS{y_i}\)，这里的\(x_i\)表示向量\(\vec{x}\)的第\(i\)个分量。如果将\(n\)个乘法分开计算则需要通信\(n\)次，通信量\(O(n)\)，ABY3优化为如下过程：</p>
-\[\langle{\vec x}\rangle\cdot\langle{\vec y}\rangle:=\mathsf{reveal}((\sum_{i=1}^n\langle{x_i}\rangle\langle{y_i}\rangle)+\langle{r'}\rangle)/2^d-\langle{r}\rangle
+\[[\![{\vec x}]\!]\cdot[\![{\vec y}]\!]:=\mathsf{reveal}((\sum_{i=1}^n[\![{x_i}]\!]\cdot[\![{y_i}]\!])+[\![{r'}]\!])/2^d-[\![{r}]\!]
 \]
 <p>简而言之，是将所有乘法项计算结果求和，通过随机数茫化并打开，最后减掉随机数份额。如此只需通信\(1\)次，通信量\(O(1)\)，效率提升了\(n\)倍。此外，由于只截断了一次，因此相比分开截断，ABY3的做法更精确。</p>
-<h3><a id="aby-share%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>A/B/Y share的相互转换</h3>
+<h3><a id="aby-shares%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>A/B/Y shares的相互转换</h3>
 <ul>
 <li>
 <p>A2B比特分解(bit decomposition)：给定\(\RSS{x}^A\)，计算\(\RSS{\vec{x}}^B\)，满足\(x=\sum_{i=0}^{k-1}2^i\cdot x[i]\)，其中\(x[i]\in\{0,1\}\)是\(\vec{x}\)的第\(i\)分量。思路是先将\(\RSS{x}^A=(x_1,x_2,x_3)\)作为3PC的布尔加法电路输入计算和，电路结果即为所求。ABY3中基于FA和PPA对电路进行了优化，使得通信轮次降为\(1+\log k\)。</p>
@@ -825,38 +801,20 @@ f_m(x), &amp;c_{m-1}\leq x
 <li>
 <p>首先构造三方OT协议，三方分别为Sender，Receiver，Helper，其中Helper已知Receiver的选择比特\(c\)，定义三方OT的功能为\(((m_0,m_1),c,c)\rightarrow(\perp,m_c,\perp)\)，协议过程如下：</p>
 <ol>
-<li>
-<p>Sender和Helper随机生成\(w_0,w_1\leftarrow\{0,1\}^\kappa\)；</p>
-</li>
-<li>
-<p>Sender发送\(m_0\oplus w_0\)，\(m_1\oplus w_1\)给Receiver；</p>
-</li>
-<li>
-<p>Helper发送\(w_c\)给Receiver，则后者可以计算\(m_c=(m_c\oplus w_c)\oplus w_c\)。</p>
-</li>
+<li>Sender和Helper随机生成\(w_0,w_1\leftarrow\{0,1\}^\kappa\)；</li>
+<li>Sender发送\(m_0\oplus w_0\)，\(m_1\oplus w_1\)给Receiver；</li>
+<li>Helper发送\(w_c\)给Receiver，则后者可以计算\(m_c=(m_c\oplus w_c)\oplus w_c\)。</li>
 </ol>
 </li>
 <li>
 <p>然后考虑计算\(a\RSS{b}^B=\RSS{ab}^A\)，其中\(a\in\mathbb{Z}_{2^k}\)是公开值，\(b\in\{0,1\}\)，计算过程如下：</p>
 <ol>
-<li>
-<p>\(P_1\)和\(P_3\)本地采样\(c_1\leftarrow\mathbb{Z}_{2^k}\)，\(P_2\)和\(P_3\)本地采样\(c_3\leftarrow\mathbb{Z}_{2^k}\)；</p>
-</li>
-<li>
-<p>\(P_3\)作为Sender，定义两个消息\(m_i:=(i\oplus b_1\oplus b_3)a-c_1-c_3\)，其中\(i\in\{0,1\}\)；</p>
-</li>
-<li>
-<p>\(P_2\)作为Receiver，选择比特为\(b_2\)；</p>
-</li>
-<li>
-<p>\(P_1\)作为Helper，已知\(b_2\)，通过三方OT协议，将掩码发给\(P_2\)；</p>
-</li>
-<li>
-<p>\(P_2\)计算\(c_2=m_{b_2}=(b_2\oplus b_1\oplus b_3)a-c_1-c_3=ba-c_1-c_3\)；</p>
-</li>
-<li>
-<p>\(P_2\)将\(c_2\)发给\(P_1\)，以保持2-out-of-3 RSS语义。</p>
-</li>
+<li>\(P_1\)和\(P_3\)本地采样\(c_1\leftarrow\mathbb{Z}_{2^k}\)，\(P_2\)和\(P_3\)本地采样\(c_3\leftarrow\mathbb{Z}_{2^k}\)；</li>
+<li>\(P_3\)作为Sender，定义两个消息\(m_i:=(i\oplus b_1\oplus b_3)a-c_1-c_3\)，其中\(i\in\{0,1\}\)；</li>
+<li>\(P_2\)作为Receiver，选择比特为\(b_2\)；</li>
+<li>\(P_1\)作为Helper，已知\(b_2\)，通过三方OT协议，将掩码发给\(P_2\)；</li>
+<li>\(P_2\)计算\(c_2=m_{b_2}=(b_2\oplus b_1\oplus b_3)a-c_1-c_3=ba-c_1-c_3\)；</li>
+<li>\(P_2\)将\(c_2\)发给\(P_1\)，以保持2-out-of-3 RSS语义。</li>
 </ol>
 <p>以上需要2轮通信，\(4k\)比特的通信量。为减少通信轮数，可并行一次三方OT，\(P_3\)作为Sender发送\(m_0,m_1\)，而\(P_1\)作为Receiver输入\({b_2}\)，从而在1轮中让\(P_1\)得到\(m_{b_2}=c_2\)，如此需要\(6k\)比特通信量。</p>
 </li>
@@ -869,7 +827,7 @@ f_m(x), &amp;c_{m-1}\leq x
 <p>不同转换协议的理论开销如下：</p>
 <p><img src="media/16562245505906/16562247265259.png" alt="image-20210708205512619" /></p>
 <h3><a id="%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>非线性激活函数的近似计算</h3>
-<p>ABY3中基于\(a\RSS{b}^B=\RSS{ab}^A\)和\(\RSS{a}^A\RSS{b}^B=\RSS{ab}^A\)，通过分段多项式来近似计算非线性激活函数。</p>
+<p>ABY3中基于\(a[\![ b]\!]^B=[\![ ab]\!]^A\)和\([\![ a]\!]^A[\![ b]\!]^B=[\![ ab]\!]^A\)，通过分段多项式来近似计算非线性激活函数。</p>
 <p>令\(f_1,\cdots,f_m\)是系数公开的多项式, 且\(-\infty=c_0&lt;c_1&lt;\dots&lt;c_{m-1}&lt;c_m=\infty\), 使得</p>
 \[f(x)=\begin{aligned}
 \begin{cases}
@@ -885,7 +843,7 @@ f_m(x), &amp;c_{m-1}\leq x
 <li>若使用bit extraction，则需要\(O(\log k)\)轮交互，\(O(k)\)比特通信量；</li>
 <li>若使用比较混淆电路，则只需\(1\)轮交互，但通信量变为\(O(k\kappa)\)比特。</li>
 </ul>
-<p>对于每个\(f_i\)的计算，\(f_i(\RSS{x})=a_{i,j}\RSS{x}^j+\cdots+a_{i,1}\RSS{x}+a_{i,0}\), 其中\(a_{i,l}\)是公开常数。当多项式次数\(j=0\)时，计算\(b_if_i(\RSS{x})\)的计算可优化为计算\(a_{i,0}\RSS{b_i}^B\)。当\(f_i\)系数是整数时，可以本地计算\(\RSS{x}^l,a_{i,l}\RSS{x}^l\)。当\(f_i\)系数是非零小数时，需要先进行截断。给定\(\RSS{x}\)，只需计算一次\(\RSS{x}^j,\cdots,\RSS{x}^2\)，用于\(f_1,\cdots,f_m\)，这部分计算可以与\(b_1,\cdots,b_m\)的计算并行。</p>
+<p>对于每个\(f_i\)的计算，\(f_i([\![ x]\!])=a_{i,j}[\![ x]\!]^j+\cdots+a_{i,1}[\![ x]\!]+a_{i,0}\), 其中\(a_{i,l}\)是公开常数。当多项式次数\(j=0\)时，计算\(b_if_i([\![ x]\!])\)的计算可优化为计算\(a_{i,0}[\![ b_i]\!]^B\)。当\(f_i\)系数是整数时，可以本地计算\([\![ x]\!]^l,a_{i,l}[\![ x]\!]^l\)。当\(f_i\)系数是非零小数时，需要先进行截断。给定\([\![ x]\!]\)，只需计算一次\([\![ x]\!]^j,\cdots,[\![ x]\!]^2\)，用于\(f_1,\cdots,f_m\)，这部分计算可以与\(b_1,\cdots,b_m\)的计算并行。</p>
 <p>常见的非线性激活函数计算方式如下：</p>
 <ul>
 <li>
@@ -897,7 +855,7 @@ f_m(x), &amp;c_{m-1}\leq x
 </ul>
 <h2><a id="%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>逻辑回归</h2>
 <p>逻辑回归的安全训练关键在于每轮更新权重如下：</p>
-\[\mathbf{w}:=\mathbf{w}-\alpha\frac{1}{\beta}\mathbf X_j^T\times(f(\mathbf{X}_j\times\mathbf w)-\mathbf{Y}_j)\tag{1}
+\[\mathbf{w}:=\mathbf{w}-\alpha\frac{1}{\beta}\mathbf X_j^T\times(f(\mathbf{X}_j\times\mathbf w)-\mathbf{Y}_j)
 \]
 <p>其中，\(f\)是Sigmoid函数的分段函数近似。</p>
 <p>若进行安全预测，则只需计算\(f(\mathbf{X}\times \mathbf w)\)；若进行安全训练，参考SecureML的相关步骤，具体算法总结如下：</p>
@@ -1094,7 +1052,7 @@ f_m(x), &amp;c_{m-1}\leq x
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto", "margin": "10px 0px 10px 0px !important", padding: "5px 5px 5px 5px !important" }, ".MathJax": { padding: "2px 2px 2px 2px !important" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
 <!-- <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> -->
 
 <!-- <script type="text/x-mathjax-config">MathJax.Hub.Config({
