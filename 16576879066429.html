@@ -5,7 +5,7 @@
 <head>
     <title>
         
-        密码学理论 - 云中雨雾
+        Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案 - 云中雨雾
         
     </title>
 
@@ -446,381 +446,243 @@
     <!-- include _ (layout-navbar.html) -->
 
     <!-- Layout content -->
-    <div class="layout-content">
+    <div class="layout-content   h-100" id="layout-content">
 
         <!-- Content -->
-        <div class="container-fluid flex-grow-1 container-p-y">
-            <h4 class="font-weight-bold py-0">
-                标签
-            </h4>
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
 
-            <div class="card mb-3">
-                <div class="card-header d-none d-md-block">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col"></div>
-                        <div class="col-3 text-muted">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-12 text-center">最近更新</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- include    _  (post-title.html) -->
 
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16525868704962.html" class="text-big">Simulation-based Security</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16525868704962.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
+<!--            <div class="card p-3">-->
 
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
+<!--                <article class="markdown-body single-content">-->
+<!--                    <h2><a id="%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>问题描述</h2>
+<p>在升级Ubuntu 22.04后更新源出现如下警告:</p>
+<pre class="line-numbers"><code class="language-bash">Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+</code></pre>
+<h2><a id="%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>解决方案</h2>
+<p>需要将出现该提示的GPG key存储到<code>/usr/share/keyrings</code>, 步骤如下:</p>
+<ol>
+<li>查看现有key:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">$ sudo apt-key list
+Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+/etc/apt/trusted.gpg
+--------------------
+pub   rsa4096 2017-05-08 [SCEA]
+      1EDD E2CD FC02 5D17 F6DA  9EC0 ADAE 6AD2 8A8F 901A
+uid           [ unknown] Sublime HQ Pty Ltd &lt;support@sublimetext.com&gt;
+sub   rsa4096 2017-05-08 [S]
 
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2022/05/15 11:54 上午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
+pub   rsa2048 2015-10-28 [SC]
+      BC52 8686 B50D 79E3 39D3  721C EB3E 94AD BE12 29CF
+uid           [ unknown] Microsoft (Release signing) &lt;gpgsecurity@microsoft.com&gt;
+</code></pre>
+<ol start="2">
+<li>假设有警告的Key为<code>BE12 29CF</code>(是Microsoft pub的后8位), 导出这个Key:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">$ sudo apt-key export BE1229CF | sudo gpg --dearmour -o /usr/share/keyrings/microsoft.gpg
+</code></pre>
+<p>此时会出现如下提示:</p>
+<pre class="line-numbers"><code class="language-bash">Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+</code></pre>
+<blockquote>
+<p>注意: 有部分文章指出导出到<code>/etc/apt/trusted.gpg.d/microsoft.gpg</code>, 虽然也可行, 但安全原因, Ubuntu社区并不推荐这样做. 此外, 导出的Key可以自由命名, 但是需要与步骤3相对应, 这里命名为<code>microsoft</code>.</p>
+</blockquote>
+<ol start="3">
+<li>用vim更新警告相关的apt源文件, 位置为<code>/etc/apt/sources.list.d/</code>, 假设文件为<code>microsoft.list</code>, 用Vim打开, 并如下添加<code>signed-by</code>标签关联步骤2导出的Key文件:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge/ stable main
+</code></pre>
+<ol start="4">
+<li>更新源: <code>sudo apt update</code>, 可以看到警告消失了, 此时可以移除原始key:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">$ sudo apt-key del BE1229CF
+</code></pre>
+<h2><a id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考资料</h2>
+<p><a href="https://askubuntu.com/questions/1398344/apt-key-deprecation-warning-when-updating-system">Stack Exchange: Key is stored in legacy trusted.gpg keyring</a></p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <!-- <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
                                     </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
                                 </div>
+                                <hr class="border-light m-0">
+                            </div> -->
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
                             </div>
 
                         </div>
-                    </div>
+                        <div class="d-flex col flex-column">
 
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16425853998520.html" class="text-big">安全与密码会议排名</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16425853998520.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
 
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
 
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2022/01/19 17:43 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/07/13 12:51 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案</h1>
+    <div class="text-muted small"><em>2022/07/13 12:51 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E7%BC%96%E7%A8%8B.html" class="badge badge-default align-text-bottom ml-1 text-muted">#编程</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
                                 </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <h2><a id="%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>问题描述</h2>
+<p>在升级Ubuntu 22.04后更新源出现如下警告:</p>
+<pre class="line-numbers"><code class="language-bash">Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+</code></pre>
+<h2><a id="%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>解决方案</h2>
+<p>需要将出现该提示的GPG key存储到<code>/usr/share/keyrings</code>, 步骤如下:</p>
+<ol>
+<li>查看现有key:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">$ sudo apt-key list
+Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+/etc/apt/trusted.gpg
+--------------------
+pub   rsa4096 2017-05-08 [SCEA]
+      1EDD E2CD FC02 5D17 F6DA  9EC0 ADAE 6AD2 8A8F 901A
+uid           [ unknown] Sublime HQ Pty Ltd &lt;support@sublimetext.com&gt;
+sub   rsa4096 2017-05-08 [S]
+
+pub   rsa2048 2015-10-28 [SC]
+      BC52 8686 B50D 79E3 39D3  721C EB3E 94AD BE12 29CF
+uid           [ unknown] Microsoft (Release signing) &lt;gpgsecurity@microsoft.com&gt;
+</code></pre>
+<ol start="2">
+<li>假设有警告的Key为<code>BE12 29CF</code>(是Microsoft pub的后8位), 导出这个Key:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">$ sudo apt-key export BE1229CF | sudo gpg --dearmour -o /usr/share/keyrings/microsoft.gpg
+</code></pre>
+<p>此时会出现如下提示:</p>
+<pre class="line-numbers"><code class="language-bash">Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+</code></pre>
+<blockquote>
+<p>注意: 有部分文章指出导出到<code>/etc/apt/trusted.gpg.d/microsoft.gpg</code>, 虽然也可行, 但安全原因, Ubuntu社区并不推荐这样做. 此外, 导出的Key可以自由命名, 但是需要与步骤3相对应, 这里命名为<code>microsoft</code>.</p>
+</blockquote>
+<ol start="3">
+<li>用vim更新警告相关的apt源文件, 位置为<code>/etc/apt/sources.list.d/</code>, 假设文件为<code>microsoft.list</code>, 用Vim打开, 并如下添加<code>signed-by</code>标签关联步骤2导出的Key文件:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge/ stable main
+</code></pre>
+<ol start="4">
+<li>更新源: <code>sudo apt update</code>, 可以看到警告消失了, 此时可以移除原始key:</li>
+</ol>
+<pre class="line-numbers"><code class="language-bash">$ sudo apt-key del BE1229CF
+</code></pre>
+<h2><a id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考资料</h2>
+<p><a href="https://askubuntu.com/questions/1398344/apt-key-deprecation-warning-when-updating-system">Stack Exchange: Key is stored in legacy trusted.gpg keyring</a></p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16576879066429.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-07-13T12:51:46+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
                             </div>
 
                         </div>
-                    </div>
+                    </div><!-- / .row -->
 
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16377612600578.html" class="text-big">图说MPC协议</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16377612600578.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
+                </div><!-- / .card -->
 
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2021/11/24 21:41 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16237676401097.html" class="text-big">不经意传输及其优化方案</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16237676401097.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
-
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2021/06/15 22:34 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16222891373334.html" class="text-big">混淆电路及其优化方案</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16222891373334.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
-
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2021/05/29 19:52 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16208088340765.html" class="text-big">语义安全性</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16208088340765.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
-
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2021/05/12 16:40 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16206453366291.html" class="text-big">基于秘密共享的安全计算</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16206453366291.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
-
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2021/05/10 19:15 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16205685385445.html" class="text-big">安全多方计算与混淆电路</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16205685385445.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
-
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2021/05/09 21:55 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-                <hr class="m-0">
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a href="16092286702660.html" class="text-big">安全多方计算</a>
-                            
-                            <div class="small mt-1">
-                                所属目录
-                                
-                                <a href="16092286702660.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
-                                
-
-                                
-                                <span class="ml-2">标签:</span>
-                                
-                                <a href="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="badge badge-default align-text-bottom ml-1 text-muted">#密码学理论</a>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="d-none d-md-block col-3">
-
-                            <div class="row no-gutters align-items-center">
-                                <div class="media col-12 align-items-center">
-                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <div class="line-height-1 text-truncate text-muted">2020/12/29 15:57 下午</div>
-                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                
-            </div>
-
-
-
+            </div><!-- / .chat-wrapper -->
         </div>
         <!-- / Content -->
-
     </div>
     <!-- Layout content -->
 
 </div>
 <!-- / Layout container -->
+
+
   </div>
 
 <!-- Layout footer -->
@@ -976,6 +838,8 @@
 
 
 
+
+<script src="asset/prism.js"></script>
 
 
 </body>
