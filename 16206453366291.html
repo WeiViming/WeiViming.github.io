@@ -201,6 +201,12 @@
 
                         
                         <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
                             </a>
@@ -245,12 +251,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
@@ -515,24 +515,20 @@ z=xy&amp;=(x-a+a)(y-b+b) \\
 <p>(4) 秘密重构</p>
 <p>对于任意两方\(P_i,P_{i-1}\)分别拥有\((z_i,c_i)\)和\((z_{i-1},c_{i-1})\), 通过计算\(m=z_{i-1}-c_i\)可以轻易地重构获得秘密\(m\).</p>
 <p>对于加法而言, 有</p>
-</li>
-</ol>
-\[
-    \begin{aligned}
-   z_{i-1}-c_i&amp;=x_{i-1}+y_{i-1}-(a_i+b_i)\\&amp;=(x_{i-1}-a_i)+(y_{i-1}-b_i)\\&amp;=v_1+v_2\\&amp;=m.
-   \end{aligned}
-   
+\[ \begin{aligned}
+z_{i-1}-c_i&amp;=x_{i-1}+y_{i-1}-(a_i+b_i)\\&amp;=(x_{i-1}-a_i)+(y_{i-1}-b_i)\\&amp;=v_1+v_2\\&amp;=m.
+\end{aligned}
 \]
 <p>对于乘法而言, 可以证明\(r_1+r_2+r_3=v_1v_2\), 而</p>
-\[
-   \begin{aligned}
-   c_i&amp;=-2r_{i-1}-r_i\\
-   &amp;=-r_{i-1}-r_{i-1}-r_i-r_{i+1}+r_{i+1}\\
-   &amp;=(r_{i+1}-r_{i-1})-(r_{i-1}+r_i+r_{i+1})=z_{i-1}-v_1v_2,
-   \end{aligned}
-   
+\[\begin{aligned}
+c_i&amp;=-2r_{i-1}-r_i\\
+&amp;=-r_{i-1}-r_{i-1}-r_i-r_{i+1}+r_{i+1}\\
+&amp;=(r_{i+1}-r_{i-1})-(r_{i-1}+r_i+r_{i+1})=z_{i-1}-v_1v_2,
+\end{aligned}
 \]
 <p>因此\(m=v_1v_2=z_{i-1}-c_i\).</p>
+</li>
+</ol>
 <h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
 <ol>
 <li>Damgård I., Pastro V., Smart N., Zakarias S. Multiparty computation from somewhat homomorphic encryption. In CRYPTO 2012. LNCS, vol 7417, pp.643-662. Springer, Berlin, Heidelberg.</li>
@@ -701,24 +697,20 @@ z=xy&amp;=(x-a+a)(y-b+b) \\
 <p>(4) 秘密重构</p>
 <p>对于任意两方\(P_i,P_{i-1}\)分别拥有\((z_i,c_i)\)和\((z_{i-1},c_{i-1})\), 通过计算\(m=z_{i-1}-c_i\)可以轻易地重构获得秘密\(m\).</p>
 <p>对于加法而言, 有</p>
-</li>
-</ol>
-\[
-    \begin{aligned}
-   z_{i-1}-c_i&amp;=x_{i-1}+y_{i-1}-(a_i+b_i)\\&amp;=(x_{i-1}-a_i)+(y_{i-1}-b_i)\\&amp;=v_1+v_2\\&amp;=m.
-   \end{aligned}
-   
+\[ \begin{aligned}
+z_{i-1}-c_i&amp;=x_{i-1}+y_{i-1}-(a_i+b_i)\\&amp;=(x_{i-1}-a_i)+(y_{i-1}-b_i)\\&amp;=v_1+v_2\\&amp;=m.
+\end{aligned}
 \]
 <p>对于乘法而言, 可以证明\(r_1+r_2+r_3=v_1v_2\), 而</p>
-\[
-   \begin{aligned}
-   c_i&amp;=-2r_{i-1}-r_i\\
-   &amp;=-r_{i-1}-r_{i-1}-r_i-r_{i+1}+r_{i+1}\\
-   &amp;=(r_{i+1}-r_{i-1})-(r_{i-1}+r_i+r_{i+1})=z_{i-1}-v_1v_2,
-   \end{aligned}
-   
+\[\begin{aligned}
+c_i&amp;=-2r_{i-1}-r_i\\
+&amp;=-r_{i-1}-r_{i-1}-r_i-r_{i+1}+r_{i+1}\\
+&amp;=(r_{i+1}-r_{i-1})-(r_{i-1}+r_i+r_{i+1})=z_{i-1}-v_1v_2,
+\end{aligned}
 \]
 <p>因此\(m=v_1v_2=z_{i-1}-c_i\).</p>
+</li>
+</ol>
 <h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
 <ol>
 <li>Damgård I., Pastro V., Smart N., Zakarias S. Multiparty computation from somewhat homomorphic encryption. In CRYPTO 2012. LNCS, vol 7417, pp.643-662. Springer, Berlin, Heidelberg.</li>

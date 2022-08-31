@@ -201,6 +201,12 @@
 
                         
                         <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
                             </a>
@@ -245,12 +251,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
@@ -473,7 +473,7 @@
 </ol>
 <p>文章对上述两个问题给出了肯定的回答, 并指出Tensorflow, PyTorch和MXNet支持的量化技术可以安全评估模型, 这种评估可通过通用MPC框架来执行. 实验部分从MPC的几个维度进行了广泛的基准测试, 并指出现有的机器学习框架和现有的MPC协议之间的鸿沟可能比先前已有工作中的隐含建议的小的多.</p>
 <h2><a id="quantization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantization</h2>
-<p>文章采用的量化技术是来自于Jacob等人的方案<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>,  虽然不是当前最佳技术, 但它在Tensorflow中有相关实现(TFLite), 便于进行安全评估和对比. 此外, 该方案便于MPC实现, 因为它简化了CNN的激活函数和算术运算, 尽管Jacob方案的初衷只是减小模型的规模, 但当MPC实现时, 由于模运算的存在, 并不能达到减小网络规模的效果. 更多量化技术的综述可以参考Guo的文章<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>.</p>
+<p>文章采用的量化技术是来自于Jacob等人的方案<sup class="footnote-ref"><a href="#fn-1" id="fnref-1_ref" data-footnote-ref>1</a></sup>,  虽然不是当前最佳技术, 但它在Tensorflow中有相关实现(TFLite), 便于进行安全评估和对比. 此外, 该方案便于MPC实现, 因为它简化了CNN的激活函数和算术运算, 尽管Jacob方案的初衷只是减小模型的规模, 但当MPC实现时, 由于模运算的存在, 并不能达到减小网络规模的效果. 更多量化技术的综述可以参考Guo的文章<sup class="footnote-ref"><a href="#fn-2" id="fnref-2_ref" data-footnote-ref>2</a></sup>.</p>
 <h3><a id="quantization-and-de-quantization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantization and De-Quantization</h3>
 <p>Jacob方案有两个变种, 一是8-bit整数, 二是16-bit整数. 本文中主要关注8-bit整数.</p>
 <p>令\(m\in\mathbb R, z\in[0,2^8)_\mathbb{Z}\). 考虑函数\(\mathsf{dequant}_{m,z}:[0,2^8)_\mathbb Z\rightarrow\mathbb R\), \(\mathsf{dequant}_{m,z}(x)=m\cdot(x-z)\). 该函数将离散区间\([0,2^8)_\mathbb Z\)映射到连续区间\(I=[-m\cdot z,m\cdot(2^8-1-z))\). \(\mathsf{quant}_{m,z}\)为该函数的逆函数. 定义\(\alpha\in I\)的量化为\(\mathsf{quant}_{m,z}(\alpha')\), 这里的\(\alpha'\)是与\(\alpha\)最近的数, 使得\(\alpha'\)是\(\mathsf{dequant}_{m,z}\)的像, 由于是连续空间映射到离散空间, 因此由于舍入的原因, 连续区间的多个值可能映射到离散空间中相同的值. 如下图.</p>
@@ -514,25 +514,25 @@
 <li>
 <p><strong>不诚实大多数</strong>: 不诚实大多数协议通常基于加法秘密共享和使用验证标签(authentication tags)来实现主动安全.</p>
 <ul>
-<li>\(\mathsf{SPDZ2k}\): 二次幂环\(\mathbb Z_{2^k}\)上的第一个不诚实大多数设定下的主动安全协议, 可视为\(\mathsf{MASCOT}\)的扩展版本, 最早由Cramer等人在CRYPTO'18上提出<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>, 由Damgård等人<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>首先实现. 乘法计算依赖于预处理基于OT来生成Beaver triples, 验证方案同SPDZ, 但是是在\(\mathbb{Z}_{2^{k+s}}\)上进行验证. 为了一个检验Beaver triple的正确性, 通常需要&quot;献祭&quot;(Sacrifice)另一个Beaver triple.</li>
+<li>\(\mathsf{SPDZ2k}\): 二次幂环\(\mathbb Z_{2^k}\)上的第一个不诚实大多数设定下的主动安全协议, 可视为\(\mathsf{MASCOT}\)的扩展版本, 最早由Cramer等人在CRYPTO'18上提出<sup class="footnote-ref"><a href="#fn-6" id="fnref-6_ref" data-footnote-ref>3</a></sup>, 由Damgård等人<sup class="footnote-ref"><a href="#fn-4" id="fnref-4_ref" data-footnote-ref>4</a></sup>首先实现. 乘法计算依赖于预处理基于OT来生成Beaver triples, 验证方案同SPDZ, 但是是在\(\mathbb{Z}_{2^{k+s}}\)上进行验证. 为了一个检验Beaver triple的正确性, 通常需要&quot;献祭&quot;(Sacrifice)另一个Beaver triple.</li>
 <li>\(\mathsf{OTSemi2k}, \mathsf{OTSemiPrime}\): 分别是\(\mathsf{SPDZ2k}\)和\(\mathsf{MASCOT}\)的精简版本, 没有验证标签和&quot;献祭&quot;步骤. 基于OT来生成Beaver triples.</li>
-<li>\(\mathsf{LowGear}\): Keller等人提出的素数域上主动安全协议, 基于LWE的半同态加密方案<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>.</li>
+<li>\(\mathsf{LowGear}\): Keller等人提出的素数域上主动安全协议, 基于LWE的半同态加密方案<sup class="footnote-ref"><a href="#fn-7" id="fnref-7_ref" data-footnote-ref>5</a></sup>.</li>
 </ul>
 </li>
 <li>
 <p><strong>诚实大多数</strong>: 诚实大多数协议通常基于Shamir秘密共享(适用于任意数量参与方的情况)和复制秘密共享(Replicated Secret Sharing, 适用于参与方数量较少的情况)来进行设计. 本文的场景下, 计算方数量较少, 使用复制秘密共享即可.</p>
 <ul>
-<li>\(\mathsf{Replicated2k}, \mathsf{ReplicatedPrime}\): 当前最高效的被动安全乘法协议是由Araki等人在CCS'16年提出的方案<sup class="footnote-ref"><a href="#fn6" id="fnref6">6</a></sup>, 仅需通信3个元素.</li>
-<li>\(\mathsf{PsReplicatedPrime}\): Lindell和Nof将\(\mathsf{ReplicatedPrime}\)扩展到主动安全的协议<sup class="footnote-ref"><a href="#fn7" id="fnref7">7</a></sup>, 通过预处理可能不正确的三元组用于在线阶段, 并在协议执行结束后通过&quot;献祭&quot;技术检查它们的正确性来实现主动安全.</li>
-<li>\(\mathsf{PsReplicated2k}\): 由Eerkison等人提出的协议<sup class="footnote-ref"><a href="#fn8" id="fnref8">8</a></sup>, 是上面Lindell等人方案在二次幂环\(\mathbb Z_{2^k}\)上的扩展版本.</li>
+<li>\(\mathsf{Replicated2k}, \mathsf{ReplicatedPrime}\): 当前最高效的被动安全乘法协议是由Araki等人在CCS'16年提出的方案<sup class="footnote-ref"><a href="#fn-8" id="fnref-8_ref" data-footnote-ref>6</a></sup>, 仅需通信3个元素.</li>
+<li>\(\mathsf{PsReplicatedPrime}\): Lindell和Nof将\(\mathsf{ReplicatedPrime}\)扩展到主动安全的协议<sup class="footnote-ref"><a href="#fn-9" id="fnref-9_ref" data-footnote-ref>7</a></sup>, 通过预处理可能不正确的三元组用于在线阶段, 并在协议执行结束后通过&quot;献祭&quot;技术检查它们的正确性来实现主动安全.</li>
+<li>\(\mathsf{PsReplicated2k}\): 由Eerkison等人提出的协议<sup class="footnote-ref"><a href="#fn-10" id="fnref-10_ref" data-footnote-ref>8</a></sup>, 是上面Lindell等人方案在二次幂环\(\mathbb Z_{2^k}\)上的扩展版本.</li>
 </ul>
 </li>
 </ul>
 <h3><a id="secure-comparison" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Comparison</h3>
-<p>安全计算\(\langle b\rangle\leftarrow\langle x\rangle&lt;_?\langle y\rangle\), 其中比特\(b=(x&lt;y)\). 对于不同的代数结构, \(\mathbb F_p\)可参考文献<sup class="footnote-ref"><a href="#fn9" id="fnref9">9</a></sup>; \(\mathbb Z_{2^k}\)可参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>. 对于复制秘密共享, ABY3提供了更高效的方案.</p>
+<p>安全计算\(\langle b\rangle\leftarrow\langle x\rangle&lt;_?\langle y\rangle\), 其中比特\(b=(x&lt;y)\). 对于不同的代数结构, \(\mathbb F_p\)可参考文献<sup class="footnote-ref"><a href="#fn-3" id="fnref-3_ref" data-footnote-ref>9</a></sup>; \(\mathbb Z_{2^k}\)可参考文献<sup class="footnote-ref"><a href="#fn-4" id="fnref-4-2_ref" data-footnote-ref>4</a></sup>. 对于复制秘密共享, ABY3提供了更高效的方案.</p>
 <h3><a id="truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Truncation</h3>
 <p>对于公开参数\(m\), 需要安全计算\(\langle y\rangle\leftarrow\langle x\rangle\), 这里的\(y=\lfloor\frac{x}{2^m}\rfloor\). 可通过概率截断(probabilistic truncation)协议. 在概率截断协议中, 计算\(\langle z\rangle\), 其中\(z=\lfloor\frac{x}{2^m}\rfloor+u\), 这里\(u\in\{0,1\}\)是小误差, 取值取决于\(\lfloor\frac{x}{2^m}\rceil\), 即\(u=1\)的概率为\(\frac{x}{2^m}\)的小数部分\((x\bmod2^m)/2^m\). 例如\(x=7,m=2\), 则概率截断将以\((7\bmod2^2)/2^2=0.75\)的概率输出\(u=1, z=\lfloor\frac{7}{4}\rfloor+1=2\), 以0.25的概率输出\(u=0, z=\lfloor\frac{7}{4}\rfloor=1\).</p>
-<p>本文提出了一种环\(\mathbb Z_{2^k}\)上的概率截断方案, 份额只需比秘密大1bit, 同时常数轮通信的, 结果的误差最多为1,偏向于最接近\(x/2^m\)的整数. 假设有一个生成随机份额比特的方法, 生成\(\langle b\rangle\), 满足\(b\in\{0,1\}\)是均匀随机且敌手未知的. 在不诚实大多数设定下可以参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>的方法生成. 一般地,  可以让\(P_i\)生成1比特\(\langle b_i\rangle\), 然后参与方将这些比特XOR在一起得到一个随机1比特. 当然为了确保\(P_i\)生成的\(\langle b_i\rangle\)确实是1比特的, 可以验证\(\langle b_i\rangle\cdot(1-\langle b_i\rangle)\)是否为零. 具体的概率截断如下, 注意图中第二步应为\(c'\leftarrow (c\bmod2^{k-1})/2^m\), 第四步中应为输出\(c'-\sum_{i=m}^{k-2}\langle r_i\rangle\cdot2^{i-m}+\langle b\rangle\cdot2^{k-m-1}\).</p>
+<p>本文提出了一种环\(\mathbb Z_{2^k}\)上的概率截断方案, 份额只需比秘密大1bit, 同时常数轮通信的, 结果的误差最多为1,偏向于最接近\(x/2^m\)的整数. 假设有一个生成随机份额比特的方法, 生成\(\langle b\rangle\), 满足\(b\in\{0,1\}\)是均匀随机且敌手未知的. 在不诚实大多数设定下可以参考文献<sup class="footnote-ref"><a href="#fn-4" id="fnref-4-3_ref" data-footnote-ref>4</a></sup>的方法生成. 一般地,  可以让\(P_i\)生成1比特\(\langle b_i\rangle\), 然后参与方将这些比特XOR在一起得到一个随机1比特. 当然为了确保\(P_i\)生成的\(\langle b_i\rangle\)确实是1比特的, 可以验证\(\langle b_i\rangle\cdot(1-\langle b_i\rangle)\)是否为零. 具体的概率截断如下, 注意图中第二步应为\(c'\leftarrow (c\bmod2^{k-1})/2^m\), 第四步中应为输出\(c'-\sum_{i=m}^{k-2}\langle r_i\rangle\cdot2^{i-m}+\langle b\rangle\cdot2^{k-m-1}\).</p>
 <img src="media/16519051511907/16519726485643.png" alt="image-20211214213428298" style="zoom:50%;" />
 <p>如果考虑环\(\mathbb Z_{2^k}\)上三方复制秘密共享、半诚实安全设定, 可以让将上述对称的三方协议转化为两方协议, 由第三方生成供其他两方使用的相关随机性, 如任意长度的随机数, 这样不再需要逐比特生成随机数.</p>
 <img src="media/16519051511907/16519726485658.png" alt="image-20211214220908605" style="zoom:50%;" />
@@ -541,7 +541,7 @@
 <h3><a id="putting-it-all-together" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Putting it all Together</h3>
 <p>假设模型拥有者拥有量化CNN的所有参数信息, 并通过秘密共享方案分发网络每一层的量化权重、偏置项给服务器(注意虽然明文只有8bits, 但份额有64bits), 与每个张量相关联的零点也被分享给各参与方.</p>
 <p>下面来计算公式(2). 计算方(服务器)有零点\(z_1,z_2,z_3\)的份额, 量化输入\(a_i,b_i\), 整数缩放因子\(m'\)和幂\(2^{L-\ell}\), 这里的\(\ell=n+31, 2^{-n-31}\cdot m'\approx m=(m_1\cdot m_2)/m_3\), 且\(L\)是\(\ell\)的上界. 为了计算公式(2), 计算方首先计算点积\(\langle s\rangle=\sum_{i=1}^N(\langle a_i\rangle-\langle z_1\rangle)\cdot(\langle b_i\rangle-\langle z_2\rangle)\), 然后通过乘法协议计算\(\langle m\cdot s\rangle=\langle m\rangle\cdot\langle s\rangle\), 并通过\(\mathsf{TruncPriv}\)协议从\(\langle 2^{L-\ell}\rangle\)和\(\langle m\cdot s\rangle\)计算\(\lfloor 2^{-n-31}\cdot(m\cdot s)\rceil\)的份额, 然后计算\(\lfloor 2^{-m}\cdot x\rceil=\lfloor2^{-m}\cdot x+0.5\rfloor=\lfloor 2^{-m}\cdot (x+2^{m-1})\rfloor\)进行舍入计算, 最后本地加上\(\langle z_3\rangle\), 限制\(\langle x\rangle\)到区间\([0,2^8)\), 这可根据安全比较, 将\(\langle x\rangle\)与边界0和255进行比较, 结合不经意选取来达到: 若\(s\in\{0,1\}\), 则对任意的\(a_0,a_1\), 则\(a_s=s\cdot(a_1-a_0)+a_0\).</p>
-<p>平均池(Average pooling)计算中涉及的除法可以通过Goldschmidt's算法来计算, 安全计算协议可以参考Catrina和Saxena的这篇文献<sup class="footnote-ref"><a href="#fn10" id="fnref10">10</a></sup>. 最大池(Max pooling)要求计算的max函数可通过安全比较协议来实现.</p>
+<p>平均池(Average pooling)计算中涉及的除法可以通过Goldschmidt's算法来计算, 安全计算协议可以参考Catrina和Saxena的这篇文献<sup class="footnote-ref"><a href="#fn-5" id="fnref-5_ref" data-footnote-ref>10</a></sup>. 最大池(Max pooling)要求计算的max函数可通过安全比较协议来实现.</p>
 <p>在获得输出向量的份额后, 为了避免在计算SoftMax等激活函数之前向秘密拥有方/数据拥有方揭示向量本身, 本文中采用的方案是计算输出数组的arg max, 并返回最有可能的标签的索引来替代\(e^x\), 因为幂运算是个单调递增函数. 例如, 在SecureML中, 将SoftMax函数中的幂替换为ReLU, 即用\(\mathsf{ReLU}(x)\)替代\(e^x\). 此外, 还存在更多MPC友好的解决方案, 例如在spherical Softmax中将\(e^x\)替换为\(x^2\).</p>
 <h2><a id="implementation-and-benchmarking" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation and Benchmarking</h2>
 <p>本文的实验部分评估的是MobileNets类型架构的神经网络, 它包含28层, 1000个输出类, 在ImageNet数据集上进行训练, 在TensorFlow存储库上可用的预训练模型和准确率进行评估.</p>
@@ -568,37 +568,37 @@
 <h2><a id="conclusions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h2>
 <p>本文验证了使用现有MPC协议在不修改机器学习模型的前提下, 安全评估大型、现实的神经网络是可行的. 本文中评估的神经网络是未经修改的, 可通过标准Tensorflow或任何支持量化类型的框架(如PyTorch和MXNet)进行训练. 对于用户而言, 通用MPC足以对网络进行评估, 用户可以从更广泛的威胁模型中自由选择; 此外, 即使模型设计者对安全框架一无所知, Tensorflow输出的模型也可以在不经修改的情况下进行评估. 如果想在预测精度和效率方面进行权衡, 那么专用协议可能是更好的选择, 例如文章中提出的概率截断协议等.</p>
 <h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
-<section class="footnotes">
+<section class="footnotes" data-footnotes>
 <ol>
-<li id="fn1">
-<p>Benoit Jacob, Skirmantas Kligys, Bo Chen, Menglong Zhu, Matthew Tang, Andrew G. Howard, Hartwig Adam, and Dmitry Kalenichenko. Quantization and training of neural networks for efficient integer-arithmetic-only inference. CoRR, abs/1712.05877, 2017. <a href="#fnref1" class="footnote-backref">↩</a></p>
+<li id="fn-1">
+<p>Benoit Jacob, Skirmantas Kligys, Bo Chen, Menglong Zhu, Matthew Tang, Andrew G. Howard, Hartwig Adam, and Dmitry Kalenichenko. Quantization and training of neural networks for efficient integer-arithmetic-only inference. CoRR, abs/1712.05877, 2017. <a href="#fnref-1_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn2">
-<p>Yunhui Guo. A survey on methods and theories of quantized neural networks. arXiv preprint arXiv:1808.04752, 2018. <a href="#fnref2" class="footnote-backref">↩</a></p>
+<li id="fn-2">
+<p>Yunhui Guo. A survey on methods and theories of quantized neural networks. arXiv preprint arXiv:1808.04752, 2018. <a href="#fnref-2_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn3">
-<p>Ronald Cramer, Ivan Damgård, Daniel Escudero, Peter Scholl, and Chaoping Xing. SPD Z2k : Efficient MPCmod 2k for dishonest majority. In Hovav Shacham and Alexandra Boldyreva, editors, Advances in Cryptology – CRYPTO 2018, Part II, volume 10992 of Lecture Notes in Computer Science, pages 769–798, Santa Barbara, CA, USA, August 19–23, 2018. Springer, Heidelberg, Germany. <a href="#fnref3" class="footnote-backref">↩</a></p>
+<li id="fn-6">
+<p>Ronald Cramer, Ivan Damgård, Daniel Escudero, Peter Scholl, and Chaoping Xing. SPD Z2k : Efficient MPCmod 2k for dishonest majority. In Hovav Shacham and Alexandra Boldyreva, editors, Advances in Cryptology – CRYPTO 2018, Part II, volume 10992 of Lecture Notes in Computer Science, pages 769–798, Santa Barbara, CA, USA, August 19–23, 2018. Springer, Heidelberg, Germany. <a href="#fnref-6_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn4">
-<p>I. Damgård, D. Escudero, T. Frederiksen, M. Keller,P. Scholl, and N. Volgushev. New primitives for actively secure mpc over rings with applications to private machine learning. In 2019 2019 IEEE Symposium on Security and Privacy (SP), pages 1325–1343, Los Alamitos, CA, USA, may 2019. IEEE Computer Society. <a href="#fnref4" class="footnote-backref">↩</a></p>
+<li id="fn-4">
+<p>I. Damgård, D. Escudero, T. Frederiksen, M. Keller,P. Scholl, and N. Volgushev. New primitives for actively secure mpc over rings with applications to private machine learning. In 2019 2019 IEEE Symposium on Security and Privacy (SP), pages 1325–1343, Los Alamitos, CA, USA, may 2019. IEEE Computer Society. <a href="#fnref-4_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a> <a href="#fnref-4-2_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<sup class="footnote-ref">2</sup></a> <a href="#fnref-4-3_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<sup class="footnote-ref">3</sup></a></p>
 </li>
-<li id="fn5">
-<p>Marcel Keller, Valerio Pastro, and Dragos Rotaru. Over- drive: Making SPDZ great again. In Jesper Buus Nielsen and Vincent Rijmen, editors, Advances in Cryptology – EUROCRYPT 2018, Part III, volume 10822 of Lecture Notes in Computer Science, pages 158–189, Tel Aviv, Israel, April 29 – May 3, 2018. Springer, Heidelberg, Germany. <a href="#fnref5" class="footnote-backref">↩</a></p>
+<li id="fn-7">
+<p>Marcel Keller, Valerio Pastro, and Dragos Rotaru. Over- drive: Making SPDZ great again. In Jesper Buus Nielsen and Vincent Rijmen, editors, Advances in Cryptology – EUROCRYPT 2018, Part III, volume 10822 of Lecture Notes in Computer Science, pages 158–189, Tel Aviv, Israel, April 29 – May 3, 2018. Springer, Heidelberg, Germany. <a href="#fnref-7_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn6">
-<p>Toshinori Araki, Jun Furukawa, Yehuda Lindell, Ariel Nof, and Kazuma Ohara. High-throughput semi-honest secure three-party computation with an honest majority. In Edgar R. Weippl, Stefan Katzenbeisser, Christopher Kruegel, An- drew C. Myers, and Shai Halevi, editors, ACM CCS 2016: 23rd Conference on Computer and Communications Security, pages 805–817, Vienna, Austria, October 24–28, 2016. ACM Press. <a href="#fnref6" class="footnote-backref">↩</a></p>
+<li id="fn-8">
+<p>Toshinori Araki, Jun Furukawa, Yehuda Lindell, Ariel Nof, and Kazuma Ohara. High-throughput semi-honest secure three-party computation with an honest majority. In Edgar R. Weippl, Stefan Katzenbeisser, Christopher Kruegel, An- drew C. Myers, and Shai Halevi, editors, ACM CCS 2016: 23rd Conference on Computer and Communications Security, pages 805–817, Vienna, Austria, October 24–28, 2016. ACM Press. <a href="#fnref-8_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn7">
-<p>Yehuda Lindell and Ariel Nof. A framework for constructing fast MPC over arithmetic circuits with malicious adversaries and an honest-majority. In Bhavani M. Thuraisingham, David Evans, Tal Malkin, and Dongyan Xu, editors, ACM CCS 2017: 24th Conference on Computer and Communications Security, pages 259–276, Dallas, TX, USA, October 31 – November 2, 2017. ACM Press. <a href="#fnref7" class="footnote-backref">↩</a></p>
+<li id="fn-9">
+<p>Yehuda Lindell and Ariel Nof. A framework for constructing fast MPC over arithmetic circuits with malicious adversaries and an honest-majority. In Bhavani M. Thuraisingham, David Evans, Tal Malkin, and Dongyan Xu, editors, ACM CCS 2017: 24th Conference on Computer and Communications Security, pages 259–276, Dallas, TX, USA, October 31 – November 2, 2017. ACM Press. <a href="#fnref-9_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn8">
-<p>Hendrik Eerikson, Marcel Keller, Claudio Orlandi, Pille Pullonen, Joonas Puura, and Mark Simkin. Use your brain! Arithmetic 3PC for any modulus with active security. In 1st Conference on Information-Theoretic Cryptography (ITC 2020). Schloss Dagstuhl-Leibniz-Zentrum für Informatik, 2020. <a href="#fnref8" class="footnote-backref">↩</a></p>
+<li id="fn-10">
+<p>Hendrik Eerikson, Marcel Keller, Claudio Orlandi, Pille Pullonen, Joonas Puura, and Mark Simkin. Use your brain! Arithmetic 3PC for any modulus with active security. In 1st Conference on Information-Theoretic Cryptography (ITC 2020). Schloss Dagstuhl-Leibniz-Zentrum für Informatik, 2020. <a href="#fnref-10_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn9">
-<p>Octavian Catrina and Sebastiaan de Hoogh. Improved primitives for secure multiparty integer computation. In Juan A. Garay and Roberto De Prisco, editors, SCN 10: 7th Interna- tional Conference on Security in Communication Networks, volume 6280 of Lecture Notes in Computer Science, pages 182–199, Amalfi, Italy, September 13–15, 2010. Springer, Heidelberg, Germany. <a href="#fnref9" class="footnote-backref">↩</a></p>
+<li id="fn-3">
+<p>Octavian Catrina and Sebastiaan de Hoogh. Improved primitives for secure multiparty integer computation. In Juan A. Garay and Roberto De Prisco, editors, SCN 10: 7th Interna- tional Conference on Security in Communication Networks, volume 6280 of Lecture Notes in Computer Science, pages 182–199, Amalfi, Italy, September 13–15, 2010. Springer, Heidelberg, Germany. <a href="#fnref-3_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn10">
-<p>Octavian Catrina and Amitabh Saxena. Secure computation with fixed-point numbers. In Radu Sion, editor, FC 2010: 14th International Conference on Financial Cryptography and Data Security, volume 6052 of Lecture Notes in Com- puter Science, pages 35–50, Tenerife, Canary Islands, Spain, January 25–28, 2010. Springer, Heidelberg, Germany. <a href="#fnref10" class="footnote-backref">↩</a></p>
+<li id="fn-5">
+<p>Octavian Catrina and Amitabh Saxena. Secure computation with fixed-point numbers. In Radu Sion, editor, FC 2010: 14th International Conference on Financial Cryptography and Data Security, volume 6052 of Lecture Notes in Com- puter Science, pages 35–50, Tenerife, Canary Islands, Spain, January 25–28, 2010. Springer, Heidelberg, Germany. <a href="#fnref-5_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
 </ol>
 </section>
@@ -722,7 +722,7 @@
 </ol>
 <p>文章对上述两个问题给出了肯定的回答, 并指出Tensorflow, PyTorch和MXNet支持的量化技术可以安全评估模型, 这种评估可通过通用MPC框架来执行. 实验部分从MPC的几个维度进行了广泛的基准测试, 并指出现有的机器学习框架和现有的MPC协议之间的鸿沟可能比先前已有工作中的隐含建议的小的多.</p>
 <h2><a id="quantization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantization</h2>
-<p>文章采用的量化技术是来自于Jacob等人的方案<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>,  虽然不是当前最佳技术, 但它在Tensorflow中有相关实现(TFLite), 便于进行安全评估和对比. 此外, 该方案便于MPC实现, 因为它简化了CNN的激活函数和算术运算, 尽管Jacob方案的初衷只是减小模型的规模, 但当MPC实现时, 由于模运算的存在, 并不能达到减小网络规模的效果. 更多量化技术的综述可以参考Guo的文章<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>.</p>
+<p>文章采用的量化技术是来自于Jacob等人的方案<sup class="footnote-ref"><a href="#fn-1" id="fnref-1_ref" data-footnote-ref>1</a></sup>,  虽然不是当前最佳技术, 但它在Tensorflow中有相关实现(TFLite), 便于进行安全评估和对比. 此外, 该方案便于MPC实现, 因为它简化了CNN的激活函数和算术运算, 尽管Jacob方案的初衷只是减小模型的规模, 但当MPC实现时, 由于模运算的存在, 并不能达到减小网络规模的效果. 更多量化技术的综述可以参考Guo的文章<sup class="footnote-ref"><a href="#fn-2" id="fnref-2_ref" data-footnote-ref>2</a></sup>.</p>
 <h3><a id="quantization-and-de-quantization" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantization and De-Quantization</h3>
 <p>Jacob方案有两个变种, 一是8-bit整数, 二是16-bit整数. 本文中主要关注8-bit整数.</p>
 <p>令\(m\in\mathbb R, z\in[0,2^8)_\mathbb{Z}\). 考虑函数\(\mathsf{dequant}_{m,z}:[0,2^8)_\mathbb Z\rightarrow\mathbb R\), \(\mathsf{dequant}_{m,z}(x)=m\cdot(x-z)\). 该函数将离散区间\([0,2^8)_\mathbb Z\)映射到连续区间\(I=[-m\cdot z,m\cdot(2^8-1-z))\). \(\mathsf{quant}_{m,z}\)为该函数的逆函数. 定义\(\alpha\in I\)的量化为\(\mathsf{quant}_{m,z}(\alpha')\), 这里的\(\alpha'\)是与\(\alpha\)最近的数, 使得\(\alpha'\)是\(\mathsf{dequant}_{m,z}\)的像, 由于是连续空间映射到离散空间, 因此由于舍入的原因, 连续区间的多个值可能映射到离散空间中相同的值. 如下图.</p>
@@ -763,25 +763,25 @@
 <li>
 <p><strong>不诚实大多数</strong>: 不诚实大多数协议通常基于加法秘密共享和使用验证标签(authentication tags)来实现主动安全.</p>
 <ul>
-<li>\(\mathsf{SPDZ2k}\): 二次幂环\(\mathbb Z_{2^k}\)上的第一个不诚实大多数设定下的主动安全协议, 可视为\(\mathsf{MASCOT}\)的扩展版本, 最早由Cramer等人在CRYPTO'18上提出<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>, 由Damgård等人<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>首先实现. 乘法计算依赖于预处理基于OT来生成Beaver triples, 验证方案同SPDZ, 但是是在\(\mathbb{Z}_{2^{k+s}}\)上进行验证. 为了一个检验Beaver triple的正确性, 通常需要&quot;献祭&quot;(Sacrifice)另一个Beaver triple.</li>
+<li>\(\mathsf{SPDZ2k}\): 二次幂环\(\mathbb Z_{2^k}\)上的第一个不诚实大多数设定下的主动安全协议, 可视为\(\mathsf{MASCOT}\)的扩展版本, 最早由Cramer等人在CRYPTO'18上提出<sup class="footnote-ref"><a href="#fn-6" id="fnref-6_ref" data-footnote-ref>3</a></sup>, 由Damgård等人<sup class="footnote-ref"><a href="#fn-4" id="fnref-4_ref" data-footnote-ref>4</a></sup>首先实现. 乘法计算依赖于预处理基于OT来生成Beaver triples, 验证方案同SPDZ, 但是是在\(\mathbb{Z}_{2^{k+s}}\)上进行验证. 为了一个检验Beaver triple的正确性, 通常需要&quot;献祭&quot;(Sacrifice)另一个Beaver triple.</li>
 <li>\(\mathsf{OTSemi2k}, \mathsf{OTSemiPrime}\): 分别是\(\mathsf{SPDZ2k}\)和\(\mathsf{MASCOT}\)的精简版本, 没有验证标签和&quot;献祭&quot;步骤. 基于OT来生成Beaver triples.</li>
-<li>\(\mathsf{LowGear}\): Keller等人提出的素数域上主动安全协议, 基于LWE的半同态加密方案<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>.</li>
+<li>\(\mathsf{LowGear}\): Keller等人提出的素数域上主动安全协议, 基于LWE的半同态加密方案<sup class="footnote-ref"><a href="#fn-7" id="fnref-7_ref" data-footnote-ref>5</a></sup>.</li>
 </ul>
 </li>
 <li>
 <p><strong>诚实大多数</strong>: 诚实大多数协议通常基于Shamir秘密共享(适用于任意数量参与方的情况)和复制秘密共享(Replicated Secret Sharing, 适用于参与方数量较少的情况)来进行设计. 本文的场景下, 计算方数量较少, 使用复制秘密共享即可.</p>
 <ul>
-<li>\(\mathsf{Replicated2k}, \mathsf{ReplicatedPrime}\): 当前最高效的被动安全乘法协议是由Araki等人在CCS'16年提出的方案<sup class="footnote-ref"><a href="#fn6" id="fnref6">6</a></sup>, 仅需通信3个元素.</li>
-<li>\(\mathsf{PsReplicatedPrime}\): Lindell和Nof将\(\mathsf{ReplicatedPrime}\)扩展到主动安全的协议<sup class="footnote-ref"><a href="#fn7" id="fnref7">7</a></sup>, 通过预处理可能不正确的三元组用于在线阶段, 并在协议执行结束后通过&quot;献祭&quot;技术检查它们的正确性来实现主动安全.</li>
-<li>\(\mathsf{PsReplicated2k}\): 由Eerkison等人提出的协议<sup class="footnote-ref"><a href="#fn8" id="fnref8">8</a></sup>, 是上面Lindell等人方案在二次幂环\(\mathbb Z_{2^k}\)上的扩展版本.</li>
+<li>\(\mathsf{Replicated2k}, \mathsf{ReplicatedPrime}\): 当前最高效的被动安全乘法协议是由Araki等人在CCS'16年提出的方案<sup class="footnote-ref"><a href="#fn-8" id="fnref-8_ref" data-footnote-ref>6</a></sup>, 仅需通信3个元素.</li>
+<li>\(\mathsf{PsReplicatedPrime}\): Lindell和Nof将\(\mathsf{ReplicatedPrime}\)扩展到主动安全的协议<sup class="footnote-ref"><a href="#fn-9" id="fnref-9_ref" data-footnote-ref>7</a></sup>, 通过预处理可能不正确的三元组用于在线阶段, 并在协议执行结束后通过&quot;献祭&quot;技术检查它们的正确性来实现主动安全.</li>
+<li>\(\mathsf{PsReplicated2k}\): 由Eerkison等人提出的协议<sup class="footnote-ref"><a href="#fn-10" id="fnref-10_ref" data-footnote-ref>8</a></sup>, 是上面Lindell等人方案在二次幂环\(\mathbb Z_{2^k}\)上的扩展版本.</li>
 </ul>
 </li>
 </ul>
 <h3><a id="secure-comparison" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Comparison</h3>
-<p>安全计算\(\langle b\rangle\leftarrow\langle x\rangle&lt;_?\langle y\rangle\), 其中比特\(b=(x&lt;y)\). 对于不同的代数结构, \(\mathbb F_p\)可参考文献<sup class="footnote-ref"><a href="#fn9" id="fnref9">9</a></sup>; \(\mathbb Z_{2^k}\)可参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>. 对于复制秘密共享, ABY3提供了更高效的方案.</p>
+<p>安全计算\(\langle b\rangle\leftarrow\langle x\rangle&lt;_?\langle y\rangle\), 其中比特\(b=(x&lt;y)\). 对于不同的代数结构, \(\mathbb F_p\)可参考文献<sup class="footnote-ref"><a href="#fn-3" id="fnref-3_ref" data-footnote-ref>9</a></sup>; \(\mathbb Z_{2^k}\)可参考文献<sup class="footnote-ref"><a href="#fn-4" id="fnref-4-2_ref" data-footnote-ref>4</a></sup>. 对于复制秘密共享, ABY3提供了更高效的方案.</p>
 <h3><a id="truncation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Truncation</h3>
 <p>对于公开参数\(m\), 需要安全计算\(\langle y\rangle\leftarrow\langle x\rangle\), 这里的\(y=\lfloor\frac{x}{2^m}\rfloor\). 可通过概率截断(probabilistic truncation)协议. 在概率截断协议中, 计算\(\langle z\rangle\), 其中\(z=\lfloor\frac{x}{2^m}\rfloor+u\), 这里\(u\in\{0,1\}\)是小误差, 取值取决于\(\lfloor\frac{x}{2^m}\rceil\), 即\(u=1\)的概率为\(\frac{x}{2^m}\)的小数部分\((x\bmod2^m)/2^m\). 例如\(x=7,m=2\), 则概率截断将以\((7\bmod2^2)/2^2=0.75\)的概率输出\(u=1, z=\lfloor\frac{7}{4}\rfloor+1=2\), 以0.25的概率输出\(u=0, z=\lfloor\frac{7}{4}\rfloor=1\).</p>
-<p>本文提出了一种环\(\mathbb Z_{2^k}\)上的概率截断方案, 份额只需比秘密大1bit, 同时常数轮通信的, 结果的误差最多为1,偏向于最接近\(x/2^m\)的整数. 假设有一个生成随机份额比特的方法, 生成\(\langle b\rangle\), 满足\(b\in\{0,1\}\)是均匀随机且敌手未知的. 在不诚实大多数设定下可以参考文献<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>的方法生成. 一般地,  可以让\(P_i\)生成1比特\(\langle b_i\rangle\), 然后参与方将这些比特XOR在一起得到一个随机1比特. 当然为了确保\(P_i\)生成的\(\langle b_i\rangle\)确实是1比特的, 可以验证\(\langle b_i\rangle\cdot(1-\langle b_i\rangle)\)是否为零. 具体的概率截断如下, 注意图中第二步应为\(c'\leftarrow (c\bmod2^{k-1})/2^m\), 第四步中应为输出\(c'-\sum_{i=m}^{k-2}\langle r_i\rangle\cdot2^{i-m}+\langle b\rangle\cdot2^{k-m-1}\).</p>
+<p>本文提出了一种环\(\mathbb Z_{2^k}\)上的概率截断方案, 份额只需比秘密大1bit, 同时常数轮通信的, 结果的误差最多为1,偏向于最接近\(x/2^m\)的整数. 假设有一个生成随机份额比特的方法, 生成\(\langle b\rangle\), 满足\(b\in\{0,1\}\)是均匀随机且敌手未知的. 在不诚实大多数设定下可以参考文献<sup class="footnote-ref"><a href="#fn-4" id="fnref-4-3_ref" data-footnote-ref>4</a></sup>的方法生成. 一般地,  可以让\(P_i\)生成1比特\(\langle b_i\rangle\), 然后参与方将这些比特XOR在一起得到一个随机1比特. 当然为了确保\(P_i\)生成的\(\langle b_i\rangle\)确实是1比特的, 可以验证\(\langle b_i\rangle\cdot(1-\langle b_i\rangle)\)是否为零. 具体的概率截断如下, 注意图中第二步应为\(c'\leftarrow (c\bmod2^{k-1})/2^m\), 第四步中应为输出\(c'-\sum_{i=m}^{k-2}\langle r_i\rangle\cdot2^{i-m}+\langle b\rangle\cdot2^{k-m-1}\).</p>
 <img src="media/16519051511907/16519726485643.png" alt="image-20211214213428298" style="zoom:50%;" />
 <p>如果考虑环\(\mathbb Z_{2^k}\)上三方复制秘密共享、半诚实安全设定, 可以让将上述对称的三方协议转化为两方协议, 由第三方生成供其他两方使用的相关随机性, 如任意长度的随机数, 这样不再需要逐比特生成随机数.</p>
 <img src="media/16519051511907/16519726485658.png" alt="image-20211214220908605" style="zoom:50%;" />
@@ -790,7 +790,7 @@
 <h3><a id="putting-it-all-together" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Putting it all Together</h3>
 <p>假设模型拥有者拥有量化CNN的所有参数信息, 并通过秘密共享方案分发网络每一层的量化权重、偏置项给服务器(注意虽然明文只有8bits, 但份额有64bits), 与每个张量相关联的零点也被分享给各参与方.</p>
 <p>下面来计算公式(2). 计算方(服务器)有零点\(z_1,z_2,z_3\)的份额, 量化输入\(a_i,b_i\), 整数缩放因子\(m'\)和幂\(2^{L-\ell}\), 这里的\(\ell=n+31, 2^{-n-31}\cdot m'\approx m=(m_1\cdot m_2)/m_3\), 且\(L\)是\(\ell\)的上界. 为了计算公式(2), 计算方首先计算点积\(\langle s\rangle=\sum_{i=1}^N(\langle a_i\rangle-\langle z_1\rangle)\cdot(\langle b_i\rangle-\langle z_2\rangle)\), 然后通过乘法协议计算\(\langle m\cdot s\rangle=\langle m\rangle\cdot\langle s\rangle\), 并通过\(\mathsf{TruncPriv}\)协议从\(\langle 2^{L-\ell}\rangle\)和\(\langle m\cdot s\rangle\)计算\(\lfloor 2^{-n-31}\cdot(m\cdot s)\rceil\)的份额, 然后计算\(\lfloor 2^{-m}\cdot x\rceil=\lfloor2^{-m}\cdot x+0.5\rfloor=\lfloor 2^{-m}\cdot (x+2^{m-1})\rfloor\)进行舍入计算, 最后本地加上\(\langle z_3\rangle\), 限制\(\langle x\rangle\)到区间\([0,2^8)\), 这可根据安全比较, 将\(\langle x\rangle\)与边界0和255进行比较, 结合不经意选取来达到: 若\(s\in\{0,1\}\), 则对任意的\(a_0,a_1\), 则\(a_s=s\cdot(a_1-a_0)+a_0\).</p>
-<p>平均池(Average pooling)计算中涉及的除法可以通过Goldschmidt's算法来计算, 安全计算协议可以参考Catrina和Saxena的这篇文献<sup class="footnote-ref"><a href="#fn10" id="fnref10">10</a></sup>. 最大池(Max pooling)要求计算的max函数可通过安全比较协议来实现.</p>
+<p>平均池(Average pooling)计算中涉及的除法可以通过Goldschmidt's算法来计算, 安全计算协议可以参考Catrina和Saxena的这篇文献<sup class="footnote-ref"><a href="#fn-5" id="fnref-5_ref" data-footnote-ref>10</a></sup>. 最大池(Max pooling)要求计算的max函数可通过安全比较协议来实现.</p>
 <p>在获得输出向量的份额后, 为了避免在计算SoftMax等激活函数之前向秘密拥有方/数据拥有方揭示向量本身, 本文中采用的方案是计算输出数组的arg max, 并返回最有可能的标签的索引来替代\(e^x\), 因为幂运算是个单调递增函数. 例如, 在SecureML中, 将SoftMax函数中的幂替换为ReLU, 即用\(\mathsf{ReLU}(x)\)替代\(e^x\). 此外, 还存在更多MPC友好的解决方案, 例如在spherical Softmax中将\(e^x\)替换为\(x^2\).</p>
 <h2><a id="implementation-and-benchmarking" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation and Benchmarking</h2>
 <p>本文的实验部分评估的是MobileNets类型架构的神经网络, 它包含28层, 1000个输出类, 在ImageNet数据集上进行训练, 在TensorFlow存储库上可用的预训练模型和准确率进行评估.</p>
@@ -817,37 +817,37 @@
 <h2><a id="conclusions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h2>
 <p>本文验证了使用现有MPC协议在不修改机器学习模型的前提下, 安全评估大型、现实的神经网络是可行的. 本文中评估的神经网络是未经修改的, 可通过标准Tensorflow或任何支持量化类型的框架(如PyTorch和MXNet)进行训练. 对于用户而言, 通用MPC足以对网络进行评估, 用户可以从更广泛的威胁模型中自由选择; 此外, 即使模型设计者对安全框架一无所知, Tensorflow输出的模型也可以在不经修改的情况下进行评估. 如果想在预测精度和效率方面进行权衡, 那么专用协议可能是更好的选择, 例如文章中提出的概率截断协议等.</p>
 <h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
-<section class="footnotes">
+<section class="footnotes" data-footnotes>
 <ol>
-<li id="fn1">
-<p>Benoit Jacob, Skirmantas Kligys, Bo Chen, Menglong Zhu, Matthew Tang, Andrew G. Howard, Hartwig Adam, and Dmitry Kalenichenko. Quantization and training of neural networks for efficient integer-arithmetic-only inference. CoRR, abs/1712.05877, 2017. <a href="#fnref1" class="footnote-backref">↩</a></p>
+<li id="fn-1">
+<p>Benoit Jacob, Skirmantas Kligys, Bo Chen, Menglong Zhu, Matthew Tang, Andrew G. Howard, Hartwig Adam, and Dmitry Kalenichenko. Quantization and training of neural networks for efficient integer-arithmetic-only inference. CoRR, abs/1712.05877, 2017. <a href="#fnref-1_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn2">
-<p>Yunhui Guo. A survey on methods and theories of quantized neural networks. arXiv preprint arXiv:1808.04752, 2018. <a href="#fnref2" class="footnote-backref">↩</a></p>
+<li id="fn-2">
+<p>Yunhui Guo. A survey on methods and theories of quantized neural networks. arXiv preprint arXiv:1808.04752, 2018. <a href="#fnref-2_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn3">
-<p>Ronald Cramer, Ivan Damgård, Daniel Escudero, Peter Scholl, and Chaoping Xing. SPD Z2k : Efficient MPCmod 2k for dishonest majority. In Hovav Shacham and Alexandra Boldyreva, editors, Advances in Cryptology – CRYPTO 2018, Part II, volume 10992 of Lecture Notes in Computer Science, pages 769–798, Santa Barbara, CA, USA, August 19–23, 2018. Springer, Heidelberg, Germany. <a href="#fnref3" class="footnote-backref">↩</a></p>
+<li id="fn-6">
+<p>Ronald Cramer, Ivan Damgård, Daniel Escudero, Peter Scholl, and Chaoping Xing. SPD Z2k : Efficient MPCmod 2k for dishonest majority. In Hovav Shacham and Alexandra Boldyreva, editors, Advances in Cryptology – CRYPTO 2018, Part II, volume 10992 of Lecture Notes in Computer Science, pages 769–798, Santa Barbara, CA, USA, August 19–23, 2018. Springer, Heidelberg, Germany. <a href="#fnref-6_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn4">
-<p>I. Damgård, D. Escudero, T. Frederiksen, M. Keller,P. Scholl, and N. Volgushev. New primitives for actively secure mpc over rings with applications to private machine learning. In 2019 2019 IEEE Symposium on Security and Privacy (SP), pages 1325–1343, Los Alamitos, CA, USA, may 2019. IEEE Computer Society. <a href="#fnref4" class="footnote-backref">↩</a></p>
+<li id="fn-4">
+<p>I. Damgård, D. Escudero, T. Frederiksen, M. Keller,P. Scholl, and N. Volgushev. New primitives for actively secure mpc over rings with applications to private machine learning. In 2019 2019 IEEE Symposium on Security and Privacy (SP), pages 1325–1343, Los Alamitos, CA, USA, may 2019. IEEE Computer Society. <a href="#fnref-4_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a> <a href="#fnref-4-2_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<sup class="footnote-ref">2</sup></a> <a href="#fnref-4-3_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<sup class="footnote-ref">3</sup></a></p>
 </li>
-<li id="fn5">
-<p>Marcel Keller, Valerio Pastro, and Dragos Rotaru. Over- drive: Making SPDZ great again. In Jesper Buus Nielsen and Vincent Rijmen, editors, Advances in Cryptology – EUROCRYPT 2018, Part III, volume 10822 of Lecture Notes in Computer Science, pages 158–189, Tel Aviv, Israel, April 29 – May 3, 2018. Springer, Heidelberg, Germany. <a href="#fnref5" class="footnote-backref">↩</a></p>
+<li id="fn-7">
+<p>Marcel Keller, Valerio Pastro, and Dragos Rotaru. Over- drive: Making SPDZ great again. In Jesper Buus Nielsen and Vincent Rijmen, editors, Advances in Cryptology – EUROCRYPT 2018, Part III, volume 10822 of Lecture Notes in Computer Science, pages 158–189, Tel Aviv, Israel, April 29 – May 3, 2018. Springer, Heidelberg, Germany. <a href="#fnref-7_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn6">
-<p>Toshinori Araki, Jun Furukawa, Yehuda Lindell, Ariel Nof, and Kazuma Ohara. High-throughput semi-honest secure three-party computation with an honest majority. In Edgar R. Weippl, Stefan Katzenbeisser, Christopher Kruegel, An- drew C. Myers, and Shai Halevi, editors, ACM CCS 2016: 23rd Conference on Computer and Communications Security, pages 805–817, Vienna, Austria, October 24–28, 2016. ACM Press. <a href="#fnref6" class="footnote-backref">↩</a></p>
+<li id="fn-8">
+<p>Toshinori Araki, Jun Furukawa, Yehuda Lindell, Ariel Nof, and Kazuma Ohara. High-throughput semi-honest secure three-party computation with an honest majority. In Edgar R. Weippl, Stefan Katzenbeisser, Christopher Kruegel, An- drew C. Myers, and Shai Halevi, editors, ACM CCS 2016: 23rd Conference on Computer and Communications Security, pages 805–817, Vienna, Austria, October 24–28, 2016. ACM Press. <a href="#fnref-8_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn7">
-<p>Yehuda Lindell and Ariel Nof. A framework for constructing fast MPC over arithmetic circuits with malicious adversaries and an honest-majority. In Bhavani M. Thuraisingham, David Evans, Tal Malkin, and Dongyan Xu, editors, ACM CCS 2017: 24th Conference on Computer and Communications Security, pages 259–276, Dallas, TX, USA, October 31 – November 2, 2017. ACM Press. <a href="#fnref7" class="footnote-backref">↩</a></p>
+<li id="fn-9">
+<p>Yehuda Lindell and Ariel Nof. A framework for constructing fast MPC over arithmetic circuits with malicious adversaries and an honest-majority. In Bhavani M. Thuraisingham, David Evans, Tal Malkin, and Dongyan Xu, editors, ACM CCS 2017: 24th Conference on Computer and Communications Security, pages 259–276, Dallas, TX, USA, October 31 – November 2, 2017. ACM Press. <a href="#fnref-9_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn8">
-<p>Hendrik Eerikson, Marcel Keller, Claudio Orlandi, Pille Pullonen, Joonas Puura, and Mark Simkin. Use your brain! Arithmetic 3PC for any modulus with active security. In 1st Conference on Information-Theoretic Cryptography (ITC 2020). Schloss Dagstuhl-Leibniz-Zentrum für Informatik, 2020. <a href="#fnref8" class="footnote-backref">↩</a></p>
+<li id="fn-10">
+<p>Hendrik Eerikson, Marcel Keller, Claudio Orlandi, Pille Pullonen, Joonas Puura, and Mark Simkin. Use your brain! Arithmetic 3PC for any modulus with active security. In 1st Conference on Information-Theoretic Cryptography (ITC 2020). Schloss Dagstuhl-Leibniz-Zentrum für Informatik, 2020. <a href="#fnref-10_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn9">
-<p>Octavian Catrina and Sebastiaan de Hoogh. Improved primitives for secure multiparty integer computation. In Juan A. Garay and Roberto De Prisco, editors, SCN 10: 7th Interna- tional Conference on Security in Communication Networks, volume 6280 of Lecture Notes in Computer Science, pages 182–199, Amalfi, Italy, September 13–15, 2010. Springer, Heidelberg, Germany. <a href="#fnref9" class="footnote-backref">↩</a></p>
+<li id="fn-3">
+<p>Octavian Catrina and Sebastiaan de Hoogh. Improved primitives for secure multiparty integer computation. In Juan A. Garay and Roberto De Prisco, editors, SCN 10: 7th Interna- tional Conference on Security in Communication Networks, volume 6280 of Lecture Notes in Computer Science, pages 182–199, Amalfi, Italy, September 13–15, 2010. Springer, Heidelberg, Germany. <a href="#fnref-3_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn10">
-<p>Octavian Catrina and Amitabh Saxena. Secure computation with fixed-point numbers. In Radu Sion, editor, FC 2010: 14th International Conference on Financial Cryptography and Data Security, volume 6052 of Lecture Notes in Com- puter Science, pages 35–50, Tenerife, Canary Islands, Spain, January 25–28, 2010. Springer, Heidelberg, Germany. <a href="#fnref10" class="footnote-backref">↩</a></p>
+<li id="fn-5">
+<p>Octavian Catrina and Amitabh Saxena. Secure computation with fixed-point numbers. In Radu Sion, editor, FC 2010: 14th International Conference on Financial Cryptography and Data Security, volume 6052 of Lecture Notes in Com- puter Science, pages 35–50, Tenerife, Canary Islands, Spain, January 25–28, 2010. Springer, Heidelberg, Germany. <a href="#fnref-5_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
 </ol>
 </section>

@@ -201,6 +201,12 @@
 
                         
                         <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
                             </a>
@@ -245,12 +251,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
@@ -477,15 +477,12 @@
 <li>挑战者获得明文后, 随机决定\(b\)的取值\(b=\{0,1\}\), 然后对\(m_b\)加密, 计算密文\(c=Enc(pk, m_b)\), 然后将密文\(c\)发给敌手;</li>
 <li>敌手获得密文后, 给出\(b'\)的值, 猜测密文是对明文\(m_0\)还是\(m_1\)的加密. 若\(b'= b\), 则敌手挑战成功, 否则失败.</li>
 </ol>
-<p>敌手攻破加密算法的优势定义为</p>
-\[ Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]|.
-\]
+<p>敌手攻破加密算法的优势定义为
+\( Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]|.\)</p>
 <p>敌手准确猜中\(b\)的优势定义为</p>
-\[\mathrm{Pr}[b'=b]=\dfrac{1}{2}+\varepsilon.
-\]
-<p>于是有</p>
-\[ Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]| = \varepsilon. 
-\]
+<p>\(\mathrm{Pr}[b'=b]=\dfrac{1}{2}+\varepsilon.\)</p>
+<p>于是有
+\(Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]| = \varepsilon.\)</p>
 <p>如果\(\varepsilon\)可以忽略, 则说明该加密算法是安全的, 反之则不安全.</p>
 -->
 <!--                </article>-->
@@ -611,15 +608,12 @@
 <li>挑战者获得明文后, 随机决定\(b\)的取值\(b=\{0,1\}\), 然后对\(m_b\)加密, 计算密文\(c=Enc(pk, m_b)\), 然后将密文\(c\)发给敌手;</li>
 <li>敌手获得密文后, 给出\(b'\)的值, 猜测密文是对明文\(m_0\)还是\(m_1\)的加密. 若\(b'= b\), 则敌手挑战成功, 否则失败.</li>
 </ol>
-<p>敌手攻破加密算法的优势定义为</p>
-\[ Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]|.
-\]
+<p>敌手攻破加密算法的优势定义为
+\( Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]|.\)</p>
 <p>敌手准确猜中\(b\)的优势定义为</p>
-\[\mathrm{Pr}[b'=b]=\dfrac{1}{2}+\varepsilon.
-\]
-<p>于是有</p>
-\[ Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]| = \varepsilon. 
-\]
+<p>\(\mathrm{Pr}[b'=b]=\dfrac{1}{2}+\varepsilon.\)</p>
+<p>于是有
+\(Adv_{SS}[\mathcal A,\mathbb E]=|\mathrm{Pr}[b'=1]-\mathrm{Pr}[b'=0]| = \varepsilon.\)</p>
 <p>如果\(\varepsilon\)可以忽略, 则说明该加密算法是安全的, 反之则不安全.</p>
 
 
@@ -816,8 +810,6 @@ jax: ['input/TeX','output/HTML-CSS'], TeX: { equationNumbers: { autoNumber: "AMS
 
 
 
-
-<script src="asset/prism.js"></script>
 
 
 </body>

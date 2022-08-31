@@ -201,6 +201,12 @@
 
                         
                         <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
                             </a>
@@ -245,12 +251,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
@@ -659,26 +659,22 @@ P_1,P_2&amp;:y_3=-\lambda_{a}^3m_b-\lambda_{b}^3m_a.
 </ul>
 <img src="media/16553844634309/16553848140996.png" alt="image-20220406093942463" style="zoom:50%;" />
 <ul>
-<li>Boolean to Arithmetic (<strong>B2A</strong>): \([\![v]\!]^\mathbf B\rightarrow[\![v]\!]\). 利用如下关系式</li>
-</ul>
-\[
-  v=\sum_{i=0}^{\ell-1}2^iv_i=\sum_{i=0}^{\ell-1}2^i(\lambda_{v_i}\oplus m_{v_i})=\sum_{i=0}^{\ell-1}2^i\left({m_v}_i^\mathsf R+{\lambda_v}_i^\mathsf R(1-2{m_v}_i^\mathsf R)\right).
-  
+<li>Boolean to Arithmetic (<strong>B2A</strong>): \([\![v]\!]^\mathbf B\rightarrow[\![v]\!]\). 利用如下关系式
+\[v=\sum_{i=0}^{\ell-1}2^iv_i=\sum_{i=0}^{\ell-1}2^i(\lambda_{v_i}\oplus m_{v_i})=\sum_{i=0}^{\ell-1}2^i\left({m_v}_i^\mathsf R+{\lambda_v}_i^\mathsf R(1-2{m_v}_i^\mathsf R)\right).
 \]
-<p>其中, \({\lambda_v}_i^\mathsf R, {m_v}_i^\mathsf R\)分别表示环\(\mathbb Z_{2^\ell}\)上的比特\({\lambda_v}_i, {m_v}_i\)的算术值. 计算中需要借助\(\Pi_\mathsf{bit2A}\)协议, 完整的B2A协议过程如下:</p>
+其中, \({\lambda_v}_i^\mathsf R, {m_v}_i^\mathsf R\)分别表示环\(\mathbb Z_{2^\ell}\)上的比特\({\lambda_v}_i, {m_v}_i\)的算术值. 计算中需要借助\(\Pi_\mathsf{bit2A}\)协议, 完整的B2A协议过程如下:</li>
+</ul>
 <img src="media/16553844634309/16553848147988.png" alt="image-20220406094209368" style="zoom:50%;" />
 <ul>
 <li>
 <p>Bit to Arithmetic (<strong>Bit2A</strong>): 给定比特\(b\)的布尔份额\([\![b]\!]^\mathbf B\), \(\Pi_\mathsf{bit2A}\)计算其算术份额\([\![b]\!]\). 设\(b^\mathsf R\)表示\(b\in\{0,1\}\)在算术环\(\mathbb Z_{2^\ell}\)的值, 则对于\(b=b_1\oplus b_2\), \(b^\mathsf R=(b_1^\mathsf R-b_2^\mathsf R)^2\). 令\(b_1=m_b\oplus\lambda_v^3\), \(b_2=\lambda_v^1\oplus\lambda_v^2\). 为计算\([\![b]\!]\), 可让一对参与方执行\(\Pi_\mathsf{JSh}\)生成对应于\(b_1^\mathsf R\)和\(b_2^\mathsf R\)的算术份额, 然后调用一次\(\Pi_\mathsf{Mult}\), 输入\(x=y=b_1^\mathsf R-b_2^\mathsf R\)来计算\(b^\mathsf R\).</p>
 <p>可以通过Trident和SWIFT中的方法进一步权衡预处理阶段的通信和计算开销. 计算原理如下:</p>
-</li>
-</ul>
-\[
-  b^\mathsf R=(m_b\oplus\lambda_b)^\mathsf R=m_b^\mathsf R+\lambda_b^\mathsf R-2m_b^\mathsf R\lambda_b^\mathsf R=m_b^\mathsf R+(\lambda_b^\mathsf R)(1-2m_b^\mathsf R)
-  
+\[b^\mathsf R=(m_b\oplus\lambda_b)^\mathsf R=m_b^\mathsf R+\lambda_b^\mathsf R-2m_b^\mathsf R\lambda_b^\mathsf R=m_b^\mathsf R+(\lambda_b^\mathsf R)(1-2m_b^\mathsf R)
 \]
 <p>具体协议过程如下, 预处理阶段需要\(3\ell+1\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
-  <img src="media/16553844634309/16553848156426.png" alt="image-20220406160848869" style="zoom:50%;" />
+<img src="media/16553844634309/16553848156426.png" alt="image-20220406160848869" style="zoom:50%;" />
+</li>
+</ul>
 <h2><a id="building-blocks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks</h2>
 <h3><a id="dot-product" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dot Product</h3>
 <p>给定长度为\(d\)的向量份额\([\![\vec{\mathbf a}]\!],[\![\vec{\mathbf b}]\!]\), \(\Pi_\mathsf{dotp}\)计算\([\![z]\!]\), 使得\(z=(\vec{\mathbf a}\odot\vec{\mathbf b})^t\)(截断)或者\(z=\vec{\mathbf a}\odot\vec{\mathbf b}\)(不截断). 整体思路与SWIFT和Trident类似, 先对\(d\)个乘法项的部分份额求和, 然后进行一次通信. 此外, 矩阵乘法可以看成点积协议的扩展形式, 卷积计算可以简化为矩阵乘法计算(参考SecureNN), 因此计算方式与之类似. 完整的点积计算协议如下, 预处理阶段需要\(2\ell\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
@@ -1058,26 +1054,22 @@ P_1,P_2&amp;:y_3=-\lambda_{a}^3m_b-\lambda_{b}^3m_a.
 </ul>
 <img src="media/16553844634309/16553848140996.png" alt="image-20220406093942463" style="zoom:50%;" />
 <ul>
-<li>Boolean to Arithmetic (<strong>B2A</strong>): \([\![v]\!]^\mathbf B\rightarrow[\![v]\!]\). 利用如下关系式</li>
-</ul>
-\[
-  v=\sum_{i=0}^{\ell-1}2^iv_i=\sum_{i=0}^{\ell-1}2^i(\lambda_{v_i}\oplus m_{v_i})=\sum_{i=0}^{\ell-1}2^i\left({m_v}_i^\mathsf R+{\lambda_v}_i^\mathsf R(1-2{m_v}_i^\mathsf R)\right).
-  
+<li>Boolean to Arithmetic (<strong>B2A</strong>): \([\![v]\!]^\mathbf B\rightarrow[\![v]\!]\). 利用如下关系式
+\[v=\sum_{i=0}^{\ell-1}2^iv_i=\sum_{i=0}^{\ell-1}2^i(\lambda_{v_i}\oplus m_{v_i})=\sum_{i=0}^{\ell-1}2^i\left({m_v}_i^\mathsf R+{\lambda_v}_i^\mathsf R(1-2{m_v}_i^\mathsf R)\right).
 \]
-<p>其中, \({\lambda_v}_i^\mathsf R, {m_v}_i^\mathsf R\)分别表示环\(\mathbb Z_{2^\ell}\)上的比特\({\lambda_v}_i, {m_v}_i\)的算术值. 计算中需要借助\(\Pi_\mathsf{bit2A}\)协议, 完整的B2A协议过程如下:</p>
+其中, \({\lambda_v}_i^\mathsf R, {m_v}_i^\mathsf R\)分别表示环\(\mathbb Z_{2^\ell}\)上的比特\({\lambda_v}_i, {m_v}_i\)的算术值. 计算中需要借助\(\Pi_\mathsf{bit2A}\)协议, 完整的B2A协议过程如下:</li>
+</ul>
 <img src="media/16553844634309/16553848147988.png" alt="image-20220406094209368" style="zoom:50%;" />
 <ul>
 <li>
 <p>Bit to Arithmetic (<strong>Bit2A</strong>): 给定比特\(b\)的布尔份额\([\![b]\!]^\mathbf B\), \(\Pi_\mathsf{bit2A}\)计算其算术份额\([\![b]\!]\). 设\(b^\mathsf R\)表示\(b\in\{0,1\}\)在算术环\(\mathbb Z_{2^\ell}\)的值, 则对于\(b=b_1\oplus b_2\), \(b^\mathsf R=(b_1^\mathsf R-b_2^\mathsf R)^2\). 令\(b_1=m_b\oplus\lambda_v^3\), \(b_2=\lambda_v^1\oplus\lambda_v^2\). 为计算\([\![b]\!]\), 可让一对参与方执行\(\Pi_\mathsf{JSh}\)生成对应于\(b_1^\mathsf R\)和\(b_2^\mathsf R\)的算术份额, 然后调用一次\(\Pi_\mathsf{Mult}\), 输入\(x=y=b_1^\mathsf R-b_2^\mathsf R\)来计算\(b^\mathsf R\).</p>
 <p>可以通过Trident和SWIFT中的方法进一步权衡预处理阶段的通信和计算开销. 计算原理如下:</p>
-</li>
-</ul>
-\[
-  b^\mathsf R=(m_b\oplus\lambda_b)^\mathsf R=m_b^\mathsf R+\lambda_b^\mathsf R-2m_b^\mathsf R\lambda_b^\mathsf R=m_b^\mathsf R+(\lambda_b^\mathsf R)(1-2m_b^\mathsf R)
-  
+\[b^\mathsf R=(m_b\oplus\lambda_b)^\mathsf R=m_b^\mathsf R+\lambda_b^\mathsf R-2m_b^\mathsf R\lambda_b^\mathsf R=m_b^\mathsf R+(\lambda_b^\mathsf R)(1-2m_b^\mathsf R)
 \]
 <p>具体协议过程如下, 预处理阶段需要\(3\ell+1\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>
-  <img src="media/16553844634309/16553848156426.png" alt="image-20220406160848869" style="zoom:50%;" />
+<img src="media/16553844634309/16553848156426.png" alt="image-20220406160848869" style="zoom:50%;" />
+</li>
+</ul>
 <h2><a id="building-blocks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Blocks</h2>
 <h3><a id="dot-product" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dot Product</h3>
 <p>给定长度为\(d\)的向量份额\([\![\vec{\mathbf a}]\!],[\![\vec{\mathbf b}]\!]\), \(\Pi_\mathsf{dotp}\)计算\([\![z]\!]\), 使得\(z=(\vec{\mathbf a}\odot\vec{\mathbf b})^t\)(截断)或者\(z=\vec{\mathbf a}\odot\vec{\mathbf b}\)(不截断). 整体思路与SWIFT和Trident类似, 先对\(d\)个乘法项的部分份额求和, 然后进行一次通信. 此外, 矩阵乘法可以看成点积协议的扩展形式, 卷积计算可以简化为矩阵乘法计算(参考SecureNN), 因此计算方式与之类似. 完整的点积计算协议如下, 预处理阶段需要\(2\ell\)比特通信量, 在线阶段需要\(3\ell\)比特通信量, 1轮.</p>

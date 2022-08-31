@@ -201,6 +201,12 @@
 
                         
                         <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
                             </a>
@@ -245,12 +251,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
@@ -469,12 +469,12 @@
 <p>现代密码学的主要成就之一在于适当地将一些结构形式化, 如加密或数字签名, 从而使严格的数学推理可以应用于这些结构. 这样一来, 就可以实现具体的保障和不同概念之间的关系, “可证明安全”的想法便是一个例子.</p>
 <p>安全多方计算在80年代末作为一项有趣的研究任务出现, 它有许多潜在的应用, 并涉及非常有趣的技术. 然而, 过了近十年后, 才出现了更多关于安全多方计算的正式理论, 从而能够对该领域进行更严格的处理. 安全多方计算任务的“数学框架”不是平凡的, 这无疑是对其本身的贡献.</p>
 <h2><a id="%E6%A6%82%E8%A7%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>概览</h2>
-<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
+<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn-1" id="fnref-1_ref" data-footnote-ref>1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
 <p>将敌手不学习某些数据的想法形式化在密码学中很常见, 因为它已经出现在诸如加密方案等结构中, 这些结构是用基于游戏的安全证明(Game-based Security)形式化的. 简而言之, 基于游戏的安全考虑了这样的场景: 敌手与系统交互, 试图区分某些打算隐藏的数据, 而安全证明的形式化要求没有敌手能以高概率在这个“游戏”中获胜. 然而, MPC设定中的主要挑战是, 敌手确实获得了一些打算隐藏的数据, 即计算的输出. 此外, 另一个主要的复杂性在于安全多方计算是一个分布式应用, 涉及各方之间按照某种特定的模式通信. 敌手可以看到在协议执行过程中与腐化方交互的所有信息, 当敌手是主动的时候, 它甚至有能力修改腐化方的行为. 这些复杂的问题给广泛用于密码学的简单的基于游戏的安全证明定义的使用带来了障碍.</p>
 <p>解决上述复杂问题的关键是考虑一个理想世界(Ideal world), 它能捕捉到所需的交互属性, 并以某种方式要求实际协议执行的现实世界(Real world)与理想世界不可区分. 通常情况下, 理想世界包含各方将他们的输入发送给可信第三方, 后者计算函数并返回结果, 而且仅返回结果给各方. 现在, 为了说明这两个世界是不可区分的, 一个自然的做法是说明敌手不能区分现实世界和理想世界. 然而, 这种方式是注定会失败的, 因为从敌手的视角来看, 这两个世界可以很平凡地区分开来: 在现实世界中, 信息在所有参与方中相互传递, 有多个通信轮次, 且没有可信方, 而在理想世界中, 有一个可信第三方, 只是接收输入和发送输出. 这两个世界看起来完全不同, 所以敌手可以轻松区分这两个世界.</p>
 <p>这就是模拟的概念的作用. 在现实世界中, 敌手腐化了某些参与方集合的子集, 与诚实方交互, 并在执行结束时得到一个结果. 在理想世界中, 敌手不会直接与可信方交互, 相反, 当诚实方与可信第三方交互时, 敌手与一些“虚拟”的诚实方交互, 这些虚拟诚实方与真实诚实方不同, 不能接触到对敌手隐藏的输入. 这些虚拟诚实方由一个模拟器(Simulator)协调, 该模拟器也控制着理想世界中的腐化方, 发送输入并接收来自可信方的输出. 如此一来, 模拟器就有效充当了一个接口, 是敌手能够与理想世界中的可信第三方进行交互, 同时拥有等同于现实世界中的交互.</p>
 <p>为了证明一个给定的安全多方计算协议时安全的, 需要定义一个模拟器, 作为上述的接口, 其证明安全的方式是说明现实世界(敌手与持有真实输入的真实诚实方交互的世界)与理想世界(敌手与模拟器控制的虚拟诚实方交互的世界)是不可区分的. 需要注意的是, 为了“愚弄”敌手, 模拟器所依靠的唯一能力是对接收输入并只显示输出的可信第三方的访问. 因此, 从直觉上来说, 这意味着敌手在现实世界中的经验可以通过只接触可信第三方来“重现”(recreated), 从哲学的角度来看, 这体现了敌手与现实世界中的诚实方交互之后, 只学习计算的输出这一核心思想.</p>
-<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
+<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn-2" id="fnref-2_ref" data-footnote-ref>2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
 <h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BB%A3%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式代理</h2>
 <p>我们首先考虑参与安全多方计算协议形式化的所有不同实体机器安全性. 我们的出发点是交互式代理(Interactive agent)的概念, 在直观层面上, 它是一个接收和发送消息、持有内部状态并进行计算的计算设备. 例如, 安全多方计算协议中的各方都是交互式代理, 但在这些想法被形式化的框架中, 还有其他几个交互式代理出现. 交互式代理可以通过交互式图灵机的方式被形式化. 这只是传统的图灵机(或算法), 除了进行计算外, 还可以向某些通信端口发送和接收数据, 这些端口可被看成是计算机总线或信道.</p>
 <p>现在我们描述出现在UC框架中的不同的交互式代理. 正如我们已经提到的, 第一个自然的交互代理是各个参与方, 它们是进行计算的实际设备, 但还有其他几个交互代理, 例如模拟器或“可信第三方”出现. 我们下面分别进行讨论.</p>
@@ -601,13 +601,13 @@
 <p><strong>定理</strong>(Composition Theorem): 令\(\Pi_\mathcal F\)是在\(\mathcal R\)-混合模型中实例化功能\(\mathcal F\)的协议, 具有完美/统计/计算安全性, 设\(\Pi_\mathcal R\)是在\(\mathcal T\)-混合模型中实例化功能\(\mathcal R\)的协议, 具有相同的安全性类型, 则组合协议\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)以同样的安全性类型在\(\mathcal T\)-混合模型中安全地实例化功能\(\mathcal F\).</p>
 <p>完整的定理证明参考文献[2].</p>
 <h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
-<section class="footnotes">
+<section class="footnotes" data-footnotes>
 <ol>
-<li id="fn1">
-<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref1" class="footnote-backref">↩</a></p>
+<li id="fn-1">
+<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref-1_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn2">
-<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref2" class="footnote-backref">↩</a></p>
+<li id="fn-2">
+<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref-2_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
 </ol>
 </section>
@@ -727,12 +727,12 @@
 <p>现代密码学的主要成就之一在于适当地将一些结构形式化, 如加密或数字签名, 从而使严格的数学推理可以应用于这些结构. 这样一来, 就可以实现具体的保障和不同概念之间的关系, “可证明安全”的想法便是一个例子.</p>
 <p>安全多方计算在80年代末作为一项有趣的研究任务出现, 它有许多潜在的应用, 并涉及非常有趣的技术. 然而, 过了近十年后, 才出现了更多关于安全多方计算的正式理论, 从而能够对该领域进行更严格的处理. 安全多方计算任务的“数学框架”不是平凡的, 这无疑是对其本身的贡献.</p>
 <h2><a id="%E6%A6%82%E8%A7%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>概览</h2>
-<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
+<p>当前有几种不同的框架来形式化安全多方计算协议, 例如独立模型(Stand-alone model)、UC框架<sup class="footnote-ref"><a href="#fn-1" id="fnref-1_ref" data-footnote-ref>1</a></sup>和SUC框架等等. 然而, 尽管从一个模型到另一个模型有细微差异, 但这些方法的共同点是通过模拟(Simulation)来定义安全. 这种想法在零知识证明领域已经很普遍, 例如, 它的目的是正确定义“不学习除\(X\)以外的信息”的概念. 为了提供一个关于这种技术的高层次概念, 考虑一个给定的安全多方计算协议是安全的, 这个想法与确保腐化了参与方子集的敌手不会从诚实方那里学习到任何关于输入的信息有关, 除了从计算本身输出所泄漏的信息之外.</p>
 <p>将敌手不学习某些数据的想法形式化在密码学中很常见, 因为它已经出现在诸如加密方案等结构中, 这些结构是用基于游戏的安全证明(Game-based Security)形式化的. 简而言之, 基于游戏的安全考虑了这样的场景: 敌手与系统交互, 试图区分某些打算隐藏的数据, 而安全证明的形式化要求没有敌手能以高概率在这个“游戏”中获胜. 然而, MPC设定中的主要挑战是, 敌手确实获得了一些打算隐藏的数据, 即计算的输出. 此外, 另一个主要的复杂性在于安全多方计算是一个分布式应用, 涉及各方之间按照某种特定的模式通信. 敌手可以看到在协议执行过程中与腐化方交互的所有信息, 当敌手是主动的时候, 它甚至有能力修改腐化方的行为. 这些复杂的问题给广泛用于密码学的简单的基于游戏的安全证明定义的使用带来了障碍.</p>
 <p>解决上述复杂问题的关键是考虑一个理想世界(Ideal world), 它能捕捉到所需的交互属性, 并以某种方式要求实际协议执行的现实世界(Real world)与理想世界不可区分. 通常情况下, 理想世界包含各方将他们的输入发送给可信第三方, 后者计算函数并返回结果, 而且仅返回结果给各方. 现在, 为了说明这两个世界是不可区分的, 一个自然的做法是说明敌手不能区分现实世界和理想世界. 然而, 这种方式是注定会失败的, 因为从敌手的视角来看, 这两个世界可以很平凡地区分开来: 在现实世界中, 信息在所有参与方中相互传递, 有多个通信轮次, 且没有可信方, 而在理想世界中, 有一个可信第三方, 只是接收输入和发送输出. 这两个世界看起来完全不同, 所以敌手可以轻松区分这两个世界.</p>
 <p>这就是模拟的概念的作用. 在现实世界中, 敌手腐化了某些参与方集合的子集, 与诚实方交互, 并在执行结束时得到一个结果. 在理想世界中, 敌手不会直接与可信方交互, 相反, 当诚实方与可信第三方交互时, 敌手与一些“虚拟”的诚实方交互, 这些虚拟诚实方与真实诚实方不同, 不能接触到对敌手隐藏的输入. 这些虚拟诚实方由一个模拟器(Simulator)协调, 该模拟器也控制着理想世界中的腐化方, 发送输入并接收来自可信方的输出. 如此一来, 模拟器就有效充当了一个接口, 是敌手能够与理想世界中的可信第三方进行交互, 同时拥有等同于现实世界中的交互.</p>
 <p>为了证明一个给定的安全多方计算协议时安全的, 需要定义一个模拟器, 作为上述的接口, 其证明安全的方式是说明现实世界(敌手与持有真实输入的真实诚实方交互的世界)与理想世界(敌手与模拟器控制的虚拟诚实方交互的世界)是不可区分的. 需要注意的是, 为了“愚弄”敌手, 模拟器所依靠的唯一能力是对接收输入并只显示输出的可信第三方的访问. 因此, 从直觉上来说, 这意味着敌手在现实世界中的经验可以通过只接触可信第三方来“重现”(recreated), 从哲学的角度来看, 这体现了敌手与现实世界中的诚实方交互之后, 只学习计算的输出这一核心思想.</p>
-<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
+<p>有了上面概述的直观方法, 我们现在开始提供基于模拟的安全证明如何工作的细节, 主要基于文献<sup class="footnote-ref"><a href="#fn-2" id="fnref-2_ref" data-footnote-ref>2</a></sup>. 在本文中, 我们仅关注UC框架, 不考虑其他基于模拟的安全证明概念.</p>
 <h2><a id="%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BB%A3%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>交互式代理</h2>
 <p>我们首先考虑参与安全多方计算协议形式化的所有不同实体机器安全性. 我们的出发点是交互式代理(Interactive agent)的概念, 在直观层面上, 它是一个接收和发送消息、持有内部状态并进行计算的计算设备. 例如, 安全多方计算协议中的各方都是交互式代理, 但在这些想法被形式化的框架中, 还有其他几个交互式代理出现. 交互式代理可以通过交互式图灵机的方式被形式化. 这只是传统的图灵机(或算法), 除了进行计算外, 还可以向某些通信端口发送和接收数据, 这些端口可被看成是计算机总线或信道.</p>
 <p>现在我们描述出现在UC框架中的不同的交互式代理. 正如我们已经提到的, 第一个自然的交互代理是各个参与方, 它们是进行计算的实际设备, 但还有其他几个交互代理, 例如模拟器或“可信第三方”出现. 我们下面分别进行讨论.</p>
@@ -859,13 +859,13 @@
 <p><strong>定理</strong>(Composition Theorem): 令\(\Pi_\mathcal F\)是在\(\mathcal R\)-混合模型中实例化功能\(\mathcal F\)的协议, 具有完美/统计/计算安全性, 设\(\Pi_\mathcal R\)是在\(\mathcal T\)-混合模型中实例化功能\(\mathcal R\)的协议, 具有相同的安全性类型, 则组合协议\(\Pi_\mathcal F\diamondsuit \Pi_\mathcal R\)以同样的安全性类型在\(\mathcal T\)-混合模型中安全地实例化功能\(\mathcal F\).</p>
 <p>完整的定理证明参考文献[2].</p>
 <h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
-<section class="footnotes">
+<section class="footnotes" data-footnotes>
 <ol>
-<li id="fn1">
-<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref1" class="footnote-backref">↩</a></p>
+<li id="fn-1">
+<p>R. Canetti. Universally composable security: A new paradigm for cryptographic protocols. In Proceedings 42nd IEEE Symposium on Foundations of Computer Science, pages 136–145. IEEE, 2001. <a href="#fnref-1_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
-<li id="fn2">
-<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref2" class="footnote-backref">↩</a></p>
+<li id="fn-2">
+<p>R. Cramer, I. Damgard, and J. B. Nielsen. Secure multiparty computation and secret sharing - an information theoretic approach, 2012. <a href="#fnref-2_ref" class="footnote-backref" data-footnote-backref aria-label="Back to content">&#8617;<a></p>
 </li>
 </ol>
 </section>
