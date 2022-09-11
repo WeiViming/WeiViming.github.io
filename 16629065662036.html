@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+    	<style type="text/css">
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: bold;
+        font-weight: 700;
+        src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+	    </style>
+
+    <style>
+        body, html {
+            /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
+            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+            /* font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+        p, ul, ol, li, table{
+            /* font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+            /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
+            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+        }
+        *{
+            width: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(12)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(12)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16629065662036.html" title="Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16562245505906.html" title="ABY3: A Mixed Protocol Framework for Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>ABY3: A Mixed Protocol Framework for Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16525868704962.html" title="Simulation-based Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Simulation-based Security</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16524092173945.html" title="Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16519051511907.html" title="Secure Evaluation of Quantized Neural Networks" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Secure Evaluation of Quantized Neural Networks</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: Blazing Fast Privacy-preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: Blazing Fast Privacy-preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16576879066429.html" title="Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <blockquote>
+<p>今天给大家带来的是发表于Financial Cryptography and Data Security 2020 (FC'20)的文章Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application, 原文链接: <a href="https://arxiv.org/pdf/1907.03415">https://arxiv.org/pdf/1907.03415</a></p>
+</blockquote>
+<h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
+<p>基于秘密共享的多方计算协议(SS-MPC)可以很容易实现高吞吐量, 但通常通信轮次较大, 是WAN高延迟网络环境的主要性能瓶颈, 故减少SS-MPC协议的通信轮次是提升MPC效率的关键所在, 换而言之, 应让MPC的电路尽可能地浅. 为此, 本文主要专注于减少通信轮次, 利用Beaver三元组扩展(Beaver triple extension, BTE)构造了半诚实安全的通信高效的两方计算协议, 可对多输入门(mult-fan-in gates)进行高效计算, 并给出了一些应用. 例如, 对于比较协议, 只需通信3轮, 比之前相同设定下的工作通信量也减少了38.4%, 总在线执行时间减少了56.1%, 虽然计算开销比以往工作要高, 但本文表明在WAN下这对整体在线性能影响很小.</p>
+<h2><a id="preliminaries" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preliminaries</h2>
+<ul>
+<li>秘密共享方案: \(\mathbb Z_{2^n}\)上的两方加法秘密共享\((2,2)\)-additive secret sharing, \([\![x]\!]=([\![x]\!]_0,[\![x]\!]_1)\).</li>
+<li>安全模型: 两方半诚实安全模型</li>
+<li>客户端辅助(client-aided)模型, 设客户端不与任何计算方共谋, 主要负责生成并分发Beaver三元组以提升离线阶段的效率.</li>
+</ul>
+<h2><a id="core-tools-for-round-efficient-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Core Tools for Round-Efficient Protocols</h2>
+<h3><a id="n-fan-in-multand-via-n-beaver-triple-extension" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>\(N\)-fan-in MULT/AND via \(N\)-Beaver Triple Extension</h3>
+<p>令\(N\)是正整数, \(\mathcal M=\mathbb Z_{M}\), 其中\(M=2^n\). 记\([1,N]=\{1,2,\cdots,N\}\). 定义客户端辅助协议来生成\(N\)-BTE的方法如下:</p>
+<ol>
+<li>对于\(\ell=1,\cdots,N\), 客户端从\(\mathcal M\)中随机选取\([\![a_{\{\ell\}}]\!]_0\)和\([\![a_{\{\ell\}}]\!]_1\), 设\(a_{\{\ell\}}\leftarrow[\![a_{\{\ell\}}]\!]_0+[\![a_{\{\ell\}}]\!]_1\). 对于满足$|I|\geq2$的每个\(I\subseteq[1,N]\), 通过设定\(a_I\leftarrow\prod_{\ell\in I}a_{\{\ell\}}\), 客户端随机选取\([\![a_I]\!]_0\in\mathcal M\), 并设定\([\![a_I]\!]_1\leftarrow a_I-[\![a_I]\!]_0\).</li>
+<li>客户端发送所有的\([\![a_I]\!]_0\)给\(P_0\)和所有的\([\![a_I]\!]_1\)给\(P_1\).</li>
+</ol>
+<p>对于\(\ell=1,\cdots,N\), 令\(([\![x_\ell]\!]_0,[\![x_\ell]\!]_1)\)为给定第\(\ell\)个秘密输入值\(x_\ell\in\mathcal M\)的份额, 则多输入MULT/AND门的计算协议的计算方式如下:</p>
+<ol>
+<li>客户端利用上述协议生成并分发\(N\)-BTE\(([\![a_I]\!]_0)_I\)和\(([\![a_I]\!]_1)_I\)给两方.</li>
+<li>对于\(k=0,1\), \(P_k\)计算并发送\([\![x_\ell']\!]\leftarrow[\![x_\ell]\!]_k-[\![a_{\{\ell\}}]\!]\)给\(P_{1-k}\).</li>
+<li>对于\(k=0,1\), \(P_k\)计算\(x_\ell'\leftarrow[\![x_\ell']\!]_{1-k}+[\![x_\ell']\!]_k\).</li>
+<li>\(P_0\)计算并输出\([\![y_0]\!]\leftarrow\prod_{\ell=1}^Nx_{\ell}'+\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_0\), \(P_1\)计算并输出\([\![y_1]\!]\leftarrow\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_1\).</li>
+</ol>
+<p>可以看到上述协议只需1轮通信, 且不依赖于\(N\), 适合WAN设定, 但缺点是内存消耗和计算开销与\(N\)成指数级别增长, 因此本文在实际应用中取\(N\leq 9\). 当使用\(L\)输入MULT/AND门(\(L\leq N\))时, 需要\(\frac{\lceil\log N\rceil}{\lfloor \log L\rfloor}\)轮通信来计算\(N\)输入MULT/AND.</p>
+<h3><a id="more-techniques-for-reducing-communication-rounds" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>More Techniques for Reducing Communication Rounds</h3>
+<ul>
+<li>One Weights At Most One: 设\(P_0\)和\(P_1\)分别持有\(x\)的份额布尔份额\([\![x]\!]_0^\mathsf B\)和\([\![x]\!]_1^\mathsf B\), 若\(x\)的汉明重量至多为1, 则两方可以通过本地计算其份额比特的\(\mathsf{XOR}\)来得到\(x=_?0\)的份额. 因为若\(x\neq0\), 则\(P_0\)计算的\(\bigoplus[\![x]\!]_0^\mathsf B\)和\(P_1\)计算的\(\bigoplus[\![x]\!]_1^\mathsf B\)之中至少有一个为1, 从而两者份额比特的\(\mathsf{XOR}\)结果为1.</li>
+<li>Arithmetic Blinding: 设两个客户端也是计算参与方, 则当它们执行计算时已知秘密本身, 与客户端辅助2PC计算的情况不同, 此时\(P_0\)和\(P_1\)随机将其各自持有的秘密\(x\)和\(y\)分割为\(x_0,x_1\)和\(y_0,y_1\), 然后\(P_0\)发送\(x_1\)给\(P_1\), \(P_1\)发送\(x_0\)给\(P_0\). 若\(P_0\)和\(P_1\)在之前已经分别得到了\(a_0,b_0,c_0\)和\(a_1,b_1,c_1\), 则\(P_0\)和\(P_1\)可通过标准乘法协议来计算\([\![z]\!]=xy\), 过程如下:</li>
+</ul>
+<ol>
+<li>(预计算阶段)\(P_0\)将\(b_0\)发给\(P_1\), \(P_1\)将\(a_1\)发给\(P_0\);</li>
+<li>(在线阶段)\(P_0\)本地计算\(x-a=x-(a_0+a_1)\)并发给\(P_1\), \(P_1\)本地计算\(y-b=y-(b_0+b_1)\)并发给\(P_0\).</li>
+<li>对\(i=0,1\), \(P_i\)本地计算\([\![z]\!]_i=i(x-a)(y-b)+(x-a)b+(y-b)a+c_i\).
+可以看到在线阶段的通信量相比客户端不为计算方的情况减少了一半.</li>
+</ol>
+<ul>
+<li>Trivial Sharing: 考虑输入方不为计算方的设定, 则此时与标准的客户端辅助2PC相同. 这种情况下可以使用份额\([\![b]\!]_i(i\in\{0,1\})\)本身作为计算的秘密值, 另一方的份额看成\([\![0]\!]_{1-i}\). 这可以结合BTE进一步优化2PC计算协议的通信轮次.</li>
+</ul>
+<h2><a id="communication-efficient-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication-Efficient Protocols</h2>
+<p>下面只考虑\(\mathbb Z_{2^{16}}\)上\(N\leq5\)的情况, 类似地可以实现相同通信轮次的\(\mathbb Z_{2^{32}}\)上\(N\leq7\)和\(\mathbb Z_{2^{64}}\)上\(N\leq9\)的情况.</p>
+<h3><a id="equality-check-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Equality Check Protocol</h3>
+<p>给定\([\![x]\!]^\mathsf A\)和\([\![y]\!]^\mathsf A\), 相等检测协议计算\([\![z]\!]^\mathsf B\leftarrow\mathsf{Equality}([\![x]\!]^\mathsf A,[\![y]\!]^\mathsf A)\), 其中\(z=1\)当且仅当\(x=y\). 协议的主要设计思路是首先计算\(t=x-y\), 然后计算\(t\)的所有比特的OR是否为0. 直接使用\(16\text{-}\mathsf{OR}\)来计算是不现实的, 本文中使用\(4\text{-}\mathsf{OR}\), 如此协议只需通信\(\log_{4}16=2\)轮. 一般而言, 当秘密份额空间为\(\mathbb Z_{2^n}\), 并使用\(N\leq L\)的\(N\text{-}\mathsf{OR}\)时, \(\mathsf{Equality}\)所需的通信轮次为\(\frac{\lceil\log n\rceil}{\lfloor \log L\rfloor}\). 协议构造如下:</p>
+<p><img src="media/16629065662036/16629066124215.png" alt="image-20220910091103132" /></p>
+<h3><a id="overflow-detection-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overflow Detection Protocol</h3>
+<p>为了构造算术溢出检测协议\(\mathsf{Overflow}\), 首先需要构造最高位非零比特抽取协议\(\mathsf{MSNZB}\), 即\(\mathsf{MSNZB}([\![x]\!]^\mathsf B=[[\![x[15]]\!]^\mathsf B,\cdots,[\![x[0]]\!]^\mathsf B])\), 查找\(x\)的第一个1所在位置,  输出布尔份额向量\([\![z]\!]^\mathsf B=[[\![z[15]]\!]^\mathsf B,\cdots,[\![z[0]]\!]^\mathsf B]\). 例如\(x=00101\), 则\(z=00100\).</p>
+<p>为了秘密计算\(x\)中第一个1的位置, 引入prefix-\(\mathsf{OR}\)运算, 步骤如下:</p>
+<ol>
+<li>通过\(2\text{-}\mathsf{OR}\)将最左边的1后面的比特全部置为1, 得到\(x'=0\cdots011\cdots1\).</li>
+<li>计算\(z=x'\oplus(x'\gg1)\).</li>
+</ol>
+<p>例如: \(x=00101\), 则\(x'=00111\), 于是有\(z=00111\oplus00011=00100\).</p>
+<p>通过\(2\text{-}\mathsf{OR}\), 即使并行也需要通信4轮, 若改为\(4\text{-}\mathsf{OR}\), 使用多输入prefix-\(\mathsf{OR}\)运算则只需2轮通信, 但由于需要计算多次\(4\text{-}\mathsf{OR}\), 因此计算成本将显著增大. 为在保留通信轮次的前提下优化计算, 使用分块的思想, 将比特串进行分块, 然后分别计算每块的\(\mathsf{MSNZB}\). 完整协议过程如下:</p>
+<p><img src="media/16629065662036/16629066124240.png" alt="image-20220910100716924" /></p>
+<p>有了\(\mathsf{MSNZB}\), 则可根据输出所对应明文的汉明重量至多为1的特点来构造算术溢出检测协议\(\mathsf{Overflow}([\![x]\!]^\mathsf A,k)\), 该协议输出\([\![z]\!]^\mathsf B\), 其中\(z=1\)当且仅当\(([\![x]\!]_0^\mathsf A\bmod2^k+[\![x]\!]_1^\mathsf A\bmod2^k)\geq2^k\).</p>
+<p>[1]的做法: 检查\(u=(-[\![x]\!]_1\bmod2^k)\)中是否存在1, 若存在则看1的位置与\(d=(([\![x]\!]_0\bmod2^k)\oplus(-[\![x]\!]_1\bmod2^k))\)的\(\mathsf{MSNZB}\)是否相同. 使用本文的两轮\(\mathsf{MSNZB}\), 这种做法仍需要通信3轮, 额外的一轮是需要计算\(2\text{-}\mathsf{AND}\).</p>
+<p>本文的做法如下:</p>
+<p><img src="media/16629065662036/16629066124273.png" alt="image-20220910111402581" /></p>
+<p>可以看到上述协议通过使用\(N\text{-}\mathsf{AND}\), 步骤2和步骤6各需1轮通信, 因此总通信轮次为2. 类似地,</p>
+<ul>
+<li>若份额空间为\(\mathbb Z_{2^{32}}\), 则需要\(N\leq7\)的\(N\text{-}\mathsf{AND}\)门来构造两轮\(\mathsf{Overflow}\);</li>
+<li>若份额空间为\(\mathbb Z_{2^{64}}\), 则需要\(N\leq9\)的\(N\text{-}\mathsf{AND}\)门来构造两轮\(\mathsf{Overflow}\).</li>
+</ul>
+<p>此外, 可以构造只需通信1轮的\(\mathsf{Overflow}\)协议, 设\(\chi[P]\)是表示条件\(P\)是否成立的比特值, 若成立则取值为1. 令\(\mathsf{Overflow}(a,b;c)=\chi[a+b\geq c]\), 并设\(n_1\)和\(n_2\)是满足\(n=n_1+n_2\)的参数, 则1轮的\(\mathsf{Overflow}\)协议过程如下:</p>
+<ol>
+<li>对于\(i=0,1\), \(P_i\)记\([\![x]\!]_i^\mathsf A=y_i||z_i\), 其中\(y_i=\mathsf{MSB}(x_i)\), \(z_i=\mathsf{LSB}(x_i)\);</li>
+<li>对于每个\(a_1=1,\cdots,2^{n_1}-1\),
+<ul>
+<li>\(P_0\)设定\(\alpha_0^{\langle a_1;1\rangle}\leftarrow\chi[y_0=a_1]\), \(\alpha_0^{\langle a_1;2\rangle}\leftarrow0\);</li>
+<li>\(P_1\)设定\(\alpha_1^{\langle a_1;1\rangle}\leftarrow0\), \(\alpha_1^{\langle a_1;2\rangle}\leftarrow\chi[y_1\geq2^{n_1}-a_1]\).
+对\(j=1,2\), 令\([\![\alpha^{\langle a_1;j\rangle}]\!]^\mathsf B=(\alpha_0^{\langle a_1;j\rangle},\alpha_1^{\langle a_1;j\rangle})\).</li>
+</ul>
+</li>
+<li>对每个\(a_2=1,\cdots,2^{n_2}-1\)和\(j=0,\cdots,n_1-1\),
+<ul>
+<li>\(P_0\)设定\(\beta_0^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_0[j],&amp;\text{if }y_0\neq0\text{ and }z_0=a_2,\\1,&amp;\text{otherwise},\end{cases}\), 其中\(y_0[j]\)表示\(y_0\)的第\(j\)个比特.</li>
+<li>\(P_1\)设定\(\beta_1^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_1[j],&amp;\text{if }y_1\neq0\text{ and }z_1\geq2^{n_2}-a_2,\\1,&amp;\text{otherwise},\end{cases}\).
+令\([\![\beta^{\langle\alpha_2;j\rangle}]\!]^\mathsf{B}=(\beta_0^{\langle\alpha_2;j\rangle},\beta_1^{\langle\alpha_2;j\rangle})\).</li>
+</ul>
+</li>
+<li>对于每个\(a_3=1,\cdots,2^{n_2}-1\),
+<ul>
+<li>\(P_0\)设定\(\gamma_0^{\langle a_3;1\rangle}\leftarrow\chi[y_0=0]\), \(\gamma_0^{\langle a_3;2\rangle}\leftarrow\chi[y_0=2^{n_1}-1]\), \(\gamma_0^{\langle a_3;3\rangle}\leftarrow\chi[z_0=a_3]\), \(\gamma_0^{\langle a_3;4\rangle}\leftarrow0\);</li>
+<li>\(P_1\)设定\(\gamma_1^{\langle a_3;1\rangle}\leftarrow\chi[y_1=0]\), \(\gamma_1^{\langle a_3;2\rangle}\leftarrow\chi[y_1=2^{n_1}-1]\), \(\gamma_1^{\langle a_3;3\rangle}\leftarrow0\), \(\gamma_1^{\langle a_3;4\rangle}\leftarrow\chi[z_1\geq2^{n_2}-a_3]\).
+对\(j=1,2,3,4\), 令\([\![\gamma^{\langle a_3;j\rangle}]\!]^\mathsf B=(\gamma_0^{\langle a_3;j\rangle},\gamma_1^{\langle a_3;j\rangle})\).</li>
+</ul>
+</li>
+<li>两方并行计算如下:
+<ul>
+<li>对于每个\(a_1=1,\cdots,2^{n_1}-1\), 计算\([\![b_1^{\langle a_1\rangle}]\!]^\mathsf B\leftarrow2\text{-}\mathsf{AND}([\![\alpha^{\langle a_1;1\rangle}]\!]^\mathsf B,[\![\alpha^{\langle a_1;2\rangle}]\!]^\mathsf B)\);</li>
+<li>对于每个\(a_2=1,\cdots,2^{n_2}-1\), 计算\([\![b_2^{\langle a_2\rangle}]\!]^\mathsf B\leftarrow n_1\text{-}\mathsf{AND}([\![\beta^{\langle \alpha_2;0\rangle}]\!]^\mathsf B,[\![\beta^{\langle \alpha_2;1\rangle}]\!]^\mathsf B,\cdots,[\![\beta^{\langle \alpha_2;n_1-1\rangle}]\!]^\mathsf B)\);</li>
+<li>对于每个\(a_3=1,\cdots,2^{n_3}-1\), 计算\([\![b_3^{\langle a_3\rangle}]\!]^\mathsf B\leftarrow4\text{-}\mathsf{AND}([\![\gamma^{\langle a_3;1\rangle}]\!]^\mathsf B,[\![\gamma^{\langle a_3;2\rangle}]\!]^\mathsf B,[\![\gamma^{\langle a_3;3\rangle}]\!]^\mathsf B,[\![\gamma^{\langle a_3;4\rangle}]\!]^\mathsf B)\);</li>
+</ul>
+</li>
+<li>\(P_i\)本地计算并输出\([\![d_i]\!]^\mathsf B\leftarrow\bigoplus_{a_1=1}^{2^{n_1}-1}[\![b_1^{\langle a_1\rangle}]\!]_{i}^\mathsf B\oplus\bigoplus_{a_2=1}^{2^{n_2}-1}[\![b_2^{\langle a_2\rangle}]\!]_{i}^\mathsf B\bigoplus_{a_3=1}^{2^{n_2}-1}[\![b_3^{\langle a_3\rangle}]\!]_{i}^\mathsf B\).</li>
+</ol>
+<p>可以看到上述协议只有步骤5需要1轮通信, 但计算开销和通信量开销都很大.</p>
+<h3><a id="less-than-comparison-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Less-Than Comparison Protocol</h3>
+<p>给定\([\![x]\!]^\mathsf{A},[\![y]\!]^\mathsf A\), Less-Than比较协议计算\([\![z]\!]^\mathsf{B}\leftarrow\mathsf{Comparison}([\![x]\!]^\mathsf A,[\![y]\!]^\mathsf{A})\), 其中\(z=1\)当且仅当\(x&lt;y\). 对\(i\in\{0,1\}\), 协议过程如下:</p>
+<ol>
+<li>对于\(x,y,d=x-y\), \(P_i\)分别计算
+<ul>
+<li>\([\![x']\!]^\mathsf B=[\![\mathsf{Overflow}(x,2^{n-1})]\!]^\mathsf B\oplus[\![\mathsf{MSB}(x)]\!]^\mathsf B\),</li>
+<li>\([\![y']\!]^\mathsf B=[\![\mathsf{Overflow}(y,2^{n-1})]\!]^\mathsf B\oplus[\![\mathsf{MSB}(y)]\!]^\mathsf B\),</li>
+<li>\([\![d']\!]^\mathsf B=[\![\mathsf{Overflow}(d,2^{n-1})]\!]^\mathsf B\oplus[\![\mathsf{MSB}(d)]\!]^\mathsf B\).</li>
+</ul>
+</li>
+<li>\(P_i\)计算\([\![v]\!]^\mathsf B\leftarrow2\text{-}\mathsf{AND}(([\![x']\!]^\mathsf B\oplus[\![y']\!]^\mathsf B),[\![y']\!]^\mathsf B)\), \([\![w]\!]^\mathsf B\leftarrow2\text{-}\mathsf{AND}(\neg([\![x']\!]^\mathsf B\oplus[\![y']\!]^\mathsf B),[\![y']\!]^\mathsf B)\).</li>
+<li>\(P_i\)计算\([\![z]\!]^\mathsf B=[\![v]\!]^\mathsf B\oplus[\![w]\!]^\mathsf B\).</li>
+</ol>
+<p>如上协议需要3轮通信.</p>
+<h3><a id="boolean-to-arithmetic-conversion-protocol-and-extensions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Boolean-to-Arithmetic Conversion Protocol and Extensions</h3>
+<p>B2A转换协议计算\([\![z]\!]^\mathsf A\leftarrow\mathsf{B2A}([\![x]\!]^\mathsf B)\), 其中\(z=x\). 由于这种情况下两方已知\(x\)的其中一个份额, 故可以通过一个算术茫化三元组来完成转换, 其中算术茫化三元组\((a,b,c)\)满足\(c=ab\), \(P_0\)得到\((a,c_0)\), \(P_1\)得到\((b,c_1)\).</p>
+<p>协议过程如下:</p>
+<p><img src="media/16629065662036/16629066124319.png" alt="image-20220910190050198" /></p>
+<p>可以看到计算方只需1轮通信. 可以利用同样的思想来构造如下协议:</p>
+<ul>
+<li>
+<p>\(\mathsf{BX2A}\): \([\![b]\!]^\mathsf B\times[\![x]\!]^\mathsf A=[\![bx]\!]^\mathsf A\). 过程如下:</p>
+<ol>
+<li>\(P_i\)设定\([\![b]\!]_i^\mathsf A=[\![b]\!]_i^\mathsf B\).</li>
+<li>\(P_0\)设定\([\![b']\!]_0^\mathsf A=[\![b]\!]_0^\mathsf B\), \([\![b'']\!]_0^\mathsf A=0\), \(P_1\)设定\([\![b']\!]_1^\mathsf A=0\), \([\![b'']\!]_1^\mathsf A=[\![b]\!]_1^\mathsf B\).</li>
+<li>\(P_i\)计算\([\![s]\!]_i^\mathsf A\leftarrow2\text{-}\mathsf{MULT}([\![b]\!]^\mathsf A,[\![x]\!]^\mathsf A)\)和\([\![t]\!]_i^\mathsf A\leftarrow3\text{-}\mathsf{MULT}([\![b']\!]^\mathsf A,[\![b'']\!]^\mathsf A,[\![x]\!]^\mathsf A)\).</li>
+<li>\(P_i\)计算\([\![z]\!]_i^\mathsf A=[\![s]\!]_i^\mathsf A-2[\![t]\!]_i^\mathsf A\).</li>
+</ol>
+<p>只需1轮通信, 记以上计算为\([\![b-2b_0b_1x]\!]^\mathsf A\). 可用于构造查表协议\(\mathsf{TLU}\)(结合\(\mathsf{Equality}\))以及计算神经网络中的\(\mathsf{ReLU}\)函数.</p>
+</li>
+<li>
+<p>\(\mathsf{BC2A}\): \([\![b]\!]^\mathsf B\times[\![c]\!]^\mathsf B=[\![bc]\!]^\mathsf A\). 过程与\(\mathsf{BX2A}\)类似, 通过使用\(2\text{-}\mathsf{MULT}\)和\(4\text{-}\mathsf{MULT}\)来构造1轮通信的计算协议, 记为\([\![bc-2b_0b_1-2c_0c_1+2b_0\bar{c_0}b_1\bar{c_1}+2\bar{b_0}c_0\bar{b_1}c_1]\!]^\mathsf A\). 可用于构造三数最值索引计算协议\(3\text{-}\mathsf{Argmax}\)/\(3\text{-}\mathsf{Argmin}\).</p>
+</li>
+<li>
+<p>\(\mathsf{BCX2A}\): \([\![b]\!]^\mathsf B\times[\![c]\!]^\mathsf B\times[\![x]\!]^\mathsf A=[\![bcx]\!]^\mathsf A\). 过程类似, 通过使用\(3\text{-}\mathsf{MULT}\)和\(5\text{-}\mathsf{MULT}\)来构造1轮通信的计算协议, 记为\([\![bcx-2b_0b_1x-2c_0c_1x+2b_0\bar{c_0}b_1\bar{c_1}x+2\bar{b_0}c_0\bar{b_1}c_1x]\!]^\mathsf A\). 可用于构造最值计算协议\(\mathsf{Max}/\mathsf{Min}\).</p>
+</li>
+</ul>
+<h3><a id="the-maximum-value-extraction-protocol-and-extensions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Maximum Value Extraction Protocol and Extensions</h3>
+<p>最大值抽取协议计算\([\![z]\!]^\mathsf A\leftarrow\mathsf{Max}([\![{\mathbf x}]\!]^\mathsf A)\), 其中\(z\)是向量\(\mathbf x\)中分量的最大值. 简单起见, 假设向量\(\mathbf x\)中有三个分量, 相应的计算协议记为\(3\text{-}\mathsf{Max}\), 若直接两两比较来求解, 利用本文提出的3轮\(\mathsf{Comparison}\)协议和1轮\(\mathsf{BX2A}\)协议, 所得协议的总通信轮次为\((3+1)\times 2=8\). 主要原因是\(\mathsf{Comparison}\)不能并行. 为此, 本文的做法是首先用\(\mathsf{Comparison}\)比较所有元素的大小关系, 然后利用\(\mathsf{BCX2A}\)提取最大值, 如此只需4轮通信. 协议过程如下:</p>
+<p><img src="media/16629065662036/16629066124369.png" alt="image-20220911134029281" /></p>
+<p>类似的思路可以构造最小值提取协议\(3\text{-}\mathsf{Min}\). 此外, 适当修改算法5中的相应步骤, 可以得到计算最值所在索引的\(\mathsf{Argmax}/\mathsf{Argmin}\)协议, 修改方式如下:</p>
+<ol>
+<li>将算法5第3步中计算的\([\![t[j]]\!]^\mathsf A\leftarrow\mathsf{BCX2A}([\![*]\!]^\mathsf B,[\![**]\!]^\mathsf B,[\![x]\!]^\mathsf A)\)替换为\([\![t'[j]]\!]^\mathsf A\leftarrow\mathsf{BC2A}([\![*]\!]^\mathsf B,[\![**]\!]^\mathsf{B})\);</li>
+<li>将算法5第4步修改为\(P_i\)计算\([\![z]\!]_i^\mathsf A\leftarrow\sum_{j=0}^2(j\cdot[\![t'[j]]\!]_i^\mathsf A)\), 这一步中\(j\)是公开的, 因此不需要通信.</li>
+</ol>
+<p>所需通信轮次为3.</p>
+<p>对于\(N&gt;3\)时计算\(N\text{-}\mathsf{Max}/\mathsf{Min}\)的情形, 可以用类似的思路来构造轮高效的计算协议, 但需注意如下两点:</p>
+<ol>
+<li>在\(N\text{-}\mathsf{Max}/\mathsf{Min}\)中需要并行执行\(\mathsf{Comparison}\)协议\(\frac{N(N-1)}{2}\)次, 而两两比较的方法只需执行\(\lceil\log N\rceil\)次, 因此, 本文方案的计算开销和通信量开销与\(N\)成指数关系.</li>
+<li>对于较大的\(N\), 不能直接使用\(\mathsf{BCX2A}\)或\(\mathsf{BC2A}\), 若用构造\(\mathsf{BCX2A}\)的类似协议来计算, 则计算开销将非常巨大. 为此, 可以将算法5中的第3步分解为其他协议, 例如\((N-1)\text{-}\mathsf{AND}\)和\(\mathsf{BX2A}\), 如此需要更多的通信轮次来计算\(N\text{-}\mathsf{Max}/\mathsf{Min}\).</li>
+</ol>
+<h2><a id="perfermance-evaluation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Perfermance Evaluation</h2>
+<p>WAN设定: 10MB/s(=80000bits/ms)带宽, 40ms RRT延迟.</p>
+<h3><a id="performance-of-basic-gates" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Performance of Basic Gates</h3>
+<p>下图是不同\(N\)下计算\(N\text{-}\mathsf{AND}\)的开销, 可以看到随着\(N\)的增大, 预处理所需时间也随之指数级膨胀. 此外, 当批次较小时, WAN的延迟主导了在线运行时间. 因此本文方案适合具有低延迟的WAN场景下的相对小的批次的2PC计算, 例如批次\(\leq10^5\).</p>
+<p><img src="media/16629065662036/16629066124415.png" alt="image-20220911145155843" /></p>
+<p><img src="media/16629065662036/16629066124467.png" alt="image-20220911154853216" /></p>
+<p><img src="media/16629065662036/16629066124529.png" alt="image-20220911171225877" /></p>
+<h3><a id="performance-of-our-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Performance of Our Protocols</h3>
+<p>协议实现方面, 主要考察了\(\mathsf{Equality}\), \(\mathsf{Comparison}\)和\(3\text{-}\mathsf{Max}\)与[1]的对比. 结果如下, 可以看到在线总执行时间主导因素为WAN的延迟. 对于批次\(\leq10^4\)的情况下, 本文的协议比基准线更快, 主要原因是本文需要的通信轮次更少, 但由于计算开销太大, 本文方案不适合批次较大的情形.</p>
+<p><img src="media/16629065662036/16629066124594.png" alt="image-20220911154942024" /></p>
+<p><img src="media/16629065662036/16629066124660.png" alt="image-20220911155000484" /></p>
+<p><img src="media/16629065662036/16629066124725.png" alt="image-20220911153055963" /></p>
+<p><img src="media/16629065662036/16629066124795.png" alt="image-20220911155224805" /></p>
+<p><img src="media/16629065662036/16629066124856.png" alt="image-20220911155307463" /></p>
+<h3><a id="application-privacy-preserving-exact-edit-distance" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Application: Privacy-Preserving (Exact) Edit Distance</h3>
+<p>本文还研究了求解隐私基因编辑精确距离方面的应用. 对于两个长度为\(L\)的基因串\(S_0\)和\(S_1\), 对于动态规划矩阵, 定义每个元素\(x[i][j]\)为</p>
+\[x[i][j]=3\text{-}\mathsf{Min}(x[i-1][j]+1,x[i][j-1]+1,x[i-1][j-1]+e),
+\]
+<p>其中\(e=0\)当且仅当\(S_0[i]=S_1[j]\), 否则\(e=1\).
+可通过2轮的\(\mathsf{Equality}\)和1轮的\(\mathsf{B2A}\)来计算\(e\). 为减少总在线执行时间, 可以进行如下优化:</p>
+<ol>
+<li>为减少总通信轮次, 并行计算\(e\)并提前存储, 从而避免每次填充矩阵时计算\(e\), 如此只需3轮通信.</li>
+<li>矩阵的对角线元素相互独立, 可以对每个\(d\)并行计算\(x[d][0]\), \(x[d-1][1]\), \(\cdots\), \(x[0][d]\)来减少通信轮次.</li>
+</ol>
+<p>应用以上两个技巧, 计算长度为\(L\)的基因串的精确编辑距离所需的通信轮次为\(3+4(2L-1)=(8L-1)\).</p>
+<p>实验结果如下, 可以看到在线总执行时间由通信延迟所主导. 在WAN环境中, 基于GC的方法可能比基于SS的方法快得多, 但如果想要计算多个基因串之间的编辑距离, 例如客户端有1个基因串, 想计算它与服务器上的1000个基因串之间的编辑距离, 则SS-MPC比GC要快得多.</p>
+<p><img src="media/16629065662036/16629066124927.png" alt="image-20220911170113327" /></p>
+<h2><a id="conclusions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h2>
+<p>本文通过\(N\)-BTE来减少基于SS的MPC协议的通信轮次以适应WAN环境, 核心技术是基于Beaver三元组扩展, 但是, 协议所需的计算成本和内存成本与\(N\)呈指数增长, 因此不适合大批次计算和高延迟网络, 需要在实际应用中对其进行限制.</p>
+<h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+<p>[1] Bogdanov, D., Niitsoo, M., Toft, T., Willemson, J.: High-performance secure multiparty computation for data mining applications. Int. J. Inf. Sec. 11(6), 403–418 (2012).</p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <!-- <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div> -->
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/09/11 22:29 下午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application</h1>
+    <div class="text-muted small"><em>2022/09/11 22:29 下午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <blockquote>
+<p>今天给大家带来的是发表于Financial Cryptography and Data Security 2020 (FC'20)的文章Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application, 原文链接: <a href="https://arxiv.org/pdf/1907.03415">https://arxiv.org/pdf/1907.03415</a></p>
+</blockquote>
+<h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
+<p>基于秘密共享的多方计算协议(SS-MPC)可以很容易实现高吞吐量, 但通常通信轮次较大, 是WAN高延迟网络环境的主要性能瓶颈, 故减少SS-MPC协议的通信轮次是提升MPC效率的关键所在, 换而言之, 应让MPC的电路尽可能地浅. 为此, 本文主要专注于减少通信轮次, 利用Beaver三元组扩展(Beaver triple extension, BTE)构造了半诚实安全的通信高效的两方计算协议, 可对多输入门(mult-fan-in gates)进行高效计算, 并给出了一些应用. 例如, 对于比较协议, 只需通信3轮, 比之前相同设定下的工作通信量也减少了38.4%, 总在线执行时间减少了56.1%, 虽然计算开销比以往工作要高, 但本文表明在WAN下这对整体在线性能影响很小.</p>
+<h2><a id="preliminaries" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preliminaries</h2>
+<ul>
+<li>秘密共享方案: \(\mathbb Z_{2^n}\)上的两方加法秘密共享\((2,2)\)-additive secret sharing, \([\![x]\!]=([\![x]\!]_0,[\![x]\!]_1)\).</li>
+<li>安全模型: 两方半诚实安全模型</li>
+<li>客户端辅助(client-aided)模型, 设客户端不与任何计算方共谋, 主要负责生成并分发Beaver三元组以提升离线阶段的效率.</li>
+</ul>
+<h2><a id="core-tools-for-round-efficient-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Core Tools for Round-Efficient Protocols</h2>
+<h3><a id="n-fan-in-multand-via-n-beaver-triple-extension" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>\(N\)-fan-in MULT/AND via \(N\)-Beaver Triple Extension</h3>
+<p>令\(N\)是正整数, \(\mathcal M=\mathbb Z_{M}\), 其中\(M=2^n\). 记\([1,N]=\{1,2,\cdots,N\}\). 定义客户端辅助协议来生成\(N\)-BTE的方法如下:</p>
+<ol>
+<li>对于\(\ell=1,\cdots,N\), 客户端从\(\mathcal M\)中随机选取\([\![a_{\{\ell\}}]\!]_0\)和\([\![a_{\{\ell\}}]\!]_1\), 设\(a_{\{\ell\}}\leftarrow[\![a_{\{\ell\}}]\!]_0+[\![a_{\{\ell\}}]\!]_1\). 对于满足$|I|\geq2$的每个\(I\subseteq[1,N]\), 通过设定\(a_I\leftarrow\prod_{\ell\in I}a_{\{\ell\}}\), 客户端随机选取\([\![a_I]\!]_0\in\mathcal M\), 并设定\([\![a_I]\!]_1\leftarrow a_I-[\![a_I]\!]_0\).</li>
+<li>客户端发送所有的\([\![a_I]\!]_0\)给\(P_0\)和所有的\([\![a_I]\!]_1\)给\(P_1\).</li>
+</ol>
+<p>对于\(\ell=1,\cdots,N\), 令\(([\![x_\ell]\!]_0,[\![x_\ell]\!]_1)\)为给定第\(\ell\)个秘密输入值\(x_\ell\in\mathcal M\)的份额, 则多输入MULT/AND门的计算协议的计算方式如下:</p>
+<ol>
+<li>客户端利用上述协议生成并分发\(N\)-BTE\(([\![a_I]\!]_0)_I\)和\(([\![a_I]\!]_1)_I\)给两方.</li>
+<li>对于\(k=0,1\), \(P_k\)计算并发送\([\![x_\ell']\!]\leftarrow[\![x_\ell]\!]_k-[\![a_{\{\ell\}}]\!]\)给\(P_{1-k}\).</li>
+<li>对于\(k=0,1\), \(P_k\)计算\(x_\ell'\leftarrow[\![x_\ell']\!]_{1-k}+[\![x_\ell']\!]_k\).</li>
+<li>\(P_0\)计算并输出\([\![y_0]\!]\leftarrow\prod_{\ell=1}^Nx_{\ell}'+\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_0\), \(P_1\)计算并输出\([\![y_1]\!]\leftarrow\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_1\).</li>
+</ol>
+<p>可以看到上述协议只需1轮通信, 且不依赖于\(N\), 适合WAN设定, 但缺点是内存消耗和计算开销与\(N\)成指数级别增长, 因此本文在实际应用中取\(N\leq 9\). 当使用\(L\)输入MULT/AND门(\(L\leq N\))时, 需要\(\frac{\lceil\log N\rceil}{\lfloor \log L\rfloor}\)轮通信来计算\(N\)输入MULT/AND.</p>
+<h3><a id="more-techniques-for-reducing-communication-rounds" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>More Techniques for Reducing Communication Rounds</h3>
+<ul>
+<li>One Weights At Most One: 设\(P_0\)和\(P_1\)分别持有\(x\)的份额布尔份额\([\![x]\!]_0^\mathsf B\)和\([\![x]\!]_1^\mathsf B\), 若\(x\)的汉明重量至多为1, 则两方可以通过本地计算其份额比特的\(\mathsf{XOR}\)来得到\(x=_?0\)的份额. 因为若\(x\neq0\), 则\(P_0\)计算的\(\bigoplus[\![x]\!]_0^\mathsf B\)和\(P_1\)计算的\(\bigoplus[\![x]\!]_1^\mathsf B\)之中至少有一个为1, 从而两者份额比特的\(\mathsf{XOR}\)结果为1.</li>
+<li>Arithmetic Blinding: 设两个客户端也是计算参与方, 则当它们执行计算时已知秘密本身, 与客户端辅助2PC计算的情况不同, 此时\(P_0\)和\(P_1\)随机将其各自持有的秘密\(x\)和\(y\)分割为\(x_0,x_1\)和\(y_0,y_1\), 然后\(P_0\)发送\(x_1\)给\(P_1\), \(P_1\)发送\(x_0\)给\(P_0\). 若\(P_0\)和\(P_1\)在之前已经分别得到了\(a_0,b_0,c_0\)和\(a_1,b_1,c_1\), 则\(P_0\)和\(P_1\)可通过标准乘法协议来计算\([\![z]\!]=xy\), 过程如下:</li>
+</ul>
+<ol>
+<li>(预计算阶段)\(P_0\)将\(b_0\)发给\(P_1\), \(P_1\)将\(a_1\)发给\(P_0\);</li>
+<li>(在线阶段)\(P_0\)本地计算\(x-a=x-(a_0+a_1)\)并发给\(P_1\), \(P_1\)本地计算\(y-b=y-(b_0+b_1)\)并发给\(P_0\).</li>
+<li>对\(i=0,1\), \(P_i\)本地计算\([\![z]\!]_i=i(x-a)(y-b)+(x-a)b+(y-b)a+c_i\).
+可以看到在线阶段的通信量相比客户端不为计算方的情况减少了一半.</li>
+</ol>
+<ul>
+<li>Trivial Sharing: 考虑输入方不为计算方的设定, 则此时与标准的客户端辅助2PC相同. 这种情况下可以使用份额\([\![b]\!]_i(i\in\{0,1\})\)本身作为计算的秘密值, 另一方的份额看成\([\![0]\!]_{1-i}\). 这可以结合BTE进一步优化2PC计算协议的通信轮次.</li>
+</ul>
+<h2><a id="communication-efficient-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication-Efficient Protocols</h2>
+<p>下面只考虑\(\mathbb Z_{2^{16}}\)上\(N\leq5\)的情况, 类似地可以实现相同通信轮次的\(\mathbb Z_{2^{32}}\)上\(N\leq7\)和\(\mathbb Z_{2^{64}}\)上\(N\leq9\)的情况.</p>
+<h3><a id="equality-check-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Equality Check Protocol</h3>
+<p>给定\([\![x]\!]^\mathsf A\)和\([\![y]\!]^\mathsf A\), 相等检测协议计算\([\![z]\!]^\mathsf B\leftarrow\mathsf{Equality}([\![x]\!]^\mathsf A,[\![y]\!]^\mathsf A)\), 其中\(z=1\)当且仅当\(x=y\). 协议的主要设计思路是首先计算\(t=x-y\), 然后计算\(t\)的所有比特的OR是否为0. 直接使用\(16\text{-}\mathsf{OR}\)来计算是不现实的, 本文中使用\(4\text{-}\mathsf{OR}\), 如此协议只需通信\(\log_{4}16=2\)轮. 一般而言, 当秘密份额空间为\(\mathbb Z_{2^n}\), 并使用\(N\leq L\)的\(N\text{-}\mathsf{OR}\)时, \(\mathsf{Equality}\)所需的通信轮次为\(\frac{\lceil\log n\rceil}{\lfloor \log L\rfloor}\). 协议构造如下:</p>
+<p><img src="media/16629065662036/16629066124215.png" alt="image-20220910091103132" /></p>
+<h3><a id="overflow-detection-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overflow Detection Protocol</h3>
+<p>为了构造算术溢出检测协议\(\mathsf{Overflow}\), 首先需要构造最高位非零比特抽取协议\(\mathsf{MSNZB}\), 即\(\mathsf{MSNZB}([\![x]\!]^\mathsf B=[[\![x[15]]\!]^\mathsf B,\cdots,[\![x[0]]\!]^\mathsf B])\), 查找\(x\)的第一个1所在位置,  输出布尔份额向量\([\![z]\!]^\mathsf B=[[\![z[15]]\!]^\mathsf B,\cdots,[\![z[0]]\!]^\mathsf B]\). 例如\(x=00101\), 则\(z=00100\).</p>
+<p>为了秘密计算\(x\)中第一个1的位置, 引入prefix-\(\mathsf{OR}\)运算, 步骤如下:</p>
+<ol>
+<li>通过\(2\text{-}\mathsf{OR}\)将最左边的1后面的比特全部置为1, 得到\(x'=0\cdots011\cdots1\).</li>
+<li>计算\(z=x'\oplus(x'\gg1)\).</li>
+</ol>
+<p>例如: \(x=00101\), 则\(x'=00111\), 于是有\(z=00111\oplus00011=00100\).</p>
+<p>通过\(2\text{-}\mathsf{OR}\), 即使并行也需要通信4轮, 若改为\(4\text{-}\mathsf{OR}\), 使用多输入prefix-\(\mathsf{OR}\)运算则只需2轮通信, 但由于需要计算多次\(4\text{-}\mathsf{OR}\), 因此计算成本将显著增大. 为在保留通信轮次的前提下优化计算, 使用分块的思想, 将比特串进行分块, 然后分别计算每块的\(\mathsf{MSNZB}\). 完整协议过程如下:</p>
+<p><img src="media/16629065662036/16629066124240.png" alt="image-20220910100716924" /></p>
+<p>有了\(\mathsf{MSNZB}\), 则可根据输出所对应明文的汉明重量至多为1的特点来构造算术溢出检测协议\(\mathsf{Overflow}([\![x]\!]^\mathsf A,k)\), 该协议输出\([\![z]\!]^\mathsf B\), 其中\(z=1\)当且仅当\(([\![x]\!]_0^\mathsf A\bmod2^k+[\![x]\!]_1^\mathsf A\bmod2^k)\geq2^k\).</p>
+<p>[1]的做法: 检查\(u=(-[\![x]\!]_1\bmod2^k)\)中是否存在1, 若存在则看1的位置与\(d=(([\![x]\!]_0\bmod2^k)\oplus(-[\![x]\!]_1\bmod2^k))\)的\(\mathsf{MSNZB}\)是否相同. 使用本文的两轮\(\mathsf{MSNZB}\), 这种做法仍需要通信3轮, 额外的一轮是需要计算\(2\text{-}\mathsf{AND}\).</p>
+<p>本文的做法如下:</p>
+<p><img src="media/16629065662036/16629066124273.png" alt="image-20220910111402581" /></p>
+<p>可以看到上述协议通过使用\(N\text{-}\mathsf{AND}\), 步骤2和步骤6各需1轮通信, 因此总通信轮次为2. 类似地,</p>
+<ul>
+<li>若份额空间为\(\mathbb Z_{2^{32}}\), 则需要\(N\leq7\)的\(N\text{-}\mathsf{AND}\)门来构造两轮\(\mathsf{Overflow}\);</li>
+<li>若份额空间为\(\mathbb Z_{2^{64}}\), 则需要\(N\leq9\)的\(N\text{-}\mathsf{AND}\)门来构造两轮\(\mathsf{Overflow}\).</li>
+</ul>
+<p>此外, 可以构造只需通信1轮的\(\mathsf{Overflow}\)协议, 设\(\chi[P]\)是表示条件\(P\)是否成立的比特值, 若成立则取值为1. 令\(\mathsf{Overflow}(a,b;c)=\chi[a+b\geq c]\), 并设\(n_1\)和\(n_2\)是满足\(n=n_1+n_2\)的参数, 则1轮的\(\mathsf{Overflow}\)协议过程如下:</p>
+<ol>
+<li>对于\(i=0,1\), \(P_i\)记\([\![x]\!]_i^\mathsf A=y_i||z_i\), 其中\(y_i=\mathsf{MSB}(x_i)\), \(z_i=\mathsf{LSB}(x_i)\);</li>
+<li>对于每个\(a_1=1,\cdots,2^{n_1}-1\),
+<ul>
+<li>\(P_0\)设定\(\alpha_0^{\langle a_1;1\rangle}\leftarrow\chi[y_0=a_1]\), \(\alpha_0^{\langle a_1;2\rangle}\leftarrow0\);</li>
+<li>\(P_1\)设定\(\alpha_1^{\langle a_1;1\rangle}\leftarrow0\), \(\alpha_1^{\langle a_1;2\rangle}\leftarrow\chi[y_1\geq2^{n_1}-a_1]\).
+对\(j=1,2\), 令\([\![\alpha^{\langle a_1;j\rangle}]\!]^\mathsf B=(\alpha_0^{\langle a_1;j\rangle},\alpha_1^{\langle a_1;j\rangle})\).</li>
+</ul>
+</li>
+<li>对每个\(a_2=1,\cdots,2^{n_2}-1\)和\(j=0,\cdots,n_1-1\),
+<ul>
+<li>\(P_0\)设定\(\beta_0^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_0[j],&amp;\text{if }y_0\neq0\text{ and }z_0=a_2,\\1,&amp;\text{otherwise},\end{cases}\), 其中\(y_0[j]\)表示\(y_0\)的第\(j\)个比特.</li>
+<li>\(P_1\)设定\(\beta_1^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_1[j],&amp;\text{if }y_1\neq0\text{ and }z_1\geq2^{n_2}-a_2,\\1,&amp;\text{otherwise},\end{cases}\).
+令\([\![\beta^{\langle\alpha_2;j\rangle}]\!]^\mathsf{B}=(\beta_0^{\langle\alpha_2;j\rangle},\beta_1^{\langle\alpha_2;j\rangle})\).</li>
+</ul>
+</li>
+<li>对于每个\(a_3=1,\cdots,2^{n_2}-1\),
+<ul>
+<li>\(P_0\)设定\(\gamma_0^{\langle a_3;1\rangle}\leftarrow\chi[y_0=0]\), \(\gamma_0^{\langle a_3;2\rangle}\leftarrow\chi[y_0=2^{n_1}-1]\), \(\gamma_0^{\langle a_3;3\rangle}\leftarrow\chi[z_0=a_3]\), \(\gamma_0^{\langle a_3;4\rangle}\leftarrow0\);</li>
+<li>\(P_1\)设定\(\gamma_1^{\langle a_3;1\rangle}\leftarrow\chi[y_1=0]\), \(\gamma_1^{\langle a_3;2\rangle}\leftarrow\chi[y_1=2^{n_1}-1]\), \(\gamma_1^{\langle a_3;3\rangle}\leftarrow0\), \(\gamma_1^{\langle a_3;4\rangle}\leftarrow\chi[z_1\geq2^{n_2}-a_3]\).
+对\(j=1,2,3,4\), 令\([\![\gamma^{\langle a_3;j\rangle}]\!]^\mathsf B=(\gamma_0^{\langle a_3;j\rangle},\gamma_1^{\langle a_3;j\rangle})\).</li>
+</ul>
+</li>
+<li>两方并行计算如下:
+<ul>
+<li>对于每个\(a_1=1,\cdots,2^{n_1}-1\), 计算\([\![b_1^{\langle a_1\rangle}]\!]^\mathsf B\leftarrow2\text{-}\mathsf{AND}([\![\alpha^{\langle a_1;1\rangle}]\!]^\mathsf B,[\![\alpha^{\langle a_1;2\rangle}]\!]^\mathsf B)\);</li>
+<li>对于每个\(a_2=1,\cdots,2^{n_2}-1\), 计算\([\![b_2^{\langle a_2\rangle}]\!]^\mathsf B\leftarrow n_1\text{-}\mathsf{AND}([\![\beta^{\langle \alpha_2;0\rangle}]\!]^\mathsf B,[\![\beta^{\langle \alpha_2;1\rangle}]\!]^\mathsf B,\cdots,[\![\beta^{\langle \alpha_2;n_1-1\rangle}]\!]^\mathsf B)\);</li>
+<li>对于每个\(a_3=1,\cdots,2^{n_3}-1\), 计算\([\![b_3^{\langle a_3\rangle}]\!]^\mathsf B\leftarrow4\text{-}\mathsf{AND}([\![\gamma^{\langle a_3;1\rangle}]\!]^\mathsf B,[\![\gamma^{\langle a_3;2\rangle}]\!]^\mathsf B,[\![\gamma^{\langle a_3;3\rangle}]\!]^\mathsf B,[\![\gamma^{\langle a_3;4\rangle}]\!]^\mathsf B)\);</li>
+</ul>
+</li>
+<li>\(P_i\)本地计算并输出\([\![d_i]\!]^\mathsf B\leftarrow\bigoplus_{a_1=1}^{2^{n_1}-1}[\![b_1^{\langle a_1\rangle}]\!]_{i}^\mathsf B\oplus\bigoplus_{a_2=1}^{2^{n_2}-1}[\![b_2^{\langle a_2\rangle}]\!]_{i}^\mathsf B\bigoplus_{a_3=1}^{2^{n_2}-1}[\![b_3^{\langle a_3\rangle}]\!]_{i}^\mathsf B\).</li>
+</ol>
+<p>可以看到上述协议只有步骤5需要1轮通信, 但计算开销和通信量开销都很大.</p>
+<h3><a id="less-than-comparison-protocol" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Less-Than Comparison Protocol</h3>
+<p>给定\([\![x]\!]^\mathsf{A},[\![y]\!]^\mathsf A\), Less-Than比较协议计算\([\![z]\!]^\mathsf{B}\leftarrow\mathsf{Comparison}([\![x]\!]^\mathsf A,[\![y]\!]^\mathsf{A})\), 其中\(z=1\)当且仅当\(x&lt;y\). 对\(i\in\{0,1\}\), 协议过程如下:</p>
+<ol>
+<li>对于\(x,y,d=x-y\), \(P_i\)分别计算
+<ul>
+<li>\([\![x']\!]^\mathsf B=[\![\mathsf{Overflow}(x,2^{n-1})]\!]^\mathsf B\oplus[\![\mathsf{MSB}(x)]\!]^\mathsf B\),</li>
+<li>\([\![y']\!]^\mathsf B=[\![\mathsf{Overflow}(y,2^{n-1})]\!]^\mathsf B\oplus[\![\mathsf{MSB}(y)]\!]^\mathsf B\),</li>
+<li>\([\![d']\!]^\mathsf B=[\![\mathsf{Overflow}(d,2^{n-1})]\!]^\mathsf B\oplus[\![\mathsf{MSB}(d)]\!]^\mathsf B\).</li>
+</ul>
+</li>
+<li>\(P_i\)计算\([\![v]\!]^\mathsf B\leftarrow2\text{-}\mathsf{AND}(([\![x']\!]^\mathsf B\oplus[\![y']\!]^\mathsf B),[\![y']\!]^\mathsf B)\), \([\![w]\!]^\mathsf B\leftarrow2\text{-}\mathsf{AND}(\neg([\![x']\!]^\mathsf B\oplus[\![y']\!]^\mathsf B),[\![y']\!]^\mathsf B)\).</li>
+<li>\(P_i\)计算\([\![z]\!]^\mathsf B=[\![v]\!]^\mathsf B\oplus[\![w]\!]^\mathsf B\).</li>
+</ol>
+<p>如上协议需要3轮通信.</p>
+<h3><a id="boolean-to-arithmetic-conversion-protocol-and-extensions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Boolean-to-Arithmetic Conversion Protocol and Extensions</h3>
+<p>B2A转换协议计算\([\![z]\!]^\mathsf A\leftarrow\mathsf{B2A}([\![x]\!]^\mathsf B)\), 其中\(z=x\). 由于这种情况下两方已知\(x\)的其中一个份额, 故可以通过一个算术茫化三元组来完成转换, 其中算术茫化三元组\((a,b,c)\)满足\(c=ab\), \(P_0\)得到\((a,c_0)\), \(P_1\)得到\((b,c_1)\).</p>
+<p>协议过程如下:</p>
+<p><img src="media/16629065662036/16629066124319.png" alt="image-20220910190050198" /></p>
+<p>可以看到计算方只需1轮通信. 可以利用同样的思想来构造如下协议:</p>
+<ul>
+<li>
+<p>\(\mathsf{BX2A}\): \([\![b]\!]^\mathsf B\times[\![x]\!]^\mathsf A=[\![bx]\!]^\mathsf A\). 过程如下:</p>
+<ol>
+<li>\(P_i\)设定\([\![b]\!]_i^\mathsf A=[\![b]\!]_i^\mathsf B\).</li>
+<li>\(P_0\)设定\([\![b']\!]_0^\mathsf A=[\![b]\!]_0^\mathsf B\), \([\![b'']\!]_0^\mathsf A=0\), \(P_1\)设定\([\![b']\!]_1^\mathsf A=0\), \([\![b'']\!]_1^\mathsf A=[\![b]\!]_1^\mathsf B\).</li>
+<li>\(P_i\)计算\([\![s]\!]_i^\mathsf A\leftarrow2\text{-}\mathsf{MULT}([\![b]\!]^\mathsf A,[\![x]\!]^\mathsf A)\)和\([\![t]\!]_i^\mathsf A\leftarrow3\text{-}\mathsf{MULT}([\![b']\!]^\mathsf A,[\![b'']\!]^\mathsf A,[\![x]\!]^\mathsf A)\).</li>
+<li>\(P_i\)计算\([\![z]\!]_i^\mathsf A=[\![s]\!]_i^\mathsf A-2[\![t]\!]_i^\mathsf A\).</li>
+</ol>
+<p>只需1轮通信, 记以上计算为\([\![b-2b_0b_1x]\!]^\mathsf A\). 可用于构造查表协议\(\mathsf{TLU}\)(结合\(\mathsf{Equality}\))以及计算神经网络中的\(\mathsf{ReLU}\)函数.</p>
+</li>
+<li>
+<p>\(\mathsf{BC2A}\): \([\![b]\!]^\mathsf B\times[\![c]\!]^\mathsf B=[\![bc]\!]^\mathsf A\). 过程与\(\mathsf{BX2A}\)类似, 通过使用\(2\text{-}\mathsf{MULT}\)和\(4\text{-}\mathsf{MULT}\)来构造1轮通信的计算协议, 记为\([\![bc-2b_0b_1-2c_0c_1+2b_0\bar{c_0}b_1\bar{c_1}+2\bar{b_0}c_0\bar{b_1}c_1]\!]^\mathsf A\). 可用于构造三数最值索引计算协议\(3\text{-}\mathsf{Argmax}\)/\(3\text{-}\mathsf{Argmin}\).</p>
+</li>
+<li>
+<p>\(\mathsf{BCX2A}\): \([\![b]\!]^\mathsf B\times[\![c]\!]^\mathsf B\times[\![x]\!]^\mathsf A=[\![bcx]\!]^\mathsf A\). 过程类似, 通过使用\(3\text{-}\mathsf{MULT}\)和\(5\text{-}\mathsf{MULT}\)来构造1轮通信的计算协议, 记为\([\![bcx-2b_0b_1x-2c_0c_1x+2b_0\bar{c_0}b_1\bar{c_1}x+2\bar{b_0}c_0\bar{b_1}c_1x]\!]^\mathsf A\). 可用于构造最值计算协议\(\mathsf{Max}/\mathsf{Min}\).</p>
+</li>
+</ul>
+<h3><a id="the-maximum-value-extraction-protocol-and-extensions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Maximum Value Extraction Protocol and Extensions</h3>
+<p>最大值抽取协议计算\([\![z]\!]^\mathsf A\leftarrow\mathsf{Max}([\![{\mathbf x}]\!]^\mathsf A)\), 其中\(z\)是向量\(\mathbf x\)中分量的最大值. 简单起见, 假设向量\(\mathbf x\)中有三个分量, 相应的计算协议记为\(3\text{-}\mathsf{Max}\), 若直接两两比较来求解, 利用本文提出的3轮\(\mathsf{Comparison}\)协议和1轮\(\mathsf{BX2A}\)协议, 所得协议的总通信轮次为\((3+1)\times 2=8\). 主要原因是\(\mathsf{Comparison}\)不能并行. 为此, 本文的做法是首先用\(\mathsf{Comparison}\)比较所有元素的大小关系, 然后利用\(\mathsf{BCX2A}\)提取最大值, 如此只需4轮通信. 协议过程如下:</p>
+<p><img src="media/16629065662036/16629066124369.png" alt="image-20220911134029281" /></p>
+<p>类似的思路可以构造最小值提取协议\(3\text{-}\mathsf{Min}\). 此外, 适当修改算法5中的相应步骤, 可以得到计算最值所在索引的\(\mathsf{Argmax}/\mathsf{Argmin}\)协议, 修改方式如下:</p>
+<ol>
+<li>将算法5第3步中计算的\([\![t[j]]\!]^\mathsf A\leftarrow\mathsf{BCX2A}([\![*]\!]^\mathsf B,[\![**]\!]^\mathsf B,[\![x]\!]^\mathsf A)\)替换为\([\![t'[j]]\!]^\mathsf A\leftarrow\mathsf{BC2A}([\![*]\!]^\mathsf B,[\![**]\!]^\mathsf{B})\);</li>
+<li>将算法5第4步修改为\(P_i\)计算\([\![z]\!]_i^\mathsf A\leftarrow\sum_{j=0}^2(j\cdot[\![t'[j]]\!]_i^\mathsf A)\), 这一步中\(j\)是公开的, 因此不需要通信.</li>
+</ol>
+<p>所需通信轮次为3.</p>
+<p>对于\(N&gt;3\)时计算\(N\text{-}\mathsf{Max}/\mathsf{Min}\)的情形, 可以用类似的思路来构造轮高效的计算协议, 但需注意如下两点:</p>
+<ol>
+<li>在\(N\text{-}\mathsf{Max}/\mathsf{Min}\)中需要并行执行\(\mathsf{Comparison}\)协议\(\frac{N(N-1)}{2}\)次, 而两两比较的方法只需执行\(\lceil\log N\rceil\)次, 因此, 本文方案的计算开销和通信量开销与\(N\)成指数关系.</li>
+<li>对于较大的\(N\), 不能直接使用\(\mathsf{BCX2A}\)或\(\mathsf{BC2A}\), 若用构造\(\mathsf{BCX2A}\)的类似协议来计算, 则计算开销将非常巨大. 为此, 可以将算法5中的第3步分解为其他协议, 例如\((N-1)\text{-}\mathsf{AND}\)和\(\mathsf{BX2A}\), 如此需要更多的通信轮次来计算\(N\text{-}\mathsf{Max}/\mathsf{Min}\).</li>
+</ol>
+<h2><a id="perfermance-evaluation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Perfermance Evaluation</h2>
+<p>WAN设定: 10MB/s(=80000bits/ms)带宽, 40ms RRT延迟.</p>
+<h3><a id="performance-of-basic-gates" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Performance of Basic Gates</h3>
+<p>下图是不同\(N\)下计算\(N\text{-}\mathsf{AND}\)的开销, 可以看到随着\(N\)的增大, 预处理所需时间也随之指数级膨胀. 此外, 当批次较小时, WAN的延迟主导了在线运行时间. 因此本文方案适合具有低延迟的WAN场景下的相对小的批次的2PC计算, 例如批次\(\leq10^5\).</p>
+<p><img src="media/16629065662036/16629066124415.png" alt="image-20220911145155843" /></p>
+<p><img src="media/16629065662036/16629066124467.png" alt="image-20220911154853216" /></p>
+<p><img src="media/16629065662036/16629066124529.png" alt="image-20220911171225877" /></p>
+<h3><a id="performance-of-our-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Performance of Our Protocols</h3>
+<p>协议实现方面, 主要考察了\(\mathsf{Equality}\), \(\mathsf{Comparison}\)和\(3\text{-}\mathsf{Max}\)与[1]的对比. 结果如下, 可以看到在线总执行时间主导因素为WAN的延迟. 对于批次\(\leq10^4\)的情况下, 本文的协议比基准线更快, 主要原因是本文需要的通信轮次更少, 但由于计算开销太大, 本文方案不适合批次较大的情形.</p>
+<p><img src="media/16629065662036/16629066124594.png" alt="image-20220911154942024" /></p>
+<p><img src="media/16629065662036/16629066124660.png" alt="image-20220911155000484" /></p>
+<p><img src="media/16629065662036/16629066124725.png" alt="image-20220911153055963" /></p>
+<p><img src="media/16629065662036/16629066124795.png" alt="image-20220911155224805" /></p>
+<p><img src="media/16629065662036/16629066124856.png" alt="image-20220911155307463" /></p>
+<h3><a id="application-privacy-preserving-exact-edit-distance" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Application: Privacy-Preserving (Exact) Edit Distance</h3>
+<p>本文还研究了求解隐私基因编辑精确距离方面的应用. 对于两个长度为\(L\)的基因串\(S_0\)和\(S_1\), 对于动态规划矩阵, 定义每个元素\(x[i][j]\)为</p>
+\[x[i][j]=3\text{-}\mathsf{Min}(x[i-1][j]+1,x[i][j-1]+1,x[i-1][j-1]+e),
+\]
+<p>其中\(e=0\)当且仅当\(S_0[i]=S_1[j]\), 否则\(e=1\).
+可通过2轮的\(\mathsf{Equality}\)和1轮的\(\mathsf{B2A}\)来计算\(e\). 为减少总在线执行时间, 可以进行如下优化:</p>
+<ol>
+<li>为减少总通信轮次, 并行计算\(e\)并提前存储, 从而避免每次填充矩阵时计算\(e\), 如此只需3轮通信.</li>
+<li>矩阵的对角线元素相互独立, 可以对每个\(d\)并行计算\(x[d][0]\), \(x[d-1][1]\), \(\cdots\), \(x[0][d]\)来减少通信轮次.</li>
+</ol>
+<p>应用以上两个技巧, 计算长度为\(L\)的基因串的精确编辑距离所需的通信轮次为\(3+4(2L-1)=(8L-1)\).</p>
+<p>实验结果如下, 可以看到在线总执行时间由通信延迟所主导. 在WAN环境中, 基于GC的方法可能比基于SS的方法快得多, 但如果想要计算多个基因串之间的编辑距离, 例如客户端有1个基因串, 想计算它与服务器上的1000个基因串之间的编辑距离, 则SS-MPC比GC要快得多.</p>
+<p><img src="media/16629065662036/16629066124927.png" alt="image-20220911170113327" /></p>
+<h2><a id="conclusions" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h2>
+<p>本文通过\(N\)-BTE来减少基于SS的MPC协议的通信轮次以适应WAN环境, 核心技术是基于Beaver三元组扩展, 但是, 协议所需的计算成本和内存成本与\(N\)呈指数增长, 因此不适合大批次计算和高延迟网络, 需要在实际应用中对其进行限制.</p>
+<h2><a id="references" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
+<p>[1] Bogdanov, D., Niitsoo, M., Toft, T., Willemson, J.: High-performance secure multiparty computation for data mining applications. Int. J. Inf. Sec. 11(6), 403–418 (2012).</p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16629065662036.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-09-11T22:29:26+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://gitee.com/hongtu1993/mao-mweb-theme" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
+<!-- <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> -->
+
+<!-- <script type="text/x-mathjax-config">MathJax.Hub.Config({
+jax: ['input/TeX','output/HTML-CSS'], TeX: { equationNumbers: { autoNumber: "AMS" } }});</script> -->
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="asset/prism.js"></script>
+
+
+</body>
+
+</html>
