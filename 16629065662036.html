@@ -201,14 +201,14 @@
 
                         
                         <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16629065662036.html" title="Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application</div>
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
                         <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
+                            <a href="javascript:void(0)" data-url="16629065662036.html" title="Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application</div>
                             </a>
                         </li>
                         
@@ -472,7 +472,7 @@
 <p>今天给大家带来的是发表于Financial Cryptography and Data Security 2020 (FC'20)的文章Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application, 原文链接: <a href="https://arxiv.org/pdf/1907.03415">https://arxiv.org/pdf/1907.03415</a></p>
 </blockquote>
 <h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
-<p>基于秘密共享的多方计算协议(SS-MPC)可以很容易实现高吞吐量, 但通常通信轮次较大, 是WAN高延迟网络环境的主要性能瓶颈, 故减少SS-MPC协议的通信轮次是提升MPC效率的关键所在, 换而言之, 应让MPC的电路尽可能地浅. 为此, 本文主要专注于减少通信轮次, 利用Beaver三元组扩展(Beaver triple extension, BTE)构造了半诚实安全的通信高效的两方计算协议, 可对多输入门(mult-fan-in gates)进行高效计算, 并给出了一些应用. 例如, 对于比较协议, 只需通信3轮, 比之前相同设定下的工作通信量也减少了38.4%, 总在线执行时间减少了56.1%, 虽然计算开销比以往工作要高, 但本文表明在WAN下这对整体在线性能影响很小.</p>
+<p>基于秘密共享的多方计算协议(SS-MPC)可以很容易实现高吞吐量, 但通常通信轮次较大, 是WAN高延迟网络环境的主要性能瓶颈, 故减少SS-MPC协议的通信轮次是提升MPC效率的关键所在, 换而言之, 应让MPC的电路尽可能地浅. 为此, 本文主要专注于减少通信轮次, 利用Beaver三元组扩展(Beaver triple extension, BTE)构造了半诚实安全的通信高效的两方计算协议, 可对多扇入门(mult-fan-in gates)进行高效计算, 并给出了一些应用. 例如, 对于比较协议, 只需通信3轮, 比之前相同设定下的工作通信量也减少了38.4%, 总在线执行时间减少了56.1%, 虽然计算开销比以往工作要高, 但本文表明在WAN下这对整体在线性能影响很小.</p>
 <h2><a id="preliminaries" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preliminaries</h2>
 <ul>
 <li>秘密共享方案: \(\mathbb Z_{2^n}\)上的两方加法秘密共享\((2,2)\)-additive secret sharing, \([\![x]\!]=([\![x]\!]_0,[\![x]\!]_1)\).</li>
@@ -486,27 +486,31 @@
 <li>对于\(\ell=1,\cdots,N\), 客户端从\(\mathcal M\)中随机选取\([\![a_{\{\ell\}}]\!]_0\)和\([\![a_{\{\ell\}}]\!]_1\), 设\(a_{\{\ell\}}\leftarrow[\![a_{\{\ell\}}]\!]_0+[\![a_{\{\ell\}}]\!]_1\). 对于满足$|I|\geq2$的每个\(I\subseteq[1,N]\), 通过设定\(a_I\leftarrow\prod_{\ell\in I}a_{\{\ell\}}\), 客户端随机选取\([\![a_I]\!]_0\in\mathcal M\), 并设定\([\![a_I]\!]_1\leftarrow a_I-[\![a_I]\!]_0\).</li>
 <li>客户端发送所有的\([\![a_I]\!]_0\)给\(P_0\)和所有的\([\![a_I]\!]_1\)给\(P_1\).</li>
 </ol>
-<p>对于\(\ell=1,\cdots,N\), 令\(([\![x_\ell]\!]_0,[\![x_\ell]\!]_1)\)为给定第\(\ell\)个秘密输入值\(x_\ell\in\mathcal M\)的份额, 则多输入MULT/AND门的计算协议的计算方式如下:</p>
+<p>对于\(\ell=1,\cdots,N\), 令\(([\![x_\ell]\!]_0,[\![x_\ell]\!]_1)\)为给定第\(\ell\)个秘密输入值\(x_\ell\in\mathcal M\)的份额, 则多扇入MULT/AND门的计算协议的计算方式如下:</p>
 <ol>
 <li>客户端利用上述协议生成并分发\(N\)-BTE\(([\![a_I]\!]_0)_I\)和\(([\![a_I]\!]_1)_I\)给两方.</li>
 <li>对于\(k=0,1\), \(P_k\)计算并发送\([\![x_\ell']\!]\leftarrow[\![x_\ell]\!]_k-[\![a_{\{\ell\}}]\!]\)给\(P_{1-k}\).</li>
 <li>对于\(k=0,1\), \(P_k\)计算\(x_\ell'\leftarrow[\![x_\ell']\!]_{1-k}+[\![x_\ell']\!]_k\).</li>
 <li>\(P_0\)计算并输出\([\![y_0]\!]\leftarrow\prod_{\ell=1}^Nx_{\ell}'+\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_0\), \(P_1\)计算并输出\([\![y_1]\!]\leftarrow\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_1\).</li>
 </ol>
-<p>可以看到上述协议只需1轮通信, 且不依赖于\(N\), 适合WAN设定, 但缺点是内存消耗和计算开销与\(N\)成指数级别增长, 因此本文在实际应用中取\(N\leq 9\). 当使用\(L\)输入MULT/AND门(\(L\leq N\))时, 需要\(\frac{\lceil\log N\rceil}{\lfloor \log L\rfloor}\)轮通信来计算\(N\)输入MULT/AND.</p>
+<p>可以看到上述协议只需1轮通信, 且不依赖于\(N\), 适合WAN设定, 但缺点是内存消耗和计算开销与\(N\)成指数级别增长, 因此本文在实际应用中取\(N\leq 9\). 当使用\(L\)扇入MULT/AND门(\(L\leq N\))时, 需要\(\frac{\lceil\log N\rceil}{\lfloor \log L\rfloor}\)轮通信来计算\(N\)扇入MULT/AND.</p>
 <h3><a id="more-techniques-for-reducing-communication-rounds" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>More Techniques for Reducing Communication Rounds</h3>
 <ul>
-<li>One Weights At Most One: 设\(P_0\)和\(P_1\)分别持有\(x\)的份额布尔份额\([\![x]\!]_0^\mathsf B\)和\([\![x]\!]_1^\mathsf B\), 若\(x\)的汉明重量至多为1, 则两方可以通过本地计算其份额比特的\(\mathsf{XOR}\)来得到\(x=_?0\)的份额. 因为若\(x\neq0\), 则\(P_0\)计算的\(\bigoplus[\![x]\!]_0^\mathsf B\)和\(P_1\)计算的\(\bigoplus[\![x]\!]_1^\mathsf B\)之中至少有一个为1, 从而两者份额比特的\(\mathsf{XOR}\)结果为1.</li>
-<li>Arithmetic Blinding: 设两个客户端也是计算参与方, 则当它们执行计算时已知秘密本身, 与客户端辅助2PC计算的情况不同, 此时\(P_0\)和\(P_1\)随机将其各自持有的秘密\(x\)和\(y\)分割为\(x_0,x_1\)和\(y_0,y_1\), 然后\(P_0\)发送\(x_1\)给\(P_1\), \(P_1\)发送\(x_0\)给\(P_0\). 若\(P_0\)和\(P_1\)在之前已经分别得到了\(a_0,b_0,c_0\)和\(a_1,b_1,c_1\), 则\(P_0\)和\(P_1\)可通过标准乘法协议来计算\([\![z]\!]=xy\), 过程如下:</li>
-</ul>
+<li>
+<p>One Weights At Most One: 设\(P_0\)和\(P_1\)分别持有\(x\)的份额布尔份额\([\![x]\!]_0^\mathsf B\)和\([\![x]\!]_1^\mathsf B\), 若\(x\)的汉明重量至多为1, 则两方可以通过本地计算其份额比特的\(\mathsf{XOR}\)来得到\(x=_?0\)的份额. 因为若\(x\neq0\), 则\(P_0\)计算的\(\bigoplus[\![x]\!]_0^\mathsf B\)和\(P_1\)计算的\(\bigoplus[\![x]\!]_1^\mathsf B\)之中至少有一个为1, 从而两者份额比特的\(\mathsf{XOR}\)结果为1.</p>
+</li>
+<li>
+<p>Arithmetic Blinding: 设两个客户端也是计算参与方, 则当它们执行计算时已知秘密本身, 与客户端辅助2PC计算的情况不同, 此时\(P_0\)和\(P_1\)随机将其各自持有的秘密\(x\)和\(y\)分割为\(x_0,x_1\)和\(y_0,y_1\), 然后\(P_0\)发送\(x_1\)给\(P_1\), \(P_1\)发送\(x_0\)给\(P_0\). 若\(P_0\)和\(P_1\)在之前已经分别得到了\(a_0,b_0,c_0\)和\(a_1,b_1,c_1\), 则\(P_0\)和\(P_1\)可通过标准乘法协议来计算\([\![z]\!]=xy\), 过程如下:</p>
 <ol>
 <li>(预计算阶段)\(P_0\)将\(b_0\)发给\(P_1\), \(P_1\)将\(a_1\)发给\(P_0\);</li>
 <li>(在线阶段)\(P_0\)本地计算\(x-a=x-(a_0+a_1)\)并发给\(P_1\), \(P_1\)本地计算\(y-b=y-(b_0+b_1)\)并发给\(P_0\).</li>
-<li>对\(i=0,1\), \(P_i\)本地计算\([\![z]\!]_i=i(x-a)(y-b)+(x-a)b+(y-b)a+c_i\).
-可以看到在线阶段的通信量相比客户端不为计算方的情况减少了一半.</li>
+<li>对\(i=0,1\), \(P_i\)本地计算\([\![z]\!]_i=i(x-a)(y-b)+(x-a)b+(y-b)a+c_i\).</li>
 </ol>
-<ul>
-<li>Trivial Sharing: 考虑输入方不为计算方的设定, 则此时与标准的客户端辅助2PC相同. 这种情况下可以使用份额\([\![b]\!]_i(i\in\{0,1\})\)本身作为计算的秘密值, 另一方的份额看成\([\![0]\!]_{1-i}\). 这可以结合BTE进一步优化2PC计算协议的通信轮次.</li>
+<p>可以看到在线阶段的通信量相比客户端不为计算方的情况减少了一半.</p>
+</li>
+<li>
+<p>Trivial Sharing: 考虑输入方不为计算方的设定, 则此时与标准的客户端辅助2PC相同. 这种情况下可以使用份额\([\![b]\!]_i(i\in\{0,1\})\)本身作为计算的秘密值, 另一方的份额看成\([\![0]\!]_{1-i}\). 这可以结合BTE进一步优化2PC计算协议的通信轮次.</p>
+</li>
 </ul>
 <h2><a id="communication-efficient-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication-Efficient Protocols</h2>
 <p>下面只考虑\(\mathbb Z_{2^{16}}\)上\(N\leq5\)的情况, 类似地可以实现相同通信轮次的\(\mathbb Z_{2^{32}}\)上\(N\leq7\)和\(\mathbb Z_{2^{64}}\)上\(N\leq9\)的情况.</p>
@@ -521,7 +525,7 @@
 <li>计算\(z=x'\oplus(x'\gg1)\).</li>
 </ol>
 <p>例如: \(x=00101\), 则\(x'=00111\), 于是有\(z=00111\oplus00011=00100\).</p>
-<p>通过\(2\text{-}\mathsf{OR}\), 即使并行也需要通信4轮, 若改为\(4\text{-}\mathsf{OR}\), 使用多输入prefix-\(\mathsf{OR}\)运算则只需2轮通信, 但由于需要计算多次\(4\text{-}\mathsf{OR}\), 因此计算成本将显著增大. 为在保留通信轮次的前提下优化计算, 使用分块的思想, 将比特串进行分块, 然后分别计算每块的\(\mathsf{MSNZB}\). 完整协议过程如下:</p>
+<p>通过\(2\text{-}\mathsf{OR}\), 即使并行也需要通信4轮, 若改为\(4\text{-}\mathsf{OR}\), 使用多扇入prefix-\(\mathsf{OR}\)运算则只需2轮通信, 但由于需要计算多次\(4\text{-}\mathsf{OR}\), 因此计算成本将显著增大. 为在保留通信轮次的前提下优化计算, 使用分块的思想, 将比特串进行分块, 然后分别计算每块的\(\mathsf{MSNZB}\). 完整协议过程如下:</p>
 <p><img src="media/16629065662036/16629066124240.png" alt="image-20220910100716924" /></p>
 <p>有了\(\mathsf{MSNZB}\), 则可根据输出所对应明文的汉明重量至多为1的特点来构造算术溢出检测协议\(\mathsf{Overflow}([\![x]\!]^\mathsf A,k)\), 该协议输出\([\![z]\!]^\mathsf B\), 其中\(z=1\)当且仅当\(([\![x]\!]_0^\mathsf A\bmod2^k+[\![x]\!]_1^\mathsf A\bmod2^k)\geq2^k\).</p>
 <p>[1]的做法: 检查\(u=(-[\![x]\!]_1\bmod2^k)\)中是否存在1, 若存在则看1的位置与\(d=(([\![x]\!]_0\bmod2^k)\oplus(-[\![x]\!]_1\bmod2^k))\)的\(\mathsf{MSNZB}\)是否相同. 使用本文的两轮\(\mathsf{MSNZB}\), 这种做法仍需要通信3轮, 额外的一轮是需要计算\(2\text{-}\mathsf{AND}\).</p>
@@ -538,22 +542,22 @@
 <li>对于每个\(a_1=1,\cdots,2^{n_1}-1\),
 <ul>
 <li>\(P_0\)设定\(\alpha_0^{\langle a_1;1\rangle}\leftarrow\chi[y_0=a_1]\), \(\alpha_0^{\langle a_1;2\rangle}\leftarrow0\);</li>
-<li>\(P_1\)设定\(\alpha_1^{\langle a_1;1\rangle}\leftarrow0\), \(\alpha_1^{\langle a_1;2\rangle}\leftarrow\chi[y_1\geq2^{n_1}-a_1]\).
-对\(j=1,2\), 令\([\![\alpha^{\langle a_1;j\rangle}]\!]^\mathsf B=(\alpha_0^{\langle a_1;j\rangle},\alpha_1^{\langle a_1;j\rangle})\).</li>
+<li>\(P_1\)设定\(\alpha_1^{\langle a_1;1\rangle}\leftarrow0\), \(\alpha_1^{\langle a_1;2\rangle}\leftarrow\chi[y_1\geq2^{n_1}-a_1]\).</li>
+<li>对\(j=1,2\), 令\([\![\alpha^{\langle a_1;j\rangle}]\!]^\mathsf B=(\alpha_0^{\langle a_1;j\rangle},\alpha_1^{\langle a_1;j\rangle})\).</li>
 </ul>
 </li>
 <li>对每个\(a_2=1,\cdots,2^{n_2}-1\)和\(j=0,\cdots,n_1-1\),
 <ul>
 <li>\(P_0\)设定\(\beta_0^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_0[j],&amp;\text{if }y_0\neq0\text{ and }z_0=a_2,\\1,&amp;\text{otherwise},\end{cases}\), 其中\(y_0[j]\)表示\(y_0\)的第\(j\)个比特.</li>
-<li>\(P_1\)设定\(\beta_1^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_1[j],&amp;\text{if }y_1\neq0\text{ and }z_1\geq2^{n_2}-a_2,\\1,&amp;\text{otherwise},\end{cases}\).
-令\([\![\beta^{\langle\alpha_2;j\rangle}]\!]^\mathsf{B}=(\beta_0^{\langle\alpha_2;j\rangle},\beta_1^{\langle\alpha_2;j\rangle})\).</li>
+<li>\(P_1\)设定\(\beta_1^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_1[j],&amp;\text{if }y_1\neq0\text{ and }z_1\geq2^{n_2}-a_2,\\1,&amp;\text{otherwise},\end{cases}\).</li>
+<li>令\([\![\beta^{\langle\alpha_2;j\rangle}]\!]^\mathsf{B}=(\beta_0^{\langle\alpha_2;j\rangle},\beta_1^{\langle\alpha_2;j\rangle})\).</li>
 </ul>
 </li>
 <li>对于每个\(a_3=1,\cdots,2^{n_2}-1\),
 <ul>
 <li>\(P_0\)设定\(\gamma_0^{\langle a_3;1\rangle}\leftarrow\chi[y_0=0]\), \(\gamma_0^{\langle a_3;2\rangle}\leftarrow\chi[y_0=2^{n_1}-1]\), \(\gamma_0^{\langle a_3;3\rangle}\leftarrow\chi[z_0=a_3]\), \(\gamma_0^{\langle a_3;4\rangle}\leftarrow0\);</li>
-<li>\(P_1\)设定\(\gamma_1^{\langle a_3;1\rangle}\leftarrow\chi[y_1=0]\), \(\gamma_1^{\langle a_3;2\rangle}\leftarrow\chi[y_1=2^{n_1}-1]\), \(\gamma_1^{\langle a_3;3\rangle}\leftarrow0\), \(\gamma_1^{\langle a_3;4\rangle}\leftarrow\chi[z_1\geq2^{n_2}-a_3]\).
-对\(j=1,2,3,4\), 令\([\![\gamma^{\langle a_3;j\rangle}]\!]^\mathsf B=(\gamma_0^{\langle a_3;j\rangle},\gamma_1^{\langle a_3;j\rangle})\).</li>
+<li>\(P_1\)设定\(\gamma_1^{\langle a_3;1\rangle}\leftarrow\chi[y_1=0]\), \(\gamma_1^{\langle a_3;2\rangle}\leftarrow\chi[y_1=2^{n_1}-1]\), \(\gamma_1^{\langle a_3;3\rangle}\leftarrow0\), \(\gamma_1^{\langle a_3;4\rangle}\leftarrow\chi[z_1\geq2^{n_2}-a_3]\).</li>
+<li>对\(j=1,2,3,4\), 令\([\![\gamma^{\langle a_3;j\rangle}]\!]^\mathsf B=(\gamma_0^{\langle a_3;j\rangle},\gamma_1^{\langle a_3;j\rangle})\).</li>
 </ul>
 </li>
 <li>两方并行计算如下:
@@ -761,7 +765,7 @@
 <p>今天给大家带来的是发表于Financial Cryptography and Data Security 2020 (FC'20)的文章Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application, 原文链接: <a href="https://arxiv.org/pdf/1907.03415">https://arxiv.org/pdf/1907.03415</a></p>
 </blockquote>
 <h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
-<p>基于秘密共享的多方计算协议(SS-MPC)可以很容易实现高吞吐量, 但通常通信轮次较大, 是WAN高延迟网络环境的主要性能瓶颈, 故减少SS-MPC协议的通信轮次是提升MPC效率的关键所在, 换而言之, 应让MPC的电路尽可能地浅. 为此, 本文主要专注于减少通信轮次, 利用Beaver三元组扩展(Beaver triple extension, BTE)构造了半诚实安全的通信高效的两方计算协议, 可对多输入门(mult-fan-in gates)进行高效计算, 并给出了一些应用. 例如, 对于比较协议, 只需通信3轮, 比之前相同设定下的工作通信量也减少了38.4%, 总在线执行时间减少了56.1%, 虽然计算开销比以往工作要高, 但本文表明在WAN下这对整体在线性能影响很小.</p>
+<p>基于秘密共享的多方计算协议(SS-MPC)可以很容易实现高吞吐量, 但通常通信轮次较大, 是WAN高延迟网络环境的主要性能瓶颈, 故减少SS-MPC协议的通信轮次是提升MPC效率的关键所在, 换而言之, 应让MPC的电路尽可能地浅. 为此, 本文主要专注于减少通信轮次, 利用Beaver三元组扩展(Beaver triple extension, BTE)构造了半诚实安全的通信高效的两方计算协议, 可对多扇入门(mult-fan-in gates)进行高效计算, 并给出了一些应用. 例如, 对于比较协议, 只需通信3轮, 比之前相同设定下的工作通信量也减少了38.4%, 总在线执行时间减少了56.1%, 虽然计算开销比以往工作要高, 但本文表明在WAN下这对整体在线性能影响很小.</p>
 <h2><a id="preliminaries" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preliminaries</h2>
 <ul>
 <li>秘密共享方案: \(\mathbb Z_{2^n}\)上的两方加法秘密共享\((2,2)\)-additive secret sharing, \([\![x]\!]=([\![x]\!]_0,[\![x]\!]_1)\).</li>
@@ -775,27 +779,31 @@
 <li>对于\(\ell=1,\cdots,N\), 客户端从\(\mathcal M\)中随机选取\([\![a_{\{\ell\}}]\!]_0\)和\([\![a_{\{\ell\}}]\!]_1\), 设\(a_{\{\ell\}}\leftarrow[\![a_{\{\ell\}}]\!]_0+[\![a_{\{\ell\}}]\!]_1\). 对于满足$|I|\geq2$的每个\(I\subseteq[1,N]\), 通过设定\(a_I\leftarrow\prod_{\ell\in I}a_{\{\ell\}}\), 客户端随机选取\([\![a_I]\!]_0\in\mathcal M\), 并设定\([\![a_I]\!]_1\leftarrow a_I-[\![a_I]\!]_0\).</li>
 <li>客户端发送所有的\([\![a_I]\!]_0\)给\(P_0\)和所有的\([\![a_I]\!]_1\)给\(P_1\).</li>
 </ol>
-<p>对于\(\ell=1,\cdots,N\), 令\(([\![x_\ell]\!]_0,[\![x_\ell]\!]_1)\)为给定第\(\ell\)个秘密输入值\(x_\ell\in\mathcal M\)的份额, 则多输入MULT/AND门的计算协议的计算方式如下:</p>
+<p>对于\(\ell=1,\cdots,N\), 令\(([\![x_\ell]\!]_0,[\![x_\ell]\!]_1)\)为给定第\(\ell\)个秘密输入值\(x_\ell\in\mathcal M\)的份额, 则多扇入MULT/AND门的计算协议的计算方式如下:</p>
 <ol>
 <li>客户端利用上述协议生成并分发\(N\)-BTE\(([\![a_I]\!]_0)_I\)和\(([\![a_I]\!]_1)_I\)给两方.</li>
 <li>对于\(k=0,1\), \(P_k\)计算并发送\([\![x_\ell']\!]\leftarrow[\![x_\ell]\!]_k-[\![a_{\{\ell\}}]\!]\)给\(P_{1-k}\).</li>
 <li>对于\(k=0,1\), \(P_k\)计算\(x_\ell'\leftarrow[\![x_\ell']\!]_{1-k}+[\![x_\ell']\!]_k\).</li>
 <li>\(P_0\)计算并输出\([\![y_0]\!]\leftarrow\prod_{\ell=1}^Nx_{\ell}'+\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_0\), \(P_1\)计算并输出\([\![y_1]\!]\leftarrow\sum_{\emptyset\neq I\subseteq[1,N]}(\prod_{\ell\in[1,N]\setminus I}x_\ell')[\![a_I]\!]_1\).</li>
 </ol>
-<p>可以看到上述协议只需1轮通信, 且不依赖于\(N\), 适合WAN设定, 但缺点是内存消耗和计算开销与\(N\)成指数级别增长, 因此本文在实际应用中取\(N\leq 9\). 当使用\(L\)输入MULT/AND门(\(L\leq N\))时, 需要\(\frac{\lceil\log N\rceil}{\lfloor \log L\rfloor}\)轮通信来计算\(N\)输入MULT/AND.</p>
+<p>可以看到上述协议只需1轮通信, 且不依赖于\(N\), 适合WAN设定, 但缺点是内存消耗和计算开销与\(N\)成指数级别增长, 因此本文在实际应用中取\(N\leq 9\). 当使用\(L\)扇入MULT/AND门(\(L\leq N\))时, 需要\(\frac{\lceil\log N\rceil}{\lfloor \log L\rfloor}\)轮通信来计算\(N\)扇入MULT/AND.</p>
 <h3><a id="more-techniques-for-reducing-communication-rounds" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>More Techniques for Reducing Communication Rounds</h3>
 <ul>
-<li>One Weights At Most One: 设\(P_0\)和\(P_1\)分别持有\(x\)的份额布尔份额\([\![x]\!]_0^\mathsf B\)和\([\![x]\!]_1^\mathsf B\), 若\(x\)的汉明重量至多为1, 则两方可以通过本地计算其份额比特的\(\mathsf{XOR}\)来得到\(x=_?0\)的份额. 因为若\(x\neq0\), 则\(P_0\)计算的\(\bigoplus[\![x]\!]_0^\mathsf B\)和\(P_1\)计算的\(\bigoplus[\![x]\!]_1^\mathsf B\)之中至少有一个为1, 从而两者份额比特的\(\mathsf{XOR}\)结果为1.</li>
-<li>Arithmetic Blinding: 设两个客户端也是计算参与方, 则当它们执行计算时已知秘密本身, 与客户端辅助2PC计算的情况不同, 此时\(P_0\)和\(P_1\)随机将其各自持有的秘密\(x\)和\(y\)分割为\(x_0,x_1\)和\(y_0,y_1\), 然后\(P_0\)发送\(x_1\)给\(P_1\), \(P_1\)发送\(x_0\)给\(P_0\). 若\(P_0\)和\(P_1\)在之前已经分别得到了\(a_0,b_0,c_0\)和\(a_1,b_1,c_1\), 则\(P_0\)和\(P_1\)可通过标准乘法协议来计算\([\![z]\!]=xy\), 过程如下:</li>
-</ul>
+<li>
+<p>One Weights At Most One: 设\(P_0\)和\(P_1\)分别持有\(x\)的份额布尔份额\([\![x]\!]_0^\mathsf B\)和\([\![x]\!]_1^\mathsf B\), 若\(x\)的汉明重量至多为1, 则两方可以通过本地计算其份额比特的\(\mathsf{XOR}\)来得到\(x=_?0\)的份额. 因为若\(x\neq0\), 则\(P_0\)计算的\(\bigoplus[\![x]\!]_0^\mathsf B\)和\(P_1\)计算的\(\bigoplus[\![x]\!]_1^\mathsf B\)之中至少有一个为1, 从而两者份额比特的\(\mathsf{XOR}\)结果为1.</p>
+</li>
+<li>
+<p>Arithmetic Blinding: 设两个客户端也是计算参与方, 则当它们执行计算时已知秘密本身, 与客户端辅助2PC计算的情况不同, 此时\(P_0\)和\(P_1\)随机将其各自持有的秘密\(x\)和\(y\)分割为\(x_0,x_1\)和\(y_0,y_1\), 然后\(P_0\)发送\(x_1\)给\(P_1\), \(P_1\)发送\(x_0\)给\(P_0\). 若\(P_0\)和\(P_1\)在之前已经分别得到了\(a_0,b_0,c_0\)和\(a_1,b_1,c_1\), 则\(P_0\)和\(P_1\)可通过标准乘法协议来计算\([\![z]\!]=xy\), 过程如下:</p>
 <ol>
 <li>(预计算阶段)\(P_0\)将\(b_0\)发给\(P_1\), \(P_1\)将\(a_1\)发给\(P_0\);</li>
 <li>(在线阶段)\(P_0\)本地计算\(x-a=x-(a_0+a_1)\)并发给\(P_1\), \(P_1\)本地计算\(y-b=y-(b_0+b_1)\)并发给\(P_0\).</li>
-<li>对\(i=0,1\), \(P_i\)本地计算\([\![z]\!]_i=i(x-a)(y-b)+(x-a)b+(y-b)a+c_i\).
-可以看到在线阶段的通信量相比客户端不为计算方的情况减少了一半.</li>
+<li>对\(i=0,1\), \(P_i\)本地计算\([\![z]\!]_i=i(x-a)(y-b)+(x-a)b+(y-b)a+c_i\).</li>
 </ol>
-<ul>
-<li>Trivial Sharing: 考虑输入方不为计算方的设定, 则此时与标准的客户端辅助2PC相同. 这种情况下可以使用份额\([\![b]\!]_i(i\in\{0,1\})\)本身作为计算的秘密值, 另一方的份额看成\([\![0]\!]_{1-i}\). 这可以结合BTE进一步优化2PC计算协议的通信轮次.</li>
+<p>可以看到在线阶段的通信量相比客户端不为计算方的情况减少了一半.</p>
+</li>
+<li>
+<p>Trivial Sharing: 考虑输入方不为计算方的设定, 则此时与标准的客户端辅助2PC相同. 这种情况下可以使用份额\([\![b]\!]_i(i\in\{0,1\})\)本身作为计算的秘密值, 另一方的份额看成\([\![0]\!]_{1-i}\). 这可以结合BTE进一步优化2PC计算协议的通信轮次.</p>
+</li>
 </ul>
 <h2><a id="communication-efficient-protocols" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication-Efficient Protocols</h2>
 <p>下面只考虑\(\mathbb Z_{2^{16}}\)上\(N\leq5\)的情况, 类似地可以实现相同通信轮次的\(\mathbb Z_{2^{32}}\)上\(N\leq7\)和\(\mathbb Z_{2^{64}}\)上\(N\leq9\)的情况.</p>
@@ -810,7 +818,7 @@
 <li>计算\(z=x'\oplus(x'\gg1)\).</li>
 </ol>
 <p>例如: \(x=00101\), 则\(x'=00111\), 于是有\(z=00111\oplus00011=00100\).</p>
-<p>通过\(2\text{-}\mathsf{OR}\), 即使并行也需要通信4轮, 若改为\(4\text{-}\mathsf{OR}\), 使用多输入prefix-\(\mathsf{OR}\)运算则只需2轮通信, 但由于需要计算多次\(4\text{-}\mathsf{OR}\), 因此计算成本将显著增大. 为在保留通信轮次的前提下优化计算, 使用分块的思想, 将比特串进行分块, 然后分别计算每块的\(\mathsf{MSNZB}\). 完整协议过程如下:</p>
+<p>通过\(2\text{-}\mathsf{OR}\), 即使并行也需要通信4轮, 若改为\(4\text{-}\mathsf{OR}\), 使用多扇入prefix-\(\mathsf{OR}\)运算则只需2轮通信, 但由于需要计算多次\(4\text{-}\mathsf{OR}\), 因此计算成本将显著增大. 为在保留通信轮次的前提下优化计算, 使用分块的思想, 将比特串进行分块, 然后分别计算每块的\(\mathsf{MSNZB}\). 完整协议过程如下:</p>
 <p><img src="media/16629065662036/16629066124240.png" alt="image-20220910100716924" /></p>
 <p>有了\(\mathsf{MSNZB}\), 则可根据输出所对应明文的汉明重量至多为1的特点来构造算术溢出检测协议\(\mathsf{Overflow}([\![x]\!]^\mathsf A,k)\), 该协议输出\([\![z]\!]^\mathsf B\), 其中\(z=1\)当且仅当\(([\![x]\!]_0^\mathsf A\bmod2^k+[\![x]\!]_1^\mathsf A\bmod2^k)\geq2^k\).</p>
 <p>[1]的做法: 检查\(u=(-[\![x]\!]_1\bmod2^k)\)中是否存在1, 若存在则看1的位置与\(d=(([\![x]\!]_0\bmod2^k)\oplus(-[\![x]\!]_1\bmod2^k))\)的\(\mathsf{MSNZB}\)是否相同. 使用本文的两轮\(\mathsf{MSNZB}\), 这种做法仍需要通信3轮, 额外的一轮是需要计算\(2\text{-}\mathsf{AND}\).</p>
@@ -827,22 +835,22 @@
 <li>对于每个\(a_1=1,\cdots,2^{n_1}-1\),
 <ul>
 <li>\(P_0\)设定\(\alpha_0^{\langle a_1;1\rangle}\leftarrow\chi[y_0=a_1]\), \(\alpha_0^{\langle a_1;2\rangle}\leftarrow0\);</li>
-<li>\(P_1\)设定\(\alpha_1^{\langle a_1;1\rangle}\leftarrow0\), \(\alpha_1^{\langle a_1;2\rangle}\leftarrow\chi[y_1\geq2^{n_1}-a_1]\).
-对\(j=1,2\), 令\([\![\alpha^{\langle a_1;j\rangle}]\!]^\mathsf B=(\alpha_0^{\langle a_1;j\rangle},\alpha_1^{\langle a_1;j\rangle})\).</li>
+<li>\(P_1\)设定\(\alpha_1^{\langle a_1;1\rangle}\leftarrow0\), \(\alpha_1^{\langle a_1;2\rangle}\leftarrow\chi[y_1\geq2^{n_1}-a_1]\).</li>
+<li>对\(j=1,2\), 令\([\![\alpha^{\langle a_1;j\rangle}]\!]^\mathsf B=(\alpha_0^{\langle a_1;j\rangle},\alpha_1^{\langle a_1;j\rangle})\).</li>
 </ul>
 </li>
 <li>对每个\(a_2=1,\cdots,2^{n_2}-1\)和\(j=0,\cdots,n_1-1\),
 <ul>
 <li>\(P_0\)设定\(\beta_0^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_0[j],&amp;\text{if }y_0\neq0\text{ and }z_0=a_2,\\1,&amp;\text{otherwise},\end{cases}\), 其中\(y_0[j]\)表示\(y_0\)的第\(j\)个比特.</li>
-<li>\(P_1\)设定\(\beta_1^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_1[j],&amp;\text{if }y_1\neq0\text{ and }z_1\geq2^{n_2}-a_2,\\1,&amp;\text{otherwise},\end{cases}\).
-令\([\![\beta^{\langle\alpha_2;j\rangle}]\!]^\mathsf{B}=(\beta_0^{\langle\alpha_2;j\rangle},\beta_1^{\langle\alpha_2;j\rangle})\).</li>
+<li>\(P_1\)设定\(\beta_1^{\langle\alpha_2;j\rangle}\leftarrow\begin{cases}y_1[j],&amp;\text{if }y_1\neq0\text{ and }z_1\geq2^{n_2}-a_2,\\1,&amp;\text{otherwise},\end{cases}\).</li>
+<li>令\([\![\beta^{\langle\alpha_2;j\rangle}]\!]^\mathsf{B}=(\beta_0^{\langle\alpha_2;j\rangle},\beta_1^{\langle\alpha_2;j\rangle})\).</li>
 </ul>
 </li>
 <li>对于每个\(a_3=1,\cdots,2^{n_2}-1\),
 <ul>
 <li>\(P_0\)设定\(\gamma_0^{\langle a_3;1\rangle}\leftarrow\chi[y_0=0]\), \(\gamma_0^{\langle a_3;2\rangle}\leftarrow\chi[y_0=2^{n_1}-1]\), \(\gamma_0^{\langle a_3;3\rangle}\leftarrow\chi[z_0=a_3]\), \(\gamma_0^{\langle a_3;4\rangle}\leftarrow0\);</li>
-<li>\(P_1\)设定\(\gamma_1^{\langle a_3;1\rangle}\leftarrow\chi[y_1=0]\), \(\gamma_1^{\langle a_3;2\rangle}\leftarrow\chi[y_1=2^{n_1}-1]\), \(\gamma_1^{\langle a_3;3\rangle}\leftarrow0\), \(\gamma_1^{\langle a_3;4\rangle}\leftarrow\chi[z_1\geq2^{n_2}-a_3]\).
-对\(j=1,2,3,4\), 令\([\![\gamma^{\langle a_3;j\rangle}]\!]^\mathsf B=(\gamma_0^{\langle a_3;j\rangle},\gamma_1^{\langle a_3;j\rangle})\).</li>
+<li>\(P_1\)设定\(\gamma_1^{\langle a_3;1\rangle}\leftarrow\chi[y_1=0]\), \(\gamma_1^{\langle a_3;2\rangle}\leftarrow\chi[y_1=2^{n_1}-1]\), \(\gamma_1^{\langle a_3;3\rangle}\leftarrow0\), \(\gamma_1^{\langle a_3;4\rangle}\leftarrow\chi[z_1\geq2^{n_2}-a_3]\).</li>
+<li>对\(j=1,2,3,4\), 令\([\![\gamma^{\langle a_3;j\rangle}]\!]^\mathsf B=(\gamma_0^{\langle a_3;j\rangle},\gamma_1^{\langle a_3;j\rangle})\).</li>
 </ul>
 </li>
 <li>两方并行计算如下:
