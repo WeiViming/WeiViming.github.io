@@ -201,6 +201,12 @@
 
                         
                         <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16657474753615.html" title="Honest Majority MPC with Abort with Minimal Online Communication" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Honest Majority MPC with Abort with Minimal Online Communication</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
@@ -609,7 +615,7 @@ f_m(x), &amp;c_{m-1}\leq x
 <li>对\(\mathbf{U}\)的每个分量\(u\)调用Sigmoid近似计算协议计算\(z=f(u)\);</li>
 <li>本地计算\(\mathbf{\Delta}_j=\mathbf{Z}_j-\mathbf{Y}_j\)；</li>
 <li>调用内积计算协议计算\(\mathbf{D}_j=\mathbf X_j^T\times\mathbf{\Delta}_j\)；</li>
-<li>本地计算\(\mathbf{w}_j:=\mathbf{w}_j-\alpha\frac{1}{\beta}\mathbf{D}_j\). (注意：\(\alpha/\beta\)需要先进行截断)</li>
+<li>本地计算\(\mathbf{w}_j:=\mathbf{w}_j-\alpha\frac{1}{\beta}\mathbf{D}_j\).</li>
 </ol>
 <hr />
 <p>下面是本文的方案和SecureML在逻辑回归方面的对比，可以看到LAN下ABY3的方案计算效率提升非常明显，但WAN下由于交互轮数增多，所以在线阶段与基于GC的SecureML相比不明显，但随着Batch sizes的增加，ABY3的方案几乎没有变化，而SecureML效率降低明显，吞吐量大概相差3x到300x。若考虑并行，则在LAN和WAN设定下能显著提高ABY3协议的吞吐量。</p>
@@ -868,7 +874,7 @@ f_m(x), &amp;c_{m-1}\leq x
 <li>对\(\mathbf{U}\)的每个分量\(u\)调用Sigmoid近似计算协议计算\(z=f(u)\);</li>
 <li>本地计算\(\mathbf{\Delta}_j=\mathbf{Z}_j-\mathbf{Y}_j\)；</li>
 <li>调用内积计算协议计算\(\mathbf{D}_j=\mathbf X_j^T\times\mathbf{\Delta}_j\)；</li>
-<li>本地计算\(\mathbf{w}_j:=\mathbf{w}_j-\alpha\frac{1}{\beta}\mathbf{D}_j\). (注意：\(\alpha/\beta\)需要先进行截断)</li>
+<li>本地计算\(\mathbf{w}_j:=\mathbf{w}_j-\alpha\frac{1}{\beta}\mathbf{D}_j\).</li>
 </ol>
 <hr />
 <p>下面是本文的方案和SecureML在逻辑回归方面的对比，可以看到LAN下ABY3的方案计算效率提升非常明显，但WAN下由于交互轮数增多，所以在线阶段与基于GC的SecureML相比不明显，但随着Batch sizes的增加，ABY3的方案几乎没有变化，而SecureML效率降低明显，吞吐量大概相差3x到300x。若考虑并行，则在LAN和WAN设定下能显著提高ABY3协议的吞吐量。</p>
