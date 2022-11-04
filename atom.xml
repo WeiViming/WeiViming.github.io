@@ -4,13 +4,563 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2022-10-14T19:39:22+08:00</updated>
+  <updated>2022-11-04T09:15:21+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
   <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead]]></title>
+    <link href="https://weiviming.github.io/16675243955254.html"/>
+    <updated>2022-11-04T09:13:15+08:00</updated>
+    <id>https://weiviming.github.io/16675243955254.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>最近在eprint上看到一篇关于神经网络安全推理的非常不错的综述性文章Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead, 概述了迄今为止面向安全推理提出的主要方法、不同方法之间的特性以及所使用的技术. 最后还总结了大规模部署时所面临的挑战. 这里只摘录了其中的一些要点和案例与大家分享, 更多的内容请查看<a href="https://eprint.iacr.org/2022/1483.pdf">原文</a>.</p>
+</blockquote>
+<h2><a id="1%E7%AE%80%E4%BB%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 简介</h2>
+<p>神经网络(Neural Networks, NN)包含两个主要阶段: <strong>训练阶段</strong>和<strong>推理阶段</strong>. 这两个阶段所进行的运算是类似的, 主要不同是训练需要通过反向传播来调整神经网络不同层中的权重参数, 而后者权重已经给出, 此外, 当考虑安全性和隐私性时, 两者要求也不相同, 对于推理阶段来说, 主要考虑如下两个要点:</p>
+<ol>
+<li>低时延(low latency): 推理应是快速的.</li>
+<li>高准确性(high accuracy): 推理结果应尽可能是正确的.</li>
+</ol>
+<p>推理常见于MLaaS服务场景中, 模型提供商(Server)负责提供已经训练好的NN模型\(f\)作为服务提供给客户(Client), 客户持有输入\(x\), 希望得到\(f(x)\), 但是客户希望\(x\)是保密的, 而模型提供商也不希望与客户共享NN模型\(f\)的信息. 安全神经网络推理(secure neural networks inference, SNNI)问题即是在满足这些安全需求的同时计算\(f(x)\). 有些文献也把安全推理称为隐私保护推理(privacy-preserving inference), 不经意预测(oblivious prediction).</p>
+<p><img src="media/16675243955254/16675245063513.png" alt="image-20221031092831892" /></p>
+<p>目前安全推理已有的解决方案有两种:</p>
+<ul>
+<li>基于密码学技术: 同态加密(HE)、安全多方计算(MPC)</li>
+<li>基于可信硬件: 可信执行环境(TEE)</li>
+</ul>
+<p>这些方法通常需要在高效性、安全性、准确性和可用性等方面进行权衡.</p>
+<p>传统意义上的神经网络是由神经元组成的, 一个神经元包含一系列权重(weight)\(w_1,\cdots,w_n\in\mathbb R\)和偏置项(bias)\(b\in\mathbb R\), 神经元首先计算\(y=\sum_{i=1}^nw_ix_i+b\), 然后将\(y\)作为非线性激活函数\(f:\mathbb R\rightarrow\mathbb{R}\)来计算输出\(z=f(y)\).</p>
+<p><img src="media/16675243955254/16675245063539.png" alt="image-20221031100013634" /></p>
+<p>NN由一系列层组成, 第一层称为输入层, 最后一层称为输出层, 其余层被称为隐藏层, 隐藏层通常由神经元组成, 第\(i\)层的输出是第\(i+1\)层的输入. 现代NN中不再局限于单个神经元, 而是使用了许多不同类型的层, 例如:</p>
+<ul>
+<li>全联接层(Fully-connected layer, FC): 包含权重矩阵. 通过计算输入向量与权重矩阵的乘积来计算输出向量.</li>
+<li>卷积层(Convolutional layer, Conv): 包含一组比输入小的特征图(feature map)的权重矩阵, 通过在输入上移动特征图大小的窗口(sliding window)来计算特征图与滑动窗口中输入部分的点积来计算输出结果. 卷积层是卷积神经网络(CNN)中非常重要的组成部分, CNN广泛应用于图像处理任务.</li>
+<li>激活层(Activation layer): 将\(\mathbb{R}\rightarrow\mathbb{R}\)的激活函数应用于输入的每个元素, 以此计算输出. 根据函数不同, 可分为ReLU激活层、tanh激活层等.</li>
+<li>池化层(Pooling layer): 通过在输入上滑动大小为\(k\)的窗口并应用\(\mathbb{R}^k\rightarrow\mathbb{R}\)池化函数来计算输出结果. 最常见的池化函数是最大值函数, 对应于最大池化层(Max-Pool layer).</li>
+</ul>
+<p>FC层和Conv层称为线性层, 因为输出是其输入的线性函数, Conv层可以用矩阵乘法来表示. 而其他大多数层都是非线性层.</p>
+<p>神经网络架构通常包含层的数量、类型和大小等信息, 以下是Chameleon中给出的一个CNN架构的例子.</p>
+<p><img src="media/16675243955254/16675245063564.png" alt="image-20221031134237622" /></p>
+<h2><a id="2%E5%AE%89%E5%85%A8%E6%8E%A8%E7%90%86%E6%96%B9%E6%A1%88%E7%9A%84%E7%89%B9%E5%BE%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 安全推理方案的特征</h2>
+<p>下表中给出了现有SNNI方案的特征.</p>
+<p><img src="media/16675243955254/16675245063585.png" alt="image-20221031142037663" /></p>
+<h3><a id="2-1%E5%8F%82%E4%B8%8E%E6%96%B9%E6%95%B0%E9%87%8F%E4%B8%8E%E8%A7%92%E8%89%B2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1 参与方数量与角色</h3>
+<p>通常SNNI是个两方计算问题, 即Client持有输入, Server持有神经网络. 但还有三方、甚至四方等更多参与方设定下的方案, 此时不共谋假设是确保协议安全性中非常重要的一环. 这些参与方设定可总结如下:</p>
+<p><img src="media/16675243955254/16675245063630.png" alt="image-20221031142727497" /></p>
+<ul>
+<li>(a) 2个不共谋的Servers, 例如: SecureML</li>
+<li>(b) 1个Server, 但引入不涉及输入的第三方(如TEE)生成必要的随机性加速推理, 例如: Chameleon</li>
+<li>(c) 3个不共谋的Servers, 例如: ABY3, Falcon, ASTRA, BLAZE, SecureNN, SWIFT</li>
+<li>(d) 4个不共谋的Servers, 这些方案认为协议上的效率提升有利于减少部署成本, 例如FALSH, Trident, Tetrad</li>
+</ul>
+<h3><a id="2-2%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2 安全属性</h3>
+<h4><a id="2-2-1%E6%95%8C%E6%89%8B%E6%A8%A1%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.1 敌手模型</h4>
+<ul>
+<li>Semi-honest model: 敌手不会破坏协议, 在SNNI问题中更常见.</li>
+<li>Malicious model: 敌手可能发送错误消息从而破坏协议, 研究较少. 例如:
+<ul>
+<li>CrypTFlow的Aramis组件: 依赖于具有完整性保证的可信硬件实现(Intel SGX), 为消息签名来验证是否遵守协议, 由此产生的额外开销大约是Semi-honest模型的\(3\times\);</li>
+<li>ABY3、XONN都可实现恶意安全, 但没有提供性能评估.</li>
+<li>Falcon实现了具有中止安全性的恶意安全, 当发现恶意行为时, 协议中止(Security with abort).</li>
+<li>FALSH、SWIFT、Trident和Tetrad对至多存在1个腐化方的情况下实现了恶意安全, 同时还达到了公平性(Fairness)和输出可达性(Robustness/Guaranteed output delivery, GOD).</li>
+</ul>
+</li>
+</ul>
+<p>此外还有一些方法假设Client是恶意的情况, 例如MUSE.</p>
+<h4><a id="2-2-2%E4%BF%9D%E5%AF%86%E7%9B%AE%E6%A0%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.2 保密目标</h4>
+<p>根据应用场景的不同, 不同类型信息的保密性非常重要, 典型的保密目标如下:</p>
+<ol>
+<li>Client的秘密输入.</li>
+<li>Client得到的推理结果.</li>
+<li>Server的神经网络权重和偏置项.</li>
+<li>Server的神经网络架构(层数、层的类型、层的大小等).</li>
+</ol>
+<p>SNNI方案通常只考虑1-3, 而4通常不考虑, 只在通信模式中才考虑.</p>
+<h4><a id="2-2-3%E9%BB%91%E7%9B%92%E6%94%BB%E5%87%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.3 黑盒攻击</h4>
+<p>如果能实现上述保密目标, 则Client无法获知除了推理结果之外的其他信息. 但通过足够数量的查询推理, 推理结果仍可能泄漏NN的某些信息. 这涉及如下几种攻击:</p>
+<ul>
+<li>模型提取攻击(model extraction attack): Client尝试提取模型的参数.</li>
+<li>模型反演攻击(model inversion attack): 确定给定标签的原型样本.</li>
+<li>成员推理攻击(membership inference attack): 找出给定的输入是否出现在训练集中.</li>
+</ul>
+<p>这些是MLaaS的固有属性, 与确保推理过程安全的特定技术无关. 通常可以限制Client进行的查询数或限制Client从推理中获取的信息来避免这些攻击. 但是大部分SNNI方案不考虑这些攻击.</p>
+<h3><a id="2-3%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3 受支持的神经网络</h3>
+<p>目前暂不清楚有效支持所有类型NN的安全计算的通用技术. SNNI的多数工作都集中在开发适用于某种神经网络类型的特定技术, 要么受限于所支持的层类型, 有么受限于权重的范围.</p>
+<h4><a id="2-3-1%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E5%B1%82%E7%B1%BB%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1 受支持的层类型</h4>
+<p>理想的SNNI方案应支持FC层、Conv层、激活函数层、最大池化层、softmax或argmax. 常见方案支持的层类型如下:</p>
+<p><img src="media/16675243955254/16675245063675.png" alt="image-20221031160001379" /></p>
+<h4><a id="2-3-2%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E6%9D%83%E9%87%8D%E8%8C%83%E5%9B%B4" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2 受支持的权重范围</h4>
+<p>有一些SNNI方案限制了NN中处理的数据类型, 从而加快推理效率. 例如:</p>
+<ul>
+<li>离散化的神经网络(Discretized NN): 权重都是整数, 神经元的输入和输出都在\(\{1,-1\}\)中;</li>
+<li>二值神经网络(Binary NN): 权重和激活值都只能取\(\{1,-1\}\). 例如XONN.</li>
+</ul>
+<p>这些限制方法可以高效地实现NN中所涉及的算术运算, 但NN的准确率将降低.</p>
+<h3><a id="2-4%E4%B8%8E%E8%AE%AD%E7%BB%83%E7%9A%84%E8%81%94%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.4 与训练的联系</h3>
+<p>SNNI方法与训练存在很大的差异, 如下图所示,</p>
+<ul>
+<li>(a) 涵盖了同一框架下的安全训练和安全推理, 例如: Falcon.</li>
+<li>(b) 从预训练的模型开始, 完全与训练无关, 不需要对模型进行修改, 例如: CrypTFlow.</li>
+<li>(c) 对预训练的模型进行转换, 使其更适合SNNI, 例如: CryptoNets.</li>
+<li>(d) 对训练过程进行大幅修改从而提高效率, 例如: Delphi、XONN.</li>
+</ul>
+<p><img src="media/16675243955254/16675245063733.png" alt="image-20221031162036945" /></p>
+<p>尽管这些优化有助于提高效率, 但可能会影响现有机器学习模型的可用性.</p>
+<h3><a id="2-5%E4%BA%A4%E4%BA%92%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.5 交互性</h3>
+<p>轮复杂度(Round complexity): Client和Server通信的轮数.
+大多数现有SNNI方法的通信模式有如下两种:</p>
+<ul>
+<li>交互式(interactive): Client和Server在评估NN的每一层后都进行通信, 交互式方案需要通信\(O(n)\)轮, 其中\(n\)为层数;
+<ul>
+<li>优点: 可对不同类型的层选用最合适的协议, 实现更高的效率;</li>
+<li>缺点: 会泄漏NN架构信息给Client, 且要求Client全程参与, 不利于移动设备.</li>
+<li>例子: 基于秘密共享的SNNI方案、混合方案.</li>
+</ul>
+</li>
+<li>非交互式(non-interactive): Client和Server的通信只发生在协议开始时和结束时, 非交互式方案只需通信\(O(1)\)轮.
+<ul>
+<li>优点: NN架构信息对Client保密.</li>
+<li>例子: 基于混淆电路和同态加密的SNNI方案.</li>
+</ul>
+</li>
+</ul>
+<h3><a id="2-6%E7%A6%BB%E7%BA%BF%E9%A2%84%E5%A4%84%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.6 离线预处理</h3>
+<p>许多方法中协议的某些部分独立于Client的输入, 因此可将协议分为独立于Client输入的离线预处理阶段和依赖于输入的在线阶段. 使用这种离线/在线范式的方法有SecureML, MiniONN, Chameleon, Delphi, Falcon等等. 离线阶段的常见活动有: 生成Beaver三元组, 或者其他用于茫化秘密的关联随机数.</p>
+<p>离线/在线范式优缺点如下:</p>
+<ul>
+<li>优点: 适合Client与Server是长期关系, 但推理请求只是偶尔发生的场景, 此时系统有充足的时间进行预处理, 因此方案的优化目标在于减少在线阶段的处理时间.</li>
+<li>缺点: 不太适合新Client加入和推理请求频繁发生的场景, 此时系统没有空闲时间进行预处理, 因此方案的优化目标在于减少计算消耗的总时间.</li>
+</ul>
+<h2><a id="3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 解决方案</h2>
+<h3><a id="3-1%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86-he" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 同态加密(HE)</h3>
+<p>早期将HE用于SNNI问题的工作是[1-2]. 使用HE的优点是可以满足所有保密目标, 其主要的难点则在于非线性函数的计算和全同态加密方案的选取.</p>
+<h4><a id="3-1-1%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1.1 非线性函数的计算</h4>
+<ol>
+<li>使用该函数的多项式近似, 因为多项式计算只涉及FHE方案支持的乘法和加法, 尽管这仍然非常昂贵. 这里的“昂贵”指的是: 计算时间的增加、噪音的大幅增加和消息空间大小的增加.</li>
+<li>使用简化的激活函数. 例如CryptoNets使用平方函数代替激活函数, 求和代替池化; FHE-DiNN使用符号函数作为激活函数等.</li>
+</ol>
+<p>由于HE评估非线性层很困难, 故一些方案建议仅对网络中的线性层使用HE, 而对非线性层使用其他MPC技术.</p>
+<h4><a id="3-1-2%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88%E7%9A%84%E9%80%89%E5%8F%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1.2 同态加密方案的选取</h4>
+<ul>
+<li>第一代FHE: Gentry所提出的方案, 噪音增长太快, 降低噪音的自举开销巨大;</li>
+<li>第二代FHE: BGV、BFV、yashe, 噪音增长变慢, 比第一代高效;</li>
+<li>第三代FHE: 改善了自举的时间;</li>
+<li>第四代FHE: CKKS方案, 可用于浮点数运算, 适合NN.
+使用FHE解决SNNI问题的方案有: CryptoNets, LoLa, SHE等. 这些方案对比如下:</li>
+</ul>
+<p><img src="media/16675243955254/16675245063792.png" alt="image-20221031203518030" /></p>
+<p>从SHE来看, 虽然FHE变得越来越快, 准确度也在提高, 但单次推理所消耗的时间仍比较长, 因此实用性较差.</p>
+<h3><a id="3-2%E6%B7%B7%E6%B7%86%E7%94%B5%E8%B7%AF-gc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.2 混淆电路(GC)</h3>
+<p>如果所涉及的数据都是定长的, 则NN的所有运算都可以用布尔电路来实现, 并使用混淆电路来解决SNNI问题, 此时不能保护NN架构信息, 安全性由混淆电路保证, 但效率可能会很低.
+第一个主要使用GC来解决SNNI问题的工作是DeepSecure[3], 使用了Free-XOR和独立于GC的预处理技术, 利用尽可能少数量的非XOR门的基本模块来构造经典NN.
+此外, 还有基于二值NN的工作XONN, 利用GC来评估非线性层的Dephi.</p>
+<h3><a id="3-3%E5%8A%A0%E6%B3%95%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB-ass" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3 加法秘密共享(ASS)</h3>
+<p>评估非线性层需要秘密份额之间的加法和乘法. 两方计算时秘密份额的加法是平凡的, 秘密份额的乘法则需要借助Bever三元组.</p>
+<h4><a id="3-3-1%E7%94%9F%E6%88%90-beaver%E4%B8%89%E5%85%83%E7%BB%84" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3.1 生成Beaver三元组</h4>
+<p>Beaver三元组不依赖于输入, 因此可以在离线预处理阶段生成. 如果只有两方, 生成Beaver三元组的方式有两种: 同态加密和不经意传输. 此外, 如果有额外的不参与在线阶段计算的第三方, 则可让其生成Beaver三元组提高计算效率, 如Chameleon. 若使用2-out-of-3秘密共享, 则不需要Beaver三元组即可计算乘法, 如Falcon.</p>
+<h4><a id="3-3-2%E8%AF%84%E4%BC%B0%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3.2 评估非线性层</h4>
+<ul>
+<li>多项式近似, 例子: SecureML、Delphi等;</li>
+<li>把通用密码协议用于某个特定功能, 但主要方法仍是ASS, 例子: SecureML, MiniONN使用了GC, CrypTFlow2使用了OT;</li>
+<li>其他专用方案, 例子: SiRnn使用lookup table和迭代近似(iterative approximation)来计算指数函数和反函数, 从而可通过ASS来计算Sigmoid函数, Faclon使用迭代近似来计算除法, 使用二叉搜索(binary search)来计算max-pooling.</li>
+</ul>
+<h3><a id="3-4%E6%B7%B7%E5%90%88%E5%8D%8F%E8%AE%AE%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4 混合协议方案</h3>
+<p>HE、GC、ASS都有一些缺点, 限制了某些层的适用性, 由于这些缺点与不同类型层相关, 因此可以考虑将多种技术进行组合, 使得NN的每层都使用最合适的技术, 尽管这将使得方案变成交互式的. 多数情况下ASS被用作框架, 辅以其他技术, 用于在线阶段不同类型的层的安全计算, 例子:</p>
+<ul>
+<li>SecureML和MiniONN将ASS用于线性层, 将GC用于非线性层;</li>
+<li>Chameleon对线性层使用ASS, 对ReLU激活函数使用GMW协议, 对argmax使用GC;</li>
+<li>Gazelle将HE用于线性层, 将GC用于非线性层;</li>
+<li>CrypTFlow2将HE或OT用于线性层, 将ASS与专用子协议用于非线性层;</li>
+<li>Delphi使用ASS用于线性层和平方激活, 使用GC进行ReLU激活.</li>
+</ul>
+<h3><a id="3-5%E5%85%B6%E4%BB%96%E6%96%B9%E9%9D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5 其他方面</h3>
+<h4><a id="3-5-1%E4%B8%8D%E7%BB%8F%E6%84%8F%E4%BC%A0%E8%BE%93%E7%9A%84%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.1 不经意传输的使用</h4>
+<p>OT通常是许多SNNI方法的重要组成部分:</p>
+<ul>
+<li>混淆电路的计算;</li>
+<li>生成Beaver三元组;</li>
+<li>可构造专用子协议, 用于评估秘密共享形式的非线性层, 如CrypTFlow2.</li>
+</ul>
+<h4><a id="3-5-2%E6%95%B0%E5%AD%97%E7%BC%96%E7%A0%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.2 数字编码</h4>
+<p>理论上NN的输入和输出以及权重和其他参数可以是任何实数, 但在计算机实现中, 所有这些数字都使用有限位来表示, 选择数字表示方案取决于如下几个方面:</p>
+<ul>
+<li>表示类型: 浮点(floating-point)、定点(fixed-point)、整数(integer);</li>
+<li>有符号(signed)/无符号(unsigned);</li>
+<li>位宽(bitwidth, 总位长);</li>
+<li>比例(scale, 也称为精度, 小数部分的位数).</li>
+</ul>
+<p><img src="media/16675243955254/16675245063845.png" alt="image-20221031222913369" /></p>
+<p>这些方面的不同选择可能会造成重大影响, 从而导致效率和准确性之间的不同权衡. 特别是减小位宽可以显著提高效率, 这取决于所使用的技术, 例如使用GC时减少位宽可使电路规模减小, 从而只需更少的计算和更少的通信, 但可能会限制可实现的准确性.</p>
+<p>计算机通常天然支持给定位宽运算, 利用这种硬件支持的位宽可以实现更简单高效的方案. 例如: Delphi和Falcon使用32位的固定位宽, 而SecureML和SecureNN使用64位的固定位宽, 此外位宽不需要在整个NN中都是均匀的, 例如SiRnn引入的动态调整位宽的协议. 某些运算可能会改变位宽, 此时需要额外进行截断运算.</p>
+<p>对于小数部分的精度, 有不同的解决方案, 例如具有统一精度的定点表示的有Delphi和Falcon, 动态确定精度的有CrypTFlow2, 还有一些方案使用整数以固定位数表示, 但要确保没有溢出, 例如MiniONN.</p>
+<p>对于有符号数的编码, 通常使用二进制补码(two's complement), 在评估ReLU时需要确定数字是否为正数, 在二进制补码中这归结为确定数字的最高有效位.</p>
+<p>在HE情况下, 几种加密方案都基于多项式, 明文被编码为多项式系数. 为充分利用消息空间, 一些方法(如CryptoNets)通过中国剩余定理将多个数字打包为一个系数, 用多个系数来表示一个数字. 通过使用FHE方法, 可以通过以定点表示来处理这些数字, 这需要将数字映射到实践中所使用的多项式环中, [4]给出了一种为同态函数评估设计的定点数有效编码方法.</p>
+<h4><a id="3-5-3%E5%B9%B6%E8%A1%8C%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.3 并行化</h4>
+<p>使用密码学协议使得利用并行化计算更具挑战性. 一些同态加密方案支持SIMD处理, 从而对同一批次不同输入执行相同的操作. 离线阶段也可以利用并行化计算, 例如SecureML中生成向量化的Beaver三元组, MiniONN也使用了类似的方法.</p>
+<h4><a id="3-5-4%E5%85%B3%E8%81%94%E9%9A%8F%E6%9C%BA%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.4 关联随机性</h4>
+<p>为了茫化秘密, 有些方案使用了关联随机数, 即由不同方拥有满足某种关系的随机数. 典型的例子是Beaver三元组、ABY3和Falcon中使用的Zero sharing.</p>
+<p>生成关联随机性主要有两种方法:</p>
+<ul>
+<li>使用PRG, PRF, HE或OT等密码学协议来生成, 例如Falcon使用预共享密钥的PRF来生成不同类型的关联随机性;</li>
+<li>使用额外第三方来生成, 例如Chameleon使用半诚实第三方生成随机种子发给两方, 然后两方本地通过PRG生成.</li>
+</ul>
+<h4><a id="3-5-5%E7%A5%9E%E7%BB%8F%E6%9E%B6%E6%9E%84%E6%90%9C%E7%B4%A2-nas" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.5 神经架构搜索(NAS)</h4>
+<p>SNNI的一些方案也对NN架构进行了修改, 事实上在普通环境中使用表现良好的架构可能不是SNNI的最佳选择. 找到最佳的NN架构是一个繁琐的过程, 涉及尝试许多不同的候选架构、训练并评估实现的准确性. 此过程可以通过神经网络架构搜索(Neural Architecture Search, NAS)算法自动执行.</p>
+<p>例如: Delphi将NAS用于特定目的: 它使用平方函数替换了NN中的一些ReLU激活, 旨在找到准确性和推理效率之间的良好权衡, 要替换哪些ReLU由NAS决定. NASS进一步使用NAS, 在寻找安全推理的最佳神经架构时, NASS会考虑不同密码原语的开销, 作为搜索过程的一部分, NASS还会自动调整用于NN线性层的HE参数[5]. 此外, HEMET也遵循类似的方法[6].</p>
+<h4><a id="3-5-6%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BF%91%E4%BC%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.6 多项式近似</h4>
+<p>HE和ASS适合评估多项式. 对于非多项式函数, 可以使用适当的多项式近似代替, 但这将会导致高阶多项式开销大的问题, 因为乘法所需的开销大, 而低阶多项式近似效果很差. 解决这个问题的唯一可能方法是使用分段多项式近似. 例子: SecureML, MiniONN, Delphi.</p>
+<h4><a id="3-5-7%E5%8A%A0%E9%80%9F%E5%8D%B7%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.7 加速卷积</h4>
+<p>卷积可以用矩阵乘法表示, 从而可以像处理全联接层一样处理卷积层, 理论上很方便, 但可能导致实现效率低下, 特别是在ASS的框架下使用Beaver三元组来实现矩阵乘法, 相同的矩阵元素被多个Beaver三元组所茫化从而导致Beaver三元组的浪费. CryTFlow的Porthos组件对此进行了优化, 以减少卷积所需的Beaver三元组数量. 而CrypTFlow2中的卷积使用了HE实现, 通过巧妙地使用SIMD, 减少HE rotation操作次数来加速卷积计算.</p>
+<h4><a id="3-5-8%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.8 安全性分析</h4>
+<p>在大多数情况下, 基于MPC的解决方案的安全性(输入隐私性)建立在通用可组合(Universal Composability, UC)框架下, 依赖于其构造模块的安全性和可组合性. 而基于HE的解决方案的安全性通常基于困难问题, 如Ring-LWE问题等.</p>
+<h3><a id="3-6%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.6 其他方法</h3>
+<ul>
+<li>模型拆分: 将NN拆分为多个部分分配给不同的参与方, 从而限制每方得到的知识.</li>
+<li>可信执行环境: 可在不受信任的环境中实现安全计算, 使用硬件隔离和加密技术来保证数据机密性和执行的完整性, 几乎没有通信开销, 能以原生速度运行. 缺点: 存在侧信道攻击且必须信任设备的生产厂商. 例子: Intel SGX和面向移动设备部署的ARM TrustZone.</li>
+<li>编译器: 将机器学习代码转换为安全协议代码的编译器.
+例子: Rosetta, secureTF, MP2ML, CHET, EzPC, CrypTen.
+还有一些编译器将高级编程语言转换为电路格式, 然后可以基于HE, GC和ASS的安全计算框架进行评估.
+例子: HyCC.</li>
+</ul>
+<h2><a id="4-snni%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. SNNI方法的实现</h2>
+<p><img src="media/16675243955254/16675245063904.png" alt="image-20221101104935350" /></p>
+<h2><a id="5%E5%AE%9E%E9%AA%8C%E8%AF%84%E4%BC%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. 实验评估</h2>
+<h3><a id="5-1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98-nn%E5%92%8C%E6%95%B0%E6%8D%AE%E9%9B%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.1 机器学习问题, NN和数据集</h3>
+<p>大多数SNNI的工作集中在图像分类问题上, 因此CNN更常见. 根据CNN规模, 常见的CNN可以分为:</p>
+<ul>
+<li>小规模: LeNet(7层), AlexNet(8层);</li>
+<li>大规模: VGG16、VGG19、ResNet50、DenseNet121和SqueezeNet.</li>
+</ul>
+<p>常用数据集: MNIST, CIFAR-10.</p>
+<p>其他类型的NN还有:</p>
+<ul>
+<li>循环神经网络(Recurrent Neural Networks, RNN): 对顺序数据(如音频/传感器数据等)进行分类.</li>
+<li>图神经网络(Graph Neural Networks, GNN): 对节点组成的数据及其空间位置信息进行分类.</li>
+</ul>
+<h3><a id="5-2%E6%8A%80%E6%9C%AF%E8%AE%BE%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.2 技术设置</h3>
+<p>实验环境: 本地模拟LAN/WAN、云服务器环境的LAN/WAN.</p>
+<ul>
+<li>WAN: 带宽9~70MB/s, 延迟60ms;</li>
+<li>LAN: 带宽1GB/s, 延迟&lt;1ms.</li>
+</ul>
+<h3><a id="5-3%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.3 评估指标</h3>
+<ul>
+<li>执行时间/时延(execution time/latency): 执行一次推理所消耗的时间. 此外, 批处理方法可用平均时间.</li>
+<li>通信量(communication): 各参与方之间传输的总字节量. 此外, 批处理方法可用平均通信量.</li>
+<li>吞吐量(throughput): 单位时间内的推理次数, 衡量批处理效果的指标.</li>
+<li>准确率(accuracy): 限制和修改NN可能会影响准确性, 因此需要对方法的准确率进行评估.</li>
+</ul>
+<h3><a id="5-4%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.4 对比</h3>
+<p>当要说明一种新方法改进了现有技术时, 需要对两者进行对比, 此时需要面临如下问题:</p>
+<ul>
+<li>比较维度应一致</li>
+<li>安全属性难以量化</li>
+<li>只进行少量实验或只考虑效率和准确性难以表明方案的优劣</li>
+</ul>
+<h2><a id="6%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. 未来研究方向</h2>
+<ol>
+<li>SNNI方法的特征:
+<ul>
+<li>安全性与效率的权衡: 如何同时实现高效性和高安全级别?</li>
+<li>具体应用场景的影响: 具体应用如何影响不同方法的适用性?</li>
+<li>物联网和边缘计算中的SNNI: 当可用资源受限时SNNI方案的构造?</li>
+<li>安全推理友好的NN和训练: 安全推理与安全训练的集成优化问题?</li>
+<li>抵御黑盒攻击: 大多数SNNI方法不能防止黑盒攻击?</li>
+</ul>
+</li>
+<li>解决方案:
+<ul>
+<li>新的构造模块? 例如: Silent OT的应用.</li>
+<li>模块化解决方案: 将模块化方案扩展到支持任意数量的计算方, 支持不同敌手模型和保密目标, 使用广泛的模型架构等, 提升用户需求的灵活性?</li>
+<li>解决方案的可扩展性: 现有SNNI方案的内存、计算和通信要求很高, 如何扩展到多方? 如何在多个节点之间摊销这些开销?</li>
+</ul>
+</li>
+<li>实现:
+<ul>
+<li>ML框架集成和统一的API</li>
+<li>GPU支持</li>
+<li>容器构建: 容易重现实验并对性能进行公平比较</li>
+</ul>
+</li>
+<li>解决方案的评估:
+<ul>
+<li>改善对比方法, 确保公平比较</li>
+<li>更多样的基准</li>
+<li>现实技术设置</li>
+<li>考虑超越效率的指标: 包括能耗、安全性、隐私性和可用性.</li>
+</ul>
+</li>
+</ol>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>[1] Barni, M., Orlandi, C., and Piva, A. A privacy-preserving protocol for neural-network-based computation. In MM&amp;Sec (2006), ACM, pp. 146–151.</p>
+<p>[2] Barni, M., Orlandi, C., and Piva, A. A privacy-preserving protocol for neural-network-based computation. In MM&amp;Sec (2006), ACM, pp. 146–151.</p>
+<p>[3] Rouhani, B. D., Riazi, M. S., and Koushanfar, F. Deepsecure: scalable provably-secure deep learning. In DAC (2018), ACM, pp. 2:1–2:6.</p>
+<p>[4] Bonte, C., Bootland, C., Bos, J. W., Castryck, W., Iliashenko, I., and Vercauteren, F. Faster homomorphic function evaluation using non-integral base encoding. In CHES (2017), Springer, pp. 579–600.</p>
+<p>[5] Bian, S., Jiang, W., Lu, Q., Shi, Y., and Sato, T. NASS: optimizing secure inference via neural architecture search. In ECAI (2020), vol. 325 of Frontiers in Artificial Intelligence and Applications, IOS Press, pp. 1746–1753.</p>
+<p>[6] Lou, Q., and Jiang, L. HEMET: A homomorphic-encryption-friendly privacy-preserving mobile neural network architecture. In ICML (2021), vol. 139 of Proceedings of Machine Learning Research, PMLR, pp. 7102–7110.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Privacy Preserving Machine Learning Resources]]></title>
+    <link href="https://weiviming.github.io/16434684624710.html"/>
+    <updated>2022-01-29T23:01:02+08:00</updated>
+    <id>https://weiviming.github.io/16434684624710.html</id>
+    <content type="html"><![CDATA[
+<p>Last update: Nov. 3, 2022.</p>
+<h2><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h2>
+<p>This is a current list of resources related to the research and development of privacy-preserving machine learning.</p>
+<h2><a id="secure-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Machine Learning</h2>
+<ul>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-540-88313-5_13">Sharemind: A framework for fast privacy-preserving computations, ESORICS'08</a></li>
+<li><a href="https://eprint.iacr.org/2010/365">TASTY: Tool for Automating Secure Two-partY computations, CCS'10</a></li>
+<li><a href="https://eprint.iacr.org/2014/331.pdf">Machine Learning Classification over Encrypted Data, NDSS'14</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/CryptonetsTechReport.pdf">CryptoNets: Applying Neural Networks to Encrypted Data with High Throughput and Accuracy, ICML'16</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/ohrimenko">Oblivious Multi-Party Machine Learning on Trusted Processors, USENIX Security'16</a></li>
+<li><a href="https://arxiv.org/abs/1711.05189">CryptoDL: Deep Neural Networks over Encrypted Data, arXiv'17</a></li>
+<li><a href="https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/corrigan-gibbs">Prio: Private, Robust, and Scalable Computation of Aggregate Statistics, NSDI'17</a></li>
+<li><a href="https://eprint.iacr.org/2017/396">SecureML: A System for Scalable Privacy-Preserving Machine Learning, S&amp;P'17</a></li>
+<li><a href="https://acmccs.github.io/papers/p619-liuA.pdf">MiniONN: Oblivious Neural Network Predictions via MiniONN Transformations, CCS'17</a></li>
+<li><a href="https://eprint.iacr.org/2017/1164">Chameleon: A Hybrid Secure Computation Framework for Machine Learning Applications, AsiaCCS'17</a></li>
+<li><a href="https://arxiv.org/abs/1705.08963">DeepSecure: Scalable Provably-Secure Deep Learning, DAC'17</a></li>
+<li><a href="https://arxiv.org/abs/1901.00329">Secure Computation for Machine Learning With SPDZ, NIPS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/403.pdf">ABY3: A Mixed protocol Framework for Machine Learning, CCS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/442.pdf">SecureNN: Efficient and Private Neural Network Training, PoPETs'18</a></li>
+<li><a href="https://arxiv.org/abs/1801.05507">Gazelle: A Low Latency Framework for Secure Neural Network Inference, USENIX Security'18</a></li>
+<li><a href="https://arxiv.org/abs/1811.04017">PySyft: A Generic Framework for Privacy Preserving Deep Learning, arXiv'18</a></li>
+<li><a href="https://arxiv.org/abs/1810.08130">Private Deep Learning in TensorFlow Using Secure Computation, arXiv'18</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3314628">CHET: an optimizing compiler for fully-homomorphic neural-network inferencing, PLDI'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8835215">Helen: Maliciously Secure Coopetitive Learning for Linear Models, S&amp;P'19</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3363207">Efficient multi-key homomorphic encryption with packed ciphertexts with application to oblivious neural network inference, CCS'19</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/riazi">XONN: XNOR-based Oblivious Deep Neural Network Inference, USENIX Security'19</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=3339819">QUOTIENT: two-party secure neural network training and prediction, CCS'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/429">ASTRA: High Throughput 3PC over Rings with Application to Secure Prediction, CCSW'19</a></li>
+<li><a href="https://eprint.iacr.org/2018/1099.pdf">SoK: Modular and Efficient Private Decision Tree Evaluation, PoPETs'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/338">Garbled Neural Networks are Practical, IACR ePrint'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/1315">Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning, NDSS'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/042">BLAZE: Blazing Fast Privacy-Preserving Machine Learning, NDSS'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/1365">FLASH: Fast and Robust Framework for Privacy-preserving Machine Learning, PoPETs'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/050">Delphi: A Cryptographic Inference Service for Neural Networks, USENIX Security'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3404397.3404399">ParSecureML: An Efficient Parallel Secure Machine Learning Framework on GPUs, ICPP'20</a></li>
+<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p355.xml">Secure Evaluation of Quantized Neural Networks, PoPETs'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3407023.3407045">MP2ML: A Mixed-Protocol Machine Learning Framework for Private Inference, ARES'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/chen-hao">SANNS: Scaling Up Secure Approximate k-Nearest Neighbors Search, USENIX Security'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/1049.pdf">CrypTFlow: Secure TensorFlow Inference, S&amp;P'20</a></li>
+<li><a href="https://arxiv.org/abs/2010.06457">CrypTFlow2: Practical 2-Party Secure Inference, CCS'20</a></li>
+<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p414.xml">Practical Privacy-Preserving K-means Clustering, PoPETs'20</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_21">An Efficient 3-Party Framework for Privacy-Preserving Neural Network Inference, ESORICS'20</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3427228.3427232">Secure and Verifiable Inference in Deep Neural Networks, ACSAC'20</a></li>
+<li><a href="https://arxiv.org/abs/2007.12934">SOTERIA: In Search of Efficient Neural Networks for Private Inference, arXiv'20</a></li>
+<li><a href="https://arxiv.org/pdf/1911.07101.pdf">Glyph: Fast and Accurately Training Deep Neural Networks on Encrypted Data, NeurIPS'20</a></li>
+<li><a href="http://www.jos.org.cn/jos/article/abstract/6052">机器学习隐私保护研究综述, 软件学报'20</a></li>
+<li><a href="https://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2021.20210626">安全多方计算及其在机器学习中的应用, 计算机研究与发展'21</a></li>
+<li><a href="https://arxiv.org/abs/2004.02229">FALCON: Honest-Majority Maliciously Secure Framework for Private Deep Learning, PoPETs'21</a></li>
+<li><a href="https://www.eurecom.fr/publication/6475/download/sec-publi-6475.0.pdf">Privacy-preserving Density-based Clustering, AisaCCS'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/459">SIRNN: A Math Library for Secure RNN Inference, S&amp;P'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/lets-stride-blindfolded-in-a-forest-sublinear-multi-client-decision-trees-evaluation/">Let’s Stride Blindfolded in a Forest: Sublinear Multi-Client Decision Trees Evaluation, NDSS'21</a></li>
+<li><a href="https://people.eecs.berkeley.edu/~raluca/MUSEcamera.pdf">MUSE: Secure Inference Resilient to Malicious Clients, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2103.01396">DeepReDuce: ReLU Reduction for Fast Private Inference, ICML'21</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/ng">GForce: GPU-Friendly Oblivious and Rapid Neural Network Inference, USENIX Security'21</a></li>
+<li><a href="http://arxiv.org/abs/2104.10949">CryptGPU: Fast Privacy-Preserving Machine Learning on the GPU, S&amp;P'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/gala-greedy-computation-for-linear-algebra-in-privacy-preserved-neural-networks/">GALA : Greedy ComputAtion for Linear Algebra in Privacy-Preserved Neural Networks, NDSS'21</a></li>
+<li><a href="https://arxiv.org/abs/2005.10296">SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning, USENIX Security'21</a></li>
+<li><a href="https://www.usenix.org/system/files/sec21fall-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security, USENIX Security'21</a></li>
+<li><a href="https://arxiv.org/abs/2008.08753">When homomorphic encryption marries secret sharing: secure large-scale sparse logistic regression and applications in risk control, KDD'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/730">Mystique: Efficient Conversions for Zero-Knowledge Proofs with Applications to Machine Learning, USENIX Security'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/809">SoK: Efficient Privacy-preserving Clustering, PoPETs'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/087">ZEN: Efficient Zero-Knowledge Proofs for Neural Networks, IACR ePrint'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/673">zkCNN: Zero Knowledge Proofs for Convolutional Neural Network Predictions and Accuracy, CCS'21</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/zheng">Cerebro: A Platform for Multi-Party Cryptographic Collaborative Learning, USENIX Security'21</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2021/file/11eba2991cc62daa4a85be5c0cfdae97-Paper.pdf">Circa: Stochastic ReLUs for Private Deep Learning, NeurIPS'21</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3437880.3460394">Banners: Binarized Neural Networks with Replicated Secret Sharing, IH&amp;MMSec'21</a></li>
+<li><a href="https://arxiv.org/abs/2106.02203">Adam in Private: Secure and Fast Training of Deep Neural Networks with Adaptive Moment Estimation, PoPETs'22</a></li>
+<li><a href="https://arxiv.org/abs/2106.02850">Tetrad: Actively Secure 4PC for Secure Training and Inference, NDSS'22</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/chandran">SIMC: ML Inference Secure Against Malicious Clients at Semi-Honest Cost, USENIX Security'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/207">Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference, USENIX Security'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/322.pdf">SecFloat: Accurate Floating-Point meets Secure 2-Party Computation, S&amp;P'22</a></li>
+<li><a href="https://arxiv.org/abs/2006.04593">ARIANN: Low-Interaction Privacy-Preserving Deep Learning via Function Secret Sharing, PoPETs'22</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/kelkar">Secure Poisson Regression, USENIX Security'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/675">MPClan: Protocol Suite for Privacy-Conscious Computations, IACR ePrint'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/793">LLAMA: A Low Latency Math Library for Secure Inference, PoPETs'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/826">Pika: Secure Computation using Function Secret Sharing over Rings, PoPETs'22</a></li>
+<li><a href="https://petsymposium.org/popets/2022/popets-2022-0020.php">Polymath: Low-Latency MPC via Secure Polynomial Evaluations and Its Applications, PoPETs'22</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/watson">Piranha: A GPU platform for secure computation, USENIX Security'22</a></li>
+<li><a href="https://arxiv.org/abs/2107.00501">Secure Quantized Training for Deep Learning, ICML'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/1118">PentaGOD: Stepping beyond Traditional GOD with Five Parties, CCS'22</a></li>
+<li><a href="https://doi.org/10.1145/3489517.3530680">ABNN2: secure two-party arbitrary-bitwidth quantized neural network predictions, DAC'22</a></li>
+<li><a href="https://arxiv.org/abs/2112.12855">SoK: Privacy-preserving Deep Learning with Homomorphic Encryption, arXiv'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/238">HEAD: an FHE-based Privacy-preserving Cloud Computing Protocol with Compact Storage and Efficient Computation, IACR ePrint'22</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-031-17143-7_14">SecureBiNN: 3-Party Secure Computation for Binarized Neural Network Inference, ESORICS'22</a></li>
+<li><a href="https://eprint.iacr.org/2019/695">Efficient Secure Three-Party Sorting with Applications to Data Analysis and Heavy Hitters, CCS'22</a></li>
+<li><a href="https://files.sri.inf.ethz.ch/website/papers/ccs22-phoenix.pdf">Private and Reliable Neural Network Inference, CCS'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/757">SortingHat: Efficient Private Decision Tree Evaluation via Homomorphic Encryption and Transciphering, CCS'22</a></li>
+<li><a href="https://hydrazeng.github.io/publication/sphinx/sphinx.pdf">Sphinx: Enabling Privacy-Preserving Online Learning over the Cloud, S&amp;P'22</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/auto-draft-222/">To Trust or Not to Trust: Hybrid Multi-party Computation with Trusted Execution Environment, NDSS'22</a></li>
+<li><a href="https://eprint.iacr.org/2021/1049">Binary Search in Secure Computation, NDSS'22</a></li>
+<li><a href="https://eprint.iacr.org/2020/1577">Multi-Party Replicated Secret Sharing over a Ring with Applications to Privacy-Preserving Machine Learning, PoPETs'23</a></li>
+<li><a href="https://eprint.iacr.org/2022/1483">Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead, ePrint'22</a></li>
+</ul>
+<h2><a id="secure-multiparty-computation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Multiparty Computation</h2>
+<ul>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-14577-3_6">Secure computation with fixed-point numbers, FC'10</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-32009-5_38">Multiparty computation from somewhat homomorphic encryption, CRYPTO'12</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-39884-1_23">GMW vs. Yao? Efficient secure two-party computation with low depth circuits, FC'13</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/2508859.2516752">PICCO: a general-purpose compiler for private distributed computation, CCS'13</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-40203-6_1">Practical covertly secure MPC for dishonest majority–or: breaking the SPDZ limits, ESORICS'13</a></li>
+<li><a href="https://eprint.iacr.org/2012/405.pdf">Secure Computation on Floating Point Numbers, NDSS'13</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2660366">Efficiently Verifiable Computation on Encrypted Data, CCS'14</a></li>
+<li><a href="https://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2015.20150763">实用安全多方计算协议关键技术研究进展, 计算机研究与发展'15</a></li>
+<li><a href="https://encrypto.de/papers/DSZ15.pdf">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation, NDSS'15</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2978357">MASCOT: faster malicious arithmetic secure computation with oblivious transfer, CCS'16</a></li>
+<li><a href="https://dl.acm.org/citation.cfm?id=2978331">High-Throughput Semi-Honest Secure Three-Party Computation with an Honest Majority, CCS'16</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3243734.3243837">Secure outsourced matrix computation and application to neural networks, CCS'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/570">Fast large-scale honest-majority MPC for malicious adversaries, CRYPTO'18</a></li>
+<li><a href="https://eprint.iacr.org/2018/474">Minimising communication in honest-majority MPC by batchwise multiplication verification, ACNS'18</a></li>
+<li><a href="https://eprint.iacr.org/2017/908">Yet another compiler for active security or: Efficient MPC over arbitrary rings, CRYPTO'18</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-319-96881-0_26">SPDZ^2k: Efficient MPC mod 2^k for Dishonest Majority, CRYPTO'18</a></li>
+<li><a href="https://eprint.iacr.org/2017/1230">Overdrive^2k: Making SPDZ Great Again, EUROCRYPT'18</a></li>
+<li><a href="https://eprint.iacr.org/2019/599.pdf">New Primitives for Actively-Secure MPC over Rings with Applications to Private Machine Learning, S&amp;P'19</a></li>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/3292500.3330920">PrivPy: General and Scalable Privacy-Preserving Data Mining, KDD'19</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3319535.3339811">Two-thirds honest-majority MPC for malicious adversaries at almost the cost of semi-honest, CCS'19</a></li>
+<li><a href="https://eprint.iacr.org/2019/080">Turbospeedz: Double your online SPDZ! Improving SPDZ using function dependent preprocessing, ACNS'19</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3372297.3417872">MP-SPDZ: A Versatile Framework for Multi-Party Computation, CCS'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/poddar">Senate: A Maliciously-Secure MPC Platform for Collaborative Analytics, USENIX Security'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/338.pdf">Improved primitives for mpc over mixed arithmetic-binary circuits, CRYPTO'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/189">Guaranteed Output Delivery Comes Free in Honest Majority MPC, CRYPTO'20</a></li>
+<li><a href="https://eprint.iacr.org/2019/164.pdf">Use Your Brain! Arithmetic 3PC for Any Modulus with Active Security, ITC'20</a></li>
+<li><a href="https://arxiv.org/pdf/1907.03415">Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application, FC'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/1556">Honest Majority MPC with Abort with Minimal Online Communication, Latincrypt'21</a></li>
+<li><a href="https://eprint.iacr.org/2020/1137">MOTION - A Framework for Mixed-Protocol Multi-Party Computation, TOPS'21</a></li>
+<li><a href="https://eprint.iacr.org/2020/1225.pdf">ABY2.0: Improved Mixed-Protocol Secure Two-Party Computation, USENIX Security'21</a></li>
+<li><a href="https://encrypto.de/papers/PSSY21HOST.pdf">SynCirc: Efficient Synthesis of Depth-Optimized Circuits for Secure Computation, HOST'21</a></li>
+<li><a href="https://www.usenix.org/conference/osdi21/presentation/kumar">MAGE: Nearly Zero-Cost Virtual Memory for Secure Computation, USENIX OSDI'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/1493.pdf">VASA: Vector AES Instructions for Security Applications, ACSAC'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/833">ATLAS: Efficient and Scalable MPC in the Honest Majority Setting, CRYPTO'21</a></li>
+<li><a href="https://www.sciendo.com/article/10.2478/popets-2021-0073">Secure integer division with a private divisor, PoPETs'21</a></li>
+<li><a href="https://eprint.iacr.org/2019/1298">An Efficient Passive-to-Active Compiler for Honest-Majority MPC over Rings, ACNS'21</a></li>
+<li><a href="https://doi.org/10.1051/sands/2021001">Concretely efficient secure multi-party computation protocols: survey and more, SandS'21</a></li>
+<li><a href="https://eprint.iacr.org/2022/623">Fast Fully Secure Multi-Party Computation over Any Ring with Two-Thirds Honest Majority, CCS'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/302">SoK: Oblivious Pseudorandom Functions, EuroS&amp;P'22</a></li>
+<li><a href="http://www.jcr.cacrnet.org.cn/CN/Y2022/V9/I3/379">简洁非交互零知识证明综述, 密码学报'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/915">OpenFHE: Open-Source Fully Homomorphic Encryption Library, WAHC'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/1207">Attaining GOD Beyond Honest Majority With Friends and Foes, ASIACRYPT'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/202">Through the Looking-Glass: Benchmarking Secure Multi-Party Computation Comparisons for ReLU's, CANS'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/1316">TurboPack: Honest Majority MPC with Constant Online Communication, CCS'22</a></li>
+<li><a href="https://arxiv.org/abs/2210.00486">pMPL: A Robust Multi-Party Learning Framework with a Privileged Party, CCS'22</a></li>
+<li><a href="https://arxiv.org/abs/2107.12407">Selective MPC: Distributed Computation of Differentially Private Key-Value Statistics, CCS'22</a></li>
+<li><a href="https://eprint.iacr.org/2021/1579">Le Mans: Dynamic and Fluid MPC for Dishonest Majority, CRYPTO'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/815">More Efficient Dishonest Majority Secure Computation over $\mathbb{Z}_{2^k}$ via Galois Rings, CRYPTO'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/831">Sharing Transformation and Dishonest Majority MPC with Packed Secret Sharing, CRYPTO'22</a></li>
+<li><a href="https://eprint.iacr.org/2020/1437">Round-Optimal and Communication-Efficient Multiparty Computation, EUROCRYPT'22</a></li>
+<li><a href="https://eprint.iacr.org/2021/1397">Practical Non-interactive Publicly Verifiable Secret Sharing with Thousands of Parties, EUROCRYPT'22</a></li>
+<li><a href="https://eprint.iacr.org/2021/1373.pdf">Highly Efficient OT-Based Multiplication Protocols, EUROCRYPT'22</a></li>
+<li><a href="https://www.iacr.org/cryptodb/data/paper.php?pubkey=31828">Batch-OT with Optimal Rate, EUROCRYPT'22</a></li>
+<li><a href="https://eprint.iacr.org/2022/645">Round-Optimal Multi-Party Computation with Identifiable Abort, EUROCRYPT'22</a></li>
+<li><a href="https://www.iacr.org/cryptodb/data/paper.php?pubkey=31942">Secure Multiparty Computation with Free Branching, EUROCRYPT'22</a></li>
+<li><a href="https://iacr.org/cryptodb/data/paper.php?pubkey=31948">Secure Multiparty Computation with Sublinear Preprocessing, EUROCRYPT'22</a></li>
+</ul>
+<h2><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h2>
+<ul>
+<li><a href="https://dl.acm.org/citation.cfm?id=2813687">Privacy-Preserving Deep Learning, CCS'15</a></li>
+<li><a href="https://eprint.iacr.org/2017/281.pdf">Practical Secure Aggregation for Privacy Preserving Machine Learning, CCS'17</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/8241854">Privacy-Preserving Deep Learning via Additively Homomorphic Encryption, TIFS'17</a></li>
+<li><a href="http://papers.nips.cc/paper/6749-terngrad-ternary-gradients-to-reduce-communication-in-distributed-deep-learning">Terngrad: Ternary gradients to reduce communication in distributed deep learning, NIPS'17</a></li>
+<li><a href="http://papers.nips.cc/paper/6617-machine-learning-with-adversaries-byzantine-tolerant-gradient-descent">Machine Learning with Adversaries: Byzantine Tolerant Gradient Descent, NIPS'17</a></li>
+<li><a href="http://cacr.uwaterloo.ca/techreports/2018/cacr2018-10.pdf">NIKE-based Fast Privacy-preserving High-dimensional Data Aggregation for Mobile Devices, CACR'18</a></li>
+<li><a href="https://papers.nips.cc/paper/2018/hash/314450613369e0ee72d0da7f6fee773c-Abstract.html">The Convergence of Sparsified Gradient Methods, NIPS'18</a></li>
+<li><a href="https://papers.nips.cc/paper/2018/file/a07c2f3b3b907aaf8436a26c6d77f0a2-Paper.pdf">Byzantine stochastic gradient descent, NIPS'18</a></li>
+<li><a href="https://arxiv.org/abs/1802.07927">The Hidden Vulnerability of Distributed Learning in Byzantium, ICML'18</a></li>
+<li><a href="https://arxiv.org/abs/1803.01498">Byzantine-Robust Distributed Learning: Towards Optimal Statistical Rates, ICML'18</a></li>
+<li><a href="https://eprint.iacr.org/2019/979.pdf">PrivFL: Practical Privacy-preserving Federated Regressions on High-dimensional Data over Mobile Networks, CCSW'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8765347">VerifyNet: Secure and verifiable federated learning, TIFS'19</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8981947">NPMML: A Framework for Non-interactive Privacy-preserving Multi-party Machine Learning, TDSC'20</a></li>
+<li><a href="https://arxiv.org/abs/2007.14861">SAFER: Sparse secure Aggregation for FEderated leaRning, arXiv'20</a></li>
+<li><a href="https://arxiv.org/abs/2006.04747">Secure Byzantine-Robust Machine Learning, arXiv'20</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/fang">Local Model Poisoning Attacks to Byzantine-Robust Federated Learning, USENIX Security'20</a></li>
+<li><a href="https://arxiv.org/abs/2003.10637">FedSel: Federated SGD under Local Differential Privacy with Top-k Dimension Selection, DASFAA'20</a></li>
+<li><a href="https://eprint.iacr.org/2020/704.pdf">Secure Single-Server Aggregation with (Poly)Logarithmic Overhead, CCS'20</a></li>
+<li><a href="https://www.usenix.org/system/files/sec20-pan.pdf">Justinian’s GAAvernor: Robust Distributed Learning with Gradient Aggregation Agent, USENIX Security'20</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_20">PrivColl: Practical Privacy-Preserving Collaborative Machine Learning, ESORICS'20</a></li>
+<li><a href="https://www.usenix.org/conference/atc20/presentation/zhang-chengliang">Batchcrypt: Efficient homomorphic encryption for cross-silo federated learning, USENIX ATC'21</a></li>
+<li><a href="https://eprint.iacr.org/2021/025">FLGUARD: Secure and Private Federated Learning, Cryptology Eprint'21</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/9292450">Biscotti: A Blockchain System for Private and Secure Federated Learning, TPDS'21</a></li>
+<li><a href="https://arxiv.org/abs/2009.00349">POSEIDON: Privacy-Preserving Federated Neural Network Learning, NDSS'21</a></li>
+<li><a href="https://arxiv.org/abs/2104.14380">PPFL: Privacy-preserving Federated Learning with Trusted Execution Environments, MobiSys'21</a></li>
+<li><a href="https://arxiv.org/abs/2012.13995">FLTrust: Byzantine-robust Federated Learning via Trust Bootstrapping, NDSS'21</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/manipulating-the-byzantine-optimizing-model-poisoning-attacks-and-defenses-for-federated-learning/">Manipulating the Byzantine: Optimizing Model Poisoning Attacks and Defenses for Federated Learning, NDSS'21</a></li>
+<li><a href="https://arxiv.org/pdf/2105.02295.pdf">Byzantine-robust and privacy-preserving framework for FEDML, ICLR Workshop'21</a></li>
+<li><a href="http://proceedings.mlr.press/v139/karimireddy21a/karimireddy21a.pdf">Learning from History for Byzantine Robust Optimization, ICML'21</a></li>
+<li><a href="https://arxiv.org/abs/2101.02281">FLAME: Taming backdoors in federated learning, USENIX Security'22</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/stevens">Efficient Differentially Private Secure Aggregation for Federated Learning via Hardness of Learning with Errors, USENIX Security'22</a></li>
+<li><a href="https://arxiv.org/abs/2112.12727">EIFFeL: Ensuring Integrity for Federated Learning, CCS'22</a></li>
+<li><a href="https://arxiv.org/abs/2111.09679">Enhanced Membership Inference Attacks against Machine Learning Models, CCS'22</a></li>
+<li><a href="https://arxiv.org/abs/2009.03561">Local and Central Differential Privacy for Robustness and Privacy in Federated Learning, NDSS'22</a></li>
+</ul>
+<h2><a id="privacy-leakages" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy Leakages</h2>
+<ul>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/7958568">Membership inference attacks against machine learning models, S&amp;P'17</a></li>
+<li><a href="https://ieeexplore.ieee.org/abstract/document/8835245">Comprehensive privacy analysis of deep learning: Passive and active white-box inference attacks against centralized and federated learning, S&amp;P'19</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_24">Data Poisoning Attacks Against Federated Learning Systems, ESORICS'20</a></li>
+<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_27">A Framework for Evaluating Client Privacy Leakages in Federated Learning, ESORICS'20</a></li>
+<li><a href="https://www.computer.org/csdl/magazine/sp/2021/04/09433648/1tHMTWXyaUE">A Critical Overview of Privacy in Machine Learning, IEEE Security &amp; Privacy'21</a></li>
+</ul>
+<h2><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h2>
+<ul>
+<li><a href="https://github.com/esonghori/TinyGarble">TinyGarble: Logic Synthesis and Sequential Descriptions for Yao's Garbled Circuits</a></li>
+<li><a href="https://github.com/bristolcrypto/SPDZ-2">SPDZ-2: Multiparty computation with SPDZ, MASCOT, and Overdrive offline phases</a></li>
+<li><a href="https://github.com/encryptogroup/aby">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation</a></li>
+<li><a href="http://oblivc.org/">Obliv-C: C compiler for embedding privacy preserving protocols</a></li>
+<li><a href="https://github.com/tfhe/tfhe">TFHE: Fast Fully Homomorphic Encryption Library over the Torus</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/project/simple-encrypted-arithmetic-library/">SEAL: Simple Encypted Arithmatic Library</a></li>
+<li><a href="https://github.com/Lab41/PySEAL">PySEAL: Python interface to SEAL</a></li>
+<li><a href="https://github.com/shaih/HElib%5D">HElib: An Implementation of homomorphic encryption</a></li>
+<li><a href="https://github.com/mpc-msri/EzPC">EzPC: programmable, efficient, and scalable secure two-party computation for machine learning</a></li>
+<li><a href="https://github.com/vernamlab/cuFHE">CUDA-accelerated Fully Homomorphic Encryption Library</a></li>
+<li><a href="https://github.com/facebookresearch/CrypTen">CrypTen: A framework for Privacy Preserving Machine Learning</a></li>
+<li><a href="https://github.com/tf-encrypted/tf-encrypted">tf-encrypted: A Framework for Machine Learning on Encrypted Data</a></li>
+<li><a href="https://github.com/Ye-D/PPML-Resource">ABY3: A Three Party MPC framework for Machine learning and Databases</a></li>
+<li><a href="https://www.win.tue.nl/~berry/mpyc/">MPyC: MPyC for Secure Multiparty Computation in Python</a></li>
+<li><a href="https://github.com/OpenMined/SyMPC">SyMPC: A SMPC companion library for Syft</a></li>
+<li><a href="https://sharemind.cyber.ee/">Sharemind: The next generation of data-driven services with end-to-end data protection and accountability</a></li>
+<li><a href="https://github.com/data61/python-paillier">PythonPaillier: A library for Partially Homomorphic Encryption in Python</a></li>
+<li><a href="https://github.com/OpenMined/TenSEAL">TenSEAL: A library for doing homomorphic encryption operations on tensors</a></li>
+<li><a href="https://github.com/data61/MP-SPDZ">MP-SPDZ: Versatile framework for multi-party computation</a></li>
+<li><a href="https://github.com/FudanMPL/SecMML">SecMML: Secure MPC(multi-party computation) Machine Learning Framework based on BGW</a></li>
+<li><a href="https://github.com/csiro-mlai/mnist-mpc">mnist-mpc: Deep Learning Training with Multi-Party Computation</a></li>
+<li><a href="https://github.com/bit-ml/Private-Set-Intersection">Private-Set-Intersection: A PSI library for Python</a></li>
+<li><a href="https://github.com/snwagh/securenn-public">Securenn-public: 3-Party Secure Computation for Neural Network Training</a></li>
+<li><a href="https://github.com/snwagh/falcon-public">falcon-public: Honest-Majority Maliciously Secure Framework for Private Deep Learning</a></li>
+<li><a href="https://github.com/LatticeX-Foundation/Rosetta">Rosetta: A Privacy-Preserving Framework Based on TensorFlow</a></li>
+<li><a href="https://github.com/alipay/Antchain-MPC">Antchain-MPC: Antchain-MPC is a library of MPC (Multi-Parties Computation)</a></li>
+<li><a href="https://github.com/yuchen1024/Kunlun">Kunlun: A C++ library containing both easy-to-use lower level bigint/ecgroup interfaces and high-level cryptographical schemes/protocols</a></li>
+<li><a href="https://github.com/encryptogroup/MOTION2NX">MOTION2NX: A framework for generic hybrid two-party computation and private inference with neural networks</a></li>
+<li><a href="https://github.com/anderspkd/SecureQ8">SecureQ8: Input scripts for securely evaluating quantized ImageNet models with mp-spdz</a></li>
+<li><a href="https://github.com/mkskeller/mpc-benchmarks">mpc-benchmarks: Benchmarks for various multi-party computation frameworks</a></li>
+<li><a href="https://github.com/mc2-project/muse">Muse: a Python, C++, and Rust library for Secure Convolutional Neural Network Inference Resilient to Malicious Clients</a></li>
+<li><a href="https://github.com/bytedance/fedlearner">fedlearner: A multi-party collaborative machine learning framework</a></li>
+<li><a href="https://github.com/primihub/primihub">PrimiHub: Hyper Multi-Party computing platform</a></li>
+<li><a href="https://github.com/secretflow/secretflow">SecretFlow: A unified framework for privacy-preserving data analysis and machine learning</a></li>
+<li><a href="https://github.com/openfheorg/openfhe-development">OpenFHE: the development repository for the OpenFHE library</a></li>
+</ul>
+<h2><a id="blogs" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blogs</h2>
+<ul>
+<li><a href="https://mortendahl.github.io/">Cryptography and Machine Learning: Mixing both for private data analysis</a></li>
+<li><a href="https://iamtrask.github.io/2017/03/17/safe-ai/">Building Safe A.I.: A Tutorial for Encrypted Deep Learning</a></li>
+<li><a href="https://github.com/rdragos/awesome-mpc">Awesome MPC: Curated List of resources for MPC</a></li>
+<li><a href="https://www.zhihu.com/column/c_1121838720017338368">知乎专栏: 机器学习隐私保护</a>, <a href="https://github.com/Ye-D/PaperNotes-MPC">Github专栏</a></li>
+<li><a href="https://www.zhihu.com/column/c_1380808297608613888">知乎专栏: 安全多方计算学习笔记</a></li>
+<li><a href="https://paperexplained.cn/c/pe/">论文分享 - 爱吃猫的鱼</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Honest Majority MPC with Abort with Minimal Online Communication]]></title>
@@ -158,7 +708,7 @@
 <li>各参与方打开\(f(r)\), \(g(r)\)和\(h(r)\), 验证\(h(r)=f(r)g(r)\).</li>
 </ol>
 <p>首先, 最后一步中打开的值不会破坏协议的隐私性, 因为这些份额是原始三元组的线性组合, 其中有一个是随机且未被打开的.</p>
-<p>接下来说明, 对于\(i=1,\cdots,M\), 协议正确地检验了\(\delta_i=0\). 事实上, 若存在\(\delta_i\neq0\), 则\(h(X)\neq f(X)g(X)\)作为多项式, 根据代数基本代理, 除了至多$(2M-2)/|\mathbb F|$的概率外, 有\(h(r)\neq f(r)g(r)\).</p>
+<p>接下来说明, 对于\(i=1,\cdots,M\), 协议正确地检验了\(\delta_i=0\). 事实上, 若存在\(\delta_i\neq0\), 则\(h(X)\neq f(X)g(X)\)作为多项式, 根据代数基本定理, 除了至多$(2M-2)/|\mathbb F|$的概率外, 有\(h(r)\neq f(r)g(r)\).</p>
 <h4><a id="6-1-2-extending-the-check-to-mathbb-z-2-k" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>6.1.2 Extending the check to \(\mathbb Z_{2^k}\)</h4>
 <p>上述方案不能扩展到\(\mathbb Z_{2^k}\)上, 原因如下:</p>
 <ol>
@@ -181,222 +731,6 @@
 <p>[4] A. Ben-Efraim, M. Nielsen, and E. Omri. Turbospeedz: Double your online SPDZ! Improving SPDZ using function dependent preprocessing. ACNS'19.</p>
 <p>[5] E. Ben-Sasson, S. Fehr, and R. Ostrovsky. Near-linear unconditionally-secure multiparty computation with a dishonest minority. CRYPTO'12.</p>
 <p>[6] M. Abspoel, R. Cramer, I. Damgård, D. Escudero, and C. Yuan. Efficient information-theoretic secure multiparty computation over \(\mathbb Z/p^k\mathbb Z\) via galois rings. TCC'19.</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Privacy Preserving Machine Learning Resources]]></title>
-    <link href="https://weiviming.github.io/16434684624710.html"/>
-    <updated>2022-01-29T23:01:02+08:00</updated>
-    <id>https://weiviming.github.io/16434684624710.html</id>
-    <content type="html"><![CDATA[
-<p>Last update: Sept. 14, 2022.</p>
-<h2><a id="about" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>About</h2>
-<p>This is a current list of resources related to the research and development of privacy-preserving machine learning.</p>
-<h2><a id="secure-machine-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Machine Learning</h2>
-<ul>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-540-88313-5_13">Sharemind: A framework for fast privacy-preserving computations, ESORICS'08</a></li>
-<li><a href="https://eprint.iacr.org/2010/365">TASTY: Tool for Automating Secure Two-partY computations, CCS'10</a></li>
-<li><a href="https://eprint.iacr.org/2014/331.pdf">Machine Learning Classification over Encrypted Data, NDSS'14</a></li>
-<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/CryptonetsTechReport.pdf">CryptoNets: Applying Neural Networks to Encrypted Data with High Throughput and Accuracy, ICML'16</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/ohrimenko">Oblivious Multi-Party Machine Learning on Trusted Processors, USENIX Security'16</a></li>
-<li><a href="https://arxiv.org/abs/1711.05189">CryptoDL: Deep Neural Networks over Encrypted Data, arXiv'17</a></li>
-<li><a href="https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/corrigan-gibbs">Prio: Private, Robust, and Scalable Computation of Aggregate Statistics, NSDI'17</a></li>
-<li><a href="https://eprint.iacr.org/2017/396">SecureML: A System for Scalable Privacy-Preserving Machine Learning, S&amp;P'17</a></li>
-<li><a href="https://acmccs.github.io/papers/p619-liuA.pdf">MiniONN: Oblivious Neural Network Predictions via MiniONN Transformations, CCS'17</a></li>
-<li><a href="https://eprint.iacr.org/2017/1164">Chameleon: A Hybrid Secure Computation Framework for Machine Learning Applications, AsiaCCS'17</a></li>
-<li><a href="https://arxiv.org/abs/1705.08963">DeepSecure: Scalable Provably-Secure Deep Learning, DAC'17</a></li>
-<li><a href="https://arxiv.org/abs/1901.00329">Secure Computation for Machine Learning With SPDZ, NIPS'18</a></li>
-<li><a href="https://eprint.iacr.org/2018/403.pdf">ABY3: A Mixed protocol Framework for Machine Learning, CCS'18</a></li>
-<li><a href="https://eprint.iacr.org/2018/442.pdf">SecureNN: Efficient and Private Neural Network Training, PoPETs'18</a></li>
-<li><a href="https://arxiv.org/abs/1801.05507">Gazelle: A Low Latency Framework for Secure Neural Network Inference, USENIX Security'18</a></li>
-<li><a href="https://arxiv.org/abs/1811.04017">PySyft: A Generic Framework for Privacy Preserving Deep Learning, arXiv'18</a></li>
-<li><a href="https://arxiv.org/abs/1810.08130">Private Deep Learning in TensorFlow Using Secure Computation, arXiv'18</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=3314628">CHET: an optimizing compiler for fully-homomorphic neural-network inferencing, PLDI'19</a></li>
-<li><a href="https://ieeexplore.ieee.org/abstract/document/8835215">Helen: Maliciously Secure Coopetitive Learning for Linear Models, S&amp;P'19</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=3363207">Efficient multi-key homomorphic encryption with packed ciphertexts with application to oblivious neural network inference, CCS'19</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/riazi">XONN: XNOR-based Oblivious Deep Neural Network Inference, USENIX Security'19</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=3339819">QUOTIENT: two-party secure neural network training and prediction, CCS'19</a></li>
-<li><a href="https://eprint.iacr.org/2019/429">ASTRA: High Throughput 3PC over Rings with Application to Secure Prediction, CCSW'19</a></li>
-<li><a href="https://eprint.iacr.org/2018/1099.pdf">SoK: Modular and Efficient Private Decision Tree Evaluation, PoPETs'19</a></li>
-<li><a href="https://eprint.iacr.org/2019/338.pdf">Garbled Neural Networks are Practical, IACR ePrint'19</a></li>
-<li><a href="https://eprint.iacr.org/2019/1315">Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning, NDSS'20</a></li>
-<li><a href="https://eprint.iacr.org/2020/042">BLAZE: Blazing Fast Privacy-Preserving Machine Learning, NDSS'20</a></li>
-<li><a href="https://eprint.iacr.org/2019/1365">FLASH: Fast and Robust Framework for Privacy-preserving Machine Learning, PoPETs'20</a></li>
-<li><a href="https://eprint.iacr.org/2020/050">Delphi: A Cryptographic Inference Service for Neural Networks, USENIX Security'20</a></li>
-<li><a href="https://dl.acm.org/doi/abs/10.1145/3404397.3404399">ParSecureML: An Efficient Parallel Secure Machine Learning Framework on GPUs, ICPP'20</a></li>
-<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p355.xml">Secure Evaluation of Quantized Neural Networks, PoPETs'20</a></li>
-<li><a href="https://dl.acm.org/doi/abs/10.1145/3407023.3407045">MP2ML: A Mixed-Protocol Machine Learning Framework for Private Inference, ARES'20</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/chen-hao">SANNS: Scaling Up Secure Approximate k-Nearest Neighbors Search, USENIX Security'20</a></li>
-<li><a href="https://eprint.iacr.org/2019/1049.pdf">CrypTFlow: Secure TensorFlow Inference, S&amp;P'20</a></li>
-<li><a href="https://arxiv.org/abs/2010.06457">CrypTFlow2: Practical 2-Party Secure Inference, CCS'20</a></li>
-<li><a href="https://content.sciendo.com/view/journals/poPoPETs/2020/4/article-p414.xml">Practical Privacy-Preserving K-means Clustering, PoPETs'20</a></li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_21">An Efficient 3-Party Framework for Privacy-Preserving Neural Network Inference, ESORICS'20</a></li>
-<li><a href="https://dl.acm.org/doi/abs/10.1145/3427228.3427232">Secure and Verifiable Inference in Deep Neural Networks, ACSAC'20</a></li>
-<li><a href="https://arxiv.org/abs/2007.12934">SOTERIA: In Search of Efficient Neural Networks for Private Inference, arXiv'20</a></li>
-<li><a href="https://arxiv.org/pdf/1911.07101.pdf">Glyph: Fast and Accurately Training Deep Neural Networks on Encrypted Data, NeurIPS'20</a></li>
-<li><a href="http://www.jos.org.cn/jos/article/abstract/6052">机器学习隐私保护研究综述, 软件学报'20</a></li>
-<li><a href="https://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2021.20210626">安全多方计算及其在机器学习中的应用, 计算机研究与发展'21</a></li>
-<li><a href="https://arxiv.org/abs/2004.02229">FALCON: Honest-Majority Maliciously Secure Framework for Private Deep Learning, PoPETs'21</a></li>
-<li><a href="https://www.eurecom.fr/publication/6475/download/sec-publi-6475.0.pdf">Privacy-preserving Density-based Clustering, AisaCCS'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/459">SIRNN: A Math Library for Secure RNN Inference, S&amp;P'21</a></li>
-<li><a href="https://www.ndss-symposium.org/ndss-paper/lets-stride-blindfolded-in-a-forest-sublinear-multi-client-decision-trees-evaluation/">Let’s Stride Blindfolded in a Forest: Sublinear Multi-Client Decision Trees Evaluation, NDSS'21</a></li>
-<li><a href="https://people.eecs.berkeley.edu/~raluca/MUSEcamera.pdf">MUSE: Secure Inference Resilient to Malicious Clients, USENIX Security'21</a></li>
-<li><a href="https://arxiv.org/abs/2103.01396">DeepReDuce: ReLU Reduction for Fast Private Inference, ICML'21</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/ng">GForce: GPU-Friendly Oblivious and Rapid Neural Network Inference, USENIX Security'21</a></li>
-<li><a href="http://arxiv.org/abs/2104.10949">CryptGPU: Fast Privacy-Preserving Machine Learning on the GPU, S&amp;P'21</a></li>
-<li><a href="https://www.ndss-symposium.org/ndss-paper/gala-greedy-computation-for-linear-algebra-in-privacy-preserved-neural-networks/">GALA : Greedy ComputAtion for Linear Algebra in Privacy-Preserved Neural Networks, NDSS'21</a></li>
-<li><a href="https://arxiv.org/abs/2005.10296">SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning, USENIX Security'21</a></li>
-<li><a href="https://www.usenix.org/system/files/sec21fall-dalskov.pdf">Fantastic Four: Honest-Majority Four-Party Secure Computation With Malicious Security, USENIX Security'21</a></li>
-<li><a href="https://arxiv.org/abs/2008.08753">When homomorphic encryption marries secret sharing: secure large-scale sparse logistic regression and applications in risk control, KDD'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/730">Mystique: Efficient Conversions for Zero-Knowledge Proofs with Applications to Machine Learning, USENIX Security'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/809">SoK: Efficient Privacy-preserving Clustering, PoPETs'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/087">ZEN: Efficient Zero-Knowledge Proofs for Neural Networks, IACR ePrint'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/673">zkCNN: Zero Knowledge Proofs for Convolutional Neural Network Predictions and Accuracy, CCS'21</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/zheng">Cerebro: A Platform for Multi-Party Cryptographic Collaborative Learning, USENIX Security'21</a></li>
-<li><a href="https://proceedings.neurips.cc/paper/2021/file/11eba2991cc62daa4a85be5c0cfdae97-Paper.pdf">Circa: Stochastic ReLUs for Private Deep Learning, NeurIPS'21</a></li>
-<li><a href="https://arxiv.org/abs/2106.02203">Adam in Private: Secure and Fast Training of Deep Neural Networks with Adaptive Moment Estimation, arXiv'21</a></li>
-<li><a href="https://dl.acm.org/doi/10.1145/3437880.3460394">Banners: Binarized Neural Networks with Replicated Secret Sharing, IH&amp;MMSec'21</a></li>
-<li><a href="https://arxiv.org/abs/2106.02850">Tetrad: Actively Secure 4PC for Secure Training and Inference, NDSS'22</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/chandran">SIMC: ML Inference Secure Against Malicious Clients at Semi-Honest Cost, USENIX Security'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/207">Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference, USENIX Security'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/322.pdf">SecFloat: Accurate Floating-Point meets Secure 2-Party Computation, S&amp;P'22</a></li>
-<li><a href="https://arxiv.org/abs/2006.04593">ARIANN: Low-Interaction Privacy-Preserving Deep Learning via Function Secret Sharing, PoPETs'22</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/kelkar">Secure Poisson Regression, USENIX Security'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/675">MPClan: Protocol Suite for Privacy-Conscious Computations, IACR ePrint'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/793">LLAMA: A Low Latency Math Library for Secure Inference, PoPETs'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/826">Pika: Secure Computation using Function Secret Sharing over Rings, PoPETs'22</a></li>
-<li><a href="https://petsymposium.org/popets/2022/popets-2022-0020.php">Polymath: Low-Latency MPC via Secure Polynomial Evaluations and Its Applications, PoPETs'22</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/watson">Piranha: A GPU platform for secure computation, USENIX Security'22</a></li>
-<li><a href="https://arxiv.org/abs/2107.00501">Secure Quantized Training for Deep Learning, ICML'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/1118">PentaGOD: Stepping beyond Traditional GOD with Five Parties, CCS'22</a></li>
-<li><a href="https://doi.org/10.1145/3489517.3530680">ABNN2: secure two-party arbitrary-bitwidth quantized neural network predictions, DAC'22</a></li>
-<li><a href="https://arxiv.org/abs/2112.12855">SoK: Privacy-preserving Deep Learning with Homomorphic Encryption, arXiv'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/238">HEAD: an FHE-based Privacy-preserving Cloud Computing Protocol with Compact Storage and Efficient Computation, IACR ePrint'22</a></li>
-</ul>
-<h2><a id="secure-multiparty-computation" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Multiparty Computation</h2>
-<ul>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-14577-3_6">Secure computation with fixed-point numbers, FC'10</a></li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-32009-5_38">Multiparty computation from somewhat homomorphic encryption, CRYPTO'12</a></li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-39884-1_23">GMW vs. Yao? Efficient secure two-party computation with low depth circuits, FC'13</a></li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-642-40203-6_1">Practical covertly secure MPC for dishonest majority–or: breaking the SPDZ limits, ESORICS'13</a></li>
-<li><a href="https://eprint.iacr.org/2012/405.pdf">Secure Computation on Floating Point Numbers, NDSS'13</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=2660366">Efficiently Verifiable Computation on Encrypted Data, CCS'14</a></li>
-<li><a href="https://crad.ict.ac.cn/CN/10.7544/issn1000-1239.2015.20150763">实用安全多方计算协议关键技术研究进展, 计算机研究与发展'15</a></li>
-<li><a href="https://encrypto.de/papers/DSZ15.pdf">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation, NDSS'15</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=2978357">MASCOT: faster malicious arithmetic secure computation with oblivious transfer, CCS'16</a></li>
-<li><a href="https://dl.acm.org/citation.cfm?id=2978331">High-Throughput Semi-Honest Secure Three-Party Computation with an Honest Majority, CCS'16</a></li>
-<li><a href="https://dl.acm.org/doi/10.1145/3243734.3243837">Secure outsourced matrix computation and application to neural networks, CCS'18</a></li>
-<li><a href="https://eprint.iacr.org/2018/570">Fast large-scale honest-majority MPC for malicious adversaries, CRYPTO'18</a></li>
-<li><a href="https://eprint.iacr.org/2018/474">Minimising communication in honest-majority MPC by batchwise multiplication verification, ACNS'18</a></li>
-<li><a href="https://eprint.iacr.org/2017/908">Yet another compiler for active security or: Efficient MPC over arbitrary rings, CRYPTO'18</a></li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-319-96881-0_26">SPDZ^2k: Efficient MPC mod 2^k for Dishonest Majority, CRYPTO'18</a></li>
-<li><a href="https://eprint.iacr.org/2017/1230">Overdrive^2k: Making SPDZ Great Again, EUROCRYPT'18</a></li>
-<li><a href="https://eprint.iacr.org/2019/599.pdf">New Primitives for Actively-Secure MPC over Rings with Applications to Private Machine Learning, S&amp;P'19</a></li>
-<li><a href="https://dl.acm.org/doi/abs/10.1145/3292500.3330920">PrivPy: General and Scalable Privacy-Preserving Data Mining, KDD'19</a></li>
-<li><a href="https://dl.acm.org/doi/10.1145/3319535.3339811">Two-thirds honest-majority MPC for malicious adversaries at almost the cost of semi-honest, CCS'19</a></li>
-<li><a href="https://dl.acm.org/doi/10.1145/3372297.3417872">MP-SPDZ: A Versatile Framework for Multi-Party Computation, CCS'20</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/poddar">Senate: A Maliciously-Secure MPC Platform for Collaborative Analytics, USENIX Security'20</a></li>
-<li><a href="https://eprint.iacr.org/2020/338.pdf">Improved primitives for mpc over mixed arithmetic-binary circuits, CRYPTO'20</a></li>
-<li><a href="https://eprint.iacr.org/2020/189">Guaranteed Output Delivery Comes Free in Honest Majority MPC, CRYPTO'20</a></li>
-<li><a href="https://eprint.iacr.org/2019/164.pdf">Use Your Brain! Arithmetic 3PC for Any Modulus with Active Security, ITC'20</a></li>
-<li><a href="https://arxiv.org/pdf/1907.03415">Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application, FC'20</a></li>
-<li><a href="https://eprint.iacr.org/2020/1556">Honest Majority MPC with Abort with Minimal Online Communication, Latincrypt'21</a></li>
-<li><a href="https://eprint.iacr.org/2020/1137">MOTION - A Framework for Mixed-Protocol Multi-Party Computation, TOPS'21</a></li>
-<li><a href="https://eprint.iacr.org/2020/1225.pdf">ABY2.0: Improved Mixed-Protocol Secure Two-Party Computation, USENIX Security'21</a></li>
-<li><a href="https://encrypto.de/papers/PSSY21HOST.pdf">SynCirc: Efficient Synthesis of Depth-Optimized Circuits for Secure Computation, HOST'21</a></li>
-<li><a href="https://www.usenix.org/conference/osdi21/presentation/kumar">MAGE: Nearly Zero-Cost Virtual Memory for Secure Computation, USENIX OSDI'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/1493.pdf">VASA: Vector AES Instructions for Security Applications, ACSAC'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/833">ATLAS: Efficient and Scalable MPC in the Honest Majority Setting, CRYPTO'21</a></li>
-<li><a href="https://www.sciendo.com/article/10.2478/popets-2021-0073">Secure integer division with a private divisor, PoPETs'21</a></li>
-<li><a href="https://eprint.iacr.org/2019/1298">An Efficient Passive-to-Active Compiler for Honest-Majority MPC over Rings, ACNS'21</a></li>
-<li><a href="https://doi.org/10.1051/sands/2021001">Concretely efficient secure multi-party computation protocols: survey and more, SandS'21</a></li>
-<li><a href="https://eprint.iacr.org/2022/623">Fast Fully Secure Multi-Party Computation over Any Ring with Two-Thirds Honest Majority, CCS'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/302">SoK: Oblivious Pseudorandom Functions, EuroS&amp;P'22</a></li>
-<li><a href="https://eprint.iacr.org/2022/915">OpenFHE: Open-Source Fully Homomorphic Encryption Library, WAHC'22</a></li>
-<li><a href="http://www.jcr.cacrnet.org.cn/CN/Y2022/V9/I3/379">简洁非交互零知识证明综述, 密码学报'22</a></li>
-</ul>
-<h2><a id="secure-federated-learning" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Secure Federated Learning</h2>
-<ul>
-<li><a href="https://dl.acm.org/citation.cfm?id=2813687">Privacy-Preserving Deep Learning, CCS'15</a></li>
-<li><a href="https://eprint.iacr.org/2017/281.pdf">Practical Secure Aggregation for Privacy Preserving Machine Learning, CCS'17</a></li>
-<li><a href="https://ieeexplore.ieee.org/document/8241854">Privacy-Preserving Deep Learning via Additively Homomorphic Encryption, TIFS'17</a></li>
-<li><a href="http://papers.nips.cc/paper/6749-terngrad-ternary-gradients-to-reduce-communication-in-distributed-deep-learning">Terngrad: Ternary gradients to reduce communication in distributed deep learning, NIPS'17</a></li>
-<li><a href="http://papers.nips.cc/paper/6617-machine-learning-with-adversaries-byzantine-tolerant-gradient-descent">Machine Learning with Adversaries: Byzantine Tolerant Gradient Descent, NIPS'17</a></li>
-<li><a href="http://cacr.uwaterloo.ca/techreports/2018/cacr2018-10.pdf">NIKE-based Fast Privacy-preserving High-dimensional Data Aggregation for Mobile Devices, CACR'18</a></li>
-<li><a href="https://papers.nips.cc/paper/2018/hash/314450613369e0ee72d0da7f6fee773c-Abstract.html">The Convergence of Sparsified Gradient Methods, NIPS'18</a></li>
-<li><a href="https://papers.nips.cc/paper/2018/file/a07c2f3b3b907aaf8436a26c6d77f0a2-Paper.pdf">Byzantine stochastic gradient descent, NIPS'18</a></li>
-<li><a href="https://arxiv.org/abs/1802.07927">The Hidden Vulnerability of Distributed Learning in Byzantium, ICML'18</a></li>
-<li><a href="https://arxiv.org/abs/1803.01498">Byzantine-Robust Distributed Learning: Towards Optimal Statistical Rates, ICML'18</a></li>
-<li><a href="https://eprint.iacr.org/2019/979.pdf">PrivFL: Practical Privacy-preserving Federated Regressions on High-dimensional Data over Mobile Networks, CCSW'19</a></li>
-<li><a href="https://ieeexplore.ieee.org/abstract/document/8765347">VerifyNet: Secure and verifiable federated learning, TIFS'19</a></li>
-<li><a href="https://ieeexplore.ieee.org/abstract/document/8981947">NPMML: A Framework for Non-interactive Privacy-preserving Multi-party Machine Learning, TDSC'20</a></li>
-<li><a href="https://arxiv.org/abs/2007.14861">SAFER: Sparse secure Aggregation for FEderated leaRning, arXiv'20</a></li>
-<li><a href="https://arxiv.org/abs/2006.04747">Secure Byzantine-Robust Machine Learning, arXiv'20</a></li>
-<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/fang">Local Model Poisoning Attacks to Byzantine-Robust Federated Learning, USENIX Security'20</a></li>
-<li><a href="https://arxiv.org/abs/2003.10637">FedSel: Federated SGD under Local Differential Privacy with Top-k Dimension Selection, DASFAA'20</a></li>
-<li><a href="https://eprint.iacr.org/2020/704.pdf">Secure Single-Server Aggregation with (Poly)Logarithmic Overhead, CCS'20</a></li>
-<li><a href="https://www.usenix.org/system/files/sec20-pan.pdf">Justinian’s GAAvernor: Robust Distributed Learning with Gradient Aggregation Agent, USENIX Security'20</a></li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-58951-6_20">PrivColl: Practical Privacy-Preserving Collaborative Machine Learning, ESORICS'20</a></li>
-<li><a href="https://www.usenix.org/conference/atc20/presentation/zhang-chengliang">Batchcrypt: Efficient homomorphic encryption for cross-silo federated learning, USENIX ATC'21</a></li>
-<li><a href="https://eprint.iacr.org/2021/025">FLGUARD: Secure and Private Federated Learning, Cryptology Eprint'21</a></li>
-<li><a href="https://ieeexplore.ieee.org/document/9292450">Biscotti: A Blockchain System for Private and Secure Federated Learning, TPDS'21</a></li>
-<li><a href="https://arxiv.org/abs/2009.00349">POSEIDON: Privacy-Preserving Federated Neural Network Learning, NDSS'21</a></li>
-<li><a href="https://arxiv.org/abs/2104.14380">PPFL: Privacy-preserving Federated Learning with Trusted Execution Environments, MobiSys'21</a></li>
-<li><a href="https://arxiv.org/abs/2012.13995">FLTrust: Byzantine-robust Federated Learning via Trust Bootstrapping, NDSS'21</a></li>
-<li><a href="https://www.ndss-symposium.org/ndss-paper/manipulating-the-byzantine-optimizing-model-poisoning-attacks-and-defenses-for-federated-learning/">Manipulating the Byzantine: Optimizing Model Poisoning Attacks and Defenses for Federated Learning, NDSS'21</a></li>
-<li><a href="https://arxiv.org/pdf/2105.02295.pdf">Byzantine-robust and privacy-preserving framework for FEDML, ICLR Workshop'21</a></li>
-<li><a href="http://proceedings.mlr.press/v139/karimireddy21a/karimireddy21a.pdf">Learning from History for Byzantine Robust Optimization, ICML'21</a></li>
-<li><a href="https://arxiv.org/abs/2101.02281">FLAME: Taming backdoors in federated learning, USENIX Security'22</a></li>
-</ul>
-<h2><a id="libraries-and-frameworks" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and Frameworks</h2>
-<ul>
-<li><a href="https://github.com/esonghori/TinyGarble">TinyGarble: Logic Synthesis and Sequential Descriptions for Yao's Garbled Circuits</a></li>
-<li><a href="https://github.com/bristolcrypto/SPDZ-2">SPDZ-2: Multiparty computation with SPDZ, MASCOT, and Overdrive offline phases</a></li>
-<li><a href="https://github.com/encryptogroup/aby">ABY: A Framework for Efficient Mixed-Protocol Secure Two-Party Computation</a></li>
-<li><a href="http://oblivc.org/">Obliv-C: C compiler for embedding privacy preserving protocols</a></li>
-<li><a href="https://github.com/tfhe/tfhe">TFHE: Fast Fully Homomorphic Encryption Library over the Torus</a></li>
-<li><a href="https://www.microsoft.com/en-us/research/project/simple-encrypted-arithmetic-library/">SEAL: Simple Encypted Arithmatic Library</a></li>
-<li><a href="https://github.com/Lab41/PySEAL">PySEAL: Python interface to SEAL</a></li>
-<li><a href="https://github.com/shaih/HElib%5D">HElib: An Implementation of homomorphic encryption</a></li>
-<li><a href="https://github.com/mpc-msri/EzPC">EzPC: programmable, efficient, and scalable secure two-party computation for machine learning</a></li>
-<li><a href="https://github.com/vernamlab/cuFHE">CUDA-accelerated Fully Homomorphic Encryption Library</a></li>
-<li><a href="https://github.com/facebookresearch/CrypTen">CrypTen: A framework for Privacy Preserving Machine Learning</a></li>
-<li><a href="https://github.com/tf-encrypted/tf-encrypted">tf-encrypted: A Framework for Machine Learning on Encrypted Data</a></li>
-<li><a href="https://github.com/Ye-D/PPML-Resource">ABY3: A Three Party MPC framework for Machine learning and Databases</a></li>
-<li><a href="https://www.win.tue.nl/~berry/mpyc/">MPyC: MPyC for Secure Multiparty Computation in Python</a></li>
-<li><a href="https://github.com/OpenMined/SyMPC">SyMPC: A SMPC companion library for Syft</a></li>
-<li><a href="https://sharemind.cyber.ee/">Sharemind: The next generation of data-driven services with end-to-end data protection and accountability</a></li>
-<li><a href="https://github.com/data61/python-paillier">PythonPaillier: A library for Partially Homomorphic Encryption in Python</a></li>
-<li><a href="https://github.com/OpenMined/TenSEAL">TenSEAL: A library for doing homomorphic encryption operations on tensors</a></li>
-<li><a href="https://github.com/data61/MP-SPDZ">MP-SPDZ: Versatile framework for multi-party computation</a></li>
-<li><a href="https://github.com/FudanMPL/SecMML">SecMML: Secure MPC(multi-party computation) Machine Learning Framework based on BGW</a></li>
-<li><a href="https://github.com/csiro-mlai/mnist-mpc">mnist-mpc: Deep Learning Training with Multi-Party Computation</a></li>
-<li><a href="https://github.com/bit-ml/Private-Set-Intersection">Private-Set-Intersection: A PSI library for Python</a></li>
-<li><a href="https://github.com/snwagh/securenn-public">Securenn-public: 3-Party Secure Computation for Neural Network Training</a></li>
-<li><a href="https://github.com/snwagh/falcon-public">falcon-public: Honest-Majority Maliciously Secure Framework for Private Deep Learning</a></li>
-<li><a href="https://github.com/LatticeX-Foundation/Rosetta">Rosetta: A Privacy-Preserving Framework Based on TensorFlow</a></li>
-<li><a href="https://github.com/alipay/Antchain-MPC">Antchain-MPC: Antchain-MPC is a library of MPC (Multi-Parties Computation)</a></li>
-<li><a href="https://github.com/yuchen1024/Kunlun">Kunlun: A C++ library containing both easy-to-use lower level bigint/ecgroup interfaces and high-level cryptographical schemes/protocols</a></li>
-<li><a href="https://github.com/encryptogroup/MOTION2NX">MOTION2NX: A framework for generic hybrid two-party computation and private inference with neural networks</a></li>
-<li><a href="https://github.com/anderspkd/SecureQ8">SecureQ8: Input scripts for securely evaluating quantized ImageNet models with mp-spdz</a></li>
-<li><a href="https://github.com/mkskeller/mpc-benchmarks">mpc-benchmarks: Benchmarks for various multi-party computation frameworks</a></li>
-<li><a href="https://github.com/mc2-project/muse">Muse: a Python, C++, and Rust library for Secure Convolutional Neural Network Inference Resilient to Malicious Clients</a></li>
-<li><a href="https://github.com/bytedance/fedlearner">fedlearner: A multi-party collaborative machine learning framework</a></li>
-<li><a href="https://github.com/primihub/primihub">PrimiHub: Hyper Multi-Party computing platform</a></li>
-<li><a href="https://github.com/secretflow/secretflow">SecretFlow: A unified framework for privacy-preserving data analysis and machine learning</a></li>
-<li><a href="https://github.com/openfheorg/openfhe-development">OpenFHE: the development repository for the OpenFHE library</a></li>
-<li><a href="https://github.com/alibaba-edu/mpc4j">mpc4j: Multi-Party Computation for Java</a></li>
-</ul>
-<h2><a id="blogs" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blogs</h2>
-<ul>
-<li><a href="https://mortendahl.github.io/">Cryptography and Machine Learning: Mixing both for private data analysis</a></li>
-<li><a href="https://iamtrask.github.io/2017/03/17/safe-ai/">Building Safe A.I.: A Tutorial for Encrypted Deep Learning</a></li>
-<li><a href="https://github.com/rdragos/awesome-mpc">Awesome MPC: Curated List of resources for MPC</a></li>
-<li><a href="https://www.zhihu.com/column/c_1121838720017338368">知乎专栏: 机器学习隐私保护</a>, <a href="https://github.com/Ye-D/PaperNotes-MPC">Github专栏</a></li>
-<li><a href="https://www.zhihu.com/column/c_1380808297608613888">知乎专栏: 安全多方计算学习笔记</a></li>
-</ul>
 
 ]]></content>
   </entry>
@@ -5106,104 +5440,6 @@ uninstall:
 # vim: set tabstop=2: set shiftwidth=2:
 </code></pre>
 <p>来源: <a href="https://gist.githubusercontent.com/tpu01yzx/826f47d2db2da9575e0916b4c1c234fc/raw/88aa7ff68557762e7ff3c275f9cceab62ec41da5/Makefile">这里</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Beamer的若干技巧]]></title>
-    <link href="https://weiviming.github.io/16372025188365.html"/>
-    <updated>2021-11-18T10:28:38+08:00</updated>
-    <id>https://weiviming.github.io/16372025188365.html</id>
-    <content type="html"><![CDATA[
-<h2><a id="%E6%89%93%E5%BC%80%E8%87%AA%E5%8A%A8%E5%85%A8%E5%B1%8F" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>打开自动全屏</h2>
-<p>仅限Acrobat Reader有效.</p>
-<pre class="line-numbers"><code class="language-latex">\hypersetup{pdfpagemode=FullScreen}
-</code></pre>
-<h2><a id="%E4%B8%8D%E5%90%8C%E7%AB%A0%E8%8A%82%E5%89%8D%E6%98%BE%E7%A4%BA%E8%AF%A5%E7%AB%A0%E8%8A%82%E7%9B%AE%E5%BD%95%E9%A1%B5" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>不同章节前显示该章节目录页</h2>
-<p>如果目录较长, 可能需要分两列显示, 为此, 首先在导言区(<code>\begin{document}</code>之前)添加以下宏包:</p>
-<pre class="line-numbers"><code class="language-latex">\usepackage{multicol}
-</code></pre>
-<p>然后, 在第一帧(标题页)之后插入如下命令:</p>
-<pre class="line-numbers"><code class="language-latex">\begin{frame}{Outline} % 插入目录帧, 标题显示为Outline
-	\begin{multicols}{2}
- 	\tableofcontents[sections={&lt;1-7&gt;}]
- 	\end{multicols}
-\end{frame}
-  \AtBeginSection[] {
-  \frame&lt;handout:0&gt; {
-  \frametitle{Outline}
-  \begin{multicols}{2}
-	\tableofcontents[current,currentsubsection,hideothersubsections,sectionstyle=show/shaded,sections={&lt;1-7&gt;}]
-  \end{multicols}
-    }
-    \addtocounter{framenumber}{-1}  %目录帧不计算页码
- }
-</code></pre>
-<p>上述命令在不同章节目录下不会显示其他章节的子标题. 命令中的<code>7</code>可以根据自己章节总数的多少自由修改.</p>
-<h2><a id="%E5%B7%A6%E4%BE%A7%E6%8F%92%E5%9B%BE%E5%8F%B3%E4%BE%A7%E8%A7%A3%E9%87%8A" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>左侧插图右侧解释</h2>
-<p>有时候在用LaTeX做Beamer时, 需要在图片右侧插入相关解释, 为此可以使用<code>columns</code>环境, 具体做法如下:</p>
-<pre class="line-numbers"><code class="language-latex">\begin{columns}
-\column{.6\textwidth}
-\begin{figure}
-\centering
-	\includegraphics[scale=0.21]{img.png}
-\end{figure}
-\column{.3\textwidth}
-解释文字.
-\end{columns}
-</code></pre>
-<h2><a id="%E9%80%90%E6%AD%A5%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>逐步显示内容</h2>
-<p>最简单的方案是在需要分步显示的语句前插入<code>\pause</code>,  如此会显示下一个<code>\pause</code>之前的内容, 而后面的内容不显示.</p>
-<pre class="line-numbers"><code class="language-latex">\begin{frame}
-直接显示内容1. 
-\pause
-显示内容2. 
-\pause
-再显示内容3.
-\end{frame}
-</code></pre>
-<p>如果需要半透明显示后面的内容, 可以在<code>\begin{document}</code>之前插入如下语句:</p>
-<pre class="line-numbers"><code class="language-latex">\setbeamercovered{dynamic} %% 令\pause后面的内容半透明
-</code></pre>
-<p>其实还可以使用<code>\onslide&lt;序号&gt;{显示内容}</code>命令来控制内容输出的次序, 序号控制了同一帧中第几步显示, 如果序号后面有短线<code>-</code>, 那么在以后的步骤中将一直显示该步的内容.</p>
-<p>以上步骤的内容都将存在占位. 如果某些内容只需在某一步中显示一次, 不想像<code>\pause</code>和<code>\onslide</code>命令一样在后续动画中占位, 可以使用<code>\only&lt;序号&gt;{内容}</code>命令.</p>
-<p>此外, 如果需要高亮强调某步的内容, 可以设置<code>alert</code>表示警告色彩(红色)显示, 也可以设置<code>structure</code>用Beamer主题颜色的色彩来高亮显示, 但警告色/高亮色会在下一步显示时变回普通样式, 如果需要长期显示, 可以直接使用颜色命令<code>\color{颜色代码}</code>标记该步的内容.</p>
-<pre class="line-numbers"><code class="language-latex">\begin{frame}
-直接显示.
-\onslide&lt;1&gt; {只在第一步显示.} 
-
-\only&lt;2&gt;{只在第二步显示的内容, 下一步显示前消失.}
-
-\onslide&lt;1,3&gt; {第一、三步显示, 显示位置为第二步所在的位置. }
-
-\textbf&lt;4&gt; {第四步加粗显示.}
-
-\begin{itemize}
-\item&lt;+-| structure@+&gt;第一步及以后显示(Beamer主题颜色)
-\item&lt;2-| alert@+&gt; 第二步及以后显示(警告色)
-\item&lt;3-&gt; 第三步及以后显示
-\end{itemize}
-\end{frame}
-</code></pre>
-<p>如果列表需要逐项显示, 那么可以使用如下简单的命令</p>
-<pre class="line-numbers"><code class="language-latex">\begin{frame}
-\begin{itemize}[&lt;+-&gt;]
-\item 开始显示
-\item 其次显示
-\item 最后显示
-\end{itemize}
-\end{frame}
-</code></pre>
-<p>这其实等价于</p>
-<pre class="line-numbers"><code class="language-latex">\begin{frame}
-\begin{itemize}
-\item&lt;1-&gt; 开始显示
-\item&lt;2-&gt; 其次显示
-\item&lt;3-&gt; 最后显示
-\end{itemize}
-\end{frame}
-</code></pre>
 
 ]]></content>
   </entry>

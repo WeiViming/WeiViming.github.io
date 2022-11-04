@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+
+<html lang="zh" class="default-style layout-fixed layout-footer-fixed">
+
+<head>
+    <title>
+        
+        Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead - 云中雨雾
+        
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg">
+    
+    <meta name="description" content="云中小屋, 岁月静好~">
+    
+    
+    
+    <link href="atom.xml" rel="alternate" title="云中雨雾" type="application/atom+xml">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet"> -->
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="asset/vendor/js/bootstrap.js"></script>
+
+    <!-- Icon fonts -->
+    <link rel="stylesheet" href="asset/vendor/fonts/ionicons.css">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="asset/vendor/css/rtl/bootstrap.css" class="theme-settings-bootstrap-css">
+
+    <link rel="stylesheet" href="asset/vendor/css/rtl/appwork.css" class="theme-settings-appwork-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/theme-corporate.css" class="theme-settings-theme-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/colors.css" class="theme-settings-colors-css">
+    <link rel="stylesheet" href="asset/vendor/css/rtl/uikit.css">
+    <link rel="stylesheet" href="asset/css/demo.css">
+    <link rel="stylesheet" href="asset/css/docs.css">
+    <link rel="stylesheet" href="asset/css/prism.css">
+
+    <!-- Load polyfills -->
+    <script src="asset/vendor/js/layout-helpers.js"></script>
+
+    <!-- Core scripts -->
+    <script src="asset/vendor/js/pace.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="asset/jquery.toc.js"></script>
+
+    <!-- Libs -->
+    <link rel="stylesheet" href="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+
+    	<style type="text/css">
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Nunito-Light'), url(asset/font/1TiHc9yag0wq3lDO9cw0voX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Nunito-Regular'), url(asset/font/6TbRXKWJjpj6V2v_WyRbMX-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        /* latin */
+        @font-face {
+        font-family: 'Nunito';
+        font-style: bold;
+        font-weight: 700;
+        src: local('Nunito-Bold'), url(asset/font/TttUCfJ272GBgSKaOaD7KoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+	    </style>
+
+    <style>
+        body, html {
+            /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
+            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+            /* font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+        }
+        #toc_container ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+        p, ul, ol, li, table{
+            /* font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+            /* font-family: 'Nunito', PingFangSC-light, Helvetica, Arial, sans-serif; */
+            font-family: Optima, PingFangSC-light, 'PingFang SC', sans-serif;
+        }
+        *{
+            width: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-2">
+    <div class="layout-inner">
+
+
+        <!-- Layout sidenav -->
+        <div id="layout-sidenav" class="layout-sidenav sidenav sidenav-vertical bg-dark">
+
+            <div class="app-brand demo">
+          <span class="app-brand-logo demo" style="background-color: whitesmoke;">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                 id="Layer_1" x="0px" y="0px" width="57px" height="57px" viewBox="0 0 57 57"
+                 enable-background="new 0 0 57 57" xml:space="preserve">  <image id="image0" width="57" height="57"
+                                                                                 x="0" y="0"
+                                                                                 href="https://s2.loli.net/2022/02/15/mLCBgAT7DSbj8iQ.jpg"/></svg>
+          </span>
+                <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">云中雨雾</a>
+                <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+                    <i class="ion ion-md-menu align-middle"></i>
+                </a>
+            </div>
+
+            <div class="sidenav-divider mt-0"></div>
+
+
+            <!-- Links -->
+            <ul id="sidenav-inner" class="sidenav-inner py-1">
+            </ul>
+
+            <script>
+              $(function () {
+                let innerHt = `
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="index.html" class="sidenav-link"><i class="sidenav-icon ion ion-md-speedometer"></i>
+                            <div>主页</div>
+                        </a>
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="archives.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-archive"></i>
+                            <div>分类</div>
+                        </a>
+                    </li>
+
+
+                    <li class="sidenav-item">
+                        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-bookmarks"></i>
+                            <div>标签</div>
+                        </a>
+
+                        <ul class="sidenav-menu">
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%85%B6%E4%BB%96.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>其他(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>安全多方计算(1)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>密码学理论(9)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E7%BC%96%E7%A8%8B.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>编程(12)</div>
+                                </a>
+                            </li>
+                            
+                            <li class="sidenav-item">
+                                <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
+                                    <i class="sidenav-icon ion ion-ios-bookmark"></i>
+                                    <div>隐私保护机器学习(13)</div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+
+                    </li>
+
+                    <li class="sidenav-item">
+                        <a href="javascript:;" data-url="about.html" class="sidenav-link"><i class="sidenav-icon ion ion-ios-leaf"></i>
+                            <div>关于</div>
+                        </a>
+                    </li>
+
+
+                                        
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">密码之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16675243955254.html" title="Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Privacy Preserving Machine Learning Resources</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16657474753615.html" title="Honest Majority MPC with Abort with Minimal Online Communication" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Honest Majority MPC with Abort with Minimal Online Communication</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16629065662036.html" title="Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Communication-Efficient (Client-Aided) Secure Two-Party Protocols and Its Application</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16553844634309.html" title="Tetrad: Actively Secure 4PC for Secure Training and Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Tetrad: Actively Secure 4PC for Secure Training and Inference</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16562245505906.html" title="ABY3: A Mixed Protocol Framework for Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>ABY3: A Mixed Protocol Framework for Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16525868704962.html" title="Simulation-based Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Simulation-based Security</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16524092173945.html" title="Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Trident: Efficient 4PC Framework for Privacy Preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16519051511907.html" title="Secure Evaluation of Quantized Neural Networks" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Secure Evaluation of Quantized Neural Networks</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16477900515975.html" title="BLAZE: Blazing Fast Privacy-preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>BLAZE: Blazing Fast Privacy-preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16460285618722.html" title="Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Cheetah: Lean and Fast Secure Two-Party Deep Neural Network Inference</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16449265418549.html" title="SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>SWIFT: Super-fast and Robust Privacy-Preserving Machine Learning</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16425853998520.html" title="安全与密码会议排名" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全与密码会议排名</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16414786119962.html" title="隐私计算技术路线" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私计算技术路线</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16399887107456.html" title="隐私保护深度学习技术综述" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>隐私保护深度学习技术综述</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16377612600578.html" title="图说MPC协议" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>图说MPC协议</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16337773581295.html" title="Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Fantastic Four: Honest-Majority Four-Party Secure Computation with Malicious Security</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16237676401097.html" title="不经意传输及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>不经意传输及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16222891373334.html" title="混淆电路及其优化方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>混淆电路及其优化方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208088340765.html" title="语义安全性" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>语义安全性</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16206453366291.html" title="基于秘密共享的安全计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>基于秘密共享的安全计算</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16205685385445.html" title="安全多方计算与混淆电路" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算与混淆电路</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16092286702660.html" title="安全多方计算" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>安全多方计算</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">编程之路</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16576879066429.html" title="Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16408570070047.html" title="Typora/MWeb中简化数学公式输入" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora/MWeb中简化数学公式输入</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16373049349337.html" title="几个Makefile模板" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>几个Makefile模板</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16372025188365.html" title="Beamer的若干技巧" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Beamer的若干技巧</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16369755197628.html" title="终端快捷键笔记" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>终端快捷键笔记</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16353904758136.html" title="Typora文字两侧插入图片" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Typora文字两侧插入图片</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16348897867509.html" title="imagemagick图片处理" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>imagemagick图片处理</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16307992850154.html" title="Windows下不关机重启WSL的方案" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Windows下不关机重启WSL的方案</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16292930037213.html" title="Eigen3使用教程" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Eigen3使用教程</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16209081474314.html" title="C++中的数据类型及其范围" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>C++中的数据类型及其范围</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208091105804.html" title="NTL函数库的CMakeLists.txt书写方式" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>NTL函数库的CMakeLists.txt书写方式</div>
+                            </a>
+                        </li>
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16208089129999.html" title="MacOS下cmake解决找不到链接库的问题" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>MacOS下cmake解决找不到链接库的问题</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+                        <li class="sidenav-divider mb-1"></li>
+                        <li class="sidenav-header small font-weight-semibold">奇闻轶事</li>
+
+
+                        
+                        <li class="sidenav-item">
+                            <a href="javascript:void(0)" data-url="16410231259573.html" title="Falcom Pastebin Link" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
+                                <div>Falcom Pastebin Link</div>
+                            </a>
+                        </li>
+                        
+
+                        
+                            </ul>
+
+                        </li>
+                        
+
+                    
+
+
+
+                `;
+                $("#sidenav-inner").html(innerHt)
+
+
+
+              });
+
+            </script>
+        </div>
+        <!-- / Layout sidenav -->
+ <!-- Layout container -->
+<div class="layout-container">
+    <!-- include _ (layout-navbar.html) -->
+
+    <!-- Layout content -->
+    <div class="layout-content   h-100" id="layout-content">
+
+        <!-- Content -->
+        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+
+            <!-- include    _  (post-title.html) -->
+
+<!--            <div class="card p-3">-->
+
+<!--                <article class="markdown-body single-content">-->
+<!--                    <blockquote>
+<p>最近在eprint上看到一篇关于神经网络安全推理的非常不错的综述性文章Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead, 概述了迄今为止面向安全推理提出的主要方法、不同方法之间的特性以及所使用的技术. 最后还总结了大规模部署时所面临的挑战. 这里只摘录了其中的一些要点和案例与大家分享, 更多的内容请查看<a href="https://eprint.iacr.org/2022/1483.pdf">原文</a>.</p>
+</blockquote>
+<h2><a id="1%E7%AE%80%E4%BB%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 简介</h2>
+<p>神经网络(Neural Networks, NN)包含两个主要阶段: <strong>训练阶段</strong>和<strong>推理阶段</strong>. 这两个阶段所进行的运算是类似的, 主要不同是训练需要通过反向传播来调整神经网络不同层中的权重参数, 而后者权重已经给出, 此外, 当考虑安全性和隐私性时, 两者要求也不相同, 对于推理阶段来说, 主要考虑如下两个要点:</p>
+<ol>
+<li>低时延(low latency): 推理应是快速的.</li>
+<li>高准确性(high accuracy): 推理结果应尽可能是正确的.</li>
+</ol>
+<p>推理常见于MLaaS服务场景中, 模型提供商(Server)负责提供已经训练好的NN模型\(f\)作为服务提供给客户(Client), 客户持有输入\(x\), 希望得到\(f(x)\), 但是客户希望\(x\)是保密的, 而模型提供商也不希望与客户共享NN模型\(f\)的信息. 安全神经网络推理(secure neural networks inference, SNNI)问题即是在满足这些安全需求的同时计算\(f(x)\). 有些文献也把安全推理称为隐私保护推理(privacy-preserving inference), 不经意预测(oblivious prediction).</p>
+<p><img src="media/16675243955254/16675245063513.png" alt="image-20221031092831892" /></p>
+<p>目前安全推理已有的解决方案有两种:</p>
+<ul>
+<li>基于密码学技术: 同态加密(HE)、安全多方计算(MPC)</li>
+<li>基于可信硬件: 可信执行环境(TEE)</li>
+</ul>
+<p>这些方法通常需要在高效性、安全性、准确性和可用性等方面进行权衡.</p>
+<p>传统意义上的神经网络是由神经元组成的, 一个神经元包含一系列权重(weight)\(w_1,\cdots,w_n\in\mathbb R\)和偏置项(bias)\(b\in\mathbb R\), 神经元首先计算\(y=\sum_{i=1}^nw_ix_i+b\), 然后将\(y\)作为非线性激活函数\(f:\mathbb R\rightarrow\mathbb{R}\)来计算输出\(z=f(y)\).</p>
+<p><img src="media/16675243955254/16675245063539.png" alt="image-20221031100013634" /></p>
+<p>NN由一系列层组成, 第一层称为输入层, 最后一层称为输出层, 其余层被称为隐藏层, 隐藏层通常由神经元组成, 第\(i\)层的输出是第\(i+1\)层的输入. 现代NN中不再局限于单个神经元, 而是使用了许多不同类型的层, 例如:</p>
+<ul>
+<li>全联接层(Fully-connected layer, FC): 包含权重矩阵. 通过计算输入向量与权重矩阵的乘积来计算输出向量.</li>
+<li>卷积层(Convolutional layer, Conv): 包含一组比输入小的特征图(feature map)的权重矩阵, 通过在输入上移动特征图大小的窗口(sliding window)来计算特征图与滑动窗口中输入部分的点积来计算输出结果. 卷积层是卷积神经网络(CNN)中非常重要的组成部分, CNN广泛应用于图像处理任务.</li>
+<li>激活层(Activation layer): 将\(\mathbb{R}\rightarrow\mathbb{R}\)的激活函数应用于输入的每个元素, 以此计算输出. 根据函数不同, 可分为ReLU激活层、tanh激活层等.</li>
+<li>池化层(Pooling layer): 通过在输入上滑动大小为\(k\)的窗口并应用\(\mathbb{R}^k\rightarrow\mathbb{R}\)池化函数来计算输出结果. 最常见的池化函数是最大值函数, 对应于最大池化层(Max-Pool layer).</li>
+</ul>
+<p>FC层和Conv层称为线性层, 因为输出是其输入的线性函数, Conv层可以用矩阵乘法来表示. 而其他大多数层都是非线性层.</p>
+<p>神经网络架构通常包含层的数量、类型和大小等信息, 以下是Chameleon中给出的一个CNN架构的例子.</p>
+<p><img src="media/16675243955254/16675245063564.png" alt="image-20221031134237622" /></p>
+<h2><a id="2%E5%AE%89%E5%85%A8%E6%8E%A8%E7%90%86%E6%96%B9%E6%A1%88%E7%9A%84%E7%89%B9%E5%BE%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 安全推理方案的特征</h2>
+<p>下表中给出了现有SNNI方案的特征.</p>
+<p><img src="media/16675243955254/16675245063585.png" alt="image-20221031142037663" /></p>
+<h3><a id="2-1%E5%8F%82%E4%B8%8E%E6%96%B9%E6%95%B0%E9%87%8F%E4%B8%8E%E8%A7%92%E8%89%B2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1 参与方数量与角色</h3>
+<p>通常SNNI是个两方计算问题, 即Client持有输入, Server持有神经网络. 但还有三方、甚至四方等更多参与方设定下的方案, 此时不共谋假设是确保协议安全性中非常重要的一环. 这些参与方设定可总结如下:</p>
+<p><img src="media/16675243955254/16675245063630.png" alt="image-20221031142727497" /></p>
+<ul>
+<li>(a) 2个不共谋的Servers, 例如: SecureML</li>
+<li>(b) 1个Server, 但引入不涉及输入的第三方(如TEE)生成必要的随机性加速推理, 例如: Chameleon</li>
+<li>(c) 3个不共谋的Servers, 例如: ABY3, Falcon, ASTRA, BLAZE, SecureNN, SWIFT</li>
+<li>(d) 4个不共谋的Servers, 这些方案认为协议上的效率提升有利于减少部署成本, 例如FALSH, Trident, Tetrad</li>
+</ul>
+<h3><a id="2-2%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2 安全属性</h3>
+<h4><a id="2-2-1%E6%95%8C%E6%89%8B%E6%A8%A1%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.1 敌手模型</h4>
+<ul>
+<li>Semi-honest model: 敌手不会破坏协议, 在SNNI问题中更常见.</li>
+<li>Malicious model: 敌手可能发送错误消息从而破坏协议, 研究较少. 例如:
+<ul>
+<li>CrypTFlow的Aramis组件: 依赖于具有完整性保证的可信硬件实现(Intel SGX), 为消息签名来验证是否遵守协议, 由此产生的额外开销大约是Semi-honest模型的\(3\times\);</li>
+<li>ABY3、XONN都可实现恶意安全, 但没有提供性能评估.</li>
+<li>Falcon实现了具有中止安全性的恶意安全, 当发现恶意行为时, 协议中止(Security with abort).</li>
+<li>FALSH、SWIFT、Trident和Tetrad对至多存在1个腐化方的情况下实现了恶意安全, 同时还达到了公平性(Fairness)和输出可达性(Robustness/Guaranteed output delivery, GOD).</li>
+</ul>
+</li>
+</ul>
+<p>此外还有一些方法假设Client是恶意的情况, 例如MUSE.</p>
+<h4><a id="2-2-2%E4%BF%9D%E5%AF%86%E7%9B%AE%E6%A0%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.2 保密目标</h4>
+<p>根据应用场景的不同, 不同类型信息的保密性非常重要, 典型的保密目标如下:</p>
+<ol>
+<li>Client的秘密输入.</li>
+<li>Client得到的推理结果.</li>
+<li>Server的神经网络权重和偏置项.</li>
+<li>Server的神经网络架构(层数、层的类型、层的大小等).</li>
+</ol>
+<p>SNNI方案通常只考虑1-3, 而4通常不考虑, 只在通信模式中才考虑.</p>
+<h4><a id="2-2-3%E9%BB%91%E7%9B%92%E6%94%BB%E5%87%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.3 黑盒攻击</h4>
+<p>如果能实现上述保密目标, 则Client无法获知除了推理结果之外的其他信息. 但通过足够数量的查询推理, 推理结果仍可能泄漏NN的某些信息. 这涉及如下几种攻击:</p>
+<ul>
+<li>模型提取攻击(model extraction attack): Client尝试提取模型的参数.</li>
+<li>模型反演攻击(model inversion attack): 确定给定标签的原型样本.</li>
+<li>成员推理攻击(membership inference attack): 找出给定的输入是否出现在训练集中.</li>
+</ul>
+<p>这些是MLaaS的固有属性, 与确保推理过程安全的特定技术无关. 通常可以限制Client进行的查询数或限制Client从推理中获取的信息来避免这些攻击. 但是大部分SNNI方案不考虑这些攻击.</p>
+<h3><a id="2-3%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3 受支持的神经网络</h3>
+<p>目前暂不清楚有效支持所有类型NN的安全计算的通用技术. SNNI的多数工作都集中在开发适用于某种神经网络类型的特定技术, 要么受限于所支持的层类型, 有么受限于权重的范围.</p>
+<h4><a id="2-3-1%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E5%B1%82%E7%B1%BB%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1 受支持的层类型</h4>
+<p>理想的SNNI方案应支持FC层、Conv层、激活函数层、最大池化层、softmax或argmax. 常见方案支持的层类型如下:</p>
+<p><img src="media/16675243955254/16675245063675.png" alt="image-20221031160001379" /></p>
+<h4><a id="2-3-2%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E6%9D%83%E9%87%8D%E8%8C%83%E5%9B%B4" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2 受支持的权重范围</h4>
+<p>有一些SNNI方案限制了NN中处理的数据类型, 从而加快推理效率. 例如:</p>
+<ul>
+<li>离散化的神经网络(Discretized NN): 权重都是整数, 神经元的输入和输出都在\(\{1,-1\}\)中;</li>
+<li>二值神经网络(Binary NN): 权重和激活值都只能取\(\{1,-1\}\). 例如XONN.</li>
+</ul>
+<p>这些限制方法可以高效地实现NN中所涉及的算术运算, 但NN的准确率将降低.</p>
+<h3><a id="2-4%E4%B8%8E%E8%AE%AD%E7%BB%83%E7%9A%84%E8%81%94%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.4 与训练的联系</h3>
+<p>SNNI方法与训练存在很大的差异, 如下图所示,</p>
+<ul>
+<li>(a) 涵盖了同一框架下的安全训练和安全推理, 例如: Falcon.</li>
+<li>(b) 从预训练的模型开始, 完全与训练无关, 不需要对模型进行修改, 例如: CrypTFlow.</li>
+<li>(c) 对预训练的模型进行转换, 使其更适合SNNI, 例如: CryptoNets.</li>
+<li>(d) 对训练过程进行大幅修改从而提高效率, 例如: Delphi、XONN.</li>
+</ul>
+<p><img src="media/16675243955254/16675245063733.png" alt="image-20221031162036945" /></p>
+<p>尽管这些优化有助于提高效率, 但可能会影响现有机器学习模型的可用性.</p>
+<h3><a id="2-5%E4%BA%A4%E4%BA%92%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.5 交互性</h3>
+<p>轮复杂度(Round complexity): Client和Server通信的轮数.
+大多数现有SNNI方法的通信模式有如下两种:</p>
+<ul>
+<li>交互式(interactive): Client和Server在评估NN的每一层后都进行通信, 交互式方案需要通信\(O(n)\)轮, 其中\(n\)为层数;
+<ul>
+<li>优点: 可对不同类型的层选用最合适的协议, 实现更高的效率;</li>
+<li>缺点: 会泄漏NN架构信息给Client, 且要求Client全程参与, 不利于移动设备.</li>
+<li>例子: 基于秘密共享的SNNI方案、混合方案.</li>
+</ul>
+</li>
+<li>非交互式(non-interactive): Client和Server的通信只发生在协议开始时和结束时, 非交互式方案只需通信\(O(1)\)轮.
+<ul>
+<li>优点: NN架构信息对Client保密.</li>
+<li>例子: 基于混淆电路和同态加密的SNNI方案.</li>
+</ul>
+</li>
+</ul>
+<h3><a id="2-6%E7%A6%BB%E7%BA%BF%E9%A2%84%E5%A4%84%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.6 离线预处理</h3>
+<p>许多方法中协议的某些部分独立于Client的输入, 因此可将协议分为独立于Client输入的离线预处理阶段和依赖于输入的在线阶段. 使用这种离线/在线范式的方法有SecureML, MiniONN, Chameleon, Delphi, Falcon等等. 离线阶段的常见活动有: 生成Beaver三元组, 或者其他用于茫化秘密的关联随机数.</p>
+<p>离线/在线范式优缺点如下:</p>
+<ul>
+<li>优点: 适合Client与Server是长期关系, 但推理请求只是偶尔发生的场景, 此时系统有充足的时间进行预处理, 因此方案的优化目标在于减少在线阶段的处理时间.</li>
+<li>缺点: 不太适合新Client加入和推理请求频繁发生的场景, 此时系统没有空闲时间进行预处理, 因此方案的优化目标在于减少计算消耗的总时间.</li>
+</ul>
+<h2><a id="3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 解决方案</h2>
+<h3><a id="3-1%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86-he" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 同态加密(HE)</h3>
+<p>早期将HE用于SNNI问题的工作是[1-2]. 使用HE的优点是可以满足所有保密目标, 其主要的难点则在于非线性函数的计算和全同态加密方案的选取.</p>
+<h4><a id="3-1-1%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1.1 非线性函数的计算</h4>
+<ol>
+<li>使用该函数的多项式近似, 因为多项式计算只涉及FHE方案支持的乘法和加法, 尽管这仍然非常昂贵. 这里的“昂贵”指的是: 计算时间的增加、噪音的大幅增加和消息空间大小的增加.</li>
+<li>使用简化的激活函数. 例如CryptoNets使用平方函数代替激活函数, 求和代替池化; FHE-DiNN使用符号函数作为激活函数等.</li>
+</ol>
+<p>由于HE评估非线性层很困难, 故一些方案建议仅对网络中的线性层使用HE, 而对非线性层使用其他MPC技术.</p>
+<h4><a id="3-1-2%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88%E7%9A%84%E9%80%89%E5%8F%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1.2 同态加密方案的选取</h4>
+<ul>
+<li>第一代FHE: Gentry所提出的方案, 噪音增长太快, 降低噪音的自举开销巨大;</li>
+<li>第二代FHE: BGV、BFV、yashe, 噪音增长变慢, 比第一代高效;</li>
+<li>第三代FHE: 改善了自举的时间;</li>
+<li>第四代FHE: CKKS方案, 可用于浮点数运算, 适合NN.
+使用FHE解决SNNI问题的方案有: CryptoNets, LoLa, SHE等. 这些方案对比如下:</li>
+</ul>
+<p><img src="media/16675243955254/16675245063792.png" alt="image-20221031203518030" /></p>
+<p>从SHE来看, 虽然FHE变得越来越快, 准确度也在提高, 但单次推理所消耗的时间仍比较长, 因此实用性较差.</p>
+<h3><a id="3-2%E6%B7%B7%E6%B7%86%E7%94%B5%E8%B7%AF-gc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.2 混淆电路(GC)</h3>
+<p>如果所涉及的数据都是定长的, 则NN的所有运算都可以用布尔电路来实现, 并使用混淆电路来解决SNNI问题, 此时不能保护NN架构信息, 安全性由混淆电路保证, 但效率可能会很低.
+第一个主要使用GC来解决SNNI问题的工作是DeepSecure[3], 使用了Free-XOR和独立于GC的预处理技术, 利用尽可能少数量的非XOR门的基本模块来构造经典NN.
+此外, 还有基于二值NN的工作XONN, 利用GC来评估非线性层的Dephi.</p>
+<h3><a id="3-3%E5%8A%A0%E6%B3%95%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB-ass" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3 加法秘密共享(ASS)</h3>
+<p>评估非线性层需要秘密份额之间的加法和乘法. 两方计算时秘密份额的加法是平凡的, 秘密份额的乘法则需要借助Bever三元组.</p>
+<h4><a id="3-3-1%E7%94%9F%E6%88%90-beaver%E4%B8%89%E5%85%83%E7%BB%84" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3.1 生成Beaver三元组</h4>
+<p>Beaver三元组不依赖于输入, 因此可以在离线预处理阶段生成. 如果只有两方, 生成Beaver三元组的方式有两种: 同态加密和不经意传输. 此外, 如果有额外的不参与在线阶段计算的第三方, 则可让其生成Beaver三元组提高计算效率, 如Chameleon. 若使用2-out-of-3秘密共享, 则不需要Beaver三元组即可计算乘法, 如Falcon.</p>
+<h4><a id="3-3-2%E8%AF%84%E4%BC%B0%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3.2 评估非线性层</h4>
+<ul>
+<li>多项式近似, 例子: SecureML、Delphi等;</li>
+<li>把通用密码协议用于某个特定功能, 但主要方法仍是ASS, 例子: SecureML, MiniONN使用了GC, CrypTFlow2使用了OT;</li>
+<li>其他专用方案, 例子: SiRnn使用lookup table和迭代近似(iterative approximation)来计算指数函数和反函数, 从而可通过ASS来计算Sigmoid函数, Faclon使用迭代近似来计算除法, 使用二叉搜索(binary search)来计算max-pooling.</li>
+</ul>
+<h3><a id="3-4%E6%B7%B7%E5%90%88%E5%8D%8F%E8%AE%AE%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4 混合协议方案</h3>
+<p>HE、GC、ASS都有一些缺点, 限制了某些层的适用性, 由于这些缺点与不同类型层相关, 因此可以考虑将多种技术进行组合, 使得NN的每层都使用最合适的技术, 尽管这将使得方案变成交互式的. 多数情况下ASS被用作框架, 辅以其他技术, 用于在线阶段不同类型的层的安全计算, 例子:</p>
+<ul>
+<li>SecureML和MiniONN将ASS用于线性层, 将GC用于非线性层;</li>
+<li>Chameleon对线性层使用ASS, 对ReLU激活函数使用GMW协议, 对argmax使用GC;</li>
+<li>Gazelle将HE用于线性层, 将GC用于非线性层;</li>
+<li>CrypTFlow2将HE或OT用于线性层, 将ASS与专用子协议用于非线性层;</li>
+<li>Delphi使用ASS用于线性层和平方激活, 使用GC进行ReLU激活.</li>
+</ul>
+<h3><a id="3-5%E5%85%B6%E4%BB%96%E6%96%B9%E9%9D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5 其他方面</h3>
+<h4><a id="3-5-1%E4%B8%8D%E7%BB%8F%E6%84%8F%E4%BC%A0%E8%BE%93%E7%9A%84%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.1 不经意传输的使用</h4>
+<p>OT通常是许多SNNI方法的重要组成部分:</p>
+<ul>
+<li>混淆电路的计算;</li>
+<li>生成Beaver三元组;</li>
+<li>可构造专用子协议, 用于评估秘密共享形式的非线性层, 如CrypTFlow2.</li>
+</ul>
+<h4><a id="3-5-2%E6%95%B0%E5%AD%97%E7%BC%96%E7%A0%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.2 数字编码</h4>
+<p>理论上NN的输入和输出以及权重和其他参数可以是任何实数, 但在计算机实现中, 所有这些数字都使用有限位来表示, 选择数字表示方案取决于如下几个方面:</p>
+<ul>
+<li>表示类型: 浮点(floating-point)、定点(fixed-point)、整数(integer);</li>
+<li>有符号(signed)/无符号(unsigned);</li>
+<li>位宽(bitwidth, 总位长);</li>
+<li>比例(scale, 也称为精度, 小数部分的位数).</li>
+</ul>
+<p><img src="media/16675243955254/16675245063845.png" alt="image-20221031222913369" /></p>
+<p>这些方面的不同选择可能会造成重大影响, 从而导致效率和准确性之间的不同权衡. 特别是减小位宽可以显著提高效率, 这取决于所使用的技术, 例如使用GC时减少位宽可使电路规模减小, 从而只需更少的计算和更少的通信, 但可能会限制可实现的准确性.</p>
+<p>计算机通常天然支持给定位宽运算, 利用这种硬件支持的位宽可以实现更简单高效的方案. 例如: Delphi和Falcon使用32位的固定位宽, 而SecureML和SecureNN使用64位的固定位宽, 此外位宽不需要在整个NN中都是均匀的, 例如SiRnn引入的动态调整位宽的协议. 某些运算可能会改变位宽, 此时需要额外进行截断运算.</p>
+<p>对于小数部分的精度, 有不同的解决方案, 例如具有统一精度的定点表示的有Delphi和Falcon, 动态确定精度的有CrypTFlow2, 还有一些方案使用整数以固定位数表示, 但要确保没有溢出, 例如MiniONN.</p>
+<p>对于有符号数的编码, 通常使用二进制补码(two's complement), 在评估ReLU时需要确定数字是否为正数, 在二进制补码中这归结为确定数字的最高有效位.</p>
+<p>在HE情况下, 几种加密方案都基于多项式, 明文被编码为多项式系数. 为充分利用消息空间, 一些方法(如CryptoNets)通过中国剩余定理将多个数字打包为一个系数, 用多个系数来表示一个数字. 通过使用FHE方法, 可以通过以定点表示来处理这些数字, 这需要将数字映射到实践中所使用的多项式环中, [4]给出了一种为同态函数评估设计的定点数有效编码方法.</p>
+<h4><a id="3-5-3%E5%B9%B6%E8%A1%8C%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.3 并行化</h4>
+<p>使用密码学协议使得利用并行化计算更具挑战性. 一些同态加密方案支持SIMD处理, 从而对同一批次不同输入执行相同的操作. 离线阶段也可以利用并行化计算, 例如SecureML中生成向量化的Beaver三元组, MiniONN也使用了类似的方法.</p>
+<h4><a id="3-5-4%E5%85%B3%E8%81%94%E9%9A%8F%E6%9C%BA%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.4 关联随机性</h4>
+<p>为了茫化秘密, 有些方案使用了关联随机数, 即由不同方拥有满足某种关系的随机数. 典型的例子是Beaver三元组、ABY3和Falcon中使用的Zero sharing.</p>
+<p>生成关联随机性主要有两种方法:</p>
+<ul>
+<li>使用PRG, PRF, HE或OT等密码学协议来生成, 例如Falcon使用预共享密钥的PRF来生成不同类型的关联随机性;</li>
+<li>使用额外第三方来生成, 例如Chameleon使用半诚实第三方生成随机种子发给两方, 然后两方本地通过PRG生成.</li>
+</ul>
+<h4><a id="3-5-5%E7%A5%9E%E7%BB%8F%E6%9E%B6%E6%9E%84%E6%90%9C%E7%B4%A2-nas" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.5 神经架构搜索(NAS)</h4>
+<p>SNNI的一些方案也对NN架构进行了修改, 事实上在普通环境中使用表现良好的架构可能不是SNNI的最佳选择. 找到最佳的NN架构是一个繁琐的过程, 涉及尝试许多不同的候选架构、训练并评估实现的准确性. 此过程可以通过神经网络架构搜索(Neural Architecture Search, NAS)算法自动执行.</p>
+<p>例如: Delphi将NAS用于特定目的: 它使用平方函数替换了NN中的一些ReLU激活, 旨在找到准确性和推理效率之间的良好权衡, 要替换哪些ReLU由NAS决定. NASS进一步使用NAS, 在寻找安全推理的最佳神经架构时, NASS会考虑不同密码原语的开销, 作为搜索过程的一部分, NASS还会自动调整用于NN线性层的HE参数[5]. 此外, HEMET也遵循类似的方法[6].</p>
+<h4><a id="3-5-6%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BF%91%E4%BC%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.6 多项式近似</h4>
+<p>HE和ASS适合评估多项式. 对于非多项式函数, 可以使用适当的多项式近似代替, 但这将会导致高阶多项式开销大的问题, 因为乘法所需的开销大, 而低阶多项式近似效果很差. 解决这个问题的唯一可能方法是使用分段多项式近似. 例子: SecureML, MiniONN, Delphi.</p>
+<h4><a id="3-5-7%E5%8A%A0%E9%80%9F%E5%8D%B7%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.7 加速卷积</h4>
+<p>卷积可以用矩阵乘法表示, 从而可以像处理全联接层一样处理卷积层, 理论上很方便, 但可能导致实现效率低下, 特别是在ASS的框架下使用Beaver三元组来实现矩阵乘法, 相同的矩阵元素被多个Beaver三元组所茫化从而导致Beaver三元组的浪费. CryTFlow的Porthos组件对此进行了优化, 以减少卷积所需的Beaver三元组数量. 而CrypTFlow2中的卷积使用了HE实现, 通过巧妙地使用SIMD, 减少HE rotation操作次数来加速卷积计算.</p>
+<h4><a id="3-5-8%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.8 安全性分析</h4>
+<p>在大多数情况下, 基于MPC的解决方案的安全性(输入隐私性)建立在通用可组合(Universal Composability, UC)框架下, 依赖于其构造模块的安全性和可组合性. 而基于HE的解决方案的安全性通常基于困难问题, 如Ring-LWE问题等.</p>
+<h3><a id="3-6%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.6 其他方法</h3>
+<ul>
+<li>模型拆分: 将NN拆分为多个部分分配给不同的参与方, 从而限制每方得到的知识.</li>
+<li>可信执行环境: 可在不受信任的环境中实现安全计算, 使用硬件隔离和加密技术来保证数据机密性和执行的完整性, 几乎没有通信开销, 能以原生速度运行. 缺点: 存在侧信道攻击且必须信任设备的生产厂商. 例子: Intel SGX和面向移动设备部署的ARM TrustZone.</li>
+<li>编译器: 将机器学习代码转换为安全协议代码的编译器.
+例子: Rosetta, secureTF, MP2ML, CHET, EzPC, CrypTen.
+还有一些编译器将高级编程语言转换为电路格式, 然后可以基于HE, GC和ASS的安全计算框架进行评估.
+例子: HyCC.</li>
+</ul>
+<h2><a id="4-snni%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. SNNI方法的实现</h2>
+<p><img src="media/16675243955254/16675245063904.png" alt="image-20221101104935350" /></p>
+<h2><a id="5%E5%AE%9E%E9%AA%8C%E8%AF%84%E4%BC%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. 实验评估</h2>
+<h3><a id="5-1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98-nn%E5%92%8C%E6%95%B0%E6%8D%AE%E9%9B%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.1 机器学习问题, NN和数据集</h3>
+<p>大多数SNNI的工作集中在图像分类问题上, 因此CNN更常见. 根据CNN规模, 常见的CNN可以分为:</p>
+<ul>
+<li>小规模: LeNet(7层), AlexNet(8层);</li>
+<li>大规模: VGG16、VGG19、ResNet50、DenseNet121和SqueezeNet.</li>
+</ul>
+<p>常用数据集: MNIST, CIFAR-10.</p>
+<p>其他类型的NN还有:</p>
+<ul>
+<li>循环神经网络(Recurrent Neural Networks, RNN): 对顺序数据(如音频/传感器数据等)进行分类.</li>
+<li>图神经网络(Graph Neural Networks, GNN): 对节点组成的数据及其空间位置信息进行分类.</li>
+</ul>
+<h3><a id="5-2%E6%8A%80%E6%9C%AF%E8%AE%BE%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.2 技术设置</h3>
+<p>实验环境: 本地模拟LAN/WAN、云服务器环境的LAN/WAN.</p>
+<ul>
+<li>WAN: 带宽9~70MB/s, 延迟60ms;</li>
+<li>LAN: 带宽1GB/s, 延迟&lt;1ms.</li>
+</ul>
+<h3><a id="5-3%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.3 评估指标</h3>
+<ul>
+<li>执行时间/时延(execution time/latency): 执行一次推理所消耗的时间. 此外, 批处理方法可用平均时间.</li>
+<li>通信量(communication): 各参与方之间传输的总字节量. 此外, 批处理方法可用平均通信量.</li>
+<li>吞吐量(throughput): 单位时间内的推理次数, 衡量批处理效果的指标.</li>
+<li>准确率(accuracy): 限制和修改NN可能会影响准确性, 因此需要对方法的准确率进行评估.</li>
+</ul>
+<h3><a id="5-4%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.4 对比</h3>
+<p>当要说明一种新方法改进了现有技术时, 需要对两者进行对比, 此时需要面临如下问题:</p>
+<ul>
+<li>比较维度应一致</li>
+<li>安全属性难以量化</li>
+<li>只进行少量实验或只考虑效率和准确性难以表明方案的优劣</li>
+</ul>
+<h2><a id="6%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. 未来研究方向</h2>
+<ol>
+<li>SNNI方法的特征:
+<ul>
+<li>安全性与效率的权衡: 如何同时实现高效性和高安全级别?</li>
+<li>具体应用场景的影响: 具体应用如何影响不同方法的适用性?</li>
+<li>物联网和边缘计算中的SNNI: 当可用资源受限时SNNI方案的构造?</li>
+<li>安全推理友好的NN和训练: 安全推理与安全训练的集成优化问题?</li>
+<li>抵御黑盒攻击: 大多数SNNI方法不能防止黑盒攻击?</li>
+</ul>
+</li>
+<li>解决方案:
+<ul>
+<li>新的构造模块? 例如: Silent OT的应用.</li>
+<li>模块化解决方案: 将模块化方案扩展到支持任意数量的计算方, 支持不同敌手模型和保密目标, 使用广泛的模型架构等, 提升用户需求的灵活性?</li>
+<li>解决方案的可扩展性: 现有SNNI方案的内存、计算和通信要求很高, 如何扩展到多方? 如何在多个节点之间摊销这些开销?</li>
+</ul>
+</li>
+<li>实现:
+<ul>
+<li>ML框架集成和统一的API</li>
+<li>GPU支持</li>
+<li>容器构建: 容易重现实验并对性能进行公平比较</li>
+</ul>
+</li>
+<li>解决方案的评估:
+<ul>
+<li>改善对比方法, 确保公平比较</li>
+<li>更多样的基准</li>
+<li>现实技术设置</li>
+<li>考虑超越效率的指标: 包括能耗、安全性、隐私性和可用性.</li>
+</ul>
+</li>
+</ol>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>[1] Barni, M., Orlandi, C., and Piva, A. A privacy-preserving protocol for neural-network-based computation. In MM&amp;Sec (2006), ACM, pp. 146–151.</p>
+<p>[2] Barni, M., Orlandi, C., and Piva, A. A privacy-preserving protocol for neural-network-based computation. In MM&amp;Sec (2006), ACM, pp. 146–151.</p>
+<p>[3] Rouhani, B. D., Riazi, M. S., and Koushanfar, F. Deepsecure: scalable provably-secure deep learning. In DAC (2018), ACM, pp. 2:1–2:6.</p>
+<p>[4] Bonte, C., Bootland, C., Bos, J. W., Castryck, W., Iliashenko, I., and Vercauteren, F. Faster homomorphic function evaluation using non-integral base encoding. In CHES (2017), Springer, pp. 579–600.</p>
+<p>[5] Bian, S., Jiang, W., Lu, Q., Shi, Y., and Sato, T. NASS: optimizing secure inference via neural architecture search. In ECAI (2020), vol. 325 of Frontiers in Artificial Intelligence and Applications, IOS Press, pp. 1746–1753.</p>
+<p>[6] Lou, Q., and Jiang, L. HEMET: A homomorphic-encryption-friendly privacy-preserving mobile neural network architecture. In ICML (2021), vol. 139 of Proceedings of Machine Learning Research, PMLR, pp. 7102–7110.</p>
+-->
+<!--                </article>-->
+
+
+<!--            </div>-->
+
+
+            <div class="chat-wrapper  h-100">
+
+                <!-- Make card full height of `.chat-wrapper` -->
+                <div class="card flex-grow-1 position-relative overflow-hidden ">
+
+                    <!-- Make row full height of `.card` -->
+                    <div class="row no-gutters h-100">
+                        <div class="chat-sidebox col">
+
+                            <!-- Chat contacts header -->
+                            <!-- <div class="flex-grow-0 px-4">
+                                <div class="media align-items-center">
+                                    <div class="media-body">
+                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                                    </div>
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
+                                </div>
+                                <hr class="border-light m-0">
+                            </div> -->
+                            <!-- / Chat contacts header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
+
+
+
+
+                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
+
+                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
+
+                                </div><!-- / .chat-contacts -->
+                            </div>
+
+                        </div>
+                        <div class="d-flex col flex-column">
+
+                            <!-- Chat header -->
+                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
+
+                                <div class="media align-items-center">
+                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
+
+
+<!--                                    <div class="media-body pl-3">-->
+<!--                                        <h1>Kenneth Frazier</h1>-->
+<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
+<!--                                    </div>-->
+
+                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
+<!--    Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/11/04 09:13 上午</small></div>-->
+<!--</h2>-->
+
+<div class="media-body pl-3">
+    <h1 id="post-header">Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead</h1>
+    <div class="text-muted small"><em>2022/11/04 09:13 上午</em>
+        
+        <span class="ml-2">标签:</span>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
+        
+        
+    </div>
+</div>
+
+<link rel="stylesheet" href="asset/chat.css">
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // add toc to article element
+        $("#article_with_toc").toc(
+          {
+              strip: true,
+              stripAfter: 100,
+              container: "#toc_container",
+              scrollSpeed: 1,
+              scrollOffset: 135
+          });
+    });
+</script>
+
+
+
+                                    <!-- <div>
+                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
+                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
+                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+                            <hr class="flex-grow-0 border-light m-0">
+                            <!-- / Chat header -->
+
+                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
+                            <div class="flex-grow-1 position-relative">
+
+                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
+                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
+
+                                    <blockquote>
+<p>最近在eprint上看到一篇关于神经网络安全推理的非常不错的综述性文章Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead, 概述了迄今为止面向安全推理提出的主要方法、不同方法之间的特性以及所使用的技术. 最后还总结了大规模部署时所面临的挑战. 这里只摘录了其中的一些要点和案例与大家分享, 更多的内容请查看<a href="https://eprint.iacr.org/2022/1483.pdf">原文</a>.</p>
+</blockquote>
+<h2><a id="1%E7%AE%80%E4%BB%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 简介</h2>
+<p>神经网络(Neural Networks, NN)包含两个主要阶段: <strong>训练阶段</strong>和<strong>推理阶段</strong>. 这两个阶段所进行的运算是类似的, 主要不同是训练需要通过反向传播来调整神经网络不同层中的权重参数, 而后者权重已经给出, 此外, 当考虑安全性和隐私性时, 两者要求也不相同, 对于推理阶段来说, 主要考虑如下两个要点:</p>
+<ol>
+<li>低时延(low latency): 推理应是快速的.</li>
+<li>高准确性(high accuracy): 推理结果应尽可能是正确的.</li>
+</ol>
+<p>推理常见于MLaaS服务场景中, 模型提供商(Server)负责提供已经训练好的NN模型\(f\)作为服务提供给客户(Client), 客户持有输入\(x\), 希望得到\(f(x)\), 但是客户希望\(x\)是保密的, 而模型提供商也不希望与客户共享NN模型\(f\)的信息. 安全神经网络推理(secure neural networks inference, SNNI)问题即是在满足这些安全需求的同时计算\(f(x)\). 有些文献也把安全推理称为隐私保护推理(privacy-preserving inference), 不经意预测(oblivious prediction).</p>
+<p><img src="media/16675243955254/16675245063513.png" alt="image-20221031092831892" /></p>
+<p>目前安全推理已有的解决方案有两种:</p>
+<ul>
+<li>基于密码学技术: 同态加密(HE)、安全多方计算(MPC)</li>
+<li>基于可信硬件: 可信执行环境(TEE)</li>
+</ul>
+<p>这些方法通常需要在高效性、安全性、准确性和可用性等方面进行权衡.</p>
+<p>传统意义上的神经网络是由神经元组成的, 一个神经元包含一系列权重(weight)\(w_1,\cdots,w_n\in\mathbb R\)和偏置项(bias)\(b\in\mathbb R\), 神经元首先计算\(y=\sum_{i=1}^nw_ix_i+b\), 然后将\(y\)作为非线性激活函数\(f:\mathbb R\rightarrow\mathbb{R}\)来计算输出\(z=f(y)\).</p>
+<p><img src="media/16675243955254/16675245063539.png" alt="image-20221031100013634" /></p>
+<p>NN由一系列层组成, 第一层称为输入层, 最后一层称为输出层, 其余层被称为隐藏层, 隐藏层通常由神经元组成, 第\(i\)层的输出是第\(i+1\)层的输入. 现代NN中不再局限于单个神经元, 而是使用了许多不同类型的层, 例如:</p>
+<ul>
+<li>全联接层(Fully-connected layer, FC): 包含权重矩阵. 通过计算输入向量与权重矩阵的乘积来计算输出向量.</li>
+<li>卷积层(Convolutional layer, Conv): 包含一组比输入小的特征图(feature map)的权重矩阵, 通过在输入上移动特征图大小的窗口(sliding window)来计算特征图与滑动窗口中输入部分的点积来计算输出结果. 卷积层是卷积神经网络(CNN)中非常重要的组成部分, CNN广泛应用于图像处理任务.</li>
+<li>激活层(Activation layer): 将\(\mathbb{R}\rightarrow\mathbb{R}\)的激活函数应用于输入的每个元素, 以此计算输出. 根据函数不同, 可分为ReLU激活层、tanh激活层等.</li>
+<li>池化层(Pooling layer): 通过在输入上滑动大小为\(k\)的窗口并应用\(\mathbb{R}^k\rightarrow\mathbb{R}\)池化函数来计算输出结果. 最常见的池化函数是最大值函数, 对应于最大池化层(Max-Pool layer).</li>
+</ul>
+<p>FC层和Conv层称为线性层, 因为输出是其输入的线性函数, Conv层可以用矩阵乘法来表示. 而其他大多数层都是非线性层.</p>
+<p>神经网络架构通常包含层的数量、类型和大小等信息, 以下是Chameleon中给出的一个CNN架构的例子.</p>
+<p><img src="media/16675243955254/16675245063564.png" alt="image-20221031134237622" /></p>
+<h2><a id="2%E5%AE%89%E5%85%A8%E6%8E%A8%E7%90%86%E6%96%B9%E6%A1%88%E7%9A%84%E7%89%B9%E5%BE%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 安全推理方案的特征</h2>
+<p>下表中给出了现有SNNI方案的特征.</p>
+<p><img src="media/16675243955254/16675245063585.png" alt="image-20221031142037663" /></p>
+<h3><a id="2-1%E5%8F%82%E4%B8%8E%E6%96%B9%E6%95%B0%E9%87%8F%E4%B8%8E%E8%A7%92%E8%89%B2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1 参与方数量与角色</h3>
+<p>通常SNNI是个两方计算问题, 即Client持有输入, Server持有神经网络. 但还有三方、甚至四方等更多参与方设定下的方案, 此时不共谋假设是确保协议安全性中非常重要的一环. 这些参与方设定可总结如下:</p>
+<p><img src="media/16675243955254/16675245063630.png" alt="image-20221031142727497" /></p>
+<ul>
+<li>(a) 2个不共谋的Servers, 例如: SecureML</li>
+<li>(b) 1个Server, 但引入不涉及输入的第三方(如TEE)生成必要的随机性加速推理, 例如: Chameleon</li>
+<li>(c) 3个不共谋的Servers, 例如: ABY3, Falcon, ASTRA, BLAZE, SecureNN, SWIFT</li>
+<li>(d) 4个不共谋的Servers, 这些方案认为协议上的效率提升有利于减少部署成本, 例如FALSH, Trident, Tetrad</li>
+</ul>
+<h3><a id="2-2%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2 安全属性</h3>
+<h4><a id="2-2-1%E6%95%8C%E6%89%8B%E6%A8%A1%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.1 敌手模型</h4>
+<ul>
+<li>Semi-honest model: 敌手不会破坏协议, 在SNNI问题中更常见.</li>
+<li>Malicious model: 敌手可能发送错误消息从而破坏协议, 研究较少. 例如:
+<ul>
+<li>CrypTFlow的Aramis组件: 依赖于具有完整性保证的可信硬件实现(Intel SGX), 为消息签名来验证是否遵守协议, 由此产生的额外开销大约是Semi-honest模型的\(3\times\);</li>
+<li>ABY3、XONN都可实现恶意安全, 但没有提供性能评估.</li>
+<li>Falcon实现了具有中止安全性的恶意安全, 当发现恶意行为时, 协议中止(Security with abort).</li>
+<li>FALSH、SWIFT、Trident和Tetrad对至多存在1个腐化方的情况下实现了恶意安全, 同时还达到了公平性(Fairness)和输出可达性(Robustness/Guaranteed output delivery, GOD).</li>
+</ul>
+</li>
+</ul>
+<p>此外还有一些方法假设Client是恶意的情况, 例如MUSE.</p>
+<h4><a id="2-2-2%E4%BF%9D%E5%AF%86%E7%9B%AE%E6%A0%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.2 保密目标</h4>
+<p>根据应用场景的不同, 不同类型信息的保密性非常重要, 典型的保密目标如下:</p>
+<ol>
+<li>Client的秘密输入.</li>
+<li>Client得到的推理结果.</li>
+<li>Server的神经网络权重和偏置项.</li>
+<li>Server的神经网络架构(层数、层的类型、层的大小等).</li>
+</ol>
+<p>SNNI方案通常只考虑1-3, 而4通常不考虑, 只在通信模式中才考虑.</p>
+<h4><a id="2-2-3%E9%BB%91%E7%9B%92%E6%94%BB%E5%87%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2.3 黑盒攻击</h4>
+<p>如果能实现上述保密目标, 则Client无法获知除了推理结果之外的其他信息. 但通过足够数量的查询推理, 推理结果仍可能泄漏NN的某些信息. 这涉及如下几种攻击:</p>
+<ul>
+<li>模型提取攻击(model extraction attack): Client尝试提取模型的参数.</li>
+<li>模型反演攻击(model inversion attack): 确定给定标签的原型样本.</li>
+<li>成员推理攻击(membership inference attack): 找出给定的输入是否出现在训练集中.</li>
+</ul>
+<p>这些是MLaaS的固有属性, 与确保推理过程安全的特定技术无关. 通常可以限制Client进行的查询数或限制Client从推理中获取的信息来避免这些攻击. 但是大部分SNNI方案不考虑这些攻击.</p>
+<h3><a id="2-3%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3 受支持的神经网络</h3>
+<p>目前暂不清楚有效支持所有类型NN的安全计算的通用技术. SNNI的多数工作都集中在开发适用于某种神经网络类型的特定技术, 要么受限于所支持的层类型, 有么受限于权重的范围.</p>
+<h4><a id="2-3-1%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E5%B1%82%E7%B1%BB%E5%9E%8B" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.1 受支持的层类型</h4>
+<p>理想的SNNI方案应支持FC层、Conv层、激活函数层、最大池化层、softmax或argmax. 常见方案支持的层类型如下:</p>
+<p><img src="media/16675243955254/16675245063675.png" alt="image-20221031160001379" /></p>
+<h4><a id="2-3-2%E5%8F%97%E6%94%AF%E6%8C%81%E7%9A%84%E6%9D%83%E9%87%8D%E8%8C%83%E5%9B%B4" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3.2 受支持的权重范围</h4>
+<p>有一些SNNI方案限制了NN中处理的数据类型, 从而加快推理效率. 例如:</p>
+<ul>
+<li>离散化的神经网络(Discretized NN): 权重都是整数, 神经元的输入和输出都在\(\{1,-1\}\)中;</li>
+<li>二值神经网络(Binary NN): 权重和激活值都只能取\(\{1,-1\}\). 例如XONN.</li>
+</ul>
+<p>这些限制方法可以高效地实现NN中所涉及的算术运算, 但NN的准确率将降低.</p>
+<h3><a id="2-4%E4%B8%8E%E8%AE%AD%E7%BB%83%E7%9A%84%E8%81%94%E7%B3%BB" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.4 与训练的联系</h3>
+<p>SNNI方法与训练存在很大的差异, 如下图所示,</p>
+<ul>
+<li>(a) 涵盖了同一框架下的安全训练和安全推理, 例如: Falcon.</li>
+<li>(b) 从预训练的模型开始, 完全与训练无关, 不需要对模型进行修改, 例如: CrypTFlow.</li>
+<li>(c) 对预训练的模型进行转换, 使其更适合SNNI, 例如: CryptoNets.</li>
+<li>(d) 对训练过程进行大幅修改从而提高效率, 例如: Delphi、XONN.</li>
+</ul>
+<p><img src="media/16675243955254/16675245063733.png" alt="image-20221031162036945" /></p>
+<p>尽管这些优化有助于提高效率, 但可能会影响现有机器学习模型的可用性.</p>
+<h3><a id="2-5%E4%BA%A4%E4%BA%92%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.5 交互性</h3>
+<p>轮复杂度(Round complexity): Client和Server通信的轮数.
+大多数现有SNNI方法的通信模式有如下两种:</p>
+<ul>
+<li>交互式(interactive): Client和Server在评估NN的每一层后都进行通信, 交互式方案需要通信\(O(n)\)轮, 其中\(n\)为层数;
+<ul>
+<li>优点: 可对不同类型的层选用最合适的协议, 实现更高的效率;</li>
+<li>缺点: 会泄漏NN架构信息给Client, 且要求Client全程参与, 不利于移动设备.</li>
+<li>例子: 基于秘密共享的SNNI方案、混合方案.</li>
+</ul>
+</li>
+<li>非交互式(non-interactive): Client和Server的通信只发生在协议开始时和结束时, 非交互式方案只需通信\(O(1)\)轮.
+<ul>
+<li>优点: NN架构信息对Client保密.</li>
+<li>例子: 基于混淆电路和同态加密的SNNI方案.</li>
+</ul>
+</li>
+</ul>
+<h3><a id="2-6%E7%A6%BB%E7%BA%BF%E9%A2%84%E5%A4%84%E7%90%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.6 离线预处理</h3>
+<p>许多方法中协议的某些部分独立于Client的输入, 因此可将协议分为独立于Client输入的离线预处理阶段和依赖于输入的在线阶段. 使用这种离线/在线范式的方法有SecureML, MiniONN, Chameleon, Delphi, Falcon等等. 离线阶段的常见活动有: 生成Beaver三元组, 或者其他用于茫化秘密的关联随机数.</p>
+<p>离线/在线范式优缺点如下:</p>
+<ul>
+<li>优点: 适合Client与Server是长期关系, 但推理请求只是偶尔发生的场景, 此时系统有充足的时间进行预处理, 因此方案的优化目标在于减少在线阶段的处理时间.</li>
+<li>缺点: 不太适合新Client加入和推理请求频繁发生的场景, 此时系统没有空闲时间进行预处理, 因此方案的优化目标在于减少计算消耗的总时间.</li>
+</ul>
+<h2><a id="3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 解决方案</h2>
+<h3><a id="3-1%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86-he" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 同态加密(HE)</h3>
+<p>早期将HE用于SNNI问题的工作是[1-2]. 使用HE的优点是可以满足所有保密目标, 其主要的难点则在于非线性函数的计算和全同态加密方案的选取.</p>
+<h4><a id="3-1-1%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1.1 非线性函数的计算</h4>
+<ol>
+<li>使用该函数的多项式近似, 因为多项式计算只涉及FHE方案支持的乘法和加法, 尽管这仍然非常昂贵. 这里的“昂贵”指的是: 计算时间的增加、噪音的大幅增加和消息空间大小的增加.</li>
+<li>使用简化的激活函数. 例如CryptoNets使用平方函数代替激活函数, 求和代替池化; FHE-DiNN使用符号函数作为激活函数等.</li>
+</ol>
+<p>由于HE评估非线性层很困难, 故一些方案建议仅对网络中的线性层使用HE, 而对非线性层使用其他MPC技术.</p>
+<h4><a id="3-1-2%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88%E7%9A%84%E9%80%89%E5%8F%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1.2 同态加密方案的选取</h4>
+<ul>
+<li>第一代FHE: Gentry所提出的方案, 噪音增长太快, 降低噪音的自举开销巨大;</li>
+<li>第二代FHE: BGV、BFV、yashe, 噪音增长变慢, 比第一代高效;</li>
+<li>第三代FHE: 改善了自举的时间;</li>
+<li>第四代FHE: CKKS方案, 可用于浮点数运算, 适合NN.
+使用FHE解决SNNI问题的方案有: CryptoNets, LoLa, SHE等. 这些方案对比如下:</li>
+</ul>
+<p><img src="media/16675243955254/16675245063792.png" alt="image-20221031203518030" /></p>
+<p>从SHE来看, 虽然FHE变得越来越快, 准确度也在提高, 但单次推理所消耗的时间仍比较长, 因此实用性较差.</p>
+<h3><a id="3-2%E6%B7%B7%E6%B7%86%E7%94%B5%E8%B7%AF-gc" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.2 混淆电路(GC)</h3>
+<p>如果所涉及的数据都是定长的, 则NN的所有运算都可以用布尔电路来实现, 并使用混淆电路来解决SNNI问题, 此时不能保护NN架构信息, 安全性由混淆电路保证, 但效率可能会很低.
+第一个主要使用GC来解决SNNI问题的工作是DeepSecure[3], 使用了Free-XOR和独立于GC的预处理技术, 利用尽可能少数量的非XOR门的基本模块来构造经典NN.
+此外, 还有基于二值NN的工作XONN, 利用GC来评估非线性层的Dephi.</p>
+<h3><a id="3-3%E5%8A%A0%E6%B3%95%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB-ass" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3 加法秘密共享(ASS)</h3>
+<p>评估非线性层需要秘密份额之间的加法和乘法. 两方计算时秘密份额的加法是平凡的, 秘密份额的乘法则需要借助Bever三元组.</p>
+<h4><a id="3-3-1%E7%94%9F%E6%88%90-beaver%E4%B8%89%E5%85%83%E7%BB%84" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3.1 生成Beaver三元组</h4>
+<p>Beaver三元组不依赖于输入, 因此可以在离线预处理阶段生成. 如果只有两方, 生成Beaver三元组的方式有两种: 同态加密和不经意传输. 此外, 如果有额外的不参与在线阶段计算的第三方, 则可让其生成Beaver三元组提高计算效率, 如Chameleon. 若使用2-out-of-3秘密共享, 则不需要Beaver三元组即可计算乘法, 如Falcon.</p>
+<h4><a id="3-3-2%E8%AF%84%E4%BC%B0%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%B1%82" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.3.2 评估非线性层</h4>
+<ul>
+<li>多项式近似, 例子: SecureML、Delphi等;</li>
+<li>把通用密码协议用于某个特定功能, 但主要方法仍是ASS, 例子: SecureML, MiniONN使用了GC, CrypTFlow2使用了OT;</li>
+<li>其他专用方案, 例子: SiRnn使用lookup table和迭代近似(iterative approximation)来计算指数函数和反函数, 从而可通过ASS来计算Sigmoid函数, Faclon使用迭代近似来计算除法, 使用二叉搜索(binary search)来计算max-pooling.</li>
+</ul>
+<h3><a id="3-4%E6%B7%B7%E5%90%88%E5%8D%8F%E8%AE%AE%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.4 混合协议方案</h3>
+<p>HE、GC、ASS都有一些缺点, 限制了某些层的适用性, 由于这些缺点与不同类型层相关, 因此可以考虑将多种技术进行组合, 使得NN的每层都使用最合适的技术, 尽管这将使得方案变成交互式的. 多数情况下ASS被用作框架, 辅以其他技术, 用于在线阶段不同类型的层的安全计算, 例子:</p>
+<ul>
+<li>SecureML和MiniONN将ASS用于线性层, 将GC用于非线性层;</li>
+<li>Chameleon对线性层使用ASS, 对ReLU激活函数使用GMW协议, 对argmax使用GC;</li>
+<li>Gazelle将HE用于线性层, 将GC用于非线性层;</li>
+<li>CrypTFlow2将HE或OT用于线性层, 将ASS与专用子协议用于非线性层;</li>
+<li>Delphi使用ASS用于线性层和平方激活, 使用GC进行ReLU激活.</li>
+</ul>
+<h3><a id="3-5%E5%85%B6%E4%BB%96%E6%96%B9%E9%9D%A2" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5 其他方面</h3>
+<h4><a id="3-5-1%E4%B8%8D%E7%BB%8F%E6%84%8F%E4%BC%A0%E8%BE%93%E7%9A%84%E4%BD%BF%E7%94%A8" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.1 不经意传输的使用</h4>
+<p>OT通常是许多SNNI方法的重要组成部分:</p>
+<ul>
+<li>混淆电路的计算;</li>
+<li>生成Beaver三元组;</li>
+<li>可构造专用子协议, 用于评估秘密共享形式的非线性层, 如CrypTFlow2.</li>
+</ul>
+<h4><a id="3-5-2%E6%95%B0%E5%AD%97%E7%BC%96%E7%A0%81" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.2 数字编码</h4>
+<p>理论上NN的输入和输出以及权重和其他参数可以是任何实数, 但在计算机实现中, 所有这些数字都使用有限位来表示, 选择数字表示方案取决于如下几个方面:</p>
+<ul>
+<li>表示类型: 浮点(floating-point)、定点(fixed-point)、整数(integer);</li>
+<li>有符号(signed)/无符号(unsigned);</li>
+<li>位宽(bitwidth, 总位长);</li>
+<li>比例(scale, 也称为精度, 小数部分的位数).</li>
+</ul>
+<p><img src="media/16675243955254/16675245063845.png" alt="image-20221031222913369" /></p>
+<p>这些方面的不同选择可能会造成重大影响, 从而导致效率和准确性之间的不同权衡. 特别是减小位宽可以显著提高效率, 这取决于所使用的技术, 例如使用GC时减少位宽可使电路规模减小, 从而只需更少的计算和更少的通信, 但可能会限制可实现的准确性.</p>
+<p>计算机通常天然支持给定位宽运算, 利用这种硬件支持的位宽可以实现更简单高效的方案. 例如: Delphi和Falcon使用32位的固定位宽, 而SecureML和SecureNN使用64位的固定位宽, 此外位宽不需要在整个NN中都是均匀的, 例如SiRnn引入的动态调整位宽的协议. 某些运算可能会改变位宽, 此时需要额外进行截断运算.</p>
+<p>对于小数部分的精度, 有不同的解决方案, 例如具有统一精度的定点表示的有Delphi和Falcon, 动态确定精度的有CrypTFlow2, 还有一些方案使用整数以固定位数表示, 但要确保没有溢出, 例如MiniONN.</p>
+<p>对于有符号数的编码, 通常使用二进制补码(two's complement), 在评估ReLU时需要确定数字是否为正数, 在二进制补码中这归结为确定数字的最高有效位.</p>
+<p>在HE情况下, 几种加密方案都基于多项式, 明文被编码为多项式系数. 为充分利用消息空间, 一些方法(如CryptoNets)通过中国剩余定理将多个数字打包为一个系数, 用多个系数来表示一个数字. 通过使用FHE方法, 可以通过以定点表示来处理这些数字, 这需要将数字映射到实践中所使用的多项式环中, [4]给出了一种为同态函数评估设计的定点数有效编码方法.</p>
+<h4><a id="3-5-3%E5%B9%B6%E8%A1%8C%E5%8C%96" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.3 并行化</h4>
+<p>使用密码学协议使得利用并行化计算更具挑战性. 一些同态加密方案支持SIMD处理, 从而对同一批次不同输入执行相同的操作. 离线阶段也可以利用并行化计算, 例如SecureML中生成向量化的Beaver三元组, MiniONN也使用了类似的方法.</p>
+<h4><a id="3-5-4%E5%85%B3%E8%81%94%E9%9A%8F%E6%9C%BA%E6%80%A7" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.4 关联随机性</h4>
+<p>为了茫化秘密, 有些方案使用了关联随机数, 即由不同方拥有满足某种关系的随机数. 典型的例子是Beaver三元组、ABY3和Falcon中使用的Zero sharing.</p>
+<p>生成关联随机性主要有两种方法:</p>
+<ul>
+<li>使用PRG, PRF, HE或OT等密码学协议来生成, 例如Falcon使用预共享密钥的PRF来生成不同类型的关联随机性;</li>
+<li>使用额外第三方来生成, 例如Chameleon使用半诚实第三方生成随机种子发给两方, 然后两方本地通过PRG生成.</li>
+</ul>
+<h4><a id="3-5-5%E7%A5%9E%E7%BB%8F%E6%9E%B6%E6%9E%84%E6%90%9C%E7%B4%A2-nas" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.5 神经架构搜索(NAS)</h4>
+<p>SNNI的一些方案也对NN架构进行了修改, 事实上在普通环境中使用表现良好的架构可能不是SNNI的最佳选择. 找到最佳的NN架构是一个繁琐的过程, 涉及尝试许多不同的候选架构、训练并评估实现的准确性. 此过程可以通过神经网络架构搜索(Neural Architecture Search, NAS)算法自动执行.</p>
+<p>例如: Delphi将NAS用于特定目的: 它使用平方函数替换了NN中的一些ReLU激活, 旨在找到准确性和推理效率之间的良好权衡, 要替换哪些ReLU由NAS决定. NASS进一步使用NAS, 在寻找安全推理的最佳神经架构时, NASS会考虑不同密码原语的开销, 作为搜索过程的一部分, NASS还会自动调整用于NN线性层的HE参数[5]. 此外, HEMET也遵循类似的方法[6].</p>
+<h4><a id="3-5-6%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BF%91%E4%BC%BC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.6 多项式近似</h4>
+<p>HE和ASS适合评估多项式. 对于非多项式函数, 可以使用适当的多项式近似代替, 但这将会导致高阶多项式开销大的问题, 因为乘法所需的开销大, 而低阶多项式近似效果很差. 解决这个问题的唯一可能方法是使用分段多项式近似. 例子: SecureML, MiniONN, Delphi.</p>
+<h4><a id="3-5-7%E5%8A%A0%E9%80%9F%E5%8D%B7%E7%A7%AF" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.7 加速卷积</h4>
+<p>卷积可以用矩阵乘法表示, 从而可以像处理全联接层一样处理卷积层, 理论上很方便, 但可能导致实现效率低下, 特别是在ASS的框架下使用Beaver三元组来实现矩阵乘法, 相同的矩阵元素被多个Beaver三元组所茫化从而导致Beaver三元组的浪费. CryTFlow的Porthos组件对此进行了优化, 以减少卷积所需的Beaver三元组数量. 而CrypTFlow2中的卷积使用了HE实现, 通过巧妙地使用SIMD, 减少HE rotation操作次数来加速卷积计算.</p>
+<h4><a id="3-5-8%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.5.8 安全性分析</h4>
+<p>在大多数情况下, 基于MPC的解决方案的安全性(输入隐私性)建立在通用可组合(Universal Composability, UC)框架下, 依赖于其构造模块的安全性和可组合性. 而基于HE的解决方案的安全性通常基于困难问题, 如Ring-LWE问题等.</p>
+<h3><a id="3-6%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.6 其他方法</h3>
+<ul>
+<li>模型拆分: 将NN拆分为多个部分分配给不同的参与方, 从而限制每方得到的知识.</li>
+<li>可信执行环境: 可在不受信任的环境中实现安全计算, 使用硬件隔离和加密技术来保证数据机密性和执行的完整性, 几乎没有通信开销, 能以原生速度运行. 缺点: 存在侧信道攻击且必须信任设备的生产厂商. 例子: Intel SGX和面向移动设备部署的ARM TrustZone.</li>
+<li>编译器: 将机器学习代码转换为安全协议代码的编译器.
+例子: Rosetta, secureTF, MP2ML, CHET, EzPC, CrypTen.
+还有一些编译器将高级编程语言转换为电路格式, 然后可以基于HE, GC和ASS的安全计算框架进行评估.
+例子: HyCC.</li>
+</ul>
+<h2><a id="4-snni%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. SNNI方法的实现</h2>
+<p><img src="media/16675243955254/16675245063904.png" alt="image-20221101104935350" /></p>
+<h2><a id="5%E5%AE%9E%E9%AA%8C%E8%AF%84%E4%BC%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. 实验评估</h2>
+<h3><a id="5-1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98-nn%E5%92%8C%E6%95%B0%E6%8D%AE%E9%9B%86" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.1 机器学习问题, NN和数据集</h3>
+<p>大多数SNNI的工作集中在图像分类问题上, 因此CNN更常见. 根据CNN规模, 常见的CNN可以分为:</p>
+<ul>
+<li>小规模: LeNet(7层), AlexNet(8层);</li>
+<li>大规模: VGG16、VGG19、ResNet50、DenseNet121和SqueezeNet.</li>
+</ul>
+<p>常用数据集: MNIST, CIFAR-10.</p>
+<p>其他类型的NN还有:</p>
+<ul>
+<li>循环神经网络(Recurrent Neural Networks, RNN): 对顺序数据(如音频/传感器数据等)进行分类.</li>
+<li>图神经网络(Graph Neural Networks, GNN): 对节点组成的数据及其空间位置信息进行分类.</li>
+</ul>
+<h3><a id="5-2%E6%8A%80%E6%9C%AF%E8%AE%BE%E7%BD%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.2 技术设置</h3>
+<p>实验环境: 本地模拟LAN/WAN、云服务器环境的LAN/WAN.</p>
+<ul>
+<li>WAN: 带宽9~70MB/s, 延迟60ms;</li>
+<li>LAN: 带宽1GB/s, 延迟&lt;1ms.</li>
+</ul>
+<h3><a id="5-3%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.3 评估指标</h3>
+<ul>
+<li>执行时间/时延(execution time/latency): 执行一次推理所消耗的时间. 此外, 批处理方法可用平均时间.</li>
+<li>通信量(communication): 各参与方之间传输的总字节量. 此外, 批处理方法可用平均通信量.</li>
+<li>吞吐量(throughput): 单位时间内的推理次数, 衡量批处理效果的指标.</li>
+<li>准确率(accuracy): 限制和修改NN可能会影响准确性, 因此需要对方法的准确率进行评估.</li>
+</ul>
+<h3><a id="5-4%E5%AF%B9%E6%AF%94" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.4 对比</h3>
+<p>当要说明一种新方法改进了现有技术时, 需要对两者进行对比, 此时需要面临如下问题:</p>
+<ul>
+<li>比较维度应一致</li>
+<li>安全属性难以量化</li>
+<li>只进行少量实验或只考虑效率和准确性难以表明方案的优劣</li>
+</ul>
+<h2><a id="6%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. 未来研究方向</h2>
+<ol>
+<li>SNNI方法的特征:
+<ul>
+<li>安全性与效率的权衡: 如何同时实现高效性和高安全级别?</li>
+<li>具体应用场景的影响: 具体应用如何影响不同方法的适用性?</li>
+<li>物联网和边缘计算中的SNNI: 当可用资源受限时SNNI方案的构造?</li>
+<li>安全推理友好的NN和训练: 安全推理与安全训练的集成优化问题?</li>
+<li>抵御黑盒攻击: 大多数SNNI方法不能防止黑盒攻击?</li>
+</ul>
+</li>
+<li>解决方案:
+<ul>
+<li>新的构造模块? 例如: Silent OT的应用.</li>
+<li>模块化解决方案: 将模块化方案扩展到支持任意数量的计算方, 支持不同敌手模型和保密目标, 使用广泛的模型架构等, 提升用户需求的灵活性?</li>
+<li>解决方案的可扩展性: 现有SNNI方案的内存、计算和通信要求很高, 如何扩展到多方? 如何在多个节点之间摊销这些开销?</li>
+</ul>
+</li>
+<li>实现:
+<ul>
+<li>ML框架集成和统一的API</li>
+<li>GPU支持</li>
+<li>容器构建: 容易重现实验并对性能进行公平比较</li>
+</ul>
+</li>
+<li>解决方案的评估:
+<ul>
+<li>改善对比方法, 确保公平比较</li>
+<li>更多样的基准</li>
+<li>现实技术设置</li>
+<li>考虑超越效率的指标: 包括能耗、安全性、隐私性和可用性.</li>
+</ul>
+</li>
+</ol>
+<h2><a id="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考文献</h2>
+<p>[1] Barni, M., Orlandi, C., and Piva, A. A privacy-preserving protocol for neural-network-based computation. In MM&amp;Sec (2006), ACM, pp. 146–151.</p>
+<p>[2] Barni, M., Orlandi, C., and Piva, A. A privacy-preserving protocol for neural-network-based computation. In MM&amp;Sec (2006), ACM, pp. 146–151.</p>
+<p>[3] Rouhani, B. D., Riazi, M. S., and Koushanfar, F. Deepsecure: scalable provably-secure deep learning. In DAC (2018), ACM, pp. 2:1–2:6.</p>
+<p>[4] Bonte, C., Bootland, C., Bos, J. W., Castryck, W., Iliashenko, I., and Vercauteren, F. Faster homomorphic function evaluation using non-integral base encoding. In CHES (2017), Springer, pp. 579–600.</p>
+<p>[5] Bian, S., Jiang, W., Lu, Q., Shi, Y., and Sato, T. NASS: optimizing secure inference via neural architecture search. In ECAI (2020), vol. 325 of Frontiers in Artificial Intelligence and Applications, IOS Press, pp. 1746–1753.</p>
+<p>[6] Lou, Q., and Jiang, L. HEMET: A homomorphic-encryption-friendly privacy-preserving mobile neural network architecture. In ICML (2021), vol. 139 of Proceedings of Machine Learning Research, PMLR, pp. 7102–7110.</p>
+
+
+	    <p class="post-info" style="color: #BCBDB6">
+			<br>本文标题: <a style="color: #4690cc" href="#">Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead</a>
+			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
+			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16675243955254.html
+				</a>
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-11-04T09:13:15+08:00
+		</p>
+
+                                </div><!-- / .chat-messages -->
+                            </div>
+
+                        </div>
+                    </div><!-- / .row -->
+
+                </div><!-- / .card -->
+
+            </div><!-- / .chat-wrapper -->
+        </div>
+        <!-- / Content -->
+    </div>
+    <!-- Layout content -->
+
+</div>
+<!-- / Layout container -->
+
+
+  </div>
+
+<!-- Layout footer -->
+<nav class="layout-footer footer bg-footer-theme border-top">
+   <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+       <div class="pt-3">
+           <!-- <span class="footer-text font-weight-bolder text-muted">Copyright &copy; 2020 | 粤ICP备18038345号-1</span> -->
+           <span class="footer-text font-weight-bolder text-muted">There is always only one truth！</span>
+       </div>
+       <div>
+           
+           <a href="index.html" class="footer-link pt-3 ml-4">主页</a>
+           
+           <a href="archives.html" class="footer-link pt-3 ml-4">分类</a>
+           
+           <a href="about.html" class="footer-link pt-3 ml-4">关于</a>
+           
+           <a href="https://gitee.com/hongtu1993/mao-mweb-theme" target="_blank" class="footer-link pt-3 ml-4">Theme</a>
+           <a href="#post-header" class="footer-link pt-3 ml-4">Top</a>
+       </div>
+   </div>
+</nav>
+<!-- / Layout footer -->
+
+<!-- Overlay -->
+<div class="layout-overlay layout-sidenav-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+<!-- Load polyfills -->
+<script src="asset/vendor/js/layout-helpers.js"></script>
+
+<!-- Core scripts -->
+<script src="asset/vendor/js/pace.js"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+
+<!-- Core scripts -->
+<script src="asset/vendor/libs/popper/popper.js"></script>
+<!--<script src="asset/vendor/js/bootstrap.js"></script>-->
+<script src="asset/vendor/js/sidenav.js"></script>
+
+<!-- Libs -->
+<script src="asset/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<!-- Demo -->
+<script src="asset/js/demo.js"></script>
+
+<script src="asset/pages_chat.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+
+    // todo
+    // https://www.cnblogs.com/wicub/p/3449833.html
+    // https://www.jb51.net/article/102370.htm
+    $("a.sidenav-link").on("click", ev => {
+
+      let url = $(ev.currentTarget).data("url");
+      if (url) {
+        console.log(url)
+        window.location.href = url + "?s=" + $("#sidenav-inner").scrollTop()
+      }
+
+    })
+
+
+
+    let currentURL = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+    let $sideNavArray = $('.sidenav-inner > .sidenav-item');
+    $sideNavArray.each(sideNavItemIndex => {
+      let sideNavItem = $sideNavArray.eq(sideNavItemIndex);
+
+      let sideNavMenu = $(sideNavItem).find(".sidenav-menu");
+
+
+      let getQueryString = function(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
+
+      if (sideNavMenu && sideNavMenu.length > 0) {
+
+        let $sideHrefItemArray = $(sideNavMenu).find("li a")
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              $($(sideNavMenu).parent("li")).addClass('open')
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+            }
+          }
+
+        });
+      } else {
+        let $sideHrefItemArray = $(sideNavItem).find("a");
+        $sideHrefItemArray.each(index => {
+          let linkString = $($sideHrefItemArray[index]).data('url');
+          if (linkString) {
+            if (currentURL.startsWith(linkString.toString())) {
+              $($sideHrefItemArray[index]).parent().addClass('active');
+              // console.log("offset", $($sideHrefItemArray[index]).offset().top)
+              // console.log("offset", $("#sidenav-inner").height())
+              setTimeout(() => {
+                let sTop = getQueryString("s")
+                if (sTop && !isNaN(sTop)) {
+                  $("#sidenav-inner").scrollTop(Number(sTop))
+                }
+              }, 0)
+
+
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      //为超链接加上target='_blank'属性
+    $('a[href^="http"]').each(function() {
+      $(this).attr('target', '_blank');
+    });
+  });
+</script>
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true }, displayAlign : "center", TeX: { equationNumbers: { autoNumber: "all", useLabelIds: true } }, "HTML-CSS": { availableFonts: ["TeX"], showMathMenu: false, linebreaks: { automatic: false }, scale: 100, styles: { ".MathJax_Display": { "text-align": "left", "width" : "auto" } } }, SVG: { linebreaks: { automatic: false } } }); </script> 
+<!-- <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script> -->
+
+<!-- <script type="text/x-mathjax-config">MathJax.Hub.Config({
+jax: ['input/TeX','output/HTML-CSS'], TeX: { equationNumbers: { autoNumber: "AMS" } }});</script> -->
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

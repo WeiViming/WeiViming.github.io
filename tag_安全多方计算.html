@@ -5,7 +5,7 @@
 <head>
     <title>
         
-        NTL函数库的CMakeLists.txt书写方式 - 云中雨雾
+        安全多方计算 - 云中雨雾
         
     </title>
 
@@ -477,167 +477,77 @@
     <!-- include _ (layout-navbar.html) -->
 
     <!-- Layout content -->
-    <div class="layout-content   h-100" id="layout-content">
+    <div class="layout-content">
 
         <!-- Content -->
-        <div class="container-fluid flex-grow-1 container-p-y  h-100">
+        <div class="container-fluid flex-grow-1 container-p-y">
+            <h4 class="font-weight-bold py-0">
+                标签
+            </h4>
 
-            <!-- include    _  (post-title.html) -->
+            <div class="card mb-3">
+                <div class="card-header d-none d-md-block">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col"></div>
+                        <div class="col-3 text-muted">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-12 text-center">最近更新</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!--            <div class="card p-3">-->
+                
+                <hr class="m-0">
+                <div class="card-body py-3">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col">
+                            <a href="16657474753615.html" class="text-big">Honest Majority MPC with Abort with Minimal Online Communication</a>
+                            
+                            <div class="small mt-1">
+                                所属目录
+                                
+                                <a href="16657474753615.html" class="text-muted">&nbsp;·&nbsp;密码之路</a>
+                                
 
-<!--                <article class="markdown-body single-content">-->
-<!--                    <p><a href="https://www.shoup.net/ntl/">NTL</a>函数库默认不包含cmake的寻找文件<code>FindNTL.cmake</code>. 因此, 如果使用<code>find_package(NTL Requird)</code>会直接报错找不到. 实测只需要在<code>CMakeLists.txt</code>中, 按照如下方式配置即可:</p>
-<pre class="line-numbers"><code class="language-cmake">find_library(NTL_lib ntl)
-set(third_lib ${NTL_lib})
+                                
+                                <span class="ml-2">标签:</span>
+                                
+                                <a href="tag_%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97.html" class="badge badge-default align-text-bottom ml-1 text-muted">#安全多方计算</a>
+                                
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="d-none d-md-block col-3">
 
-add_executable(test test.cpp)
-target_link_libraries(test ${third_lib})
-</code></pre>
--->
-<!--                </article>-->
-
-
-<!--            </div>-->
-
-
-            <div class="chat-wrapper  h-100">
-
-                <!-- Make card full height of `.chat-wrapper` -->
-                <div class="card flex-grow-1 position-relative overflow-hidden ">
-
-                    <!-- Make row full height of `.card` -->
-                    <div class="row no-gutters h-100">
-                        <div class="chat-sidebox col">
-
-                            <!-- Chat contacts header -->
-                            <!-- <div class="flex-grow-0 px-4">
-                                <div class="media align-items-center">
-                                    <div class="media-body">
-                                        <input type="text" class="form-control chat-search my-3" placeholder="Search...">
+                            <div class="row no-gutters align-items-center">
+                                <div class="media col-12 align-items-center">
+                                    <img src="altina.jpg" alt="" class="d-block ui-w-30 rounded-circle">
+                                    <div class="media-body flex-truncate ml-2">
+                                        <div class="line-height-1 text-truncate text-muted">2022/10/14 19:37 下午</div>
+                                        <!--                                        <a href="javascript:void(0)" class="text-muted small text-truncate">by Leon Wilson</a>-->
                                     </div>
-                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large font-weight-light pl-3">&times;</a>
                                 </div>
-                                <hr class="border-light m-0">
-                            </div> -->
-                            <!-- / Chat contacts header -->
-
-                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
-                            <div class="flex-grow-1 position-relative">
-                                <div class="chat-contacts list-group chat-scroll py-3" style="padding: 10px;" >
-
-
-
-
-                                    <!-- <ul id="toc_container" class="py-1" style="list-style: none; padding-left: 0;"></ul> -->
-
-                                    <ul id="toc_container" style="list-style: none; padding-left: 0;"></ul>
-
-                                </div><!-- / .chat-contacts -->
                             </div>
 
                         </div>
-                        <div class="d-flex col flex-column">
+                    </div>
 
-                            <!-- Chat header -->
-                            <div class="flex-grow-0 py-3 pr-4 pl-lg-4">
-
-                                <div class="media align-items-center">
-                                    <a href="javascript:void(0)" class="chat-sidebox-toggler d-lg-none d-block text-muted text-large px-4 mr-2"><i class="ion ion-md-more"></i></a>
-
-
-<!--                                    <div class="media-body pl-3">-->
-<!--                                        <h1>Kenneth Frazier</h1>-->
-<!--                                        <div class="text-muted small"><em>Typing...</em></div>-->
-<!--                                    </div>-->
-
-                                    <!--<h2 id="post-header" class="font-weight-bold py-0">-->
-<!--    NTL函数库的CMakeLists.txt书写方式-->
-<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2021/05/12 16:45 下午</small></div>-->
-<!--</h2>-->
-
-<div class="media-body pl-3">
-    <h1 id="post-header">NTL函数库的CMakeLists.txt书写方式</h1>
-    <div class="text-muted small"><em>2021/05/12 16:45 下午</em>
-        
-        <span class="ml-2">标签:</span>
-        
-        <a href="tag_%E7%BC%96%E7%A8%8B.html" class="badge badge-default align-text-bottom ml-1 text-muted">#编程</a>
-        
-        
-    </div>
-</div>
-
-<link rel="stylesheet" href="asset/chat.css">
-
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        // add toc to article element
-        $("#article_with_toc").toc(
-          {
-              strip: true,
-              stripAfter: 100,
-              container: "#toc_container",
-              scrollSpeed: 1,
-              scrollOffset: 135
-          });
-    });
-</script>
+                </div>
+                
+            </div>
 
 
 
-                                    <!-- <div>
-                                      <button type="button" class="btn btn-primary rounded-pill icon-btn mr-1"><i class="ion ion-ios-call"></i></button>
-                                      <button type="button" class="btn btn-secondary rounded-pill icon-btn mr-1"><i class="ion ion-md-videocam"></i></button>
-                                      <button type="button" class="btn btn-default rounded-pill icon-btn"><i class="ion ion-ios-more"></i></button>
-                                    </div> -->
-                                </div>
-
-                            </div>
-                            <hr class="flex-grow-0 border-light m-0">
-                            <!-- / Chat header -->
-
-                            <!-- Wrap `.chat-scroll` to properly position scroll area. Remove this wtapper if you don't need scroll -->
-                            <div class="flex-grow-1 position-relative">
-
-                                <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
-                                <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
-
-                                    <p><a href="https://www.shoup.net/ntl/">NTL</a>函数库默认不包含cmake的寻找文件<code>FindNTL.cmake</code>. 因此, 如果使用<code>find_package(NTL Requird)</code>会直接报错找不到. 实测只需要在<code>CMakeLists.txt</code>中, 按照如下方式配置即可:</p>
-<pre class="line-numbers"><code class="language-cmake">find_library(NTL_lib ntl)
-set(third_lib ${NTL_lib})
-
-add_executable(test test.cpp)
-target_link_libraries(test ${third_lib})
-</code></pre>
-
-
-	    <p class="post-info" style="color: #BCBDB6">
-			<br>本文标题: <a style="color: #4690cc" href="#">NTL函数库的CMakeLists.txt书写方式</a>
-			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
-			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16208091105804.html
-				</a>
-				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2021-05-12T16:45:10+08:00
-		</p>
-
-                                </div><!-- / .chat-messages -->
-                            </div>
-
-                        </div>
-                    </div><!-- / .row -->
-
-                </div><!-- / .card -->
-
-            </div><!-- / .chat-wrapper -->
         </div>
         <!-- / Content -->
+
     </div>
     <!-- Layout content -->
 
 </div>
 <!-- / Layout container -->
-
-
   </div>
 
 <!-- Layout footer -->
@@ -793,8 +703,6 @@ target_link_libraries(test ${third_lib})
 
 
 
-
-<script src="asset/prism.js"></script>
 
 
 </body>
