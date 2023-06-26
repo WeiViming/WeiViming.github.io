@@ -185,7 +185,7 @@
                             <li class="sidenav-item">
                                 <a href="javascript:void(0)" data-url="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="sidenav-link">
                                     <i class="sidenav-icon ion ion-ios-bookmark"></i>
-                                    <div>隐私保护机器学习(15)</div>
+                                    <div>隐私保护机器学习(14)</div>
                                 </a>
                             </li>
                             
@@ -216,12 +216,6 @@
                         <li class="sidenav-item">
                             <a href="javascript:void(0)" data-url="16675243955254.html" title="Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
                                 <div>Towards Practical Secure Neural Network Inference: The Journey So Far and the Road Ahead</div>
-                            </a>
-                        </li>
-                        
-                        <li class="sidenav-item">
-                            <a href="javascript:void(0)" data-url="16434684624710.html" title="Privacy Preserving Machine Learning Resources" class="sidenav-link"><i class="sidenav-icon ion ion-md-document"></i>
-                                <div>Privacy Preserving Machine Learning Resources</div>
                             </a>
                         </li>
                         
@@ -499,99 +493,7 @@
 <!--            <div class="card p-3">-->
 
 <!--                <article class="markdown-body single-content">-->
-<!--                    <div class="mweb_toc"><ul>
-<li><a href="#abstract">Abstract</a></li>
-<li><a href="#introduction-contributions">Introduction &amp; Contributions</a>
-<ul>
-<li><a href="#efficient-3pc-for-binary-circuits-with-malicious-security">Efficient 3PC for Binary Circuits with Malicious Security</a></li>
-<li><a href="#applications-to-maliciously-secure-dnn-inference">Applications to Maliciously Secure DNN Inference</a></li>
-<li><a href="#a-security-issue-in-probabilistic-truncation-protocols">A Security Issue in Probabilistic Truncation Protocols</a></li>
-</ul>
-</li>
-<li><a href="#preliminaries">Preliminaries</a>
-<ul>
-<li><a href="#secret-sharing">Secret Sharing</a></li>
-<li><a href="#distributed-zero-knowledge-proofs">Distributed Zero-Knowledge Proofs</a></li>
-<li><a href="#ideal-functionalities">Ideal Functionalities</a></li>
-</ul>
-</li>
-<li><a href="#maliciously-secure-3pc-for-binary-circuits">Maliciously Secure 3PC for Binary Circuits</a>
-<ul>
-<li><a href="#the-overall-protocol-achieving-malicious-security">The Overall Protocol: Achieving Malicious Security</a></li>
-<li><a href="#instantiating-mathcal-f-mathrm-vrfy-verifying-and-computations">Instantiating (mathcal{F}_mathrm{vrfy}) - Verifying AND Computations</a>
-<ul>
-<li><a href="#step-1-reduce-the-relation">Step 1: Reduce the Relation</a></li>
-<li><a href="#step-2-transform-to-prime-fields">Step 2: Transform to Prime Fields</a></li>
-<li><a href="#step-3-batch-verifying-multiple-and-gates">Step 3: Batch Verifying Multiple AND Gates</a></li>
-<li><a href="#step-4-applying-distributed-zero-knowledge-proofs">Step 4: Applying Distributed Zero-Knowledge Proofs</a>
-<ul>
-<li><a href="#step-4-1-transform-to-polynomials">Step 4.1: Transform to Polynomials</a></li>
-<li><a href="#step-4-2-check-polynomial-equations">Step 4.2: Check Polynomial Equations</a></li>
-<li><a href="#setp-4-3-recursive-delegation">Setp 4.3: Recursive Delegation</a></li>
-<li><a href="#an-omitted-security-issue">An Omitted Security Issue</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#optimizations-saving-computational-cost">Optimizations: Saving Computational Cost</a>
-<ul>
-<li><a href="#computation-task-of-first-round-of-recursion">Computation Task of First Round of Recursion</a>
-<ul>
-<li><a href="#an-overview-of-first-round-of-recursion">An Overview of First Round of Recursion</a></li>
-<li><a href="#computation-task-of-first-round-of-the-recursion">Computation Task of First Round of the Recursion</a></li>
-</ul>
-</li>
-<li><a href="#main-optimizations">Main Optimizations</a>
-<ul>
-<li><a href="#computing-langle-vec-u-j-1-vec-v-j-2-rangle-using-binary-operations">Computing ({langlevec{u}_{j_1},vec{v}_{j_2}rangle}) Using Binary Operations</a></li>
-<li><a href="#batching-computation-for-g-j-1-i-cdot-h-j-2-i">Batching Computation for (g_{j_1}^{(i)}cdot h_{j_2}^{(i)})</a></li>
-<li><a href="#further-optimization-with-carefully-chosen-coefficients">Further Optimization with Carefully Chosen Coefficients</a></li>
-</ul>
-</li>
-<li><a href="#other-optimizations">Other Optimizations</a>
-<ul>
-<li><a href="#using-mersenne-fields-for-fast-arithmetic-computation">Using Mersenne Fields for Fast Arithmetic Computation</a></li>
-<li><a href="#speeding-up-inner-product-operations">Speeding Up Inner-product Operations</a></li>
-<li><a href="#lookup-table-for-computing-vec-p-r-vec-q-r">Lookup Table for Computing (vec{p}(r),vec{q}(r))</a></li>
-</ul>
-</li>
-<li><a href="#parameter-setup">Parameter Setup</a></li>
-</ul>
-</li>
-<li><a href="#application-secure-dnn-inference">Application: Secure DNN Inference</a>
-<ul>
-<li><a href="#fixed-point-arithmetic">Fixed-Point Arithmetic</a>
-<ul>
-<li><a href="#comparison">Comparison</a></li>
-<li><a href="#truncation">Truncation</a></li>
-</ul>
-</li>
-<li><a href="#on-the-security-issue-of-probabilistic-truncation-protocols">On the Security Issue of Probabilistic Truncation Protocols</a>
-<ul>
-<li><a href="#overview-of-the-approach-in-11">Overview of the Approach in [11]</a></li>
-<li><a href="#security-issue">Security Issue</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#evaluation">Evaluation</a>
-<ul>
-<li><a href="#benchmarks-for-binary-circuits">Benchmarks for Binary Circuits</a>
-<ul>
-<li><a href="#binary-circuits-with-different-depths">Binary Circuits with Different Depths</a></li>
-<li><a href="#aes-circuit">AES Circuit</a></li>
-</ul>
-</li>
-<li><a href="#maliciously-secure-dnn-inference">Maliciously Secure DNN Inference</a></li>
-</ul>
-</li>
-<li><a href="#conclusion">Conclusion</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-</div>
-<blockquote>
+<!--                    <blockquote>
 <p>今天给大家带来的是清华大学、阿里巴巴和蚂蚁集团共同发表于Usenix Security'23的工作.</p>
 </blockquote>
 <h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
@@ -993,99 +895,7 @@ x^d,&amp; p=1-\dfrac{x_d}{2^d}.
                                 <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
                                 <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
 
-                                    <div class="mweb_toc"><ul>
-<li><a href="#abstract">Abstract</a></li>
-<li><a href="#introduction-contributions">Introduction &amp; Contributions</a>
-<ul>
-<li><a href="#efficient-3pc-for-binary-circuits-with-malicious-security">Efficient 3PC for Binary Circuits with Malicious Security</a></li>
-<li><a href="#applications-to-maliciously-secure-dnn-inference">Applications to Maliciously Secure DNN Inference</a></li>
-<li><a href="#a-security-issue-in-probabilistic-truncation-protocols">A Security Issue in Probabilistic Truncation Protocols</a></li>
-</ul>
-</li>
-<li><a href="#preliminaries">Preliminaries</a>
-<ul>
-<li><a href="#secret-sharing">Secret Sharing</a></li>
-<li><a href="#distributed-zero-knowledge-proofs">Distributed Zero-Knowledge Proofs</a></li>
-<li><a href="#ideal-functionalities">Ideal Functionalities</a></li>
-</ul>
-</li>
-<li><a href="#maliciously-secure-3pc-for-binary-circuits">Maliciously Secure 3PC for Binary Circuits</a>
-<ul>
-<li><a href="#the-overall-protocol-achieving-malicious-security">The Overall Protocol: Achieving Malicious Security</a></li>
-<li><a href="#instantiating-mathcal-f-mathrm-vrfy-verifying-and-computations">Instantiating (mathcal{F}_mathrm{vrfy}) - Verifying AND Computations</a>
-<ul>
-<li><a href="#step-1-reduce-the-relation">Step 1: Reduce the Relation</a></li>
-<li><a href="#step-2-transform-to-prime-fields">Step 2: Transform to Prime Fields</a></li>
-<li><a href="#step-3-batch-verifying-multiple-and-gates">Step 3: Batch Verifying Multiple AND Gates</a></li>
-<li><a href="#step-4-applying-distributed-zero-knowledge-proofs">Step 4: Applying Distributed Zero-Knowledge Proofs</a>
-<ul>
-<li><a href="#step-4-1-transform-to-polynomials">Step 4.1: Transform to Polynomials</a></li>
-<li><a href="#step-4-2-check-polynomial-equations">Step 4.2: Check Polynomial Equations</a></li>
-<li><a href="#setp-4-3-recursive-delegation">Setp 4.3: Recursive Delegation</a></li>
-<li><a href="#an-omitted-security-issue">An Omitted Security Issue</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#optimizations-saving-computational-cost">Optimizations: Saving Computational Cost</a>
-<ul>
-<li><a href="#computation-task-of-first-round-of-recursion">Computation Task of First Round of Recursion</a>
-<ul>
-<li><a href="#an-overview-of-first-round-of-recursion">An Overview of First Round of Recursion</a></li>
-<li><a href="#computation-task-of-first-round-of-the-recursion">Computation Task of First Round of the Recursion</a></li>
-</ul>
-</li>
-<li><a href="#main-optimizations">Main Optimizations</a>
-<ul>
-<li><a href="#computing-langle-vec-u-j-1-vec-v-j-2-rangle-using-binary-operations">Computing ({langlevec{u}_{j_1},vec{v}_{j_2}rangle}) Using Binary Operations</a></li>
-<li><a href="#batching-computation-for-g-j-1-i-cdot-h-j-2-i">Batching Computation for (g_{j_1}^{(i)}cdot h_{j_2}^{(i)})</a></li>
-<li><a href="#further-optimization-with-carefully-chosen-coefficients">Further Optimization with Carefully Chosen Coefficients</a></li>
-</ul>
-</li>
-<li><a href="#other-optimizations">Other Optimizations</a>
-<ul>
-<li><a href="#using-mersenne-fields-for-fast-arithmetic-computation">Using Mersenne Fields for Fast Arithmetic Computation</a></li>
-<li><a href="#speeding-up-inner-product-operations">Speeding Up Inner-product Operations</a></li>
-<li><a href="#lookup-table-for-computing-vec-p-r-vec-q-r">Lookup Table for Computing (vec{p}(r),vec{q}(r))</a></li>
-</ul>
-</li>
-<li><a href="#parameter-setup">Parameter Setup</a></li>
-</ul>
-</li>
-<li><a href="#application-secure-dnn-inference">Application: Secure DNN Inference</a>
-<ul>
-<li><a href="#fixed-point-arithmetic">Fixed-Point Arithmetic</a>
-<ul>
-<li><a href="#comparison">Comparison</a></li>
-<li><a href="#truncation">Truncation</a></li>
-</ul>
-</li>
-<li><a href="#on-the-security-issue-of-probabilistic-truncation-protocols">On the Security Issue of Probabilistic Truncation Protocols</a>
-<ul>
-<li><a href="#overview-of-the-approach-in-11">Overview of the Approach in [11]</a></li>
-<li><a href="#security-issue">Security Issue</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#evaluation">Evaluation</a>
-<ul>
-<li><a href="#benchmarks-for-binary-circuits">Benchmarks for Binary Circuits</a>
-<ul>
-<li><a href="#binary-circuits-with-different-depths">Binary Circuits with Different Depths</a></li>
-<li><a href="#aes-circuit">AES Circuit</a></li>
-</ul>
-</li>
-<li><a href="#maliciously-secure-dnn-inference">Maliciously Secure DNN Inference</a></li>
-</ul>
-</li>
-<li><a href="#conclusion">Conclusion</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-</div>
-<blockquote>
+                                    <blockquote>
 <p>今天给大家带来的是清华大学、阿里巴巴和蚂蚁集团共同发表于Usenix Security'23的工作.</p>
 </blockquote>
 <h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
