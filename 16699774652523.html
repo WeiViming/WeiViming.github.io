@@ -5,7 +5,7 @@
 <head>
     <title>
         
-        Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案 - 云中雨雾
+        多方计算实验中不同网络环境的模拟方法 - 云中雨雾
         
     </title>
 
@@ -499,51 +499,138 @@
 <!--            <div class="card p-3">-->
 
 <!--                <article class="markdown-body single-content">-->
-<!--                    <h2><a id="%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>问题描述</h2>
-<p>在升级Ubuntu 22.04后更新源出现如下警告:</p>
-<pre class="line-numbers"><code class="language-bash">Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+<!--                    <h2><a id="%E5%89%8D%E8%A8%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>前言</h2>
+<p>研究安全多方计算时通常需要进行实验模拟, 理想情况下通过多台服务器进行相关实验, 但在现实情况下, 不一定每个人都能有这样的条件. 当只有一台服务器进行安全多方计算实验时, 通常使用多开终端来模拟不同的参与方, 而模拟LAN/WAN通常使用Linux流量控制工具命令<code>tc</code>来实现分别控制带宽(bandwidth)和网络延迟(latency/RTT), 本文简单介绍了模拟LAN/WAN环境的方法, 以供初学者食用.</p>
+<h2><a id="%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>准备工作</h2>
+<p>在Ubuntu下, 打开终端运行如下命令以安装相关工具包:</p>
+<pre class="line-numbers"><code class="language-bash">sudo apt-get update &amp;&amp; sudo apt-get install -y iproute2 iperf3 iputils-ping
 </code></pre>
-<h2><a id="%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>解决方案</h2>
-<p>需要将出现该提示的GPG key存储到<code>/usr/share/keyrings</code>, 步骤如下:</p>
-<ol>
-<li>查看现有key:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">$ sudo apt-key list
-Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
-/etc/apt/trusted.gpg
---------------------
-pub   rsa4096 2017-05-08 [SCEA]
-      1EDD E2CD FC02 5D17 F6DA  9EC0 ADAE 6AD2 8A8F 901A
-uid           [ unknown] Sublime HQ Pty Ltd &lt;support@sublimetext.com&gt;
-sub   rsa4096 2017-05-08 [S]
+<p>其中<code>iproute2</code>为<code>tc</code>命令软件包, <code>iperf3</code>为检查带宽的工具包, <code>iputils-ping</code>为检查网络延迟命令<code>ping</code>的工具包.</p>
+<h2><a id="%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E8%84%9A%E6%9C%AC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>流量控制脚本</h2>
+<p>如下<code>throttle.sh</code>脚本出自<a href="https://github.com/Alibaba-Gemini-Lab/OpenCheetah/blob/main/scripts/throttle.sh">Cheetah</a>, 可用于模拟LAN和WAN的网络环境, 改变本地网络的带宽和网络延迟, 但需要管理员权限才能运行. 实际使用时, 可根据脚本中的提示修改相关参数.</p>
+<pre class="line-numbers"><code class="language-bash">#!/bin/bash
+######
+# Taken from https://github.com/emp-toolkit/emp-readme/blob/master/scripts/throttle.sh
+######
 
-pub   rsa2048 2015-10-28 [SC]
-      BC52 8686 B50D 79E3 39D3  721C EB3E 94AD BE12 29CF
-uid           [ unknown] Microsoft (Release signing) &lt;gpgsecurity@microsoft.com&gt;
+## replace DEV=lo with your card (e.g., eth0)
+DEV=lo 
+if [ &quot;$1&quot; == &quot;del&quot; ]
+then
+	sudo tc qdisc del dev $DEV root
+fi
+
+if [ &quot;$1&quot; == &quot;lan&quot; ]
+then
+    sudo tc qdisc del dev $DEV root
+    ## about 3Gbps
+    sudo tc qdisc add dev $DEV root handle 1: tbf rate 3000mbit burst 100000 limit 10000
+    ## about 0.3ms ping latency
+    sudo tc qdisc add dev $DEV parent 1:1 handle 10: netem delay 0.15msec
+fi
+if [ &quot;$1&quot; == &quot;wan&quot; ]
+then
+    sudo tc qdisc del dev $DEV root
+    ## about 400Mbps
+    sudo tc qdisc add dev $DEV root handle 1: tbf rate 400mbit burst 100000 limit 10000
+    ## about 40ms ping latency
+    sudo tc qdisc add dev $DEV parent 1:1 handle 10: netem delay 20msec
+fi
 </code></pre>
-<ol start="2">
-<li>假设有警告的Key为<code>BE12 29CF</code>(是Microsoft pub的后8位), 导出这个Key:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">$ sudo apt-key export BE1229CF | sudo gpg --dearmour -o /usr/share/keyrings/microsoft.gpg
+<p>脚本使用方法:</p>
+<pre class="line-numbers"><code class="language-bash"># 授权, 只需执行一次
+chmod 755 throttle.sh
+
+# 模拟LAN
+./throttle.sh lan
+
+# 模拟WAN
+./throttle.sh wan
+
+# 删除配置
+./throttle.sh del
 </code></pre>
-<p>此时会出现如下提示:</p>
-<pre class="line-numbers"><code class="language-bash">Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+<p>为了检查带宽限制是否有效, 打开两个终端, 分别运行如下命令, 然后观察终端2最后产生的统计信息, 网络延迟则可以通过运行<code>ping 127.0.0.1</code>, 几秒后按<kbd>Ctrl</kbd>+<kbd>C</kbd>终止运行来查看效果.</p>
+<pre class="line-numbers"><code class="language-bash"># 终端1
+iperf3 -s -i 1
+
+# 终端2
+iperf3 -c 127.0.0.1 -i 1 -t 10
 </code></pre>
-<blockquote>
-<p>注意: 有部分文章指出导出到<code>/etc/apt/trusted.gpg.d/microsoft.gpg</code>, 虽然也可行, 但安全原因, Ubuntu社区并不推荐这样做. 此外, 导出的Key可以自由命名, 但是需要与步骤3相对应, 这里命名为<code>microsoft</code>.</p>
-</blockquote>
-<ol start="3">
-<li>用vim更新警告相关的apt源文件, 位置为<code>/etc/apt/sources.list.d/</code>, 假设文件为<code>microsoft.list</code>, 用Vim打开, 并如下添加<code>signed-by</code>标签关联步骤2导出的Key文件:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge/ stable main
+<p>在不设置任何限制时, 可能的输出情况如下:</p>
+<pre class="line-numbers"><code class="language-bash"># 终端1
+root@0cc092f52a00:~# iperf3 -s -i 1
+-----------------------------------------------------------
+Server listening on 5201
+-----------------------------------------------------------
+Accepted connection from 127.0.0.1, port 53288
+[  5] local 127.0.0.1 port 5201 connected to 127.0.0.1 port 53292
+[ ID] Interval           Transfer     Bandwidth
+[  5]   0.00-1.00   sec  4.26 GBytes  36.6 Gbits/sec                  
+[  5]   1.00-2.00   sec  4.46 GBytes  38.3 Gbits/sec                  
+[  5]   2.00-3.00   sec  4.49 GBytes  38.6 Gbits/sec                  
+[  5]   3.00-4.00   sec  4.42 GBytes  38.0 Gbits/sec                  
+[  5]   4.00-5.00   sec  4.48 GBytes  38.5 Gbits/sec                  
+[  5]   5.00-6.00   sec  4.55 GBytes  39.1 Gbits/sec                  
+[  5]   6.00-7.00   sec  4.56 GBytes  39.1 Gbits/sec                  
+[  5]   7.00-8.00   sec  4.46 GBytes  38.3 Gbits/sec                  
+[  5]   8.00-9.00   sec  4.53 GBytes  38.9 Gbits/sec                  
+[  5]   9.00-10.00  sec  4.53 GBytes  38.9 Gbits/sec                  
+[  5]  10.00-10.04  sec   182 MBytes  37.3 Gbits/sec                  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth
+[  5]   0.00-10.04  sec  0.00 Bytes  0.00 bits/sec                  sender
+[  5]   0.00-10.04  sec  44.9 GBytes  38.4 Gbits/sec                  receiver
+
+# 终端2
+root@0cc092f52a00:~# iperf3 -c 127.0.0.1 -i 1 -t 10 
+Connecting to host 127.0.0.1, port 5201
+[  4] local 127.0.0.1 port 42508 connected to 127.0.0.1 port 5201
+[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+[  4]   0.00-1.00   sec  4.13 GBytes  35.5 Gbits/sec    0   1.44 MBytes       
+[  4]   1.00-2.00   sec  4.49 GBytes  38.6 Gbits/sec    0   1.44 MBytes       
+[  4]   2.00-3.00   sec  4.41 GBytes  37.9 Gbits/sec    0   1.44 MBytes       
+[  4]   3.00-4.00   sec  4.56 GBytes  39.2 Gbits/sec    0   1.44 MBytes       
+[  4]   4.00-5.00   sec  4.44 GBytes  38.2 Gbits/sec    0   1.44 MBytes       
+[  4]   5.00-6.00   sec  4.45 GBytes  38.2 Gbits/sec    0   1.44 MBytes       
+[  4]   6.00-7.00   sec  4.54 GBytes  39.0 Gbits/sec    0   1.44 MBytes       
+[  4]   7.00-8.00   sec  4.42 GBytes  38.0 Gbits/sec    0   1.44 MBytes       
+[  4]   8.00-9.00   sec  4.29 GBytes  36.9 Gbits/sec    0   1.44 MBytes       
+[  4]   9.00-10.00  sec  4.30 GBytes  36.9 Gbits/sec    0   1.44 MBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-10.00  sec  44.0 GBytes  37.8 Gbits/sec    0             sender
+[  4]   0.00-10.00  sec  44.0 GBytes  37.8 Gbits/sec                  receiver
+
+iperf Done.
+
+# 查看网络延迟
+root@0cc092f52a00:~# ping 127.0.0.1 
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.043 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.040 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.045 ms
+64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.044 ms
+64 bytes from 127.0.0.1: icmp_seq=5 ttl=64 time=0.047 ms
+64 bytes from 127.0.0.1: icmp_seq=6 ttl=64 time=0.047 ms
+64 bytes from 127.0.0.1: icmp_seq=7 ttl=64 time=0.044 ms
+^C
+--- 127.0.0.1 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6122ms
+rtt min/avg/max/mdev = 0.040/0.044/0.047/0.002 ms
 </code></pre>
-<ol start="4">
-<li>更新源: <code>sudo apt update</code>, 可以看到警告消失了, 此时可以移除原始key:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">$ sudo apt-key del BE1229CF
+<p>可以看出本地带宽在不受限制时大约为37.8GB/s, 而网络延迟的平均值为0.044ms. 受限情况自测, 这里不再展示.</p>
+<h2><a id="%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>注意事项</h2>
+<ul>
+<li><strong>在Docker中使用</strong>: Docker容器(Ubuntu)默认<code>root</code>用户, 因此使用脚本时需要去掉脚本中的<code>sudo</code>, 此时仍可能提示<code>RTNETLINK answers: Operation not permitted</code>, 这是因为容器没有网络管理权限, 需要在<code>docker run</code>镜像生成容器时加入额外的参数<code>--cap-add=NET_ADMIN </code>开启权限, 例如:</li>
+</ul>
+<pre class="line-numbers"><code class="language-bash">docker run --cap-add=NET_ADMIN -it --rm imagename bash
 </code></pre>
+<ul>
+<li><strong>在WSL中使用</strong>: 由于Windows的原因, WSL中无法使用上述脚本进行网络限制.</li>
+</ul>
 <h2><a id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考资料</h2>
-<p><a href="https://askubuntu.com/questions/1398344/apt-key-deprecation-warning-when-updating-system">Stack Exchange: Key is stored in legacy trusted.gpg keyring</a></p>
+<p><a href="https://stackoverflow.com/questions/27708376/why-am-i-getting-an-rtnetlink-operation-not-permitted-when-using-pipework-with-d">STACK OVERFLOW</a></p>
 -->
 <!--                </article>-->
 
@@ -602,17 +689,21 @@ uid           [ unknown] Microsoft (Release signing) &lt;gpgsecurity@microsoft.c
 <!--                                    </div>-->
 
                                     <!--<h2 id="post-header" class="font-weight-bold py-0">-->
-<!--    Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案-->
-<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/07/13 12:51 下午</small></div>-->
+<!--    多方计算实验中不同网络环境的模拟方法-->
+<!--    <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">2022/12/02 18:37 下午</small></div>-->
 <!--</h2>-->
 
 <div class="media-body pl-3">
-    <h1 id="post-header">Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案</h1>
-    <div class="text-muted small"><em>2022/07/13 12:51 下午</em>
+    <h1 id="post-header">多方计算实验中不同网络环境的模拟方法</h1>
+    <div class="text-muted small"><em>2022/12/02 18:37 下午</em>
         
         <span class="ml-2">标签:</span>
         
         <a href="tag_%E7%BC%96%E7%A8%8B.html" class="badge badge-default align-text-bottom ml-1 text-muted">#编程</a>
+        
+        <a href="tag_%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97.html" class="badge badge-default align-text-bottom ml-1 text-muted">#安全多方计算</a>
+        
+        <a href="tag_%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" class="badge badge-default align-text-bottom ml-1 text-muted">#隐私保护机器学习</a>
         
         
     </div>
@@ -653,59 +744,146 @@ uid           [ unknown] Microsoft (Release signing) &lt;gpgsecurity@microsoft.c
                                 <!-- Remove `.chat-scroll` and add `.flex-grow-1` if you don't need scroll -->
                                 <div class="chat-scroll p-4 v-scroll-spy markdown-body" id="article_with_toc">
 
-                                    <h2><a id="%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>问题描述</h2>
-<p>在升级Ubuntu 22.04后更新源出现如下警告:</p>
-<pre class="line-numbers"><code class="language-bash">Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+                                    <h2><a id="%E5%89%8D%E8%A8%80" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>前言</h2>
+<p>研究安全多方计算时通常需要进行实验模拟, 理想情况下通过多台服务器进行相关实验, 但在现实情况下, 不一定每个人都能有这样的条件. 当只有一台服务器进行安全多方计算实验时, 通常使用多开终端来模拟不同的参与方, 而模拟LAN/WAN通常使用Linux流量控制工具命令<code>tc</code>来实现分别控制带宽(bandwidth)和网络延迟(latency/RTT), 本文简单介绍了模拟LAN/WAN环境的方法, 以供初学者食用.</p>
+<h2><a id="%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>准备工作</h2>
+<p>在Ubuntu下, 打开终端运行如下命令以安装相关工具包:</p>
+<pre class="line-numbers"><code class="language-bash">sudo apt-get update &amp;&amp; sudo apt-get install -y iproute2 iperf3 iputils-ping
 </code></pre>
-<h2><a id="%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>解决方案</h2>
-<p>需要将出现该提示的GPG key存储到<code>/usr/share/keyrings</code>, 步骤如下:</p>
-<ol>
-<li>查看现有key:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">$ sudo apt-key list
-Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
-/etc/apt/trusted.gpg
---------------------
-pub   rsa4096 2017-05-08 [SCEA]
-      1EDD E2CD FC02 5D17 F6DA  9EC0 ADAE 6AD2 8A8F 901A
-uid           [ unknown] Sublime HQ Pty Ltd &lt;support@sublimetext.com&gt;
-sub   rsa4096 2017-05-08 [S]
+<p>其中<code>iproute2</code>为<code>tc</code>命令软件包, <code>iperf3</code>为检查带宽的工具包, <code>iputils-ping</code>为检查网络延迟命令<code>ping</code>的工具包.</p>
+<h2><a id="%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E8%84%9A%E6%9C%AC" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>流量控制脚本</h2>
+<p>如下<code>throttle.sh</code>脚本出自<a href="https://github.com/Alibaba-Gemini-Lab/OpenCheetah/blob/main/scripts/throttle.sh">Cheetah</a>, 可用于模拟LAN和WAN的网络环境, 改变本地网络的带宽和网络延迟, 但需要管理员权限才能运行. 实际使用时, 可根据脚本中的提示修改相关参数.</p>
+<pre class="line-numbers"><code class="language-bash">#!/bin/bash
+######
+# Taken from https://github.com/emp-toolkit/emp-readme/blob/master/scripts/throttle.sh
+######
 
-pub   rsa2048 2015-10-28 [SC]
-      BC52 8686 B50D 79E3 39D3  721C EB3E 94AD BE12 29CF
-uid           [ unknown] Microsoft (Release signing) &lt;gpgsecurity@microsoft.com&gt;
+## replace DEV=lo with your card (e.g., eth0)
+DEV=lo 
+if [ &quot;$1&quot; == &quot;del&quot; ]
+then
+	sudo tc qdisc del dev $DEV root
+fi
+
+if [ &quot;$1&quot; == &quot;lan&quot; ]
+then
+    sudo tc qdisc del dev $DEV root
+    ## about 3Gbps
+    sudo tc qdisc add dev $DEV root handle 1: tbf rate 3000mbit burst 100000 limit 10000
+    ## about 0.3ms ping latency
+    sudo tc qdisc add dev $DEV parent 1:1 handle 10: netem delay 0.15msec
+fi
+if [ &quot;$1&quot; == &quot;wan&quot; ]
+then
+    sudo tc qdisc del dev $DEV root
+    ## about 400Mbps
+    sudo tc qdisc add dev $DEV root handle 1: tbf rate 400mbit burst 100000 limit 10000
+    ## about 40ms ping latency
+    sudo tc qdisc add dev $DEV parent 1:1 handle 10: netem delay 20msec
+fi
 </code></pre>
-<ol start="2">
-<li>假设有警告的Key为<code>BE12 29CF</code>(是Microsoft pub的后8位), 导出这个Key:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">$ sudo apt-key export BE1229CF | sudo gpg --dearmour -o /usr/share/keyrings/microsoft.gpg
+<p>脚本使用方法:</p>
+<pre class="line-numbers"><code class="language-bash"># 授权, 只需执行一次
+chmod 755 throttle.sh
+
+# 模拟LAN
+./throttle.sh lan
+
+# 模拟WAN
+./throttle.sh wan
+
+# 删除配置
+./throttle.sh del
 </code></pre>
-<p>此时会出现如下提示:</p>
-<pre class="line-numbers"><code class="language-bash">Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+<p>为了检查带宽限制是否有效, 打开两个终端, 分别运行如下命令, 然后观察终端2最后产生的统计信息, 网络延迟则可以通过运行<code>ping 127.0.0.1</code>, 几秒后按<kbd>Ctrl</kbd>+<kbd>C</kbd>终止运行来查看效果.</p>
+<pre class="line-numbers"><code class="language-bash"># 终端1
+iperf3 -s -i 1
+
+# 终端2
+iperf3 -c 127.0.0.1 -i 1 -t 10
 </code></pre>
-<blockquote>
-<p>注意: 有部分文章指出导出到<code>/etc/apt/trusted.gpg.d/microsoft.gpg</code>, 虽然也可行, 但安全原因, Ubuntu社区并不推荐这样做. 此外, 导出的Key可以自由命名, 但是需要与步骤3相对应, 这里命名为<code>microsoft</code>.</p>
-</blockquote>
-<ol start="3">
-<li>用vim更新警告相关的apt源文件, 位置为<code>/etc/apt/sources.list.d/</code>, 假设文件为<code>microsoft.list</code>, 用Vim打开, 并如下添加<code>signed-by</code>标签关联步骤2导出的Key文件:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge/ stable main
+<p>在不设置任何限制时, 可能的输出情况如下:</p>
+<pre class="line-numbers"><code class="language-bash"># 终端1
+root@0cc092f52a00:~# iperf3 -s -i 1
+-----------------------------------------------------------
+Server listening on 5201
+-----------------------------------------------------------
+Accepted connection from 127.0.0.1, port 53288
+[  5] local 127.0.0.1 port 5201 connected to 127.0.0.1 port 53292
+[ ID] Interval           Transfer     Bandwidth
+[  5]   0.00-1.00   sec  4.26 GBytes  36.6 Gbits/sec                  
+[  5]   1.00-2.00   sec  4.46 GBytes  38.3 Gbits/sec                  
+[  5]   2.00-3.00   sec  4.49 GBytes  38.6 Gbits/sec                  
+[  5]   3.00-4.00   sec  4.42 GBytes  38.0 Gbits/sec                  
+[  5]   4.00-5.00   sec  4.48 GBytes  38.5 Gbits/sec                  
+[  5]   5.00-6.00   sec  4.55 GBytes  39.1 Gbits/sec                  
+[  5]   6.00-7.00   sec  4.56 GBytes  39.1 Gbits/sec                  
+[  5]   7.00-8.00   sec  4.46 GBytes  38.3 Gbits/sec                  
+[  5]   8.00-9.00   sec  4.53 GBytes  38.9 Gbits/sec                  
+[  5]   9.00-10.00  sec  4.53 GBytes  38.9 Gbits/sec                  
+[  5]  10.00-10.04  sec   182 MBytes  37.3 Gbits/sec                  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth
+[  5]   0.00-10.04  sec  0.00 Bytes  0.00 bits/sec                  sender
+[  5]   0.00-10.04  sec  44.9 GBytes  38.4 Gbits/sec                  receiver
+
+# 终端2
+root@0cc092f52a00:~# iperf3 -c 127.0.0.1 -i 1 -t 10 
+Connecting to host 127.0.0.1, port 5201
+[  4] local 127.0.0.1 port 42508 connected to 127.0.0.1 port 5201
+[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+[  4]   0.00-1.00   sec  4.13 GBytes  35.5 Gbits/sec    0   1.44 MBytes       
+[  4]   1.00-2.00   sec  4.49 GBytes  38.6 Gbits/sec    0   1.44 MBytes       
+[  4]   2.00-3.00   sec  4.41 GBytes  37.9 Gbits/sec    0   1.44 MBytes       
+[  4]   3.00-4.00   sec  4.56 GBytes  39.2 Gbits/sec    0   1.44 MBytes       
+[  4]   4.00-5.00   sec  4.44 GBytes  38.2 Gbits/sec    0   1.44 MBytes       
+[  4]   5.00-6.00   sec  4.45 GBytes  38.2 Gbits/sec    0   1.44 MBytes       
+[  4]   6.00-7.00   sec  4.54 GBytes  39.0 Gbits/sec    0   1.44 MBytes       
+[  4]   7.00-8.00   sec  4.42 GBytes  38.0 Gbits/sec    0   1.44 MBytes       
+[  4]   8.00-9.00   sec  4.29 GBytes  36.9 Gbits/sec    0   1.44 MBytes       
+[  4]   9.00-10.00  sec  4.30 GBytes  36.9 Gbits/sec    0   1.44 MBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-10.00  sec  44.0 GBytes  37.8 Gbits/sec    0             sender
+[  4]   0.00-10.00  sec  44.0 GBytes  37.8 Gbits/sec                  receiver
+
+iperf Done.
+
+# 查看网络延迟
+root@0cc092f52a00:~# ping 127.0.0.1 
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.043 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.040 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.045 ms
+64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.044 ms
+64 bytes from 127.0.0.1: icmp_seq=5 ttl=64 time=0.047 ms
+64 bytes from 127.0.0.1: icmp_seq=6 ttl=64 time=0.047 ms
+64 bytes from 127.0.0.1: icmp_seq=7 ttl=64 time=0.044 ms
+^C
+--- 127.0.0.1 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6122ms
+rtt min/avg/max/mdev = 0.040/0.044/0.047/0.002 ms
 </code></pre>
-<ol start="4">
-<li>更新源: <code>sudo apt update</code>, 可以看到警告消失了, 此时可以移除原始key:</li>
-</ol>
-<pre class="line-numbers"><code class="language-bash">$ sudo apt-key del BE1229CF
+<p>可以看出本地带宽在不受限制时大约为37.8GB/s, 而网络延迟的平均值为0.044ms. 受限情况自测, 这里不再展示.</p>
+<h2><a id="%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>注意事项</h2>
+<ul>
+<li><strong>在Docker中使用</strong>: Docker容器(Ubuntu)默认<code>root</code>用户, 因此使用脚本时需要去掉脚本中的<code>sudo</code>, 此时仍可能提示<code>RTNETLINK answers: Operation not permitted</code>, 这是因为容器没有网络管理权限, 需要在<code>docker run</code>镜像生成容器时加入额外的参数<code>--cap-add=NET_ADMIN </code>开启权限, 例如:</li>
+</ul>
+<pre class="line-numbers"><code class="language-bash">docker run --cap-add=NET_ADMIN -it --rm imagename bash
 </code></pre>
+<ul>
+<li><strong>在WSL中使用</strong>: 由于Windows的原因, WSL中无法使用上述脚本进行网络限制.</li>
+</ul>
 <h2><a id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>参考资料</h2>
-<p><a href="https://askubuntu.com/questions/1398344/apt-key-deprecation-warning-when-updating-system">Stack Exchange: Key is stored in legacy trusted.gpg keyring</a></p>
+<p><a href="https://stackoverflow.com/questions/27708376/why-am-i-getting-an-rtnetlink-operation-not-permitted-when-using-pipework-with-d">STACK OVERFLOW</a></p>
 
 
 	    <p class="post-info" style="color: #BCBDB6">
-			<br>本文标题: <a style="color: #4690cc" href="#">Ubuntu 22.04更新源出现Key is stored in legacy trusted.gpg keyring解决方案</a>
+			<br>本文标题: <a style="color: #4690cc" href="#">多方计算实验中不同网络环境的模拟方法</a>
 			<br>本文作者: <a style="color: #4690cc" href="#">云中雨雾</a>
-			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16576879066429.html
+			<br>本文链接: <a style="color: #4690cc" href="#">https://weiviming.github.io/16699774652523.html
 				</a>
-				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-07-13T12:51:46+08:00
+				<br>本站文章采用 <a style="color: #4690cc" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间: 2022-12-02T18:37:45+08:00
 		</p>
 
                                 </div><!-- / .chat-messages -->
