@@ -4,7 +4,7 @@
   <title><![CDATA[云中雨雾]]></title>
   <link href="https://weiviming.github.io/atom.xml" rel="self"/>
   <link href="https://weiviming.github.io/"/>
-  <updated>2023-06-26T21:57:25+08:00</updated>
+  <updated>2023-09-30T07:49:35+08:00</updated>
   <id>https://weiviming.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -19,7 +19,7 @@
     <id>https://weiviming.github.io/16877849945247.html</id>
     <content type="html"><![CDATA[
 <blockquote>
-<p>今天给大家带来的是清华大学、阿里巴巴和蚂蚁集团共同发表于Usenix Security'23的工作.</p>
+<p>今天给大家带来的是清华大学、阿里巴巴和蚂蚁集团共同发表于Usenix Security'23的工作. 更多内容请查看<a href="https://eprint.iacr.org/2023/909.pdf">原文</a>.</p>
 </blockquote>
 <h2><a id="abstract" class="anchor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract</h2>
 <p>本文专注于诚实大多数假设下面向二进制电路的恶意安全三方计算方案. 先前最优的方案是Boyle等人[7]在CCS'19给出的, 其均摊通信效率与CCS'16上Araki等人[3]给出的半诚实方案相同, 但具有较大的计算开销: 与Furukawa等人[21]在Eurocrypt'17提出的实现结果相比, 其通信开销是Araki等人方案的9倍, 但计算比Furukawa等人的方案慢约4.5倍. 本文通过Boneh等人在Crypto'19提出的分布式零知识证明来验证\(\mathbb{F}_2\)上计算的正确性, 并利用素数域的代数结构使得协议对传统CPU计算是友好的. 实验结果表明, 当面向AES电路时, 本文协议计算效率比Boyle等人的方案快3.5倍. 当应用于恶意安全的DNN推理中的二进制运算(如比较和截断)时, 本文所提方案可降低67%的计算时间. 此外, 本文还发现了现有概率截断协议中存在的一个安全性问题. 本文代码在Github开源: <a href="https://github.com/AntCPLab/malicious_3pc_binary">malicious_3pc_binary</a></p>
